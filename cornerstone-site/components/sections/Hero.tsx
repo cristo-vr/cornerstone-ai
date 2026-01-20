@@ -24,7 +24,7 @@ const Hero: React.FC = () => {
         <svg className="absolute inset-0 w-full h-full opacity-20">
           <motion.path
             d="M 25% 25% L 75% 66%"
-            stroke="#D4AF37"
+            className="stroke-brand-gold"
             strokeWidth="1"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
