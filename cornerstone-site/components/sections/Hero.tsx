@@ -2,66 +2,91 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Button from '../ui/Button';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  onOpenContact: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-brand-black">
-      {/* Background Grid & Nodes */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"></div>
+    <section className="relative min-h-[90vh] flex flex-col justify-center px-6 overflow-hidden bg-brand-black border-b border-white/5 pt-20">
+      {/* Background Grid - Technical aesthetic */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none"></div>
 
-      {/* Abstract Node Animation */}
-      <div className="absolute inset-0 pointer-events-none">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-2 h-2 bg-brand-gold shadow-[0_0_15px_rgba(212,175,55,0.6)]"
-          animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 4, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-1/3 right-1/4 w-2 h-2 bg-brand-white shadow-[0_0_15px_rgba(255,255,255,0.4)]"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.8, 0.3] }}
-          transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-        />
-        {/* Connecting Lines */}
-        <svg className="absolute inset-0 w-full h-full opacity-20">
-          <motion.path
-            d="M 25% 25% L 75% 66%"
-            className="stroke-brand-gold"
-            strokeWidth="1"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 2, ease: "easeInOut" }}
-          />
-        </svg>
-      </div>
+      {/* Animated Gradient Accent */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-gold/5 blur-[120px] rounded-full pointer-events-none mix-blend-screen" />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
+        {/* Top Tagline */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center gap-3 mb-8"
         >
-          <span className="inline-block py-1 px-3 border border-neutral-700 rounded-full text-xs font-medium text-brand-gold tracking-[0.2em] mb-6 bg-white/5 backdrop-blur-sm">
-            AI INFRASTRUCTURE FOR ENTERPRISE
+          <div className="h-[1px] w-12 bg-brand-gold"></div>
+          <span className="text-brand-gold font-mono text-sm tracking-widest uppercase">
+            We engineer capacity for founder-led agencies
           </span>
-
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-brand-white mb-8 leading-[1.1]">
-            Scale Without <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-white via-gray-400 to-gray-600">The Sprawl.</span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-brand-gray max-w-2xl mx-auto mb-10 leading-relaxed font-light">
-            Break the linear growth trap. We deploy AI infrastructure that creates capacity,
-            increases margins, and lets your team focus on the work that matters.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="primary" icon>Audit Your Capacity</Button>
-            <Button variant="ghost">View Case Studies</Button>
-          </div>
         </motion.div>
-      </div>
 
-      {/* Decorative Footer Gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-brand-black to-transparent pointer-events-none"></div>
+        {/* Main Headline Block */}
+        <div className="flex flex-col gap-2 mb-10">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="text-6xl md:text-8xl lg:text-9xl font-black text-brand-white tracking-tighter leading-[0.9]"
+          >
+            HANDLE 2x <br className="hidden md:block" /> THE RETAINERS.
+          </motion.h1>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-brand-gray tracking-tighter mt-2"
+          >
+            WITH THE SAME TEAM.
+          </motion.h2>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+            className="mt-6 inline-block"
+          >
+            <span className="text-3xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-yellow-200 tracking-tight italic">
+              THAT'S CAPACITY.
+            </span>
+          </motion.div>
+        </div>
+
+        {/* Bottom Section: Subtext & CTA */}
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-12 mt-12 border-t border-white/10 pt-12">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="max-w-xl"
+          >
+            <p className="text-brand-white text-lg md:text-xl font-light leading-relaxed">
+              No more theoreticals. <br />
+              <span className="font-medium text-brand-gray">Straightforward strategy, Tangible impact.</span>
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.1 }}
+            className="flex gap-4"
+          >
+            <div onClick={onOpenContact}>
+              <Button variant="primary" icon>See If We Can Help</Button>
+            </div>
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 };

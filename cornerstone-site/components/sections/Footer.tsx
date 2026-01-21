@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenContact: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
   return (
     <footer className="bg-brand-black border-t border-neutral-900 pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6">
@@ -15,13 +19,11 @@ const Footer: React.FC = () => {
               We turn chaos into structure through intelligent automation.
             </p>
             <div className="flex gap-4">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="bg-neutral-900 border border-neutral-800 text-brand-white px-4 py-2 focus:outline-none focus:border-brand-gold w-64 text-sm"
-              />
-              <button className="bg-brand-gold text-brand-black px-4 py-2 text-sm font-bold uppercase hover:bg-white transition-colors">
-                Join
+              <button
+                onClick={onOpenContact}
+                className="bg-brand-gold text-brand-black px-6 py-3 text-sm font-bold uppercase hover:bg-white transition-colors"
+              >
+                Start The Conversation
               </button>
             </div>
           </div>

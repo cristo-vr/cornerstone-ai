@@ -1,24 +1,34 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Hero from '../components/sections/Hero';
 import Problem from '../components/sections/Problem';
+import GrowthSimulator from '../components/sections/GrowthSimulator';
 import Solution from '../components/sections/Solution';
 import Process from '../components/sections/Process';
+import ContactSection from '../components/sections/ContactSection';
 import Work from '../components/sections/Work';
 import Footer from '../components/sections/Footer';
+import ContactModal from '../components/ui/ContactModal';
 import { motion } from 'framer-motion';
 
 const App: React.FC = () => {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+  const openContact = () => setIsContactModalOpen(true);
+
   return (
     <div className="bg-brand-black min-h-screen text-brand-white font-sans selection:bg-brand-gold selection:text-brand-black">
-      <Navbar />
+      <Navbar onOpenContact={openContact} />
+      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
 
       <main>
-        <Hero />
+        <Hero onOpenContact={openContact} />
         <Problem />
+        <GrowthSimulator />
         <Solution />
         <Process />
+        <ContactSection />
         <Work />
 
         {/* Simple Testimonial Marquee Placeholder */}
@@ -33,28 +43,14 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section id="contact" className="py-32 bg-brand-black relative">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-5xl md:text-6xl font-bold text-brand-white mb-8"
-            >
-              Ready to break the ceiling?
-            </motion.h2>
-            <p className="text-brand-gray text-xl mb-12">
-              Let's identify your first high-impact automation. No obligation.
-            </p>
-            <button className="bg-brand-gold text-brand-black px-10 py-5 text-lg font-bold uppercase tracking-widest hover:bg-white hover:scale-105 transition-all duration-300">
-              Schedule Your Audit
-            </button>
-          </div>
-        </section>
+        {/* CTA Section - Replaced or kept as secondary? User asked for form BEFORE selected works. 
+            The user said "Add a form after the Process Section and before the selected works section".
+            This existing "Ready to break the ceiling?" section is likely redundant now. 
+            I will REMOVE the old "Ready to break the ceiling" section since we have the ContactSection now.
+        */}
       </main>
 
-      <Footer />
+      <Footer onOpenContact={openContact} />
     </div>
   );
 };

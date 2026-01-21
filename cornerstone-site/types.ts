@@ -15,7 +15,7 @@ export interface ProcessStep {
   phase: string;
   title: string;
   duration: string;
-  description: string;
+  description: React.ReactNode;
 }
 
 export interface Testimonial {

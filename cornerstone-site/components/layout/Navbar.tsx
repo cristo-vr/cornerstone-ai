@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onOpenContact: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -43,12 +47,12 @@ const Navbar: React.FC = () => {
               {link.label}
             </a>
           ))}
-          <a
-            href="#contact"
+          <button
+            onClick={onOpenContact}
             className="text-sm font-bold text-brand-black bg-brand-gold px-5 py-2 hover:bg-white transition-colors uppercase tracking-wide"
           >
-            Start Audit
-          </a>
+            Inquire
+          </button>
         </nav>
 
         {/* Mobile Toggle */}
@@ -80,13 +84,15 @@ const Navbar: React.FC = () => {
                   {link.label}
                 </a>
               ))}
-              <a
-                href="#contact"
-                className="text-brand-gold font-bold uppercase tracking-widest mt-4"
-                onClick={() => setMobileMenuOpen(false)}
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenContact();
+                }}
+                className="text-brand-gold font-bold uppercase tracking-widest mt-4 text-left"
               >
-                Audit Your Capacity →
-              </a>
+                Inquire →
+              </button>
             </nav>
           </motion.div>
         )}

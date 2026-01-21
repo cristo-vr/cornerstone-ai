@@ -6,21 +6,51 @@ import { ProcessStep } from '../../types';
 const steps: ProcessStep[] = [
   {
     phase: "01",
-    title: "The Audit",
-    duration: "Day 0-30",
-    description: "We map your entire operational footprint. We identify bottlenecks, surface high-ROI use cases, and deliver a strategic roadmap. No guesswork."
+    title: "The Blueprint",
+    duration: "In and Out. 5 Days.",
+    description: (
+      <div className="space-y-4">
+        <p>
+          No endless consulting. Give us 5 days to find exactly where "robot work" is killing your capacity.
+        </p>
+        <p>
+          We don't do fluff decks. You get a specific execution plan: what to build, what it costs, and the exact ROI. <span className="text-brand-white font-medium">You see the full solution before you pay a cent for the build.</span>
+        </p>
+      </div>
+    )
   },
   {
     phase: "02",
     title: "The Build",
-    duration: "Day 30-60",
-    description: "Rapid deployment. We build the engine, integrate the LLMs, and connect your data silos. Weekly sprints, tangible progress, zero fluff."
+    duration: "We Build It",
+    description: (
+      <div className="space-y-4">
+        <p>
+          We don't sell generic software. We engineer the specific tools your agency is missing.
+        </p>
+        <p>
+          We don't make you wait months for a "big reveal." We ship features weekly, stacking wins so you feel the impact immediately.
+        </p>
+        <p className="text-brand-white font-medium">
+          You own every line of code—these are permanent assets, not rented tools.
+        </p>
+      </div>
+    )
   },
   {
     phase: "03",
-    title: "The Scale",
-    duration: "Day 60-90",
-    description: "Handover and optimization. We train your team, refine the models based on real-world feedback, and ensure you own the infrastructure."
+    title: "The Handover",
+    duration: "Adoption is the Only Metric",
+    description: (
+      <div className="space-y-4">
+        <p>
+          The best system is worthless if your team hates it. We don't just email a login and vanish.
+        </p>
+        <p>
+          We train your team, refine the tools, and <span className="text-brand-white font-medium">ensure they prefer the new way.</span>
+        </p>
+      </div>
+    )
   }
 ];
 
