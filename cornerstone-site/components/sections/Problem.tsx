@@ -27,7 +27,7 @@ const Problem: React.FC = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-brand-gray max-w-2xl mx-auto font-light"
           >
-            You are running a founder-led agency. You have the vision, and you have the clients who love you. <br />
+            You are running a founder-led agency. You have the vision, and the clients who love you. <br />
             <span className="text-brand-white font-medium">But your operations are fragile.</span>
           </motion.p>
         </div>

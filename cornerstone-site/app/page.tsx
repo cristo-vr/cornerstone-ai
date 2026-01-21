@@ -31,17 +31,7 @@ const App: React.FC = () => {
         <ContactSection />
         <Work />
 
-        {/* Simple Testimonial Marquee Placeholder */}
-        <section className="py-20 bg-neutral-900 overflow-hidden border-y border-neutral-800">
-          <div className="max-w-7xl mx-auto px-6 mb-8 text-center">
-            <span className="text-xs font-bold text-brand-gold uppercase tracking-[0.2em]">Trusted by Industry Leaders</span>
-          </div>
-          <div className="flex gap-12 animate-scroll whitespace-nowrap opacity-50 hover:opacity-100 transition-opacity duration-500 justify-center">
-            {["FINCORP", "TECHFLOW", "DATASCALE", "OMNI", "NEXUS SYSTEMS"].map((logo, i) => (
-              <span key={i} className="text-2xl font-bold text-brand-white font-mono tracking-tighter">{logo}</span>
-            ))}
-          </div>
-        </section>
+
 
         {/* CTA Section - Replaced or kept as secondary? User asked for form BEFORE selected works. 
             The user said "Add a form after the Process Section and before the selected works section".
