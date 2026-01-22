@@ -42,7 +42,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
         </div>
 
         <div className="pt-8 border-t border-neutral-900 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-600">
-          <p>© 2024 Cornerstone Automation. All rights reserved.</p>
+          <p>© 2024 Cornerstone AI. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-neutral-400">Privacy Policy</a>
             <a href="#" className="hover:text-neutral-400">Terms of Service</a>

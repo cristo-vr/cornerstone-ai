@@ -40,14 +40,14 @@ const Solution: React.FC = () => {
         {/* Main Headline */}
         <div className="max-w-4xl mb-24">
           <h2 className="text-4xl md:text-6xl font-bold text-brand-white leading-tight">
-            The best automation in the world is worthless if your <span className="text-brand-gold">Account Managers hate using it.</span>
+            The best automation in the world is worthless if your <span className="text-brand-gold">team hates using it.</span>
           </h2>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 relative">
 
           {/* Left Column: Sticky Tabs */}
-          <div className="lg:col-span-4 lg:sticky lg:top-32 lg:h-fit space-y-8">
+          <div className="hidden lg:block lg:col-span-4 lg:sticky lg:top-32 lg:h-fit space-y-8">
             <div className="bg-white/5 border border-white/10 rounded-xl p-8 backdrop-blur-sm transition-all duration-500">
               <div className="space-y-6">
                 {/* Tab 1 Indicator */}

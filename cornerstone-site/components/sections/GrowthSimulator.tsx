@@ -5,6 +5,34 @@ import Button from '../ui/Button';
 
 const GrowthSimulator: React.FC = () => {
     const [clients, setClients] = useState(3);
+    const [showFab, setShowFab] = useState(false);
+    const sectionRef = React.useRef<HTMLElement>(null);
+
+    // Track visibility and viewport for FAB
+    React.useEffect(() => {
+        const handleScroll = () => {
+            if (!sectionRef.current) return;
+            const rect = sectionRef.current.getBoundingClientRect();
+            const isMobile = window.innerWidth < 1024;
+            // Show FAB if:
+            // 1. We are on mobile
+            // 2. Variable (Controls) part is scrolled past (approx top < 0)
+            // 3. We are still inside the section (bottom > windowHeight/2)
+            // Actually simpler: Show FAB if the top of the section is near top of viewport, and we haven't scrolled past the bottom.
+            const isInView = rect.top < 100 && rect.bottom > window.innerHeight / 2;
+
+            setShowFab(isMobile && isInView);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', handleScroll);
+        // Initial check
+        handleScroll();
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleScroll);
+        };
+    }, []);
 
     // Simulation Logic
     // Traditional: Hires every 3 clients. Stress increases 10% per client. Margin drops 5% per hire.
@@ -47,14 +75,14 @@ const GrowthSimulator: React.FC = () => {
     const cornerstone = calculateMetrics(true);
 
     return (
-        <section className="py-24 bg-brand-black border-t border-white/5">
+        <section ref={sectionRef} className="py-24 bg-brand-black border-t border-white/5 relative">
             <div className="max-w-7xl mx-auto px-6">
 
                 <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
 
                     {/* Left Column: Controls & Context */}
-                    <div className="lg:col-span-5 sticky top-24">
-                        <div className="mb-12">
+                    <div className="lg:col-span-5 lg:sticky lg:top-24 static">
+                        <div className="mb-6 lg:mb-12">
                             <h2 className="text-4xl md:text-5xl font-bold text-brand-white mb-6">
                                 The <span className="text-brand-gold">Leverage</span> Game
                             </h2>
@@ -66,24 +94,60 @@ const GrowthSimulator: React.FC = () => {
                             </p>
                         </div>
 
-                        <div className="flex flex-col items-start gap-4">
-                            <button
-                                onClick={addClient}
-                                disabled={clients >= maxClients}
-                                className="group relative w-full inline-flex items-center justify-center gap-3 px-8 py-5 bg-brand-gold text-brand-black font-bold text-xl tracking-widest uppercase hover:bg-white transition-all disabled:opacity-50 disabled:cursor-not-allowed rounded-sm shadow-[0_0_20px_rgba(212,175,55,0.2)]"
-                            >
-                                <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform" />
-                                Sign New Client <span className="text-sm opacity-70 ml-1 bg-black/20 px-2 py-0.5 rounded-full normal-case tracking-normal">(Try Me)</span>
-                            </button>
+                        <div className="flex flex-col items-start gap-4 h-auto relative">
+                            {/* Placeholder to prevent layout shift when buttons become fixed */}
+                            {showFab && <div className="w-full h-[100px] lg:h-[120px]" />}
 
-                            {clients > 3 && (
-                                <button
-                                    onClick={resetValues}
-                                    className="w-full text-center text-sm text-brand-gray hover:text-white underline decoration-dotted py-2"
-                                >
-                                    Reset Simulation
-                                </button>
-                            )}
+                            <AnimatePresence>
+                                {!showFab ? (
+                                    <>
+                                        <motion.button
+                                            layoutId="sign-client-trigger"
+                                            onClick={addClient}
+                                            disabled={clients >= maxClients}
+                                            className="group relative w-full inline-flex items-center justify-center gap-2 lg:gap-3 px-4 py-3 lg:px-8 lg:py-5 bg-brand-gold text-brand-black font-bold text-base lg:text-xl tracking-widest uppercase hover:bg-white transition-all disabled:opacity-50 disabled:cursor-not-allowed rounded-sm shadow-[0_0_20px_rgba(212,175,55,0.2)]"
+                                        >
+                                            <Plus className="w-5 h-5 lg:w-6 lg:h-6 group-hover:rotate-90 transition-transform" />
+                                            Sign New Client <span className="text-xs lg:text-sm opacity-70 ml-1 bg-black/20 px-2 py-0.5 rounded-full normal-case tracking-normal whitespace-nowrap">(Try Me)</span>
+                                        </motion.button>
+
+                                        <motion.button
+                                            layoutId="reset-sim-trigger"
+                                            onClick={resetValues}
+                                            className="w-full flex items-center justify-center gap-2 py-3 bg-neutral-900 border border-white/5 text-neutral-400 font-medium text-xs uppercase tracking-widest hover:text-white hover:border-white/20 transition-all rounded-sm"
+                                        >
+                                            <div className="w-1.5 h-1.5 rounded-full bg-neutral-600" />
+                                            Reset Simulator
+                                        </motion.button>
+                                    </>
+                                ) : (
+                                    <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 w-max pointer-events-none">
+                                        <motion.button
+                                            layoutId="sign-client-trigger"
+                                            onClick={addClient}
+                                            disabled={clients >= maxClients}
+                                            initial={{ y: 100, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            exit={{ y: 100, opacity: 0 }}
+                                            className="pointer-events-auto flex items-center justify-center gap-2 px-6 py-3 bg-brand-gold text-brand-black font-bold text-sm tracking-widest uppercase shadow-[0_4px_20px_rgba(0,0,0,0.5)] rounded-full border border-white/20"
+                                        >
+                                            <Plus className="w-5 h-5" />
+                                            Sign Client
+                                        </motion.button>
+
+                                        <motion.button
+                                            layoutId="reset-sim-trigger"
+                                            onClick={resetValues}
+                                            initial={{ y: 100, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            exit={{ y: 100, opacity: 0 }}
+                                            className="pointer-events-auto flex items-center justify-center w-12 h-12 bg-neutral-900 text-neutral-400 hover:text-white border border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)] rounded-full"
+                                        >
+                                            <div className="w-2 h-2 rounded-sm border border-current" />
+                                        </motion.button>
+                                    </div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     </div>
 
@@ -115,9 +179,9 @@ const GrowthSimulator: React.FC = () => {
                                                     key={`std-team-${i}`}
                                                     initial={{ scale: 0 }}
                                                     animate={{ scale: 1 }}
-                                                    className="w-8 h-8 bg-neutral-700 rounded-full flex items-center justify-center text-neutral-400"
+                                                    className="w-5 h-5 sm:w-8 sm:h-8 bg-neutral-700 rounded-full flex items-center justify-center text-neutral-400"
                                                 >
-                                                    <Users className="w-4 h-4" />
+                                                    <Users className="w-3 h-3 sm:w-4 sm:h-4" />
                                                 </motion.div>
                                             ))}
                                         </AnimatePresence>
@@ -177,9 +241,9 @@ const GrowthSimulator: React.FC = () => {
                                                     key={`cs-team-${i}`}
                                                     initial={{ scale: 0 }}
                                                     animate={{ scale: 1 }}
-                                                    className="w-8 h-8 bg-brand-gold text-brand-black rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(212,175,55,0.4)]"
+                                                    className="w-5 h-5 sm:w-8 sm:h-8 bg-brand-gold text-brand-black rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(212,175,55,0.4)]"
                                                 >
-                                                    <Users className="w-4 h-4" />
+                                                    <Users className="w-3 h-3 sm:w-4 sm:h-4" />
                                                 </motion.div>
                                             ))}
                                         </AnimatePresence>
