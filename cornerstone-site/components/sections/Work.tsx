@@ -29,11 +29,11 @@ const cases: CaseStudy[] = [
 
 const Work: React.FC = () => {
   return (
-    <section id="work" className="py-32 bg-brand-black">
+    <section id="work" className="py-32 bg-background">
       <div className="max-w-7xl mx-auto px-6">
         <div className="mb-16">
-          <h2 className="text-4xl font-bold text-brand-white mb-4">Selected Works</h2>
-          <div className="w-24 h-1 bg-brand-gold"></div>
+          <h2 className="text-4xl font-bold text-foreground mb-4">Selected Works</h2>
+          <div className="w-24 h-1 bg-primary"></div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -53,14 +53,14 @@ const Work: React.FC = () => {
                   className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-100"
                 />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors duration-500" />
-                <div className="absolute top-4 left-4 bg-brand-gold text-brand-black text-xs font-bold px-3 py-1 uppercase tracking-wider">
+                <div className="absolute top-4 left-4 bg-primary text-background text-xs font-bold px-3 py-1 uppercase tracking-wider">
                   {project.tag}
                 </div>
               </div>
-              <h3 className="text-2xl font-bold text-brand-white mb-2 group-hover:text-brand-gold transition-colors">
+              <h3 className="text-2xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                 {project.title}
               </h3>
-              <p className="text-brand-gray text-sm leading-relaxed">
+              <p className="text-muted text-sm leading-relaxed">
                 {project.description}
               </p>
             </motion.div>

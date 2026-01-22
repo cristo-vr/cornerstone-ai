@@ -8,13 +8,11 @@ const config: Config = {
     ],
     theme: {
         extend: {
-            colors: {
-                "brand-black": "#0a0a0a",
-                "brand-dark": "#121212",
-                "brand-white": "#ffffff",
-                "brand-gold": "#D4AF37",
-                "brand-gray": "#a3a3a3",
-            },
+            "background": "var(--background)",
+            "foreground": "var(--foreground)",
+            "primary": "var(--color-primary)",
+            "surface": "var(--color-surface)",
+            "muted": "var(--color-muted)",
             // This allows you to use standard sans fonts if your design needs them
             fontFamily: {
                 sans: ['var(--font-inter)', 'sans-serif'],

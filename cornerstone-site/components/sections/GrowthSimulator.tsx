@@ -75,7 +75,7 @@ const GrowthSimulator: React.FC = () => {
     const cornerstone = calculateMetrics(true);
 
     return (
-        <section ref={sectionRef} className="py-24 bg-brand-black border-t border-white/5 relative">
+        <section ref={sectionRef} className="py-24 bg-background border-t border-foreground/5 relative">
             <div className="max-w-7xl mx-auto px-6">
 
                 <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
@@ -83,14 +83,14 @@ const GrowthSimulator: React.FC = () => {
                     {/* Left Column: Controls & Context */}
                     <div className="lg:col-span-5 lg:sticky lg:top-24 static">
                         <div className="mb-6 lg:mb-12">
-                            <h2 className="text-4xl md:text-5xl font-bold text-brand-white mb-6">
-                                The <span className="text-brand-gold">Leverage</span> Game
+                            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+                                The <span className="text-primary">Leverage</span> Game
                             </h2>
-                            <p className="text-brand-gray text-lg leading-relaxed">
+                            <p className="text-muted text-lg leading-relaxed">
                                 See what happens when you scale with Capacity vs. Bodies.
                                 <br /><br />
                                 Most agencies break because revenue tracks linearly with headcount.
-                                <span className="text-brand-white font-bold"> Real leverage means decoupling them.</span>
+                                <span className="text-foreground font-bold"> Real leverage means decoupling them.</span>
                             </p>
                         </div>
 
@@ -105,7 +105,7 @@ const GrowthSimulator: React.FC = () => {
                                             layoutId="sign-client-trigger"
                                             onClick={addClient}
                                             disabled={clients >= maxClients}
-                                            className="group relative w-full inline-flex items-center justify-center gap-2 lg:gap-3 px-4 py-3 lg:px-8 lg:py-5 bg-brand-gold text-brand-black font-bold text-base lg:text-xl tracking-widest uppercase hover:bg-white transition-all disabled:opacity-50 disabled:cursor-not-allowed rounded-sm shadow-[0_0_20px_rgba(212,175,55,0.2)]"
+                                            className="group relative w-full inline-flex items-center justify-center gap-2 lg:gap-3 px-4 py-3 lg:px-8 lg:py-5 bg-primary text-background font-bold text-base lg:text-xl tracking-widest uppercase hover:bg-white transition-all disabled:opacity-50 disabled:cursor-not-allowed rounded-sm shadow-[0_0_20px_color-mix(in_srgb,var(--color-primary),transparent_80%)]"
                                         >
                                             <Plus className="w-5 h-5 lg:w-6 lg:h-6 group-hover:rotate-90 transition-transform" />
                                             Sign New Client <span className="text-xs lg:text-sm opacity-70 ml-1 bg-black/20 px-2 py-0.5 rounded-full normal-case tracking-normal whitespace-nowrap">(Try Me)</span>
@@ -129,7 +129,7 @@ const GrowthSimulator: React.FC = () => {
                                             initial={{ y: 100, opacity: 0 }}
                                             animate={{ y: 0, opacity: 1 }}
                                             exit={{ y: 100, opacity: 0 }}
-                                            className="pointer-events-auto flex items-center justify-center gap-2 px-6 py-3 bg-brand-gold text-brand-black font-bold text-sm tracking-widest uppercase shadow-[0_4px_20px_rgba(0,0,0,0.5)] rounded-full border border-white/20"
+                                            className="pointer-events-auto flex items-center justify-center gap-2 px-6 py-3 bg-primary text-background font-bold text-sm tracking-widest uppercase shadow-[0_4px_20px_rgba(0,0,0,0.5)] rounded-full border border-white/20"
                                         >
                                             <Plus className="w-5 h-5" />
                                             Sign Client
@@ -160,7 +160,7 @@ const GrowthSimulator: React.FC = () => {
                             <div className="absolute top-0 left-0 w-1 h-full bg-neutral-700" />
 
                             <div className="flex justify-between items-start mb-6">
-                                <h3 className="text-xl font-bold text-brand-gray flex items-center gap-3">
+                                <h3 className="text-xl font-bold text-muted flex items-center gap-3">
                                     <Briefcase className="w-5 h-5" />
                                     Standard Agency
                                 </h3>
@@ -172,7 +172,7 @@ const GrowthSimulator: React.FC = () => {
                             <div className="grid sm:grid-cols-3 gap-6">
                                 {/* Team Size Visualization */}
                                 <div className="sm:col-span-3">
-                                    <div className="text-xs text-brand-gray mb-3 uppercase tracking-wider font-mono">Team Size</div>
+                                    <div className="text-xs text-muted mb-3 uppercase tracking-wider font-mono">Team Size</div>
                                     <div className="flex flex-wrap gap-2">
                                         <AnimatePresence>
                                             {[...Array(standard.teamSize)].map((_, i) => (
@@ -191,7 +191,7 @@ const GrowthSimulator: React.FC = () => {
 
                                 {/* Margin Bar */}
                                 <div className="sm:col-span-2">
-                                    <div className="text-xs text-brand-gray mb-2 uppercase tracking-wider font-mono flex justify-between">
+                                    <div className="text-xs text-muted mb-2 uppercase tracking-wider font-mono flex justify-between">
                                         <span>Profit Margin</span>
                                         <span className="text-neutral-500">Compressing</span>
                                     </div>
@@ -206,7 +206,7 @@ const GrowthSimulator: React.FC = () => {
 
                                 {/* Stress Gauge */}
                                 <div className="sm:col-span-1">
-                                    <div className="text-xs text-brand-gray mb-2 uppercase tracking-wider font-mono">Stress</div>
+                                    <div className="text-xs text-muted mb-2 uppercase tracking-wider font-mono">Stress</div>
                                     <div className="h-2 bg-neutral-800 rounded-full overflow-hidden">
                                         <motion.div
                                             className="h-full bg-gradient-to-r from-neutral-600 to-red-900"
@@ -218,15 +218,15 @@ const GrowthSimulator: React.FC = () => {
                         </div>
 
                         {/* Cornerstone Agency */}
-                        <div className="bg-gradient-to-br from-brand-black to-brand-gold/5 border border-brand-gold/20 p-8 rounded-2xl relative overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.05)] transition-all duration-300">
-                            <div className="absolute top-0 left-0 w-1 h-full bg-brand-gold" />
+                        <div className="bg-gradient-to-br from-background to-primary/5 border border-primary/20 p-8 rounded-2xl relative overflow-hidden shadow-[0_0_30px_color-mix(in_srgb,var(--color-primary),transparent_95%)] transition-all duration-300">
+                            <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
 
                             <div className="flex justify-between items-start mb-6">
-                                <h3 className="text-xl font-bold text-brand-white flex items-center gap-3">
-                                    <Activity className="w-5 h-5 text-brand-gold" />
+                                <h3 className="text-xl font-bold text-foreground flex items-center gap-3">
+                                    <Activity className="w-5 h-5 text-primary" />
                                     Cornerstone Model
                                 </h3>
-                                <div className="text-xs font-mono uppercase text-brand-gold tracking-widest bg-brand-gold/10 px-2 py-1 rounded">
+                                <div className="text-xs font-mono uppercase text-primary tracking-widest bg-primary/10 px-2 py-1 rounded">
                                     Operational Leverage
                                 </div>
                             </div>
@@ -234,7 +234,7 @@ const GrowthSimulator: React.FC = () => {
                             <div className="grid sm:grid-cols-3 gap-6">
                                 {/* Team Size Visualization */}
                                 <div className="sm:col-span-3">
-                                    <div className="text-xs text-brand-gold/60 mb-3 uppercase tracking-wider font-mono">Team Size</div>
+                                    <div className="text-xs text-primary/60 mb-3 uppercase tracking-wider font-mono">Team Size</div>
                                     <div className="flex flex-wrap gap-2 items-center">
                                         <AnimatePresence>
                                             {[...Array(cornerstone.teamSize)].map((_, i) => (
@@ -242,13 +242,13 @@ const GrowthSimulator: React.FC = () => {
                                                     key={`cs-team-${i}`}
                                                     initial={{ scale: 0 }}
                                                     animate={{ scale: 1 }}
-                                                    className="w-5 h-5 sm:w-8 sm:h-8 bg-brand-gold text-brand-black rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(212,175,55,0.4)]"
+                                                    className="w-5 h-5 sm:w-8 sm:h-8 bg-primary text-background rounded-full flex items-center justify-center shadow-[0_0_10px_color-mix(in_srgb,var(--color-primary),transparent_60%)]"
                                                 >
                                                     <Users className="w-3 h-3 sm:w-4 sm:h-4" />
                                                 </motion.div>
                                             ))}
                                         </AnimatePresence>
-                                        <span className="text-xs text-brand-gold/50 ml-2 font-mono border border-brand-gold/20 px-2 py-1 rounded-full">
+                                        <span className="text-xs text-primary/50 ml-2 font-mono border border-primary/20 px-2 py-1 rounded-full">
                                             + {clients * 2}0h Automation
                                         </span>
                                     </div>
@@ -256,14 +256,14 @@ const GrowthSimulator: React.FC = () => {
 
                                 {/* Margin Bar */}
                                 <div className="sm:col-span-2">
-                                    <div className="text-xs text-brand-gold/60 mb-2 uppercase tracking-wider font-mono flex justify-between">
+                                    <div className="text-xs text-primary/60 mb-2 uppercase tracking-wider font-mono flex justify-between">
                                         <span>Profit Margin</span>
-                                        <span className="text-brand-gold">Expanding</span>
+                                        <span className="text-primary">Expanding</span>
                                     </div>
-                                    <div className="h-2 bg-brand-gold/10 rounded-full overflow-hidden">
+                                    <div className="h-2 bg-primary/10 rounded-full overflow-hidden">
                                         <motion.div
-                                            className="h-full bg-brand-goldShadow"
-                                            style={{ backgroundColor: '#D4AF37', boxShadow: '0 0 10px rgba(212,175,55,0.5)' }}
+                                            className="h-full"
+                                            style={{ backgroundColor: 'var(--color-primary)', boxShadow: '0 0 10px color-mix(in_srgb,var(--color-primary),transparent_50%)' }}
                                             animate={{ width: `${Math.min(cornerstone.margin, 100)}%` }}
                                             transition={{ type: 'spring', stiffness: 100 }}
                                         />
@@ -272,10 +272,10 @@ const GrowthSimulator: React.FC = () => {
 
                                 {/* Stress Gauge */}
                                 <div className="sm:col-span-1">
-                                    <div className="text-xs text-brand-gold/60 mb-2 uppercase tracking-wider font-mono">Stress</div>
-                                    <div className="h-2 bg-brand-gold/10 rounded-full overflow-hidden">
+                                    <div className="text-xs text-primary/60 mb-2 uppercase tracking-wider font-mono">Stress</div>
+                                    <div className="h-2 bg-primary/10 rounded-full overflow-hidden">
                                         <motion.div
-                                            className="h-full bg-brand-gold/40"
+                                            className="h-full bg-primary/40"
                                             animate={{ width: `${cornerstone.stress}%` }}
                                         />
                                     </div>

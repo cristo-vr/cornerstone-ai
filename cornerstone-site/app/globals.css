@@ -1,31 +1,46 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primitive Palette - The raw colors */
+  --palette-green: #2C6E49;
+  --palette-black: #0a0a0a;
+  --palette-dark: #121212;
+  --palette-white: #ffffff;
+  --palette-gray: #a3a3a3;
+
+  /* Semantic Tokens - The functional roles */
+  --background: var(--palette-black);
+  --foreground: var(--palette-white);
+
+  --color-primary: var(--palette-green);
+  --color-surface: var(--palette-dark);
+  --color-muted: var(--palette-gray);
+
+  --font-sans: var(--font-inter);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
+  --color-primary: var(--color-primary);
+  --color-surface: var(--color-surface);
+  --color-muted: var(--color-muted);
 
-  --color-brand-black: #0a0a0a;
-  --color-brand-dark: #121212;
-  --color-brand-white: #ffffff;
-  --color-brand-gold: #D4AF37;
-  --color-brand-gray: #a3a3a3;
+  --font-sans: var(--font-sans);
 }
 
 @media (prefers-color-scheme: dark) {
+
+  /* If you want to support light mode later, you'd override semantics here */
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Currently design is dark-only, so specific dark overrides aren't strictly needed 
+        unless supporting system light-mode switching which might invert these.
+        For now keeping it simple as per current "heavy/dark" brand. */
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }

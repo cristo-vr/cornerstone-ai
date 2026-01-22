@@ -76,16 +76,16 @@ const ContactForm: React.FC = () => {
     if (status === 'success') {
         return (
             <div className="text-center py-12 space-y-4">
-                <div className="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center mx-auto text-brand-gold">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto text-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                     </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-brand-white">Application Received</h3>
-                <p className="text-brand-gray">We'll review your details and get back to you within 24 hours.</p>
+                <h3 className="text-2xl font-bold text-foreground">Application Received</h3>
+                <p className="text-muted">We'll review your details and get back to you within 24 hours.</p>
                 <button
                     onClick={() => setStatus('idle')}
-                    className="text-brand-gold font-bold uppercase tracking-widest text-sm hover:text-white transition-colors mt-4"
+                    className="text-primary font-bold uppercase tracking-widest text-sm hover:text-white transition-colors mt-4"
                 >
                     Submit Another
                 </button>
@@ -97,26 +97,26 @@ const ContactForm: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-brand-gray uppercase tracking-wider">Full Name *</label>
+                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Full Name *</label>
                     <input
                         type="text"
                         name="fullName"
                         required
                         value={formData.fullName}
                         onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-brand-white p-4 focus:outline-none focus:border-brand-gold transition-colors"
+                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
                         placeholder="John Doe"
                     />
                 </div>
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-brand-gray uppercase tracking-wider">Role *</label>
+                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Role *</label>
                     <input
                         type="text"
                         name="role"
                         required
                         value={formData.role}
                         onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-brand-white p-4 focus:outline-none focus:border-brand-gold transition-colors"
+                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
                         placeholder="Founder / CEO"
                     />
                 </div>
@@ -124,26 +124,26 @@ const ContactForm: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-brand-gray uppercase tracking-wider">Email *</label>
+                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Email *</label>
                     <input
                         type="email"
                         name="email"
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-brand-white p-4 focus:outline-none focus:border-brand-gold transition-colors"
+                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
                         placeholder="john@example.com"
                     />
                 </div>
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-brand-gray uppercase tracking-wider">Phone *</label>
+                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Phone *</label>
                     <input
                         type="tel"
                         name="phone"
                         required
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-brand-white p-4 focus:outline-none focus:border-brand-gold transition-colors"
+                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
                         placeholder="+1 (555) 000-0000"
                     />
                 </div>
@@ -151,26 +151,26 @@ const ContactForm: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-brand-gray uppercase tracking-wider">Business Name *</label>
+                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Business Name *</label>
                     <input
                         type="text"
                         name="businessName"
                         required
                         value={formData.businessName}
                         onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-brand-white p-4 focus:outline-none focus:border-brand-gold transition-colors"
+                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
                         placeholder="Acme Corp"
                     />
                 </div>
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-brand-gray uppercase tracking-wider">Website *</label>
+                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Website *</label>
                     <input
                         type="url"
                         name="website"
                         required
                         value={formData.website}
                         onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-brand-white p-4 focus:outline-none focus:border-brand-gold transition-colors"
+                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
                         placeholder="https://acme.com"
                     />
                 </div>
@@ -178,13 +178,13 @@ const ContactForm: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-brand-gray uppercase tracking-wider">How big is your team currently? *</label>
+                    <label className="text-sm font-bold text-muted uppercase tracking-wider">How big is your team currently? *</label>
                     <select
                         name="teamSize"
                         required
                         value={formData.teamSize}
                         onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-brand-white p-4 focus:outline-none focus:border-brand-gold transition-colors appearance-none"
+                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors appearance-none"
                     >
                         <option value="Just me">Just me</option>
                         <option value="2-5">2-5</option>
@@ -194,13 +194,13 @@ const ContactForm: React.FC = () => {
                     </select>
                 </div>
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-brand-gray uppercase tracking-wider">What is your monthly revenue? *</label>
+                    <label className="text-sm font-bold text-muted uppercase tracking-wider">What is your monthly revenue? *</label>
                     <select
                         name="revenue"
                         required
                         value={formData.revenue}
                         onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-brand-white p-4 focus:outline-none focus:border-brand-gold transition-colors appearance-none"
+                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors appearance-none"
                     >
                         <option value="Less than $20k">Less than $20k</option>
                         <option value="$20k to $50k">$20k to $50k</option>
@@ -211,26 +211,26 @@ const ContactForm: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-gray uppercase tracking-wider">Describe some processes that you feel are limiting capacity: *</label>
+                <label className="text-sm font-bold text-muted uppercase tracking-wider">Describe some processes that you feel are limiting capacity: *</label>
                 <textarea
                     name="limitingProcesses"
                     required
                     value={formData.limitingProcesses}
                     onChange={handleChange}
                     rows={4}
-                    className="w-full bg-neutral-900/50 border border-neutral-800 text-brand-white p-4 focus:outline-none focus:border-brand-gold transition-colors resize-none"
+                    className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors resize-none"
                     placeholder="e.g. Manual data entry, repetitive reporting, client onboarding..."
                 />
             </div>
 
             <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-gray uppercase tracking-wider">Anything else we should know?</label>
+                <label className="text-sm font-bold text-muted uppercase tracking-wider">Anything else we should know?</label>
                 <textarea
                     name="anythingElse"
                     value={formData.anythingElse}
                     onChange={handleChange}
                     rows={2}
-                    className="w-full bg-neutral-900/50 border border-neutral-800 text-brand-white p-4 focus:outline-none focus:border-brand-gold transition-colors resize-none"
+                    className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors resize-none"
                 />
             </div>
 
@@ -250,7 +250,7 @@ const ContactForm: React.FC = () => {
                 <button
                     type="submit"
                     disabled={status === 'submitting'}
-                    className="w-full bg-brand-gold text-brand-black font-bold uppercase tracking-widest py-4 hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-primary text-background font-bold uppercase tracking-widest py-4 hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {status === 'submitting' ? 'Submitting...' : 'Submit Application'}
                 </button>

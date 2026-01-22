@@ -18,7 +18,7 @@ const App: React.FC = () => {
   const openContact = () => setIsContactModalOpen(true);
 
   return (
-    <div className="bg-brand-black min-h-screen text-brand-white font-sans selection:bg-brand-gold selection:text-brand-black">
+    <div className="bg-background min-h-screen text-foreground font-sans selection:bg-primary selection:text-background">
       <Navbar onOpenContact={openContact} />
       <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
 

@@ -8,19 +8,19 @@ interface ButtonProps extends HTMLMotionProps<"button"> {
   icon?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ 
-  variant = 'primary', 
-  children, 
+const Button: React.FC<ButtonProps> = ({
+  variant = 'primary',
+  children,
   icon = false,
   className = '',
-  ...props 
+  ...props
 }) => {
   const baseStyles = "inline-flex items-center justify-center px-6 py-3 text-sm font-semibold tracking-wide transition-all duration-300 ease-out border uppercase";
-  
+
   const variants = {
-    primary: "bg-brand-gold border-brand-gold text-brand-black hover:bg-brand-white hover:border-brand-white hover:text-brand-black",
-    outline: "bg-transparent border-neutral-700 text-brand-white hover:border-brand-gold hover:text-brand-gold",
-    ghost: "bg-transparent border-transparent text-brand-gray hover:text-brand-gold pl-0"
+    primary: "bg-primary border-primary text-background hover:bg-foreground hover:border-foreground hover:text-background",
+    outline: "bg-transparent border-neutral-700 text-foreground hover:border-primary hover:text-primary",
+    ghost: "bg-transparent border-transparent text-muted hover:text-primary pl-0"
   };
 
   return (

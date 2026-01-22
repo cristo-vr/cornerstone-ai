@@ -14,7 +14,7 @@ const steps: ProcessStep[] = [
           No endless consulting. Give us 5 days to find exactly where "robot work" is killing your capacity.
         </p>
         <p>
-          We don't do fluff decks. You get a specific execution plan: what to build, what it costs, and the exact ROI. <span className="text-brand-white font-medium">You see the full solution before you pay a cent for the build.</span>
+          We don't do fluff decks. You get a specific execution plan: what to build, what it costs, and the exact ROI. <span className="text-foreground font-medium">You see the full solution before you pay a cent for the build.</span>
         </p>
       </div>
     )
@@ -31,7 +31,7 @@ const steps: ProcessStep[] = [
         <p>
           We don't make you wait months for a "big reveal." We ship features weekly, stacking wins so you feel the impact immediately.
         </p>
-        <p className="text-brand-white font-medium">
+        <p className="text-foreground font-medium">
           You own every line of code—these are permanent assets, not rented tools.
         </p>
       </div>
@@ -47,7 +47,7 @@ const steps: ProcessStep[] = [
           The best system is worthless if your team hates it. We don't just email a login and vanish.
         </p>
         <p>
-          We train your team, refine the tools, and <span className="text-brand-white font-medium">ensure they prefer the new way.</span>
+          We train your team, refine the tools, and <span className="text-foreground font-medium">ensure they prefer the new way.</span>
         </p>
       </div>
     )
@@ -60,11 +60,11 @@ const Process: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
           <div>
-            <h2 className="text-4xl md:text-6xl font-bold text-brand-white mb-4 tracking-tighter">
+            <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-4 tracking-tighter">
               Zero Fluff. <br />
-              <span className="text-brand-gold">Maximum Velocity.</span>
+              <span className="text-primary">Maximum Velocity.</span>
             </h2>
-            <p className="text-brand-gray max-w-md">No 200-slide presentations. Just deployed code and measurable efficiency gains.</p>
+            <p className="text-muted max-w-md">No 200-slide presentations. Just deployed code and measurable efficiency gains.</p>
           </div>
           <div className="hidden md:block w-32 h-px bg-neutral-700"></div>
         </div>
@@ -77,25 +77,25 @@ const Process: React.FC = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
-              className="relative bg-brand-black border border-neutral-800 p-8 h-full flex flex-col justify-between group hover:border-neutral-600 transition-all duration-300"
+              className="relative bg-background border border-neutral-800 p-8 h-full flex flex-col justify-between group hover:border-neutral-600 transition-all duration-300"
             >
               <div>
                 <div className="flex justify-between items-start mb-8">
-                  <span className="text-5xl font-bold text-neutral-800 group-hover:text-brand-gold/20 transition-colors select-none">
+                  <span className="text-5xl font-bold text-neutral-800 group-hover:text-primary/20 transition-colors select-none">
                     {step.phase}
                   </span>
-                  <span className="text-xs font-mono uppercase tracking-widest text-brand-gold border border-brand-gold/20 px-2 py-1 rounded">
+                  <span className="text-xs font-mono uppercase tracking-widest text-primary border border-primary/20 px-2 py-1 rounded">
                     {step.duration}
                   </span>
                 </div>
-                <h3 className="text-2xl font-bold text-brand-white mb-4">{step.title}</h3>
-                <p className="text-brand-gray text-sm leading-7">
+                <h3 className="text-2xl font-bold text-foreground mb-4">{step.title}</h3>
+                <p className="text-muted text-sm leading-7">
                   {step.description}
                 </p>
               </div>
 
               <div className="w-full h-1 bg-neutral-900 mt-8 overflow-hidden">
-                <div className="h-full bg-brand-gold w-0 group-hover:w-full transition-all duration-700 ease-out" />
+                <div className="h-full bg-primary w-0 group-hover:w-full transition-all duration-700 ease-out" />
               </div>
             </motion.div>
           ))}
