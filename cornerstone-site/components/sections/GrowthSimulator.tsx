@@ -141,9 +141,10 @@ const GrowthSimulator: React.FC = () => {
                                             initial={{ y: 100, opacity: 0 }}
                                             animate={{ y: 0, opacity: 1 }}
                                             exit={{ y: 100, opacity: 0 }}
-                                            className="pointer-events-auto flex items-center justify-center w-12 h-12 bg-neutral-900 text-neutral-400 hover:text-white border border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)] rounded-full"
+                                            className="pointer-events-auto flex items-center justify-center gap-2 px-6 py-3 bg-neutral-900 text-neutral-400 hover:text-white border border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)] rounded-full font-medium text-sm tracking-widest uppercase"
                                         >
                                             <div className="w-2 h-2 rounded-sm border border-current" />
+                                            Reset
                                         </motion.button>
                                     </div>
                                 )}

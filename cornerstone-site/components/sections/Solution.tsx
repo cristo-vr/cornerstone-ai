@@ -96,7 +96,7 @@ const Solution: React.FC = () => {
                 </div>
                 <h3 className="text-4xl font-bold text-brand-white">We don't automate chaos.</h3>
                 <p className="text-xl text-brand-gray leading-relaxed font-light">
-                  Automating a bad process just speeds up the mess. We focus on the bottlenecks your team hates the most, and the direction leadership wants to take the company. We don't replace your people; <span className="text-brand-white font-medium">we remove their friction so they can perform.</span>
+                  Automating a bad process just speeds up the mess. We focus on the bottlenecks your team hates the most, and the direction leadership wants to take the company. We don't replace your people; <span className="text-brand-white font-medium">we remove their friction so they can outperform.</span>
                 </p>
                 <div className="grid grid-cols-2 gap-4 pt-4">
                   <div className="bg-neutral-900/50 p-6 rounded-lg border border-white/5 transition-colors hover:border-brand-gold/20">
