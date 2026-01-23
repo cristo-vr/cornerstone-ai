@@ -8,11 +8,13 @@ const config: Config = {
     ],
     theme: {
         extend: {
-            "background": "var(--background)",
-            "foreground": "var(--foreground)",
-            "primary": "var(--color-primary)",
-            "surface": "var(--color-surface)",
-            "muted": "var(--color-muted)",
+            colors: {
+                "background": "var(--background)",
+                "foreground": "var(--foreground)",
+                "primary": "var(--color-primary)",
+                "surface": "var(--color-surface)",
+                "muted": "var(--color-muted)",
+            },
             // This allows you to use standard sans fonts if your design needs them
             fontFamily: {
                 sans: ['var(--font-inter)', 'sans-serif'],
