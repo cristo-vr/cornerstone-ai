@@ -2,7 +2,7 @@
 
 :root {
   /* Primitive Palette - The raw colors */
-  --palette-green: #2C6E49;
+  --palette-gold: #d4af37;
   --palette-black: #0a0a0a;
   --palette-dark: #121212;
   --palette-white: #ffffff;
@@ -12,7 +12,7 @@
   --background: var(--palette-black);
   --foreground: var(--palette-white);
 
-  --color-primary: var(--palette-green);
+  --color-primary: var(--palette-gold);
   --color-surface: var(--palette-dark);
   --color-muted: var(--palette-gray);
 
