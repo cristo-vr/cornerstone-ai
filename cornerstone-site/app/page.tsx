@@ -29,7 +29,7 @@ const App: React.FC = () => {
         <Solution />
         <Process />
         <ContactSection />
-        <Work />
+        <Work onOpenContact={openContact} />
 
 
 
