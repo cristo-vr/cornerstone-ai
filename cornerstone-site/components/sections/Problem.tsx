@@ -1,12 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, TrendingDown, Users, Zap } from 'lucide-react';
+import ParallaxGrid from '../ui/ParallaxGrid';
 
 const Problem: React.FC = () => {
   return (
     <section className="py-32 bg-background border-t border-foreground/5 relative overflow-hidden">
       {/* Background Ambience */}
+      {/* Background Ambience */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[500px] bg-red-900/10 blur-[120px] rounded-full pointer-events-none" />
+
+      {/* Parallax Grid */}
+      <ParallaxGrid color="255, 255, 255" opacity={0.15} />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
 

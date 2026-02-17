@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Button from '../ui/Button';
+import ParallaxGrid from '../ui/ParallaxGrid';
 
 interface HeroProps {
   onOpenContact: () => void;
@@ -10,7 +11,8 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
   return (
     <section className="relative min-h-[90vh] flex flex-col justify-center px-6 overflow-hidden bg-background border-b border-foreground/5 pt-20">
       {/* Background Grid - Technical aesthetic */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none"></div>
+      {/* Background Grid - Technical aesthetic */}
+      <ParallaxGrid color="255, 255, 255" opacity={0.25} />
 
       {/* Animated Gradient Accent */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none mix-blend-screen" />
