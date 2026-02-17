@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import JsonLd from "@/components/JsonLd";
+import { siteConfig } from "@/lib/config";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -8,8 +10,27 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Cornerstone AI | FSP Operations Accelerator",
-  description: "We automate the three operational pillars every insurance FSP runs on — Acquisition, Service & Retention, and Visibility. Built for FSPs with 10-50 advisors.",
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  openGraph: {
+    title: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+  },
+  alternates: {
+    canonical: siteConfig.url,
+  },
 };
 
 export default function RootLayout({
@@ -23,6 +44,7 @@ export default function RootLayout({
         className={`${inter.variable} antialiased bg-background text-foreground font-sans`}
       >
         {children}
+        <JsonLd />
       </body>
     </html>
   );

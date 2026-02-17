@@ -6,6 +6,7 @@ import Problem from '../components/sections/Problem';
 import GrowthSimulator from '../components/sections/GrowthSimulator';
 import Solution from '../components/sections/Solution';
 import Process from '../components/sections/Process';
+import FAQ from '../components/sections/FAQ';
 import ContactSection from '../components/sections/ContactSection';
 import Work from '../components/sections/Work';
 import Footer from '../components/sections/Footer';
@@ -28,6 +29,7 @@ const App: React.FC = () => {
         <GrowthSimulator />
         <Solution />
         <Process />
+        <FAQ />
         <ContactSection />
         <Work onOpenContact={openContact} />
 
