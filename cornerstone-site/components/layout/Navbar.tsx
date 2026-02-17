@@ -19,9 +19,9 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
   }, []);
 
   const navLinks = [
-    { label: 'Method', href: '#method' },
+    { label: 'Pillars', href: '#pillars' },
     { label: 'Process', href: '#process' },
-    { label: 'Work', href: '#work' },
+    { label: 'Results', href: '#results' },
   ];
 
   return (
@@ -51,7 +51,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
             onClick={onOpenContact}
             className="text-sm font-bold text-background bg-primary px-5 py-2 hover:bg-white transition-colors uppercase tracking-wide"
           >
-            Inquire
+            Book Discovery
           </button>
         </nav>
 
@@ -91,7 +91,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
                 }}
                 className="text-primary font-bold uppercase tracking-widest mt-4 text-left"
               >
-                Inquire →
+                Book Discovery →
               </button>
             </nav>
           </motion.div>

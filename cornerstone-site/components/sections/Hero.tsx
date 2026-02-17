@@ -25,7 +25,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
         >
           <div className="h-[1px] w-12 bg-primary"></div>
           <span className="text-primary font-mono text-sm tracking-widest uppercase">
-            We engineer capacity for founder-led agencies
+            The FSP Operations Accelerator
           </span>
         </motion.div>
 
@@ -37,7 +37,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="text-6xl md:text-8xl lg:text-9xl font-black text-foreground tracking-tighter leading-[0.9]"
           >
-            HANDLE 2x <br className="hidden md:block" /> THE RETAINERS.
+            THE <br className="hidden md:block" /> OPERATING SYSTEM
           </motion.h1>
 
           <motion.h2
@@ -46,7 +46,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-muted tracking-tighter mt-2"
           >
-            WITH THE SAME TEAM.
+            FOR FAST GROWING FSP'S
           </motion.h2>
 
           <motion.div
@@ -56,7 +56,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             className="mt-6 inline-block"
           >
             <span className="text-3xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-foreground tracking-tight italic">
-              THAT'S CAPACITY.
+              UNLOCK 20+ HOURS EACH WEEK.
             </span>
           </motion.div>
         </div>
@@ -70,8 +70,8 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             className="max-w-xl"
           >
             <p className="text-foreground text-lg md:text-xl font-light leading-relaxed">
-              No more theoreticals. <br />
-              <span className="font-medium text-muted">Straightforward strategy, Tangible impact.</span>
+              Your FSP has outgrown spreadsheets. <br />
+              <span className="font-medium text-muted">We build the operational backbone to match your ambition.</span>
             </p>
           </motion.div>
 
@@ -82,7 +82,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             className="flex gap-4"
           >
             <div onClick={onOpenContact}>
-              <Button variant="primary" icon>See If We Can Help</Button>
+              <Button variant="primary" icon>Book Your Discovery</Button>
             </div>
           </motion.div>
         </div>

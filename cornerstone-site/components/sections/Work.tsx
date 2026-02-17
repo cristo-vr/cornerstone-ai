@@ -68,16 +68,16 @@ const Work: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
   const [selectedCase, setSelectedCase] = useState<CaseStudy | null>(null);
 
   return (
-    <section id="work" className="py-32 bg-background relative overflow-hidden">
+    <section id="results" className="py-32 bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">Selected Works</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">Proven Results</h2>
           <div className="w-24 h-1 bg-primary mb-6"></div>
           <p className="text-muted text-lg max-w-2xl">
-            Real problems. Engineered solutions. Measurable wins.
+            Real operations. Engineered solutions. Measurable wins.
             Click on any card to see the breakdown of how we solved it.
           </p>
         </div>
@@ -171,7 +171,7 @@ const Work: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
                   </div>
 
                   <div className="mt-10 pt-6 border-t border-neutral-800 flex justify-end">
-                    <Button onClick={() => { setSelectedCase(null); onOpenContact(); }} icon>Reach Out</Button>
+                    <Button onClick={() => { setSelectedCase(null); onOpenContact(); }} icon>Book Discovery</Button>
                   </div>
                 </div>
               </motion.div>

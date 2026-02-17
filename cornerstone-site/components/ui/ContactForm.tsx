@@ -10,11 +10,11 @@ const ContactForm: React.FC = () => {
         role: '',
         email: '',
         phone: '',
-        businessName: '',
+        fspName: '',
         website: '',
-        teamSize: '2-5',
-        revenue: '$20k to $50k',
-        limitingProcesses: '',
+        advisorCount: '10-20',
+        adminCount: '1-2',
+        biggestPain: '',
         anythingElse: ''
     });
 
@@ -56,11 +56,11 @@ const ContactForm: React.FC = () => {
                     role: '',
                     email: '',
                     phone: '',
-                    businessName: '',
+                    fspName: '',
                     website: '',
-                    teamSize: '2-5',
-                    revenue: '$20k to $50k',
-                    limitingProcesses: '',
+                    advisorCount: '10-20',
+                    adminCount: '1-2',
+                    biggestPain: '',
                     anythingElse: ''
                 });
                 setTurnstileToken(null); // Reset token
@@ -81,8 +81,8 @@ const ContactForm: React.FC = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                     </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-foreground">Application Received</h3>
-                <p className="text-muted">We'll review your details and get back to you within 24 hours.</p>
+                <h3 className="text-2xl font-bold text-foreground">Discovery Request Received</h3>
+                <p className="text-muted">We'll review your FSP details and respond within 24 hours to schedule your Discovery week.</p>
                 <button
                     onClick={() => setStatus('idle')}
                     className="text-primary font-bold uppercase tracking-widest text-sm hover:text-white transition-colors mt-4"
@@ -117,7 +117,7 @@ const ContactForm: React.FC = () => {
                         value={formData.role}
                         onChange={handleChange}
                         className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
-                        placeholder="Founder / CEO"
+                        placeholder="Owner / Managing Director"
                     />
                 </div>
             </div>
@@ -151,15 +151,15 @@ const ContactForm: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Business Name *</label>
+                    <label className="text-sm font-bold text-muted uppercase tracking-wider">FSP Name *</label>
                     <input
                         type="text"
-                        name="businessName"
+                        name="fspName"
                         required
-                        value={formData.businessName}
+                        value={formData.fspName}
                         onChange={handleChange}
                         className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
-                        placeholder="Acme Corp"
+                        placeholder="Your FSP Name"
                     />
                 </div>
                 <div className="space-y-2">
@@ -178,48 +178,48 @@ const ContactForm: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted uppercase tracking-wider">How big is your team currently? *</label>
+                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Number of Advisors *</label>
                     <select
-                        name="teamSize"
+                        name="advisorCount"
                         required
-                        value={formData.teamSize}
+                        value={formData.advisorCount}
                         onChange={handleChange}
                         className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors appearance-none"
                     >
-                        <option value="Just me">Just me</option>
-                        <option value="2-5">2-5</option>
-                        <option value="5-20">5-20</option>
-                        <option value="20-50">20-50</option>
+                        <option value="Under 10">Under 10</option>
+                        <option value="10-20">10-20</option>
+                        <option value="20-35">20-35</option>
+                        <option value="35-50">35-50</option>
                         <option value="50+">50+</option>
                     </select>
                 </div>
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted uppercase tracking-wider">What is your monthly revenue? *</label>
+                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Admin / Support Staff *</label>
                     <select
-                        name="revenue"
+                        name="adminCount"
                         required
-                        value={formData.revenue}
+                        value={formData.adminCount}
                         onChange={handleChange}
                         className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors appearance-none"
                     >
-                        <option value="Less than $20k">Less than $20k</option>
-                        <option value="$20k to $50k">$20k to $50k</option>
-                        <option value="$50k to $200k">$50k to $200k</option>
-                        <option value="$200K+">$200K+</option>
+                        <option value="1-2">1-2</option>
+                        <option value="3-5">3-5</option>
+                        <option value="6-10">6-10</option>
+                        <option value="10+">10+</option>
                     </select>
                 </div>
             </div>
 
             <div className="space-y-2">
-                <label className="text-sm font-bold text-muted uppercase tracking-wider">Describe some processes that you feel are limiting capacity: *</label>
+                <label className="text-sm font-bold text-muted uppercase tracking-wider">What is your biggest operational headache right now? *</label>
                 <textarea
-                    name="limitingProcesses"
+                    name="biggestPain"
                     required
-                    value={formData.limitingProcesses}
+                    value={formData.biggestPain}
                     onChange={handleChange}
                     rows={4}
                     className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors resize-none"
-                    placeholder="e.g. Manual data entry, repetitive reporting, client onboarding..."
+                    placeholder="e.g. Policy renewals are manual, lead data sits in multiple systems, no visibility on advisor pipeline..."
                 />
             </div>
 
@@ -252,7 +252,7 @@ const ContactForm: React.FC = () => {
                     disabled={status === 'submitting'}
                     className="w-full bg-primary text-background font-bold uppercase tracking-widest py-4 hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    {status === 'submitting' ? 'Submitting...' : 'Submit Application'}
+                    {status === 'submitting' ? 'Submitting...' : 'Request Discovery'}
                 </button>
             </div>
         </form>

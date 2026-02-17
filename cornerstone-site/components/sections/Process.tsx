@@ -6,48 +6,45 @@ import { ProcessStep } from '../../types';
 const steps: ProcessStep[] = [
   {
     phase: "01",
-    title: "The Blueprint",
-    duration: "In and Out. 5 Days.",
+    title: "Discovery",
+    duration: "5 Days. In and Out.",
     description: (
       <div className="space-y-4">
         <p>
-          No endless consulting. Give us 5 days to find exactly where "robot work" is killing your capacity.
+          We embed with your team for one week. We map every process across Acquisition, Service, and Visibility — where the hours disappear, where data leaks, where the bottlenecks hide.
         </p>
         <p>
-          We don't do fluff decks. You get a specific execution plan: what to build, what it costs, and the exact ROI. <span className="text-foreground font-medium">You see the full solution before you pay a cent for the build.</span>
+          You get a concrete execution plan: what we'll build, in what order, and the exact hours your team will recover. <span className="text-foreground font-medium">You see the full picture before you spend a cent on the build.</span>
         </p>
       </div>
     )
   },
   {
     phase: "02",
-    title: "The Build",
-    duration: "We Build It",
+    title: "Development",
+    duration: "6 Weeks. Stacked Live.",
     description: (
       <div className="space-y-4">
         <p>
-          We don't sell generic software. We engineer the specific tools your agency is missing.
-        </p>
-        <p>
-          We don't make you wait months for a "big reveal." We ship features weekly, stacking wins so you feel the impact immediately.
+          We build your systems one pillar at a time. Each module goes live the moment it's ready — your team starts using it immediately. No six-month "big bang" launch. No surprises.
         </p>
         <p className="text-foreground font-medium">
-          You own every line of code—these are permanent assets, not rented tools.
+          Every system is yours. Built on your existing tools. Nothing rented.
         </p>
       </div>
     )
   },
   {
     phase: "03",
-    title: "The Handover",
-    duration: "Adoption is the Only Metric",
+    title: "Adoption",
+    duration: "Until It Sticks.",
     description: (
       <div className="space-y-4">
         <p>
-          The best system is worthless if your team hates it. We don't just email a login and vanish.
+          The best system is worthless if your team opens the spreadsheet out of habit. We train every user, handle the edge cases, and stay until the new way is the default way.
         </p>
         <p>
-          We train your team, refine the tools, and <span className="text-foreground font-medium">ensure they prefer the new way.</span>
+          <span className="text-foreground font-medium">We measure adoption, not delivery. If your team isn't using it confidently, we're not done.</span>
         </p>
       </div>
     )
@@ -61,10 +58,10 @@ const Process: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
           <div>
             <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-4 tracking-tighter">
-              Zero Fluff. <br />
-              <span className="text-primary">Maximum Velocity.</span>
+              Zero Disruption. <br />
+              <span className="text-primary">Maximum Adoption.</span>
             </h2>
-            <p className="text-muted max-w-md">No 200-slide presentations. Just deployed code and measurable efficiency gains.</p>
+            <p className="text-muted max-w-md">Your team keeps working. We build around them. Systems go live one at a time.</p>
           </div>
           <div className="hidden md:block w-32 h-px bg-neutral-700"></div>
         </div>
@@ -89,9 +86,9 @@ const Process: React.FC = () => {
                   </span>
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-4">{step.title}</h3>
-                <p className="text-muted text-sm leading-7">
+                <div className="text-muted text-sm leading-7">
                   {step.description}
-                </p>
+                </div>
               </div>
 
               <div className="w-full h-1 bg-neutral-900 mt-8 overflow-hidden">

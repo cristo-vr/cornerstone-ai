@@ -1,23 +1,27 @@
-
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Cpu, Heart, Zap } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { UserPlus, FileCheck, RefreshCw, BarChart3, CheckCircle2 } from 'lucide-react';
 
 const Solution: React.FC = () => {
-  const [activeTab, setActiveTab] = React.useState(0);
+  const [activeTab, setActiveTab] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Scroll spy logic
-  React.useEffect(() => {
+  // Scroll Spy Logic
+  useEffect(() => {
     const handleScroll = () => {
-      const section1 = document.getElementById('solution-tab-1');
-      const section2 = document.getElementById('solution-tab-2');
+      const tab1 = document.getElementById('solution-tab-0');
+      const tab2 = document.getElementById('solution-tab-1');
+      const tab3 = document.getElementById('solution-tab-2');
 
-      if (section1 && section2) {
-        const rect1 = section1.getBoundingClientRect();
-        const rect2 = section2.getBoundingClientRect();
+      if (tab1 && tab2 && tab3) {
+        const rect1 = tab1.getBoundingClientRect();
+        const rect2 = tab2.getBoundingClientRect();
+        const rect3 = tab3.getBoundingClientRect();
+        const triggerPoint = window.innerHeight / 2;
 
-        // Simple logic: if section 2 is close to the middle of the viewport or above it
-        if (rect2.top < window.innerHeight / 2) {
+        if (rect3.top < triggerPoint) {
+          setActiveTab(2);
+        } else if (rect2.top < triggerPoint) {
           setActiveTab(1);
         } else {
           setActiveTab(0);
@@ -29,124 +33,190 @@ const Solution: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const tabs = [
+    { title: 'Acquisition', subtitle: 'Getting Clients' },
+    { title: 'Service & Retention', subtitle: 'Keeping Clients' },
+    { title: 'Visibility', subtitle: 'Knowing Everything' },
+  ];
+
   return (
-    <section id="method" className="py-32 bg-background relative">
-      {/* Background Grid */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+    <section id="pillars" ref={containerRef} className="bg-background relative">
+      <div className="max-w-7xl mx-auto px-6 py-32">
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-
-        {/* Main Headline */}
-        <div className="max-w-4xl mb-24">
-          <h2 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-            The best automation in the world is worthless if your <span className="text-primary">team hates using it.</span>
+        {/* Section Header */}
+        <div className="mb-24 md:text-center max-w-3xl mx-auto">
+          <h2 className="text-5xl md:text-7xl font-bold text-foreground tracking-tighter mb-8">
+            Every FSP runs on three pillars. <br />
+            <span className="text-primary">We automate all three.</span>
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 relative">
+        <div className="grid lg:grid-cols-12 gap-12 relative">
 
-          {/* Left Column: Sticky Tabs */}
-          <div className="hidden lg:block lg:col-span-4 lg:sticky lg:top-32 lg:h-fit space-y-8">
-            <div className="bg-white/5 border border-white/10 rounded-xl p-8 backdrop-blur-sm transition-all duration-500">
-              <div className="space-y-6">
-                {/* Tab 1 Indicator */}
+          {/* Sticky Left Navigation */}
+          <div className="lg:col-span-4 lg:sticky lg:top-32 h-fit hidden lg:block">
+            <div className="relative pl-8 border-l border-neutral-800 space-y-12">
+              {/* Animated Line */}
+              <motion.div
+                className="absolute left-[-1px] top-0 w-[1px] bg-primary"
+                animate={{
+                  height: activeTab === 0 ? '33%' : activeTab === 1 ? '66%' : '100%',
+                  transition: { duration: 0.5, ease: "easeInOut" }
+                }}
+              />
+
+              {tabs.map((tab, index) => (
                 <div
-                  className={`group flex items-center gap-4 cursor-pointer transition-all duration-500 ${activeTab === 0 ? 'opacity-100 translate-x-2' : 'opacity-40'}`}
-                  onClick={() => document.getElementById('solution-tab-1')?.scrollIntoView({ behavior: 'smooth' })}
+                  key={index}
+                  className={`transition-all duration-300 ${activeTab === index ? 'opacity-100 translate-x-2' : 'opacity-40'}`}
                 >
-                  <div className={`w-1 h-8 rounded-full transition-all duration-500 ${activeTab === 0 ? 'bg-primary shadow-[0_0_15px_var(--color-primary)]' : 'bg-neutral-800'}`} />
-                  <div>
-                    <h3 className={`text-2xl font-bold transition-colors duration-500 ${activeTab === 0 ? 'text-foreground' : 'text-muted'}`}>The Strategy</h3>
-                    <p className="text-sm text-muted uppercase tracking-widest">Process First</p>
-                  </div>
+                  <h3 className={`text-2xl font-bold mb-1 ${activeTab === index ? 'text-primary' : 'text-foreground'}`}>
+                    {tab.title}
+                  </h3>
+                  <p className="text-muted text-sm uppercase tracking-widest">{tab.subtitle}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Content Scrollable Area */}
+          <div className="lg:col-span-8 space-y-32">
+
+            {/* PILLAR 1: ACQUISITION */}
+            <div id="solution-tab-0" className="min-h-[80vh] flex flex-col justify-center">
+              <div className="lg:hidden mb-8">
+                <span className="text-primary text-xs font-mono uppercase tracking-widest bg-primary/10 px-2 py-1 rounded">Pillar 01</span>
+                <h3 className="text-3xl font-bold text-foreground mt-2">Acquisition</h3>
+              </div>
+
+              <div className="bg-neutral-900/50 border border-white/5 p-8 md:p-12 rounded-2xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-100 transition-opacity">
+                  <span className="text-8xl font-black text-white/5">01</span>
                 </div>
 
-                {/* Connector Line */}
-                <div className="ml-0.5 w-[2px] h-8 bg-white/5" />
+                <span className="text-primary text-xs font-mono uppercase tracking-widest bg-primary/10 px-2 py-1 rounded mb-6 inline-block">
+                  Pillar 01
+                </span>
 
-                {/* Tab 2 Indicator */}
-                <div
-                  className={`group flex items-center gap-4 cursor-pointer transition-all duration-500 ${activeTab === 1 ? 'opacity-100 translate-x-2' : 'opacity-40'}`}
-                  onClick={() => document.getElementById('solution-tab-2')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  <div className={`w-1 h-8 rounded-full transition-all duration-500 ${activeTab === 1 ? 'bg-primary shadow-[0_0_15px_var(--color-primary)]' : 'bg-neutral-800'}`} />
-                  <div>
-                    <h3 className={`text-2xl font-bold transition-colors duration-500 ${activeTab === 1 ? 'text-foreground' : 'text-muted'}`}>The Build</h3>
-                    <p className="text-sm text-neutral-600 uppercase tracking-widest transition-colors duration-500">Infrastructure</p>
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                  New business without the bottleneck.
+                </h3>
+                <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl">
+                  Your advisors should be advising, not chasing paperwork. We build the systems that capture leads, qualify prospects, and route them to the right advisor — automatically. <span className="text-white font-medium">From first enquiry to signed mandate, every step is tracked.</span>
+                </p>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5 hover:border-primary/30 transition-colors">
+                    <div className="p-3 bg-primary/10 rounded-lg w-fit text-primary mb-4">
+                      <UserPlus className="w-6 h-6" />
+                    </div>
+                    <h4 className="text-lg font-bold text-white mb-2">Lead Capture & Routing</h4>
+                    <p className="text-neutral-400 text-sm">Leads from website, email, or ads are instantly captured and assigned to the right advisor.</p>
+                  </div>
+
+                  <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5 hover:border-primary/30 transition-colors">
+                    <div className="p-3 bg-primary/10 rounded-lg w-fit text-primary mb-4">
+                      <FileCheck className="w-6 h-6" />
+                    </div>
+                    <h4 className="text-lg font-bold text-white mb-2">Pipeline Automation</h4>
+                    <p className="text-neutral-400 text-sm">Automated follow-ups, document collection, and status updates keep deals moving.</p>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Right Column: Scrollable Content */}
-          <div className="lg:col-span-8 space-y-32 pb-32">
+            {/* PILLAR 2: SERVICE & RETENTION */}
+            <div id="solution-tab-1" className="min-h-[80vh] flex flex-col justify-center">
+              <div className="lg:hidden mb-8">
+                <span className="text-blue-400 text-xs font-mono uppercase tracking-widest bg-blue-500/10 px-2 py-1 rounded">Pillar 02</span>
+                <h3 className="text-3xl font-bold text-foreground mt-2">Service & Retention</h3>
+              </div>
 
-            {/* Tab 1 Content: The Strategy */}
-            <div id="solution-tab-1" className="scroll-mt-32">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="space-y-6"
-              >
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-mono uppercase tracking-widest mb-4">
-                  Phase 01
+              <div className="bg-neutral-900/50 border border-white/5 p-8 md:p-12 rounded-2xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-100 transition-opacity">
+                  <span className="text-8xl font-black text-white/5">02</span>
                 </div>
-                <h3 className="text-4xl font-bold text-foreground">We don't automate chaos.</h3>
-                <p className="text-xl text-muted leading-relaxed font-light">
-                  Automating a bad process just speeds up the mess. We focus on the bottlenecks your team hates the most, and the direction leadership wants to take the company. We don't replace your people; <span className="text-foreground font-medium">we remove their friction so they can outperform.</span>
+
+                <span className="text-blue-400 text-xs font-mono uppercase tracking-widest bg-blue-500/10 px-2 py-1 rounded mb-6 inline-block">
+                  Pillar 02
+                </span>
+
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                  Clients stay because the experience is effortless.
+                </h3>
+                <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl">
+                  Policy renewals, claims follow-ups, annual reviews. The work that keeps an FSP alive is repetitive and exact — the perfect candidate for automation. <span className="text-white font-medium">Your team focuses on the relationship. The system handles the rhythm.</span>
                 </p>
-                <div className="grid grid-cols-2 gap-4 pt-4">
-                  <div className="bg-neutral-900/50 p-6 rounded-lg border border-white/5 transition-colors hover:border-primary/20">
-                    <Heart className="w-8 h-8 text-muted mb-4" />
-                    <h4 className="text-foreground font-bold">Relieve Burnout</h4>
-                  </div>
-                  <div className="bg-neutral-900/50 p-6 rounded-lg border border-white/5 transition-colors hover:border-primary/20">
-                    <Cpu className="w-8 h-8 text-muted mb-4" />
-                    <h4 className="text-foreground font-bold">Remove Robot Work</h4>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
 
-            {/* Tab 2 Content: The Build */}
-            <div id="solution-tab-2" className="scroll-mt-32">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="space-y-6 pt-12 border-t border-white/5"
-              >
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-mono uppercase tracking-widest mb-4">
-                  Phase 02
-                </div>
-                <h3 className="text-4xl font-bold text-foreground">Assets, not duct tape.</h3>
-                <p className="text-xl text-muted leading-relaxed font-light">
-                  We don't build for novelty. We engineer around your team's natural workflow so they actually use it. We only target bottlenecks with a clear ROI, creating secure, documented infrastructure that belongs to you. <span className="text-foreground font-medium">This is a permanent asset that scales, not a quick fix that breaks.</span>
-                </p>
-                <div className="bg-background border border-white/10 p-8 rounded-xl relative overflow-hidden group hover:border-primary/30 transition-colors">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-                  <div className="relative z-10 flex items-center gap-4">
-                    <Zap className="w-10 h-10 text-primary" />
+                <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5 hover:border-blue-500/30 transition-colors">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-blue-500/10 rounded-lg w-fit text-blue-400 shrink-0">
+                      <RefreshCw className="w-6 h-6" />
+                    </div>
                     <div>
-                      <h4 className="text-xl font-bold text-foreground">Verified Architecture</h4>
-                      <p className="text-muted text-sm">Documented. Secure. Scalable.</p>
+                      <h4 className="text-lg font-bold text-white mb-2">Retention Engine</h4>
+                      <p className="text-neutral-400 mb-4">Never miss a renewal or review again. The system triggers tasks and communications automatically.</p>
+                      <ul className="space-y-2">
+                        <li className="flex items-center gap-2 text-sm text-neutral-400">
+                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Automated Renewal Reminders
+                        </li>
+                        <li className="flex items-center gap-2 text-sm text-neutral-400">
+                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Annual Review Scheduling
+                        </li>
+                        <li className="flex items-center gap-2 text-sm text-neutral-400">
+                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Claims Status Updates
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
+            </div>
+
+            {/* PILLAR 3: VISIBILITY */}
+            <div id="solution-tab-2" className="min-h-[80vh] flex flex-col justify-center">
+              <div className="lg:hidden mb-8">
+                <span className="text-emerald-400 text-xs font-mono uppercase tracking-widest bg-emerald-500/10 px-2 py-1 rounded">Pillar 03</span>
+                <h3 className="text-3xl font-bold text-foreground mt-2">Visibility</h3>
+              </div>
+
+              <div className="bg-neutral-900/50 border border-white/5 p-8 md:p-12 rounded-2xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-100 transition-opacity">
+                  <span className="text-8xl font-black text-white/5">03</span>
+                </div>
+
+                <span className="text-emerald-400 text-xs font-mono uppercase tracking-widest bg-emerald-500/10 px-2 py-1 rounded mb-6 inline-block">
+                  Pillar 03
+                </span>
+
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                  You can't manage what you can't measure.
+                </h3>
+                <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl">
+                  How many policies lapsed this month? Which advisor hasn't followed up on their pipeline? Most FSP owners can't answer without digging through five systems. <span className="text-white font-medium">We give you a single source of truth. Real-time. No digging.</span>
+                </p>
+
+                <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5 hover:border-emerald-500/30 transition-colors">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-emerald-500/10 rounded-lg w-fit text-emerald-400 shrink-0">
+                      <BarChart3 className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-white mb-2">Operations Dashboard</h4>
+                      <p className="text-neutral-400">One screen. Every metric. Updated live.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>
-
         </div>
 
-        {/* Footer Statement */}
-        <div className="mt-32 pt-12 border-t border-white/10 text-center">
-          <p className="text-2xl md:text-3xl font-bold text-muted max-w-4xl mx-auto">
-            "Put it this way: If your team doesn't feel relief the day we launch, <span className="text-foreground border-b-2 border-primary pb-1">we failed.</span>"
+        <div className="mt-32 text-center border-t border-white/5 pt-12">
+          <p className="text-2xl md:text-3xl font-semibold text-foreground max-w-3xl mx-auto">
+            We stay until your team prefers the new way. <br />
+            <span className="text-muted">That's when we know it works.</span>
           </p>
         </div>
 

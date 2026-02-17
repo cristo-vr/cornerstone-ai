@@ -7,10 +7,10 @@ const ContactSection: React.FC = () => {
             <div className="max-w-3xl mx-auto px-6">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-                        Unlock <span className="text-primary">Your Capacity</span>
+                        Start Your <span className="text-primary">Discovery</span>
                     </h2>
                     <p className="text-muted text-lg">
-                        Fill out the form below. We'll analyze your current setup and identify exactly where automation can unlock more capacity.
+                        Tell us about your FSP. We'll identify where your operations are leaking time and show you exactly how to fix it.
                     </p>
                 </div>
 

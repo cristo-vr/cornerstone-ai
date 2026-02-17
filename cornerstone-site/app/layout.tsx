@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Cornerstone",
-  description: "AI Infrastructure for Enterprise",
+  title: "Cornerstone AI | FSP Operations Accelerator",
+  description: "We automate the three operational pillars every insurance FSP runs on — Acquisition, Service & Retention, and Visibility. Built for FSPs with 10-50 advisors.",
 };
 
 export default function RootLayout({
