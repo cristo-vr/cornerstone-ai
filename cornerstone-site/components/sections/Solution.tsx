@@ -46,7 +46,7 @@ const Solution: React.FC = () => {
         {/* Section Header */}
         <div className="mb-24 md:text-center max-w-3xl mx-auto">
           <h2 className="text-5xl md:text-7xl font-bold text-foreground tracking-tighter mb-8">
-            Every FSP runs on three pillars. <br />
+            Every growing business runs on three pillars. <br />
             <span className="text-primary">We automate all three.</span>
           </h2>
         </div>
@@ -102,7 +102,7 @@ const Solution: React.FC = () => {
                   New business without the bottleneck.
                 </h3>
                 <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl">
-                  Your advisors should be advising, not chasing paperwork. We build the systems that capture leads, qualify prospects, and route them to the right advisor — automatically. <span className="text-white font-medium">From first enquiry to signed mandate, every step is tracked.</span>
+                  Your team should be closing deals or serving clients, not chasing paperwork. We build the systems that capture leads, qualify prospects, and route them to the right team member — automatically. <span className="text-white font-medium">From first enquiry to signed contract, every step is tracked.</span>
                 </p>
 
                 <div className="grid md:grid-cols-2 gap-6">
@@ -111,7 +111,7 @@ const Solution: React.FC = () => {
                       <UserPlus className="w-6 h-6" />
                     </div>
                     <h4 className="text-lg font-bold text-white mb-2">Lead Capture & Routing</h4>
-                    <p className="text-neutral-400 text-sm">Leads from website, email, or ads are instantly captured and assigned to the right advisor.</p>
+                    <p className="text-neutral-400 text-sm">Leads from website, email, or ads are instantly captured and assigned to the right team member.</p>
                   </div>
 
                   <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5 hover:border-primary/30 transition-colors">
@@ -145,7 +145,7 @@ const Solution: React.FC = () => {
                   Clients stay because the experience is effortless.
                 </h3>
                 <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl">
-                  Policy renewals, claims follow-ups, annual reviews. The work that keeps an FSP alive is repetitive and exact — the perfect candidate for automation. <span className="text-white font-medium">Your team focuses on the relationship. The system handles the rhythm.</span>
+                  Onboarding clients, scheduled check-ins, delivering regular service. The work that keeps a business alive and retains clients is repetitive and exact — the perfect candidate for automation. <span className="text-white font-medium">Your team focuses on the relationship. The system handles the rhythm.</span>
                 </p>
 
                 <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5 hover:border-blue-500/30 transition-colors">
@@ -155,16 +155,16 @@ const Solution: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="text-lg font-bold text-white mb-2">Retention Engine</h4>
-                      <p className="text-neutral-400 mb-4">Never miss a renewal or review again. The system triggers tasks and communications automatically.</p>
+                      <p className="text-neutral-400 mb-4">Never miss a client milestone or follow-up again. The system triggers tasks and communications automatically.</p>
                       <ul className="space-y-2">
                         <li className="flex items-center gap-2 text-sm text-neutral-400">
-                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Automated Renewal Reminders
+                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Automated Check-in Reminders
                         </li>
                         <li className="flex items-center gap-2 text-sm text-neutral-400">
-                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Annual Review Scheduling
+                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Automated Onboarding Sequences
                         </li>
                         <li className="flex items-center gap-2 text-sm text-neutral-400">
-                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Claims Status Updates
+                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Project or Service Updates
                         </li>
                       </ul>
                     </div>
@@ -193,7 +193,7 @@ const Solution: React.FC = () => {
                   You can't manage what you can't measure.
                 </h3>
                 <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl">
-                  How many policies lapsed this month? Which advisor hasn't followed up on their pipeline? Most FSP owners can't answer without digging through five systems. <span className="text-white font-medium">We give you a single source of truth. Real-time. No digging.</span>
+                  How many clients churned this month? Which sales rep hasn't followed up on their pipeline? Most business leaders can't answer without digging through five systems. <span className="text-white font-medium">We give you a single source of truth. Real-time. No digging.</span>
                 </p>
 
                 <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5 hover:border-emerald-500/30 transition-colors">

@@ -27,7 +27,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
         >
           <div className="h-[1px] w-12 bg-primary"></div>
           <span className="text-primary font-mono text-sm tracking-widest uppercase">
-            The FSP Operations Accelerator
+            The Operations Accelerator
           </span>
         </motion.div>
 
@@ -48,7 +48,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-muted tracking-tighter mt-2"
           >
-            FOR FAST GROWING FSP'S
+            FOR FOUNDER-LED BUSINESSES
           </motion.h2>
 
           <motion.div
@@ -72,8 +72,8 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             className="max-w-xl"
           >
             <p className="text-foreground text-lg md:text-xl font-light leading-relaxed">
-              Your FSP has outgrown spreadsheets. <br />
-              <span className="font-medium text-muted">We build the operational backbone to match your ambition.</span>
+              Your business has outgrown spreadsheets. <br />
+              <span className="font-medium text-muted">We build the operational backbone to match your ambition. People-first automation that unlocks your team.</span>
             </p>
           </motion.div>
 

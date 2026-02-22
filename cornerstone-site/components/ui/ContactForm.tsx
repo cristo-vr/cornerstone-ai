@@ -10,9 +10,9 @@ const ContactForm: React.FC = () => {
         role: '',
         email: '',
         phone: '',
-        fspName: '',
+        companyName: '',
         website: '',
-        advisorCount: '10-20',
+        employeeCount: '10-20',
         adminCount: '1-2',
         biggestPain: '',
         anythingElse: ''
@@ -56,9 +56,9 @@ const ContactForm: React.FC = () => {
                     role: '',
                     email: '',
                     phone: '',
-                    fspName: '',
+                    companyName: '',
                     website: '',
-                    advisorCount: '10-20',
+                    employeeCount: '10-20',
                     adminCount: '1-2',
                     biggestPain: '',
                     anythingElse: ''
@@ -82,7 +82,7 @@ const ContactForm: React.FC = () => {
                     </svg>
                 </div>
                 <h3 className="text-2xl font-bold text-foreground">Discovery Request Received</h3>
-                <p className="text-muted">We'll review your FSP details and respond within 24 hours to schedule your Discovery week.</p>
+                <p className="text-muted">We'll review your company details and respond within 24 hours to schedule your Discovery week.</p>
                 <button
                     onClick={() => setStatus('idle')}
                     className="text-primary font-bold uppercase tracking-widest text-sm hover:text-white transition-colors mt-4"
@@ -151,15 +151,15 @@ const ContactForm: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted uppercase tracking-wider">FSP Name *</label>
+                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Company Name *</label>
                     <input
                         type="text"
-                        name="fspName"
+                        name="companyName"
                         required
-                        value={formData.fspName}
+                        value={formData.companyName}
                         onChange={handleChange}
                         className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
-                        placeholder="Your FSP Name"
+                        placeholder="Your Company Name"
                     />
                 </div>
                 <div className="space-y-2">
@@ -178,11 +178,11 @@ const ContactForm: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Number of Advisors *</label>
+                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Number of Employees *</label>
                     <select
-                        name="advisorCount"
+                        name="employeeCount"
                         required
-                        value={formData.advisorCount}
+                        value={formData.employeeCount}
                         onChange={handleChange}
                         className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors appearance-none"
                     >
@@ -219,7 +219,7 @@ const ContactForm: React.FC = () => {
                     onChange={handleChange}
                     rows={4}
                     className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors resize-none"
-                    placeholder="e.g. Policy renewals are manual, lead data sits in multiple systems, no visibility on advisor pipeline..."
+                    placeholder="e.g. Onboarding is manual, lead data sits in multiple systems, no visibility on sales pipeline..."
                 />
             </div>
 

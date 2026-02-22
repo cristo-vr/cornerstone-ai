@@ -5,11 +5,11 @@ import { motion } from 'framer-motion';
 const faqs = [
     {
         question: "What exactly does Cornerstone AI do?",
-        answer: "Cornerstone AI provides an Operations Accelerator for Financial Service Providers (FSPs). We automate the three core pillars of your business: Acquisition, Service & Retention, and Visibility, helping you scale without adding administrative headcount."
+        answer: "Cornerstone AI provides an Operations Accelerator for founder-led businesses. We automate the three core pillars of your business: Acquisition, Service & Retention, and Visibility, helping you scale without adding administrative headcount."
     },
     {
         question: "Who is this solution for?",
-        answer: "Our solution is specifically built for FSPs with 10-50 advisors who are looking to break through revenue ceilings. If you are struggling with operational bottlenecks or manual workflows, our infrastructure is designed for you."
+        answer: "Our solution is specifically built for growing businesses with 10-50 team members who are looking to break through revenue ceilings. If you are struggling with operational bottlenecks or manual workflows, our infrastructure is designed for you."
     },
     {
         question: "Is this a CRM replacement?",
@@ -20,8 +20,8 @@ const faqs = [
         answer: "Implementation timelines vary based on the complexity of your current operations, but our accelerator model allows us to deploy core infrastructure rapidly. Most clients see significant operational improvements within the first few weeks of engagement."
     },
     {
-        question: "Do you only work with South African FSPs?",
-        answer: "Yes, currently our systems and compliance frameworks are tailored specifically for the South African financial services market and regulatory environment."
+        question: "Do you only work with South African businesses?",
+        answer: "While we are based in South Africa, our automation infrastructure can be deployed for businesses globally."
     }
 ];
 
@@ -40,7 +40,7 @@ const FAQ = () => {
                         Frequently Asked Questions
                     </h2>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        Common questions about how we help FSPs scale.
+                        Common questions about how we help businesses scale.
                     </p>
                 </motion.div>
 

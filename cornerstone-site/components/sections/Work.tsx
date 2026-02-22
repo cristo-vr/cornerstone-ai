@@ -18,7 +18,7 @@ const cases: CaseStudy[] = [
     id: "1",
     title: "The Automated Analyst",
     icon: BrainCircuit,
-    pain: "This team was drowning in raw data. Their highest-paid brokers were spending hours digging through messy, confusing spreadsheets just to get a basic pulse on performance. It was impossible for leadership to make decisions because the data was always a \"work in progress.\"",
+    pain: "This team was drowning in raw data. Their highest-paid experts were spending hours digging through messy, confusing spreadsheets just to get a basic pulse on performance. It was impossible for leadership to make decisions because the data was always a \"work in progress.\"",
     fix: "We built a custom engine that pulls all that data automatically. No humans involved. It does the math and turns that raw mess into a clean, consolidated report.",
     win: "We gave executives clarity. Instead of staring at rows of numbers, they get a clear report on demand that lets them make strategic decisions instantly. The \"grunt work\" is gone."
   },
@@ -34,7 +34,7 @@ const cases: CaseStudy[] = [
     id: "3",
     title: "The 24/7 Qualifier",
     icon: Bot,
-    pain: "Their sales team was burning out. They were getting hundreds of leads, but 80% of them weren't qualified. The closers were wasting their entire day asking basic questions like \"Do you have a job?\" instead of closing deals.",
+    pain: "Their sales team was burning out. They were getting hundreds of leads, but 80% of them weren't qualified. The closers were wasting their entire day asking basic questions like \"Do you have the budget?\" instead of closing deals.",
     fix: "We deployed a WhatsApp bot trained on their specific sales scripts. It chats with every new lead, answers their questions, and collects their financial info before a human ever speaks to them.",
     win: "We filtered out the noise. Now, the sales team only picks up the phone when a lead is qualified and ready to buy. Same team size, double the closing rate."
   },

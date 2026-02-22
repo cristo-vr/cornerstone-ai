@@ -32,7 +32,7 @@ const Problem: React.FC = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-muted max-w-2xl mx-auto font-light"
           >
-            You built an FSP that wins business. Your advisors are good. Your clients trust you. <br />
+            You built a business that wins. Your team is good. Your clients trust you. <br />
             <span className="text-foreground font-medium">But behind the scenes, it's held together with spreadsheets and willpower.</span>
           </motion.p>
         </div>
@@ -66,13 +66,13 @@ const Problem: React.FC = () => {
               <div className="p-3 bg-red-500/10 rounded-lg text-red-500 group-hover:scale-110 transition-transform">
                 <Users className="w-8 h-8" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground">Grow the Book</h3>
+              <h3 className="text-2xl font-bold text-foreground">Scale Revenue</h3>
             </div>
             <p className="text-muted text-lg leading-relaxed">
-              Sign more clients and your admin team drowns. Policies slip through the cracks, onboarding backs up, and your best advisors spend half their day chasing paperwork instead of writing business.
+              Sign more clients and your admin team drowns. Important details slip through the cracks, onboarding backs up, and your best people spend half their day chasing paperwork instead of closing deals or serving clients.
             </p>
             <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-red-500 text-xs font-mono uppercase tracking-widest">
-              Compliance Risk
+              Quality Risk
             </div>
           </motion.div>
 
