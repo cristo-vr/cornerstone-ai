@@ -1,5 +1,9 @@
-# Cornerstone AI - FSP Operations Accelerator
+# Cornerstone AI — The Operations Accelerator for Founder-Led Businesses
 
-Cornerstone AI specializes in automating operations for Financial Service Providers (FSPs) in South Africa, focusing on Acquisition, Service & Retention, and Visibility. 
-We provide an AI-driven infrastructure that helps insurance brokerages with 10-50 advisors scale efficiently without adding administrative bloat.
-Our solution transforms manual workflows into automated systems, enabling FSPs to break through revenue ceilings and maximize enterprise value.
+Cornerstone AI builds operational infrastructure for founder-led businesses with 10–50 team members. We automate the three pillars every growing company runs on: Acquisition, Service & Retention, and Visibility.
+
+Our done-for-you service replaces manual workflows, spreadsheets, and admin bottlenecks with automated systems — built on the tools your team already uses. No new software to learn. No disruption to daily work.
+
+Founders typically recover 20+ hours per week of operational overhead. Margins expand because growth no longer requires proportional admin headcount. The founder gets visibility, control, and freedom back.
+
+Based in South Africa. Serving businesses globally.

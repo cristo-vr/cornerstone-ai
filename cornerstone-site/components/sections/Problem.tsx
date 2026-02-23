@@ -32,8 +32,8 @@ const Problem: React.FC = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-muted max-w-2xl mx-auto font-light"
           >
-            You built a business that wins. Your team is good. Your clients trust you. <br />
-            <span className="text-foreground font-medium">But behind the scenes, it's held together with spreadsheets and willpower.</span>
+            You built something real. Your team is good. Your clients trust you. <br />
+            <span className="text-foreground font-medium">But behind the scenes? It's held together with spreadsheets, willpower, and you.</span>
           </motion.p>
         </div>
 
@@ -117,8 +117,8 @@ const Problem: React.FC = () => {
               <div>
                 <h4 className="text-xl font-bold text-foreground mb-2">The Symptom</h4>
                 <p className="text-muted text-lg">
-                  You find yourself <span className="text-foreground italic">capping</span> your growth.
-                  You stop recruiting and pause marketing because taking on anything else might break what's working.
+                  You find yourself <span className="text-foreground italic">capping your own</span> growth.
+                  You stop recruiting, pause marketing, and say no to opportunities — because taking on anything more might break what barely works.
                 </p>
               </div>
             </div>

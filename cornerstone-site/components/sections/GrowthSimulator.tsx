@@ -79,8 +79,8 @@ const GrowthSimulator: React.FC = () => {
                                 The <span className="text-primary">Scaling</span> Reality
                             </h2>
                             <p className="text-muted text-lg leading-relaxed">
-                                Most businesses break because every new client adds admin load that scales linearly. <br />
-                                <span className="text-foreground font-bold">Operational infrastructure breaks that equation.</span>
+                                Most founders hit a wall because every new client adds admin load that scales linearly. <br />
+                                <span className="text-foreground font-bold">Operational infrastructure breaks that equation — and gives you your margins and your time back.</span>
                             </p>
                         </div>
 
@@ -143,7 +143,7 @@ const GrowthSimulator: React.FC = () => {
                     {/* Right Column: Results Stacked */}
                     <div className="lg:col-span-7 flex flex-col gap-6">
 
-                        {/* SPREADSHEET FSP CARD (The "Before") */}
+                        {/* TRADITIONAL OPS CARD (The "Before") */}
                         <div className="bg-neutral-900/50 border border-white/5 p-8 rounded-2xl relative overflow-hidden transition-all duration-300">
                             <div className="absolute top-0 left-0 w-1 h-full bg-neutral-700" />
                             <div className="flex justify-between items-start mb-6">
@@ -206,7 +206,7 @@ const GrowthSimulator: React.FC = () => {
                                     <div className="flex justify-between items-center mb-2">
                                         <div className="flex items-center gap-2 text-neutral-400">
                                             <Clock className="w-4 h-4" />
-                                            <span className="text-xs font-bold uppercase tracking-wide">Owner Hours on Ops/wk</span>
+                                            <span className="text-xs font-bold uppercase tracking-wide">Your Hours Trapped in Ops/wk</span>
                                         </div>
                                         <span className="text-red-400 font-bold text-sm">{Math.round(spreadsheetMetrics.ownerHoursOnOps)}h</span>
                                     </div>
@@ -222,7 +222,7 @@ const GrowthSimulator: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* CORNERSTONE FSP CARD (The "After") */}
+                        {/* AUTOMATED OPS CARD (The "After") */}
                         <div className="bg-gradient-to-br from-neutral-800/80 to-neutral-900/80 rounded-2xl p-8 border border-primary/20 shadow-[0_0_30px_rgba(0,0,0,0.3)] relative overflow-hidden">
                             <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
                             <div className="flex justify-between items-start mb-6">
@@ -290,7 +290,7 @@ const GrowthSimulator: React.FC = () => {
                                     <div className="flex justify-between items-center mb-2">
                                         <div className="flex items-center gap-2 text-white">
                                             <Clock className="w-4 h-4 text-primary" />
-                                            <span className="text-xs font-bold uppercase tracking-wide">Owner Hours on Ops/wk</span>
+                                            <span className="text-xs font-bold uppercase tracking-wide">Your Hours Trapped in Ops/wk</span>
                                         </div>
                                         <span className="text-primary font-bold text-sm">{Math.round(cornerstoneMetrics.ownerHoursOnOps)}h</span>
                                     </div>

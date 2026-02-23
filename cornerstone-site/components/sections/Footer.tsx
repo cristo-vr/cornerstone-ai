@@ -16,7 +16,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
               CORNERSTONE
             </h2>
             <p className="text-muted max-w-lg mb-10 text-lg leading-relaxed">
-              The operational backbone for growing FSPs. We automate Acquisition, Service, and Visibility so your team can focus on the business.
+              The operational backbone for founder-led businesses. We automate Acquisition, Service, and Visibility — so you can focus on growing, not managing.
             </p>
             <div className="flex gap-4">
               <button

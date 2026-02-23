@@ -10,7 +10,7 @@ const ContactSection: React.FC = () => {
                         Start Your <span className="text-primary">Discovery</span>
                     </h2>
                     <p className="text-muted text-lg">
-                        Tell us about your FSP. We'll identify where your operations are leaking time and show you exactly how to fix it.
+                        Tell us about your business. We'll pinpoint where your operations are leaking time — and show you exactly how to fix it.
                     </p>
                 </div>
 

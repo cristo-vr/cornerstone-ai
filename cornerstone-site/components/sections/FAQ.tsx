@@ -5,11 +5,11 @@ import { motion } from 'framer-motion';
 const faqs = [
     {
         question: "What exactly does Cornerstone AI do?",
-        answer: "Cornerstone AI provides an Operations Accelerator for founder-led businesses. We automate the three core pillars of your business: Acquisition, Service & Retention, and Visibility, helping you scale without adding administrative headcount."
+        answer: "Cornerstone AI is an Operations Accelerator for founder-led businesses. We automate the three pillars your company runs on — Acquisition, Service & Retention, and Visibility — so you can scale without drowning in admin or hiring to keep up."
     },
     {
         question: "Who is this solution for?",
-        answer: "Our solution is specifically built for growing businesses with 10-50 team members who are looking to break through revenue ceilings. If you are struggling with operational bottlenecks or manual workflows, our infrastructure is designed for you."
+        answer: "We work best with founders running businesses of 10\u201350 people who know they've hit an operational ceiling. If you're spending more time managing than growing \u2014 or you can't step away without things falling apart \u2014 this was built for you."
     },
     {
         question: "Is this a CRM replacement?",
@@ -17,7 +17,7 @@ const faqs = [
     },
     {
         question: "How long does implementation take?",
-        answer: "Implementation timelines vary based on the complexity of your current operations, but our accelerator model allows us to deploy core infrastructure rapidly. Most clients see significant operational improvements within the first few weeks of engagement."
+        answer: "Discovery takes 5 days. Development takes 6 weeks. Systems go live one at a time \u2014 your team starts using them immediately. Most founders see measurable time savings within the first two weeks."
     },
     {
         question: "Do you only work with South African businesses?",

@@ -41,7 +41,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                             <div className="p-8 md:p-12">
                                 <div className="mb-10 text-center">
                                     <h2 className="text-3xl font-bold text-foreground mb-2">Book Your Discovery</h2>
-                                    <p className="text-muted">Tell us about your FSP. We'll identify where your operations are leaking time and show you the fix.</p>
+                                    <p className="text-muted">Tell us what's keeping you stuck. We'll find where your operations are leaking time — and show you the fix.</p>
                                 </div>
 
                                 <ContactForm />

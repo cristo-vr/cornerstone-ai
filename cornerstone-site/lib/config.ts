@@ -1,6 +1,6 @@
 export const siteConfig = {
     name: "Cornerstone AI",
-    description: "Cornerstone AI automates the three operational pillars every insurance FSP runs on — Acquisition, Service & Retention, and Visibility.",
+    description: "Cornerstone AI builds the operational backbone for founder-led businesses — automating Acquisition, Service & Retention, and Visibility so you can stop managing chaos and start scaling.",
     url: "https://cornerstone-ai.pro",
     locale: "en_ZA",
     author: "Cornerstone AI",
@@ -10,7 +10,7 @@ export const siteConfig = {
         region: "South Africa",
     },
     services: [
-        "FSP Operations Automation",
+        "Operations Automation for Founder-Led Businesses",
         "Client Acquisition Automation",
         "Service & Retention Automation",
         "Business Visibility Automation"

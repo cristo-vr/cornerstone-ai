@@ -12,8 +12,7 @@ const ContactForm: React.FC = () => {
         phone: '',
         companyName: '',
         website: '',
-        employeeCount: '10-20',
-        adminCount: '1-2',
+        teamSize: '10-20',
         biggestPain: '',
         anythingElse: ''
     });
@@ -58,8 +57,7 @@ const ContactForm: React.FC = () => {
                     phone: '',
                     companyName: '',
                     website: '',
-                    employeeCount: '10-20',
-                    adminCount: '1-2',
+                    teamSize: '10-20',
                     biggestPain: '',
                     anythingElse: ''
                 });
@@ -82,7 +80,7 @@ const ContactForm: React.FC = () => {
                     </svg>
                 </div>
                 <h3 className="text-2xl font-bold text-foreground">Discovery Request Received</h3>
-                <p className="text-muted">We'll review your company details and respond within 24 hours to schedule your Discovery week.</p>
+                <p className="text-muted">We'll review your details and get back to you within 24 hours to schedule your Discovery.</p>
                 <button
                     onClick={() => setStatus('idle')}
                     className="text-primary font-bold uppercase tracking-widest text-sm hover:text-white transition-colors mt-4"
@@ -117,7 +115,7 @@ const ContactForm: React.FC = () => {
                         value={formData.role}
                         onChange={handleChange}
                         className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
-                        placeholder="Owner / Managing Director"
+                        placeholder="Founder / CEO / Managing Director"
                     />
                 </div>
             </div>
@@ -144,7 +142,7 @@ const ContactForm: React.FC = () => {
                         value={formData.phone}
                         onChange={handleChange}
                         className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
-                        placeholder="+1 (555) 000-0000"
+                        placeholder="+27 82 000 0000"
                     />
                 </div>
             </div>
@@ -176,42 +174,25 @@ const ContactForm: React.FC = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Number of Employees *</label>
-                    <select
-                        name="employeeCount"
-                        required
-                        value={formData.employeeCount}
-                        onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors appearance-none"
-                    >
-                        <option value="Under 10">Under 10</option>
-                        <option value="10-20">10-20</option>
-                        <option value="20-35">20-35</option>
-                        <option value="35-50">35-50</option>
-                        <option value="50+">50+</option>
-                    </select>
-                </div>
-                <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Admin / Support Staff *</label>
-                    <select
-                        name="adminCount"
-                        required
-                        value={formData.adminCount}
-                        onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors appearance-none"
-                    >
-                        <option value="1-2">1-2</option>
-                        <option value="3-5">3-5</option>
-                        <option value="6-10">6-10</option>
-                        <option value="10+">10+</option>
-                    </select>
-                </div>
+            <div className="space-y-2">
+                <label className="text-sm font-bold text-muted uppercase tracking-wider">Team Size *</label>
+                <select
+                    name="teamSize"
+                    required
+                    value={formData.teamSize}
+                    onChange={handleChange}
+                    className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors appearance-none"
+                >
+                    <option value="Under 10">Under 10</option>
+                    <option value="10-20">10-20</option>
+                    <option value="20-35">20-35</option>
+                    <option value="35-50">35-50</option>
+                    <option value="50+">50+</option>
+                </select>
             </div>
 
             <div className="space-y-2">
-                <label className="text-sm font-bold text-muted uppercase tracking-wider">What is your biggest operational headache right now? *</label>
+                <label className="text-sm font-bold text-muted uppercase tracking-wider">What's the one thing you'd fix tomorrow if you could? *</label>
                 <textarea
                     name="biggestPain"
                     required
@@ -219,7 +200,7 @@ const ContactForm: React.FC = () => {
                     onChange={handleChange}
                     rows={4}
                     className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors resize-none"
-                    placeholder="e.g. Onboarding is manual, lead data sits in multiple systems, no visibility on sales pipeline..."
+                    placeholder="e.g. I spend 15 hours a week on stuff that should be automated, leads fall through the cracks, I can't see what's actually happening in the business..."
                 />
             </div>
 

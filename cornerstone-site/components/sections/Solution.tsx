@@ -46,7 +46,7 @@ const Solution: React.FC = () => {
         {/* Section Header */}
         <div className="mb-24 md:text-center max-w-3xl mx-auto">
           <h2 className="text-5xl md:text-7xl font-bold text-foreground tracking-tighter mb-8">
-            Every growing business runs on three pillars. <br />
+            Every business you've built runs on three pillars. <br />
             <span className="text-primary">We automate all three.</span>
           </h2>
         </div>
@@ -193,7 +193,7 @@ const Solution: React.FC = () => {
                   You can't manage what you can't measure.
                 </h3>
                 <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl">
-                  How many clients churned this month? Which sales rep hasn't followed up on their pipeline? Most business leaders can't answer without digging through five systems. <span className="text-white font-medium">We give you a single source of truth. Real-time. No digging.</span>
+                  How many clients churned this month? Which rep hasn't followed up on their pipeline? If you can't answer without digging through five systems, you're flying blind. <span className="text-white font-medium">We give you a single source of truth. Real-time. No digging.</span>
                 </p>
 
                 <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5 hover:border-emerald-500/30 transition-colors">
