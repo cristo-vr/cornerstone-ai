@@ -9,7 +9,7 @@ const faqs = [
     },
     {
         question: "Who is this for?",
-        answer: "Founders running teams of 10–50 who know they've hit a ceiling. If you can't take a week off without things slipping, or you're saying no to growth because your operations can't keep up — that's exactly where we come in."
+        answer: "Founders and practice owners running teams of 5–50 — accounting firms, insurance brokerages, financial advisory practices, and any service business where the back office is the bottleneck. If you can't take a week off without things slipping, or you're saying no to growth because your operations can't keep up — that's exactly where we come in. Not in financial services? We work with any founder-led business facing the same scaling pain."
     },
     {
         question: "Is this a CRM replacement?",
@@ -22,6 +22,10 @@ const faqs = [
     {
         question: "Do you only work with South African businesses?",
         answer: "We're based in South Africa, but the systems we build work anywhere. If your operations are broken, geography doesn't matter — we can help."
+    },
+    {
+        question: "What if my team doesn't use it?",
+        answer: "That's our problem to solve, not yours. We don't hand over a system and walk away. Phase 03 of every engagement is Adoption — we train every user, handle edge cases, and stay until the new way is the default way. We measure adoption, not delivery. If your team isn't using it confidently, we're not done."
     }
 ];
 

@@ -79,7 +79,7 @@ const GrowthSimulator: React.FC = () => {
                                 The <span className="text-primary">Scaling</span> Reality
                             </h2>
                             <p className="text-muted text-lg leading-relaxed">
-                                Every new client adds admin work. More clients, more chaos — that's the trap. <br />
+                                Every new client adds admin load. More clients, more chaos — that's the trap. <br />
                                 <span className="text-foreground font-bold">The right systems break that pattern. Your margins grow and your time comes back.</span>
                             </p>
                         </div>

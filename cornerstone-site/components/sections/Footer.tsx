@@ -16,7 +16,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
               CORNERSTONE
             </h2>
             <p className="text-muted max-w-lg mb-10 text-lg leading-relaxed">
-              We build the systems that let founder-led businesses scale without the chaos. Acquisition, service, visibility — automated so you can focus on growth.
+              We build the systems that let growing practices scale without the chaos. Acquisition, service, visibility — automated so you can focus on growth.
             </p>
             <div className="flex gap-4">
               <button
@@ -36,6 +36,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
               <li><a href="#pillars" className="hover:text-primary transition-colors">Pillars</a></li>
               <li><a href="#results" className="hover:text-primary transition-colors">Results</a></li>
               <li><a href="#process" className="hover:text-primary transition-colors">Process</a></li>
+              <li><a href="#about" className="hover:text-primary transition-colors">About</a></li>
             </ul>
           </div>
         </div>

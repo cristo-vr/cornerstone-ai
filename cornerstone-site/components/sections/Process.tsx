@@ -16,6 +16,9 @@ const steps: ProcessStep[] = [
         <p>
           You get a concrete execution plan: what we'll build, in what order, and the exact hours your team will recover. <span className="text-foreground font-medium">You see the full picture before you spend a cent on the build.</span>
         </p>
+        <p className="text-primary font-medium">
+          If we can't prove the impact, you don't pay.
+        </p>
       </div>
     )
   },

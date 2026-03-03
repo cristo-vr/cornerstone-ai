@@ -12,7 +12,7 @@ const ContactForm: React.FC = () => {
         phone: '',
         companyName: '',
         website: '',
-        teamSize: '10-20',
+        teamSize: '5-10',
         biggestPain: '',
         anythingElse: ''
     });
@@ -57,7 +57,7 @@ const ContactForm: React.FC = () => {
                     phone: '',
                     companyName: '',
                     website: '',
-                    teamSize: '10-20',
+                    teamSize: '5-10',
                     biggestPain: '',
                     anythingElse: ''
                 });
@@ -183,7 +183,8 @@ const ContactForm: React.FC = () => {
                     onChange={handleChange}
                     className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors appearance-none"
                 >
-                    <option value="Under 10">Under 10</option>
+                    <option value="1-5">1-5</option>
+                    <option value="5-10">5-10</option>
                     <option value="10-20">10-20</option>
                     <option value="20-35">20-35</option>
                     <option value="35-50">35-50</option>
@@ -200,7 +201,7 @@ const ContactForm: React.FC = () => {
                     onChange={handleChange}
                     rows={4}
                     className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors resize-none"
-                    placeholder="e.g. I spend 15 hours a week on stuff that should be automated, leads fall through the cracks, I can't see what's actually happening in the business..."
+                    placeholder="e.g. Compliance docs are always behind, client onboarding takes too long, I spend 15 hours a week on stuff that should be automated, I can't see what's actually happening in the practice..."
                 />
             </div>
 

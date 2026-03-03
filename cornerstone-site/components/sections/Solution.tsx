@@ -46,7 +46,7 @@ const Solution: React.FC = () => {
         {/* Section Header */}
         <div className="mb-24 md:text-center max-w-3xl mx-auto">
           <h2 className="text-5xl md:text-7xl font-bold text-foreground tracking-tighter mb-8">
-            Every business you've built runs on three pillars. <br />
+            Every practice runs on three pillars. <br />
             <span className="text-primary">We automate all three.</span>
           </h2>
         </div>
@@ -99,10 +99,10 @@ const Solution: React.FC = () => {
                 </span>
 
                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                  New business without the bottleneck.
+                  New clients without the bottleneck.
                 </h3>
                 <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl">
-                  Your team should be closing deals or serving clients, not chasing paperwork. We build the systems that capture leads, qualify prospects, and route them to the right team member — automatically. <span className="text-white font-medium">From first enquiry to signed contract, every step is tracked.</span>
+                  Your team should be serving clients, not chasing paperwork. We build the systems that capture leads, qualify prospects, and route them to the right team member — automatically. <span className="text-white font-medium">From first enquiry to signed engagement letter, every step is tracked.</span>
                 </p>
 
                 <div className="grid md:grid-cols-2 gap-6">
@@ -145,7 +145,7 @@ const Solution: React.FC = () => {
                   Clients stay because the experience is effortless.
                 </h3>
                 <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl">
-                  Onboarding clients, scheduled check-ins, delivering regular service. The work that keeps clients around is repetitive and exact — and it shouldn't need a person watching it. <span className="text-white font-medium">Your team focuses on the relationship. The system handles the rhythm.</span>
+                  Onboarding clients, scheduled reviews, compliance documentation, delivering regular service. The work that keeps clients around is repetitive and exact — and it shouldn't need a person watching it. <span className="text-white font-medium">Your team focuses on the relationship. The system handles the rhythm.</span>
                 </p>
 
                 <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5 hover:border-blue-500/30 transition-colors">
@@ -164,7 +164,7 @@ const Solution: React.FC = () => {
                           <CheckCircle2 className="w-4 h-4 text-blue-500" /> Automated Onboarding Sequences
                         </li>
                         <li className="flex items-center gap-2 text-sm text-neutral-400">
-                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Project or Service Updates
+                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Review & Compliance Triggers
                         </li>
                       </ul>
                     </div>
@@ -193,7 +193,7 @@ const Solution: React.FC = () => {
                   You can't manage what you can't measure.
                 </h3>
                 <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl">
-                  How many clients churned this month? Which rep hasn't followed up on their pipeline? If you can't answer without digging through five systems, you're flying blind. <span className="text-white font-medium">We give you a single source of truth. Real-time. No digging.</span>
+                  How many clients churned this quarter? Which advisor hasn't followed up on their book? If you can't answer without digging through five systems, you're flying blind. <span className="text-white font-medium">We give you a single source of truth. Real-time. No digging.</span>
                 </p>
 
                 <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5 hover:border-emerald-500/30 transition-colors">

@@ -33,7 +33,7 @@ const Problem: React.FC = () => {
             className="text-xl text-muted max-w-2xl mx-auto font-light"
           >
             You built something real. Your team is good. Your clients trust you. <br />
-            <span className="text-foreground font-medium">But behind the scenes? It's held together with spreadsheets, willpower, and you.</span>
+            <span className="text-foreground font-medium">But behind the scenes? It's held together with spreadsheets, workarounds, and you.</span>
           </motion.p>
         </div>
 
@@ -69,7 +69,7 @@ const Problem: React.FC = () => {
               <h3 className="text-2xl font-bold text-foreground">Scale Revenue</h3>
             </div>
             <p className="text-muted text-lg leading-relaxed">
-              Sign more clients and your admin team drowns. Important details slip through the cracks, onboarding backs up, and your best people spend half their day chasing paperwork instead of closing deals or serving clients.
+              Sign more clients and your admin team drowns. Compliance files fall behind, onboarding backs up, and your best people spend half their day chasing documents instead of serving clients.
             </p>
             <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-red-500 text-xs font-mono uppercase tracking-widest">
               Quality Risk
@@ -94,7 +94,7 @@ const Problem: React.FC = () => {
               <h3 className="text-2xl font-bold text-foreground">Hire More Admin</h3>
             </div>
             <p className="text-muted text-lg leading-relaxed">
-              Throw bodies at the problem and your margins vanish. You end up managing people who manage spreadsheets. The data is still fragmented — just spread across more desks.
+              Throw bodies at the problem and your margins vanish. You end up managing people who manage spreadsheets — and good staff are harder to find every year. The data is still fragmented, just spread across more desks.
             </p>
             <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-red-500 text-xs font-mono uppercase tracking-widest">
               Margin Erosion
@@ -138,7 +138,7 @@ const Problem: React.FC = () => {
               The Reality
             </h3>
             <p className="text-xl md:text-2xl text-muted font-light">
-              You don't need more admin staff. <span className="text-primary font-bold">You need operational infrastructure.</span>
+              You don't have a people problem. <span className="text-primary font-bold">You have a systems problem.</span>
             </p>
           </motion.div>
 

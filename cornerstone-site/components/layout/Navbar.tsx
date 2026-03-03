@@ -21,6 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
   const navLinks = [
     { label: 'Pillars', href: '#pillars' },
     { label: 'Process', href: '#process' },
+    { label: 'About', href: '#about' },
     { label: 'Results', href: '#results' },
   ];
 

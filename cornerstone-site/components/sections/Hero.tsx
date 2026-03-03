@@ -27,7 +27,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
         >
           <div className="h-[1px] w-12 bg-primary"></div>
           <span className="text-primary font-mono text-sm tracking-widest uppercase">
-            The Operations Accelerator
+            The Capacity Accelerator
           </span>
         </motion.div>
 
@@ -48,7 +48,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-muted tracking-tighter mt-2"
           >
-            FOR FOUNDER-LED BUSINESSES
+            FOR GROWING PRACTICES
           </motion.h2>
 
           <motion.div
@@ -72,8 +72,8 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             className="max-w-xl"
           >
             <p className="text-foreground text-lg md:text-xl font-light leading-relaxed">
-              Your business works because you do. That's the problem. <br />
-              <span className="font-medium text-muted">We build the systems that let your team run without you in the middle of everything — so you can focus on growth, not firefighting.</span>
+              Your practice works because you do. That's the problem. <br />
+              <span className="font-medium text-muted">We build the systems that let your team handle clients, compliance, and operations without you in the middle of everything — so you can focus on growth, not firefighting.</span>
             </p>
           </motion.div>
 
