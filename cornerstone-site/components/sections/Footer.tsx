@@ -16,7 +16,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
               CORNERSTONE
             </h2>
             <p className="text-muted max-w-lg mb-10 text-lg leading-relaxed">
-              The operational backbone for founder-led businesses. We automate Acquisition, Service, and Visibility — so you can focus on growing, not managing.
+              We build the systems that let founder-led businesses scale without the chaos. Acquisition, service, visibility — automated so you can focus on growth.
             </p>
             <div className="flex gap-4">
               <button
@@ -32,7 +32,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
           <div className="flex flex-col items-center md:items-start pl-0 md:pl-12 border-t md:border-t-0 md:border-l border-neutral-800 pt-8 md:pt-0 mt-8 md:mt-0">
             <h4 className="text-foreground font-bold uppercase tracking-widest text-xs mb-6">Sitemap</h4>
             <ul className="space-y-4 text-sm text-muted text-center md:text-left">
-              <li><a href="#" className="hover:text-primary transition-colors">Home</a></li>
+              <li><a href="/" className="hover:text-primary transition-colors">Home</a></li>
               <li><a href="#pillars" className="hover:text-primary transition-colors">Pillars</a></li>
               <li><a href="#results" className="hover:text-primary transition-colors">Results</a></li>
               <li><a href="#process" className="hover:text-primary transition-colors">Process</a></li>
@@ -43,8 +43,8 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
         <div className="pt-8 border-t border-neutral-900 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-600">
           <p>© 2026 Cornerstone AI. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-neutral-400">Privacy Policy</a>
-            <a href="#" className="hover:text-neutral-400">Terms of Service</a>
+            <a href="/privacy" className="hover:text-neutral-400">Privacy Policy</a>
+            <a href="/terms" className="hover:text-neutral-400">Terms of Service</a>
           </div>
         </div>
       </div>

@@ -228,6 +228,11 @@ const ContactForm: React.FC = () => {
                     </div>
                 )}
 
+                <p className="text-xs text-muted leading-relaxed">
+                    By submitting this form, you consent to the collection and processing of your personal information in accordance with our{' '}
+                    <a href="/privacy" className="text-primary hover:text-white transition-colors underline">Privacy Policy</a>.
+                </p>
+
                 <button
                     type="submit"
                     disabled={status === 'submitting'}

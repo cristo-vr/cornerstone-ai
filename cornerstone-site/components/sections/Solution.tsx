@@ -145,7 +145,7 @@ const Solution: React.FC = () => {
                   Clients stay because the experience is effortless.
                 </h3>
                 <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl">
-                  Onboarding clients, scheduled check-ins, delivering regular service. The work that keeps a business alive and retains clients is repetitive and exact — the perfect candidate for automation. <span className="text-white font-medium">Your team focuses on the relationship. The system handles the rhythm.</span>
+                  Onboarding clients, scheduled check-ins, delivering regular service. The work that keeps clients around is repetitive and exact — and it shouldn't need a person watching it. <span className="text-white font-medium">Your team focuses on the relationship. The system handles the rhythm.</span>
                 </p>
 
                 <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5 hover:border-blue-500/30 transition-colors">

@@ -31,7 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
-        <a href="#" className="text-xl font-bold tracking-tighter text-foreground flex items-center gap-2 group">
+        <a href="/" className="text-xl font-bold tracking-tighter text-foreground flex items-center gap-2 group">
           <div className="w-3 h-3 bg-primary group-hover:rotate-45 transition-transform duration-300"></div>
           CORNERSTONE
         </a>

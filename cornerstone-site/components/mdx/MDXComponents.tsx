@@ -30,7 +30,7 @@ export const MDXComponents = {
     a: (props: any) => (
         <Link
             className="text-blue-400 hover:text-blue-300 underline underline-offset-4 decoration-blue-500/30 hover:decoration-blue-500/80 transition-all"
-            href={props.href || '#'}
+            href={props.href || '/'}
             {...props}
         />
     ),

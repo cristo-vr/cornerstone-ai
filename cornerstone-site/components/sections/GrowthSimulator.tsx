@@ -79,8 +79,8 @@ const GrowthSimulator: React.FC = () => {
                                 The <span className="text-primary">Scaling</span> Reality
                             </h2>
                             <p className="text-muted text-lg leading-relaxed">
-                                Most founders hit a wall because every new client adds admin load that scales linearly. <br />
-                                <span className="text-foreground font-bold">Operational infrastructure breaks that equation — and gives you your margins and your time back.</span>
+                                Every new client adds admin work. More clients, more chaos — that's the trap. <br />
+                                <span className="text-foreground font-bold">The right systems break that pattern. Your margins grow and your time comes back.</span>
                             </p>
                         </div>
 

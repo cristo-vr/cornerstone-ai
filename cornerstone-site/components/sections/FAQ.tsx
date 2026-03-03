@@ -5,23 +5,23 @@ import { motion } from 'framer-motion';
 const faqs = [
     {
         question: "What exactly does Cornerstone AI do?",
-        answer: "Cornerstone AI is an Operations Accelerator for founder-led businesses. We automate the three pillars your company runs on — Acquisition, Service & Retention, and Visibility — so you can scale without drowning in admin or hiring to keep up."
+        answer: "We automate the operational side of your business — how you get clients, how you serve them, and how you see what's actually happening. Think of us as the team that builds the machine so your people can stop being the machine."
     },
     {
-        question: "Who is this solution for?",
-        answer: "We work best with founders running businesses of 10\u201350 people who know they've hit an operational ceiling. If you're spending more time managing than growing \u2014 or you can't step away without things falling apart \u2014 this was built for you."
+        question: "Who is this for?",
+        answer: "Founders running teams of 10–50 who know they've hit a ceiling. If you can't take a week off without things slipping, or you're saying no to growth because your operations can't keep up — that's exactly where we come in."
     },
     {
         question: "Is this a CRM replacement?",
-        answer: "No, we are not a CRM. We are an operational infrastructure layer that sits on top of your existing systems. We integrate with your current tools to automate workflows and data movement, making your existing tech stack more efficient."
+        answer: "No. We're not replacing your tools — we're connecting them. We sit on top of what you already use and automate the workflows and data movement between them. Your CRM stays, it just works harder."
     },
     {
         question: "How long does implementation take?",
-        answer: "Discovery takes 5 days. Development takes 6 weeks. Systems go live one at a time \u2014 your team starts using them immediately. Most founders see measurable time savings within the first two weeks."
+        answer: "Discovery is 5 days. Build is 6 weeks. But we don't wait until the end to go live — systems launch as they're ready, so your team starts seeing results in the first couple of weeks."
     },
     {
         question: "Do you only work with South African businesses?",
-        answer: "While we are based in South Africa, our automation infrastructure can be deployed for businesses globally."
+        answer: "We're based in South Africa, but the systems we build work anywhere. If your operations are broken, geography doesn't matter — we can help."
     }
 ];
 
@@ -40,7 +40,7 @@ const FAQ = () => {
                         Frequently Asked Questions
                     </h2>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        Common questions about how we help businesses scale.
+                        Straight answers to the questions we hear most.
                     </p>
                 </motion.div>
 

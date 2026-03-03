@@ -72,8 +72,8 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             className="max-w-xl"
           >
             <p className="text-foreground text-lg md:text-xl font-light leading-relaxed">
-              You've outgrown spreadsheets and willpower. <br />
-              <span className="font-medium text-muted">We build the operational backbone that matches your ambition — people-first automation that unlocks your team and gives you your time back.</span>
+              Your business works because you do. That's the problem. <br />
+              <span className="font-medium text-muted">We build the systems that let your team run without you in the middle of everything — so you can focus on growth, not firefighting.</span>
             </p>
           </motion.div>
 
