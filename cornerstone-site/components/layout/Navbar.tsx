@@ -52,7 +52,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
             onClick={onOpenContact}
             className="text-sm font-bold text-background bg-primary px-5 py-2 hover:bg-white transition-colors uppercase tracking-wide"
           >
-            Book Discovery
+            Book a Sprint
           </button>
         </nav>
 
@@ -92,7 +92,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
                 }}
                 className="text-primary font-bold uppercase tracking-widest mt-4 text-left"
               >
-                Book Discovery →
+                Book a Sprint →
               </button>
             </nav>
           </motion.div>

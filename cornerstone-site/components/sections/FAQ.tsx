@@ -5,27 +5,27 @@ import { motion } from 'framer-motion';
 const faqs = [
     {
         question: "What exactly does Cornerstone AI do?",
-        answer: "We automate the operational side of your business — how you get clients, how you serve them, and how you see what's actually happening. Think of us as the team that builds the machine so your people can stop being the machine."
+        answer: "We build custom operating systems for founder-led businesses. Everything your team is already doing - onboarding, follow-ups, project tracking, invoicing, reporting - all in one platform, built exactly for how your business works. 80% of it runs itself."
     },
     {
         question: "Who is this for?",
-        answer: "Founders and practice owners running teams of 5–50 — accounting firms, insurance brokerages, financial advisory practices, and any service business where the back office is the bottleneck. If you can't take a week off without things slipping, or you're saying no to growth because your operations can't keep up — that's exactly where we come in. Not in financial services? We work with any founder-led business facing the same scaling pain."
+        answer: "Founders and business owners running teams of 5-50 who are personally stuck in the day-to-day operations. If you can't take a week off without things slipping, or you're saying no to growth because your team can't keep up - that's exactly where we come in. We've built operating systems across restaurants, fintech, accounting, fashion, and more. The industry doesn't matter - the founder bottleneck does."
     },
     {
-        question: "Is this a CRM replacement?",
-        answer: "No. We're not replacing your tools — we're connecting them. We sit on top of what you already use and automate the workflows and data movement between them. Your CRM stays, it just works harder."
+        question: "Is this custom software?",
+        answer: "Yes. We build you a real platform - not a collection of Zapier automations or a CRM skin. Your team logs into one place. It's designed around how your specific business actually works, not a generic template."
     },
     {
-        question: "How long does implementation take?",
-        answer: "Discovery is 5 days. Build is 6 weeks. But we don't wait until the end to go live — systems launch as they're ready, so your team starts seeing results in the first couple of weeks."
+        question: "How long does it take to build?",
+        answer: "Discovery is 5 days. Build is 6 weeks. But we don't wait until the end to go live - modules launch as they're ready, so your team starts running on the OS within the first couple of weeks."
     },
     {
         question: "Do you only work with South African businesses?",
-        answer: "We're based in South Africa, but the systems we build work anywhere. If your operations are broken, geography doesn't matter — we can help."
+        answer: "We're based in South Africa, but we work with founders internationally. We've built operating systems for clients in the US and South Africa. If you need a system, geography doesn't matter."
     },
     {
         question: "What if my team doesn't use it?",
-        answer: "That's our problem to solve, not yours. We don't hand over a system and walk away. Phase 03 of every engagement is Adoption — we train every user, handle edge cases, and stay until the new way is the default way. We measure adoption, not delivery. If your team isn't using it confidently, we're not done."
+        answer: "That's our problem to solve, not yours. We don't hand over a platform and walk away. Phase 03 of every engagement is Adoption - we train every user, handle edge cases, and stay until the new way is the default way. We measure adoption, not delivery. If your team isn't running on it confidently, we're not done."
     }
 ];
 

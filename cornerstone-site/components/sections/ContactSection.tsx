@@ -10,7 +10,7 @@ const ContactSection: React.FC = () => {
                         Start Your <span className="text-primary">Discovery</span>
                     </h2>
                     <p className="text-muted text-lg">
-                        Tell us what's going on in your practice. We'll find where the hours are going — and show you how to get them back.
+                        Tell us what's going on in your business. We'll map where the bottlenecks are - and show you what your operating system could look like.
                     </p>
                 </div>
 

@@ -27,7 +27,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
         >
           <div className="h-[1px] w-12 bg-primary"></div>
           <span className="text-primary font-mono text-sm tracking-widest uppercase">
-            The Capacity Accelerator
+            Custom Operating Systems
           </span>
         </motion.div>
 
@@ -39,7 +39,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="text-6xl md:text-8xl lg:text-9xl font-black text-foreground tracking-tighter leading-[0.9]"
           >
-            THE <br className="hidden md:block" /> OPERATING SYSTEM
+            EVERY BUSINESS HAS <br className="hidden md:block" /> AN OPERATING SYSTEM.
           </motion.h1>
 
           <motion.h2
@@ -48,7 +48,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-muted tracking-tighter mt-2"
           >
-            FOR GROWING PRACTICES
+            FOR MOST FOUNDERS, IT'S THEM.
           </motion.h2>
 
           <motion.div
@@ -58,7 +58,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             className="mt-6 inline-block"
           >
             <span className="text-3xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-foreground tracking-tight italic">
-              UNLOCK 20+ HOURS EACH WEEK.
+              I BUILD THE REAL ONE.
             </span>
           </motion.div>
         </div>
@@ -72,8 +72,8 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             className="max-w-xl"
           >
             <p className="text-foreground text-lg md:text-xl font-light leading-relaxed">
-              Your practice works because you do. That's the problem. <br />
-              <span className="font-medium text-muted">We build the systems that let your team handle clients, compliance, and operations without you in the middle of everything — so you can focus on growth, not firefighting.</span>
+              Everything your team is already doing - onboarding, follow-ups, project tracking, invoicing, reporting. <br />
+              <span className="font-medium text-muted">All in one platform, built exactly for how your business works. 80% of it runs itself.</span>
             </p>
           </motion.div>
 
@@ -84,7 +84,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             className="flex gap-4"
           >
             <div onClick={onOpenContact}>
-              <Button variant="primary" icon>Book Your Discovery</Button>
+              <Button variant="primary" icon>Book a Discovery Sprint</Button>
             </div>
           </motion.div>
         </div>

@@ -35,7 +35,7 @@ const Solution: React.FC = () => {
 
   const tabs = [
     { title: 'Acquisition', subtitle: 'Getting Clients' },
-    { title: 'Service & Retention', subtitle: 'Keeping Clients' },
+    { title: 'Operations', subtitle: 'Serving Clients' },
     { title: 'Visibility', subtitle: 'Knowing Everything' },
   ];
 
@@ -46,8 +46,8 @@ const Solution: React.FC = () => {
         {/* Section Header */}
         <div className="mb-24 md:text-center max-w-3xl mx-auto">
           <h2 className="text-5xl md:text-7xl font-bold text-foreground tracking-tighter mb-8">
-            Every practice runs on three pillars. <br />
-            <span className="text-primary">We automate all three.</span>
+            Your operating system <br />
+            <span className="text-primary">runs on three pillars.</span>
           </h2>
         </div>
 
@@ -102,7 +102,7 @@ const Solution: React.FC = () => {
                   New clients without the bottleneck.
                 </h3>
                 <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl">
-                  Your team should be serving clients, not chasing paperwork. We build the systems that capture leads, qualify prospects, and route them to the right team member — automatically. <span className="text-white font-medium">From first enquiry to signed engagement letter, every step is tracked.</span>
+                  Your team should be serving clients, not chasing paperwork. The OS captures leads, qualifies prospects, and routes them to the right person - automatically. <span className="text-white font-medium">From first enquiry to signed agreement, every step is tracked in one place.</span>
                 </p>
 
                 <div className="grid md:grid-cols-2 gap-6">
@@ -125,11 +125,11 @@ const Solution: React.FC = () => {
               </div>
             </div>
 
-            {/* PILLAR 2: SERVICE & RETENTION */}
+            {/* PILLAR 2: OPERATIONS */}
             <div id="solution-tab-1" className="min-h-[80vh] flex flex-col justify-center">
               <div className="lg:hidden mb-8">
                 <span className="text-blue-400 text-xs font-mono uppercase tracking-widest bg-blue-500/10 px-2 py-1 rounded">Pillar 02</span>
-                <h3 className="text-3xl font-bold text-foreground mt-2">Service & Retention</h3>
+                <h3 className="text-3xl font-bold text-foreground mt-2">Operations</h3>
               </div>
 
               <div className="bg-neutral-900/50 border border-white/5 p-8 md:p-12 rounded-2xl relative overflow-hidden group">
@@ -142,10 +142,10 @@ const Solution: React.FC = () => {
                 </span>
 
                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                  Clients stay because the experience is effortless.
+                  The day-to-day runs itself.
                 </h3>
                 <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl">
-                  Onboarding clients, scheduled reviews, compliance documentation, delivering regular service. The work that keeps clients around is repetitive and exact — and it shouldn't need a person watching it. <span className="text-white font-medium">Your team focuses on the relationship. The system handles the rhythm.</span>
+                  Onboarding, project tracking, team handoffs, invoicing, follow-ups. The work that keeps the business running is repetitive and exact - and it shouldn't need the founder watching it. <span className="text-white font-medium">Your team focuses on the work that matters. The OS handles the rhythm.</span>
                 </p>
 
                 <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5 hover:border-blue-500/30 transition-colors">
@@ -154,17 +154,17 @@ const Solution: React.FC = () => {
                       <RefreshCw className="w-6 h-6" />
                     </div>
                     <div>
-                      <h4 className="text-lg font-bold text-white mb-2">Retention Engine</h4>
-                      <p className="text-neutral-400 mb-4">Never miss a client milestone or follow-up again. The system triggers tasks and communications automatically.</p>
+                      <h4 className="text-lg font-bold text-white mb-2">Operations Engine</h4>
+                      <p className="text-neutral-400 mb-4">Never miss a handoff, deadline, or follow-up again. The OS triggers tasks and communications automatically.</p>
                       <ul className="space-y-2">
                         <li className="flex items-center gap-2 text-sm text-neutral-400">
-                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Automated Check-in Reminders
+                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Automated Client Onboarding
                         </li>
                         <li className="flex items-center gap-2 text-sm text-neutral-400">
-                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Automated Onboarding Sequences
+                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Project Tracking & Handoffs
                         </li>
                         <li className="flex items-center gap-2 text-sm text-neutral-400">
-                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Review & Compliance Triggers
+                          <CheckCircle2 className="w-4 h-4 text-blue-500" /> Invoicing & Follow-up Triggers
                         </li>
                       </ul>
                     </div>
@@ -193,7 +193,7 @@ const Solution: React.FC = () => {
                   You can't manage what you can't measure.
                 </h3>
                 <p className="text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl">
-                  How many clients churned this quarter? Which advisor hasn't followed up on their book? If you can't answer without digging through five systems, you're flying blind. <span className="text-white font-medium">We give you a single source of truth. Real-time. No digging.</span>
+                  How many clients churned this quarter? Which team member hasn't followed up? Where's that document? If you can't answer without digging through five tools, you're flying blind. <span className="text-white font-medium">The OS gives you a single source of truth. Real-time. No digging.</span>
                 </p>
 
                 <div className="bg-neutral-800/50 p-6 rounded-xl border border-white/5 hover:border-emerald-500/30 transition-colors">

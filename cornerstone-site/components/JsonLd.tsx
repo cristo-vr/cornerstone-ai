@@ -30,14 +30,14 @@ const JsonLd = () => {
             }
         ],
         "knowsAbout": [
+            "Custom Operating Systems for Businesses",
             "Operations Automation",
-            "AI for Financial Services",
-            "Practice Management Automation",
-            "Accounting Firm Automation",
-            "Insurance Brokerage Operations",
-            "Financial Advisory Practice Systems",
+            "AI Implementation for Founder-Led Businesses",
+            "Business Process Automation",
             "Client Acquisition Automation",
-            "Business Process Automation"
+            "Custom Software Development",
+            "Business Operations Platforms",
+            "Workflow Automation"
         ],
         "serviceType": siteConfig.services,
         "priceRange": "$$$"

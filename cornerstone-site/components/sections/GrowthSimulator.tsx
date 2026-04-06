@@ -148,14 +148,14 @@ const GrowthSimulator: React.FC = () => {
                             <div className="absolute top-0 left-0 w-1 h-full bg-neutral-700" />
                             <div className="flex justify-between items-start mb-6">
                                 <div>
-                                    <h3 className="text-xl font-bold text-muted mb-1">Traditional Operations</h3>
+                                    <h3 className="text-xl font-bold text-muted mb-1">Without an OS</h3>
                                     <div className="flex items-baseline gap-2">
                                         <span className="text-3xl font-black text-white">{clients}</span>
                                         <span className="text-neutral-500 text-sm uppercase tracking-wider">Clients</span>
                                     </div>
                                 </div>
                                 <div className="text-xs font-mono uppercase text-neutral-500 tracking-widest bg-neutral-900 px-2 py-1 rounded">
-                                    Manual Scaling
+                                    Spreadsheets & WhatsApp
                                 </div>
                             </div>
 
@@ -227,14 +227,14 @@ const GrowthSimulator: React.FC = () => {
                             <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
                             <div className="flex justify-between items-start mb-6">
                                 <div>
-                                    <h3 className="text-xl font-bold text-white mb-1">Automated Operations</h3>
+                                    <h3 className="text-xl font-bold text-white mb-1">With a Custom OS</h3>
                                     <div className="flex items-baseline gap-2">
                                         <span className="text-3xl font-black text-primary">{clients}</span>
                                         <span className="text-neutral-400 text-sm uppercase tracking-wider">Clients</span>
                                     </div>
                                 </div>
                                 <div className="text-xs font-mono uppercase text-primary tracking-widest bg-primary/20 px-2 py-1 rounded border border-primary/20">
-                                    Systems-Driven
+                                    Cornerstone OS
                                 </div>
                             </div>
 

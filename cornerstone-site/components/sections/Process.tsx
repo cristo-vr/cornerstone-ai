@@ -11,10 +11,10 @@ const steps: ProcessStep[] = [
     description: (
       <div className="space-y-4">
         <p>
-          We embed with your team for one week. We map every process across Acquisition, Service, and Visibility — where the hours disappear, where data leaks, where the bottlenecks hide.
+          We embed with your team for one week. We map every workflow, handoff, and tool - where the hours disappear, where data leaks, where the bottlenecks hide.
         </p>
         <p>
-          You get a concrete execution plan: what we'll build, in what order, and the exact hours your team will recover. <span className="text-foreground font-medium">You see the full picture before you spend a cent on the build.</span>
+          You get a complete OS blueprint: what we'll build, how it works, and the exact impact on your business. <span className="text-foreground font-medium">You see the full system design before you spend a cent on the build.</span>
         </p>
         <p className="text-primary font-medium">
           If we can't prove the impact, you don't pay.
@@ -29,10 +29,10 @@ const steps: ProcessStep[] = [
     description: (
       <div className="space-y-4">
         <p>
-          We build your systems one pillar at a time. Each module goes live the moment it's ready — your team starts using it immediately. No six-month "big bang" launch. No surprises.
+          We build your operating system one module at a time. Each feature goes live the moment it's ready - your team starts using it immediately. No six-month "big bang" launch. No surprises.
         </p>
         <p className="text-foreground font-medium">
-          Every system is yours. Built on your existing tools. Nothing rented.
+          The platform is yours. Custom-built for your business. Nothing rented.
         </p>
       </div>
     )
@@ -64,7 +64,7 @@ const Process: React.FC = () => {
               Zero Disruption. <br />
               <span className="text-primary">Maximum Adoption.</span>
             </h2>
-            <p className="text-muted max-w-md">Your team keeps working. We build around them. Systems go live one at a time.</p>
+            <p className="text-muted max-w-md">Your team keeps working. We build around them. The OS goes live one module at a time.</p>
           </div>
           <div className="hidden md:block w-32 h-px bg-neutral-700"></div>
         </div>

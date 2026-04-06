@@ -201,7 +201,7 @@ const ContactForm: React.FC = () => {
                     onChange={handleChange}
                     rows={4}
                     className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors resize-none"
-                    placeholder="e.g. Compliance docs are always behind, client onboarding takes too long, I spend 15 hours a week on stuff that should be automated, I can't see what's actually happening in the practice..."
+                    placeholder="e.g. Client onboarding takes too long, I spend 15 hours a week on stuff that should be automated, everything is scattered across 5 different tools, I can't step away for a week without things breaking..."
                 />
             </div>
 

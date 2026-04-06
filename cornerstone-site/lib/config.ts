@@ -1,6 +1,6 @@
 export const siteConfig = {
     name: "Cornerstone AI",
-    description: "Cornerstone AI builds operational systems for financial service providers, accounting firms, insurance brokerages, and advisory practices — automating Acquisition, Service & Retention, and Visibility so you can scale without the chaos.",
+    description: "Cornerstone AI builds custom operating systems for founder-led businesses. Everything your team does - onboarding, follow-ups, project tracking, invoicing, reporting - all in one platform, built for how your business works. 80% of it runs itself.",
     url: "https://cornerstone-ai.pro",
     locale: "en_ZA",
     author: "Cristo Van Rensburg",
@@ -10,11 +10,11 @@ export const siteConfig = {
         region: "South Africa",
     },
     services: [
-        "Operations Automation for Financial Service Providers",
-        "Practice Management Automation for Accounting Firms",
-        "Client Acquisition Automation for Insurance Brokerages",
-        "Service & Retention Automation for Advisory Practices",
-        "Business Visibility & Reporting Automation"
+        "Custom Operating Systems for Founder-Led Businesses",
+        "Business Operations Automation",
+        "Client Acquisition & Pipeline Automation",
+        "Operations & Service Delivery Automation",
+        "Business Visibility & Reporting Dashboards"
     ],
     founder: {
         name: "Cristo Van Rensburg",

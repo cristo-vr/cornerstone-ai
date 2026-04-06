@@ -16,14 +16,14 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
               CORNERSTONE
             </h2>
             <p className="text-muted max-w-lg mb-10 text-lg leading-relaxed">
-              We build the systems that let growing practices scale without the chaos. Acquisition, service, visibility — automated so you can focus on growth.
+              Custom operating systems for founder-led businesses. Everything your team does, in one platform, mostly automated.
             </p>
             <div className="flex gap-4">
               <button
                 onClick={onOpenContact}
                 className="bg-primary text-background px-8 py-4 text-base font-bold uppercase hover:bg-white transition-colors tracking-wider"
               >
-                Book Your Discovery
+                Book a Discovery Sprint
               </button>
             </div>
           </div>

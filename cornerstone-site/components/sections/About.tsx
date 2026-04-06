@@ -110,13 +110,13 @@ const About: React.FC<AboutProps> = ({ onOpenContact }) => {
               className="space-y-4 text-lg text-muted leading-relaxed"
             >
               <p>
-                A year later I was making cold calls from my high school classroom. Since then I've worked across hospitality, construction, real estate, insurance, and franchise operations. Every time, the same problem showed up: teams drowning in admin. Talented people wasting hours on tasks that systems should handle.
+                A year later I was making cold calls from my high school classroom. Since then I've built systems across hospitality, construction, real estate, insurance, fintech, and franchise operations. Every time, the same problem showed up: the founder was the operating system of their own business. Everything ran on them.
               </p>
               <p>
-                But it was working with insurance brokerages and financial advisors that made the pattern impossible to ignore. These are practices built on trust and expertise — yet half the team's day disappears into compliance paperwork, client onboarding checklists, and chasing documents between systems that don't talk to each other. The operational drag is massive, and nobody was solving it in a way that actually fit how these firms work.
+                I've built operating systems for the founder of a podcast, the founder of a financing platform, the founding team of an accounting practice, and the founder of a sport academy. Different industries, but the bottleneck was always the same - the founder. And the fix was always the same - a custom platform that puts everything in one place.
               </p>
               <p>
-                That's the gap Cornerstone AI exists to close.
+                That's what Cornerstone AI exists to build.
               </p>
             </motion.div>
 
@@ -145,7 +145,7 @@ const About: React.FC<AboutProps> = ({ onOpenContact }) => {
               transition={{ delay: 0.4 }}
               className="text-lg text-muted leading-relaxed"
             >
-              The name Cornerstone comes from my faith. Christ is the cornerstone of the church, and that's the foundation this company is built on. People come first, always. We don't build tech that looks impressive on a slide deck — we build systems that make a real difference to the actual humans using them every day.
+              The name Cornerstone comes from my faith. Christ is the cornerstone of the church, and that's the foundation this company is built on. People come first, always. I don't build tech that looks impressive on a slide deck - I build operating systems that make a real difference to the actual humans using them every day.
             </motion.p>
 
             {/* Guarantee + CTA */}
