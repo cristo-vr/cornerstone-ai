@@ -132,7 +132,7 @@ export default function TermsOfServicePage() {
           <section>
             <h2 className="text-xl font-bold text-foreground mb-3">11. Entire Agreement</h2>
             <p>
-              These Terms, together with our <Link href="/privacy" className="text-primary hover:text-white transition-colors">Privacy Policy</Link>, constitute the entire agreement between you and Cornerstone AI regarding your use of this Site. These Terms do not govern any separate service agreements entered into between Cornerstone AI and its clients.
+              These Terms, together with our <Link href="/privacy" className="text-primary hover:text-white transition-colors">Privacy Policy</Link> and <Link href="/refund-policy" className="text-primary hover:text-white transition-colors">Refund &amp; Cancellation Policy</Link>, constitute the entire agreement between you and Cornerstone AI regarding your use of this Site. These Terms do not govern any separate service agreements entered into between Cornerstone AI and its clients.
             </p>
           </section>
 

@@ -46,6 +46,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
           <div className="flex gap-6 mt-4 md:mt-0">
             <a href="/privacy" className="hover:text-neutral-400">Privacy Policy</a>
             <a href="/terms" className="hover:text-neutral-400">Terms of Service</a>
+            <a href="/refund-policy" className="hover:text-neutral-400">Refund Policy</a>
           </div>
         </div>
       </div>
