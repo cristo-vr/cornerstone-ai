@@ -8,9 +8,11 @@ const Ownership: React.FC = () => {
     <section className="py-32 md:py-44 border-t border-foreground/5 relative overflow-hidden">
       {/* foundation texture, you own the foundation */}
       <img
-        src="/images/foundation-texture.jpg"
+        src="/images/foundation-texture.webp"
         alt=""
         aria-hidden="true"
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover opacity-40"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/50" />

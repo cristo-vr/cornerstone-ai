@@ -61,8 +61,10 @@ const Problem: React.FC = () => {
           >
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-foreground/10">
               <img
-                src="/images/late-night-desk.jpg"
+                src="/images/late-night-desk.webp"
                 alt="A founder's desk late at night, papers stacked under a single lamp"
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />

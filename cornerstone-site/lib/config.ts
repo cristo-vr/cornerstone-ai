@@ -1,6 +1,6 @@
 export const siteConfig = {
     name: "Cornerstone AI",
-    description: "Cornerstone AI builds you an AI Chief of Staff: a right hand that runs your operations across the tools your team already uses. Onboarding, follow-ups, project tracking, invoicing, reporting, handled. Built into your business in eight weeks, and owned by you.",
+    description: "We build founder-led businesses an AI Chief of Staff: a right hand that runs your operations across the tools you already use. Built in eight weeks, owned by you.",
     url: "https://cornerstone-ai.pro",
     locale: "en_ZA",
     author: "Cristo Van Rensburg",

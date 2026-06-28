@@ -54,8 +54,10 @@ const Safety: React.FC = () => {
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-foreground/10">
                 <img
-                  src="/images/vault.jpg"
+                  src="/images/vault.webp"
                   alt="A brushed-brass vault dial on a dark door"
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />

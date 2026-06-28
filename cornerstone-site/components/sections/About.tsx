@@ -25,8 +25,10 @@ const About: React.FC<AboutProps> = ({ onOpenContact }) => {
               className="relative aspect-square w-full overflow-hidden rounded-2xl border border-foreground/10 bg-neutral-900"
             >
               <img
-                src="/images/founder.jpg"
+                src="/images/founder.webp"
                 alt="Cristo Van Rensburg, founder of Cornerstone AI"
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/25 to-transparent" />

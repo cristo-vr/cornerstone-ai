@@ -1,27 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, User, TrendingUp, Database, Clock } from 'lucide-react';
 
 const GrowthSimulator: React.FC = () => {
     const [clients, setClients] = useState(10); // Start with 10 clients
-    const [showFab, setShowFab] = useState(false);
+    // FAB disabled: the inline controls scroll with content and never overlap cards.
+    const [showFab] = useState(false);
     const sectionRef = React.useRef<HTMLElement>(null);
     const [isAnimating, setIsAnimating] = useState(false);
 
     const maxClients = 50;
-
-    // Track visibility for the mobile FAB via IntersectionObserver (no scroll listener)
-    useEffect(() => {
-        const el = sectionRef.current;
-        if (!el) return;
-        const isMobile = () => window.matchMedia('(max-width: 1023px)').matches;
-        const observer = new IntersectionObserver(
-            ([entry]) => setShowFab(isMobile() && entry.isIntersecting),
-            { rootMargin: '-10% 0px -50% 0px', threshold: 0 }
-        );
-        observer.observe(el);
-        return () => observer.disconnect();
-    }, []);
 
     const addClient = () => {
         if (clients < maxClients) {

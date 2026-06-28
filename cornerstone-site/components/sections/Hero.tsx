@@ -79,8 +79,10 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
         >
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-foreground/10">
             <img
-              src="/images/cornerstone-hero.jpg"
+              src="/images/cornerstone-hero.webp"
               alt="A cornerstone block set in a foundation, lit gold"
+              fetchPriority="high"
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-background/40" />

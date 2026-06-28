@@ -57,8 +57,10 @@ const ThirdOption: React.FC = () => {
           >
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-foreground/10">
               <img
-                src="/images/ledger-calm.jpg"
+                src="/images/ledger-calm.webp"
                 alt="An open ledger and fountain pen in calm morning light"
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
