@@ -6,7 +6,7 @@
   --palette-black: #0a0a0a;
   --palette-dark: #121212;
   --palette-white: #ffffff;
-  --palette-gray: #a3a3a3;
+  --palette-gray: #b8b8b8;
 
   /* Semantic Tokens - The functional roles */
   --background: var(--palette-black);
@@ -17,6 +17,10 @@
   --color-muted: var(--palette-gray);
 
   --font-sans: var(--font-inter);
+  --font-display: var(--font-space-grotesk);
+
+  /* Strong easing curves (Part II motion craft) */
+  --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
@@ -27,6 +31,7 @@
   --color-muted: var(--color-muted);
 
   --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
 }
 
 @media (prefers-color-scheme: dark) {

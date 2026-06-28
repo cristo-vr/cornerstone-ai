@@ -18,6 +18,7 @@ const config: Config = {
             // This allows you to use standard sans fonts if your design needs them
             fontFamily: {
                 sans: ['var(--font-inter)', 'sans-serif'],
+                display: ['var(--font-space-grotesk)', 'var(--font-inter)', 'sans-serif'],
             },
         },
     },

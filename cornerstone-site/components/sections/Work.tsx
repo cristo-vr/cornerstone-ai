@@ -58,7 +58,7 @@ const cases: CaseStudy[] = [
     id: "6",
     title: "Recruitment on Autopilot",
     icon: UserCheck,
-    pain: "One of their best recruiters was barely recruiting. She was spending 80% of her day acting like an admin assistant—scheduling interviews, chasing candidates for documents, and updating the CRM.",
+    pain: "One of their best recruiters was barely recruiting. She was spending 80% of her day acting like an admin assistant, scheduling interviews, chasing candidates for documents, and updating the CRM.",
     fix: "We automated the entire boring part of her funnel. From the moment a candidate applies, our system handles the vetting, the emails, and the calendar booking.",
     win: "We automated 80% of the job. Every single lead is handled instantly, 24/7, for less than the cost of a cup of coffee a day. She got her job back, and the agency got a machine that never sleeps."
   }
@@ -68,17 +68,17 @@ const Work: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
   const [selectedCase, setSelectedCase] = useState<CaseStudy | null>(null);
 
   return (
-    <section id="results" className="py-32 bg-background relative overflow-hidden">
+    <section id="proof" className="py-32 bg-background border-t border-foreground/5 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">Proven Results</h2>
-          <div className="w-24 h-1 bg-primary mb-6"></div>
-          <p className="text-muted text-lg max-w-2xl">
-            Real operations. Engineered solutions. Measurable wins.
-            Click on any card to see the breakdown of how we solved it.
+        <div className="mb-20 max-w-2xl">
+          <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground tracking-tight mb-6">
+            Real businesses. <span className="text-primary">Real results.</span>
+          </h2>
+          <p className="text-muted text-lg">
+            A few of the systems we've built. Click any card for the before, the fix, and the result.
           </p>
         </div>
 
@@ -171,7 +171,7 @@ const Work: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
                   </div>
 
                   <div className="mt-10 pt-6 border-t border-neutral-800 flex justify-end">
-                    <Button onClick={() => { setSelectedCase(null); onOpenContact(); }} icon>Book Discovery</Button>
+                    <Button onClick={() => { setSelectedCase(null); onOpenContact(); }} icon>Book a call</Button>
                   </div>
                 </div>
               </motion.div>

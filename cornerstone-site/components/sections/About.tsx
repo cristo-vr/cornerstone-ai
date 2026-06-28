@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import Button from '../ui/Button';
 
 interface AboutProps {
@@ -7,71 +7,30 @@ interface AboutProps {
 }
 
 const About: React.FC<AboutProps> = ({ onOpenContact }) => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  // null = scroll-driven, 'real' = forced real photo, 'line' = forced line drawing
-  const [clickState, setClickState] = useState<null | 'real' | 'line'>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "center center"],
-  });
-
-  // Starts later (0.5) so the line drawing is visible when the section enters,
-  // completes at full scroll (1.0)
-  const scrollClipPercent = useTransform(scrollYProgress, [0.5, 1], [0, 200]);
-
-  // Always derive the clip-path string from the scroll motion value (no conditional hooks)
-  const scrollClipPath = useTransform(
-    scrollClipPercent,
-    (p) => `polygon(0% 0%, ${p}% 0%, 0% ${p}%)`
-  );
-
   return (
     <section
       id="about"
-      ref={sectionRef}
       className="py-32 bg-background border-t border-foreground/5 relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
 
-          {/* Left Column: Image with Scroll-Reveal */}
+          {/* Left Column: founder headshot */}
           <div className="lg:col-span-5 lg:sticky lg:top-32">
-            <div
-              ref={imageRef}
-              className="relative aspect-square w-full overflow-hidden rounded-2xl bg-neutral-900 cursor-pointer"
-              onClick={() => setClickState((prev) =>
-                prev === null ? 'real' : prev === 'real' ? 'line' : 'real'
-              )}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.97 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="relative aspect-square w-full overflow-hidden rounded-2xl border border-foreground/10 bg-neutral-900"
             >
-              {/* Base layer: Line drawing */}
               <img
-                src="/images/cristo-line-drawing.png"
-                alt="Cristo Van Rensburg — line drawing"
+                src="/images/founder.jpg"
+                alt="Cristo Van Rensburg, founder of Cornerstone AI"
                 className="absolute inset-0 w-full h-full object-cover"
               />
-
-              {/* Overlay: Real photo — scroll-driven diagonal wipe, or animated on click */}
-              <motion.div
-                className="absolute inset-0"
-                style={clickState === null ? { clipPath: scrollClipPath } : undefined}
-                animate={
-                  clickState === 'real'
-                    ? { clipPath: 'polygon(0% 0%, 200% 0%, 0% 200%)' }
-                    : clickState === 'line'
-                      ? { clipPath: 'polygon(0% 0%, 0% 0%, 0% 0%)' }
-                      : undefined
-                }
-                transition={{ duration: 0.6, ease: 'easeInOut' }}
-              >
-                <img
-                  src="/images/cristo-real.png"
-                  alt="Cristo Van Rensburg"
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
-            </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-background/25 to-transparent" />
+            </motion.div>
           </div>
 
           {/* Right Column: Content */}
@@ -96,7 +55,7 @@ const About: React.FC<AboutProps> = ({ onOpenContact }) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tighter leading-[1.1]"
+              className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-[1.1]"
             >
               I started my first business at 16, selling firewood to neighbors.
             </motion.h2>
@@ -128,12 +87,12 @@ const About: React.FC<AboutProps> = ({ onOpenContact }) => {
               transition={{ delay: 0.3 }}
               className="bg-primary/10 border border-primary/30 p-6 rounded-xl"
             >
-              <p className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-                R3.6M in annual returns.{' '}
-                <span className="text-primary">From a R168K implementation.</span>
+              <p className="text-2xl md:text-3xl font-display font-bold text-foreground mb-2">
+                Different industries.{' '}
+                <span className="text-primary">Same bottleneck: the founder.</span>
               </p>
               <p className="text-muted text-sm">
-                Audited a 70+ branch franchise operation. Every recommendation backed by hard data — hours saved, revenue recovered, payback period calculated to the day.
+                Whatever we build, you own outright. It lives on your accounts, your team runs it, and it keeps working whether we're in the room or not. No lock-in, no licence, no dependency on us.
               </p>
             </motion.div>
 
@@ -157,10 +116,10 @@ const About: React.FC<AboutProps> = ({ onOpenContact }) => {
               className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-4 border-t border-foreground/10"
             >
               <p className="text-foreground font-medium text-lg">
-                If we can't prove the impact, you don't pay.
+                We guarantee the outcome, or we keep building for free.
               </p>
               <div onClick={onOpenContact} className="shrink-0">
-                <Button variant="primary" icon>Let's Talk</Button>
+                <Button variant="primary" icon>Book a call</Button>
               </div>
             </motion.div>
 

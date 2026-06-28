@@ -30,7 +30,7 @@ const JsonLd = () => {
             }
         ],
         "knowsAbout": [
-            "Custom Operating Systems for Businesses",
+            "AI Chief of Staff for Founder-Led Businesses",
             "Operations Automation",
             "AI Implementation for Founder-Led Businesses",
             "Business Process Automation",

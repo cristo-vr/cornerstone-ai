@@ -1,149 +1,121 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { AlertTriangle, TrendingDown, Users, Zap } from 'lucide-react';
+import { Users, AppWindow } from 'lucide-react';
 import ParallaxGrid from '../ui/ParallaxGrid';
+
+const ease = [0.16, 1, 0.3, 1] as const;
+
+const doors = [
+  {
+    label: 'Door 1',
+    icon: Users,
+    title: 'Hire more people',
+    body: 'More salaries, more managing, more of your week spent training and checking work. Good people are hard to find and harder to keep. When one leaves, the whole job lands back on you overnight.',
+  },
+  {
+    label: 'Door 2',
+    icon: AppWindow,
+    title: 'Buy more software',
+    body: 'Another tool, another login, another thing your team half-uses. The data sits in five places and someone still has to tie it all together. That someone is you.',
+  },
+];
 
 const Problem: React.FC = () => {
   return (
-    <section className="py-32 bg-background border-t border-foreground/5 relative overflow-hidden">
-      {/* Background Ambience */}
-      {/* Background Ambience */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[500px] bg-red-900/10 blur-[120px] rounded-full pointer-events-none" />
-
-      {/* Parallax Grid */}
-      <ParallaxGrid color="255, 255, 255" opacity={0.15} />
+    <section className="py-28 md:py-32 bg-background border-t border-foreground/5 relative overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[400px] bg-red-900/10 blur-[120px] rounded-full pointer-events-none" />
+      <ParallaxGrid color="255, 255, 255" opacity={0.12} />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
-
-        {/* Header */}
-        <div className="text-center mb-10">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-5xl md:text-7xl font-bold text-foreground tracking-tighter mb-6"
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center mb-20">
+          <div className="lg:col-span-7">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.6, ease }}
+              className="font-display text-4xl md:text-6xl font-bold text-foreground tracking-tight mb-6"
+            >
+              Every time you win, <span className="text-red-500">you lose.</span>
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1, ease }}
+              className="text-lg text-muted leading-relaxed"
+            >
+              You sign a great client, and now there's more work landing on you. You grow, and the
+              business needs more of you, not less. There's only so much of you to go around, so
+              eventually you start saying no. No to the project you actually wanted. No to
+              marketing, because you couldn't handle the leads it would bring. You end up capping
+              your own business to protect the part that barely holds together.
+            </motion.p>
+          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.9, ease }}
+            className="lg:col-span-5"
           >
-            The <span className="text-red-500">Operations Trap</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-xl text-muted max-w-2xl mx-auto font-light"
-          >
-            You built something real. Your team is good. Your clients trust you. <br />
-            <span className="text-foreground font-medium">But behind the scenes? It's held together with spreadsheets, WhatsApp groups, and you.</span>
-          </motion.p>
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-foreground/10">
+              <img
+                src="/images/late-night-desk.jpg"
+                alt="A founder's desk late at night, papers stacked under a single lamp"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
+            </div>
+          </motion.div>
         </div>
 
-        {/* Bridge Line */}
-        <motion.div
+        <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-center mb-10"
+          transition={{ duration: 0.5, ease }}
+          className="text-foreground font-medium text-lg mb-8"
         >
-          <p className="text-foreground font-medium text-lg">
-            Right now, you're stuck with two options — and neither one works:
+          Most founders try one of two ways out. Neither one fixes it.
+        </motion.p>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-20">
+          {doors.map((door, i) => (
+            <motion.div
+              key={door.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6, delay: i * 0.1, ease }}
+              className="group p-8 rounded-2xl border border-foreground/10 bg-neutral-900/50 hover:border-red-500/30 transition-colors duration-300"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <div className="p-3 bg-red-500/10 rounded-lg text-red-500">
+                  <door.icon className="w-7 h-7" />
+                </div>
+                <span className="text-xs font-mono text-muted uppercase tracking-[0.18em]">
+                  {door.label}
+                </span>
+              </div>
+              <h3 className="text-2xl font-display font-semibold text-foreground mb-3">{door.title}</h3>
+              <p className="text-muted leading-relaxed">{door.body}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease }}
+          className="max-w-3xl border-l-2 border-primary pl-6"
+        >
+          <p className="text-2xl md:text-3xl font-display font-medium text-foreground leading-snug">
+            The problem was never how hard your team works. It's that everything still runs through
+            you. <span className="text-primary">That's the part to fix.</span>
           </p>
         </motion.div>
-
-        {/* The Dilemma - Two Bad Choices */}
-        <div className="grid md:grid-cols-2 gap-8 mb-24">
-          {/* Choice 1 */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="group relative p-8 rounded-xl border border-foreground/10 bg-neutral-900/50 hover:bg-neutral-900/80 transition-all duration-300 hover:border-red-500/30"
-          >
-            <div className="absolute top-4 left-0 right-0 text-center">
-              <span className="text-xs font-mono text-muted uppercase tracking-widest">Option A</span>
-            </div>
-            <div className="flex items-center gap-4 mb-6 mt-4">
-              <div className="p-3 bg-red-500/10 rounded-lg text-red-500 group-hover:scale-110 transition-transform">
-                <Users className="w-8 h-8" />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground">Scale Revenue</h3>
-            </div>
-            <p className="text-muted text-lg leading-relaxed">
-              Sign more clients and your team drowns. Onboarding backs up, follow-ups slip, and your best people spend half their day on admin instead of doing the work that actually matters.
-            </p>
-            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-red-500 text-xs font-mono uppercase tracking-widest">
-              Quality Risk
-            </div>
-          </motion.div>
-
-          {/* Choice 2 */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="group relative p-8 rounded-xl border border-foreground/10 bg-neutral-900/50 hover:bg-neutral-900/80 transition-all duration-300 hover:border-red-500/30"
-          >
-            <div className="absolute top-4 left-0 right-0 text-center">
-              <span className="text-xs font-mono text-muted uppercase tracking-widest">Option B</span>
-            </div>
-            <div className="flex items-center gap-4 mb-6 mt-4">
-              <div className="p-3 bg-red-500/10 rounded-lg text-red-500 group-hover:scale-110 transition-transform">
-                <TrendingDown className="w-8 h-8" />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground">Hire More Admin</h3>
-            </div>
-            <p className="text-muted text-lg leading-relaxed">
-              Throw bodies at the problem and your margins vanish. You end up managing people who manage spreadsheets - and good staff are harder to find every year. The data is still fragmented, just spread across more desks.
-            </p>
-            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-red-500 text-xs font-mono uppercase tracking-widest">
-              Margin Erosion
-            </div>
-          </motion.div>
-        </div>
-
-        {/* The Symptom & Reality */}
-        <div className="max-w-4xl mx-auto space-y-12 pt-12 border-t border-white/5">
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="bg-white/5 p-8 rounded-lg border-l-4 border-muted"
-          >
-            <div className="flex gap-4">
-              <AlertTriangle className="w-6 h-6 text-muted shrink-0 mt-1" />
-              <div>
-                <h4 className="text-xl font-bold text-foreground mb-2">The Symptom</h4>
-                <p className="text-muted text-lg">
-                  You find yourself <span className="text-foreground italic">capping your own</span> growth.
-                  You stop taking on new work, pause marketing, and say no to opportunities - because taking on anything more might break what barely works.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.6 }}
-            className="bg-gradient-to-r from-primary/10 to-transparent p-8 rounded-lg border border-primary/30 text-center"
-          >
-            <div className="inline-flex items-center justify-center p-3 bg-primary/20 rounded-full text-primary mb-6">
-              <Zap className="w-8 h-8 fill-primary" />
-            </div>
-            <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              The Reality
-            </h3>
-            <p className="text-xl md:text-2xl text-muted font-light">
-              You don't have a people problem. <span className="text-primary font-bold">You have a systems problem.</span>
-            </p>
-          </motion.div>
-
-        </div>
-
       </div>
     </section>
   );

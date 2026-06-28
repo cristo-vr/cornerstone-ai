@@ -7,87 +7,86 @@ interface HeroProps {
   onOpenContact: () => void;
 }
 
+const ease = [0.16, 1, 0.3, 1] as const;
+
 const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
   return (
-    <section className="relative min-h-[90vh] flex flex-col justify-center px-6 overflow-hidden bg-background border-b border-foreground/5 pt-20">
-      {/* Background Grid - Technical aesthetic */}
-      {/* Background Grid - Technical aesthetic */}
-      <ParallaxGrid color="255, 255, 255" opacity={0.25} />
+    <section className="relative min-h-[100dvh] flex flex-col justify-center px-6 overflow-hidden bg-background border-b border-foreground/5 pt-24">
+      <ParallaxGrid color="255, 255, 255" opacity={0.18} />
 
-      {/* Animated Gradient Accent */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none mix-blend-screen" />
-
-      <div className="relative z-10 max-w-7xl mx-auto w-full">
-        {/* Top Tagline */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex items-center gap-3 mb-8"
-        >
-          <div className="h-[1px] w-12 bg-primary"></div>
-          <span className="text-primary font-mono text-sm tracking-widest uppercase">
-            Custom Operating Systems
-          </span>
-        </motion.div>
-
-        {/* Main Headline Block */}
-        <div className="flex flex-col gap-2 mb-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="text-6xl md:text-8xl lg:text-9xl font-black text-foreground tracking-tighter leading-[0.9]"
-          >
-            EVERY BUSINESS HAS <br className="hidden md:block" /> AN OPERATING SYSTEM.
-          </motion.h1>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-muted tracking-tighter mt-2"
-          >
-            FOR MOST FOUNDERS, IT'S THEM.
-          </motion.h2>
-
+      <div className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        {/* Left: the pitch */}
+        <div className="lg:col-span-7">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
-            className="mt-6 inline-block"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease }}
+            className="flex items-center gap-3 mb-7"
           >
-            <span className="text-3xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-foreground tracking-tight italic">
-              I BUILD THE REAL ONE.
+            <span className="h-px w-10 bg-primary" />
+            <span className="text-primary font-mono text-xs tracking-[0.18em] uppercase">
+              An AI Chief of Staff
             </span>
           </motion.div>
-        </div>
 
-        {/* Bottom Section: Subtext & CTA */}
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-12 mt-12 border-t border-foreground/10 pt-12">
+          <h1 className="font-display font-bold text-foreground tracking-tight leading-[0.95] text-5xl md:text-7xl lg:text-[5rem]">
+            <motion.span
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease }}
+              className="block"
+            >
+              Your next hire
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.22, ease }}
+              className="block"
+            >
+              isn't a <span className="text-primary">person.</span>
+            </motion.span>
+          </h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.38, ease }}
+            className="mt-7 max-w-lg text-lg md:text-xl text-muted leading-relaxed"
+          >
+            It's a right hand that runs your operations, never quits, and{' '}
+            <span className="text-foreground font-medium">belongs to you.</span>
+          </motion.p>
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="max-w-xl"
+            transition={{ duration: 0.6, delay: 0.55, ease }}
+            className="mt-9"
           >
-            <p className="text-foreground text-lg md:text-xl font-light leading-relaxed">
-              Everything your team is already doing - onboarding, follow-ups, project tracking, invoicing, reporting. <br />
-              <span className="font-medium text-muted">All in one platform, built exactly for how your business works. 80% of it runs itself.</span>
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.1 }}
-            className="flex gap-4"
-          >
-            <div onClick={onOpenContact}>
-              <Button variant="primary" icon>Book a Discovery Sprint</Button>
+            <div onClick={onOpenContact} className="inline-block">
+              <Button variant="primary" icon>Book a call</Button>
             </div>
           </motion.div>
         </div>
+
+        {/* Right: the cornerstone, the brand made literal */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.4, ease }}
+          className="lg:col-span-5 relative"
+        >
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-foreground/10">
+            <img
+              src="/images/cornerstone-hero.jpg"
+              alt="A cornerstone block set in a foundation, lit gold"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-background/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent" />
+          </div>
+        </motion.div>
       </div>
     </section>
   );

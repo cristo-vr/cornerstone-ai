@@ -10,24 +10,17 @@ const GrowthSimulator: React.FC = () => {
 
     const maxClients = 50;
 
-    // Track visibility and viewport for FAB
+    // Track visibility for the mobile FAB via IntersectionObserver (no scroll listener)
     useEffect(() => {
-        const handleScroll = () => {
-            if (!sectionRef.current) return;
-            const rect = sectionRef.current.getBoundingClientRect();
-            const isMobile = window.innerWidth < 1024;
-            // Show FAB if top is near viewport top and not scrolled past bottom
-            const isInView = rect.top < 100 && rect.bottom > window.innerHeight / 2;
-            setShowFab(isMobile && isInView);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        window.addEventListener('resize', handleScroll);
-        handleScroll();
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', handleScroll);
-        };
+        const el = sectionRef.current;
+        if (!el) return;
+        const isMobile = () => window.matchMedia('(max-width: 1023px)').matches;
+        const observer = new IntersectionObserver(
+            ([entry]) => setShowFab(isMobile() && entry.isIntersecting),
+            { rootMargin: '-10% 0px -50% 0px', threshold: 0 }
+        );
+        observer.observe(el);
+        return () => observer.disconnect();
     }, []);
 
     const addClient = () => {
@@ -75,12 +68,12 @@ const GrowthSimulator: React.FC = () => {
                     {/* Left Column: Controls & Context */}
                     <div className="lg:col-span-5 lg:sticky lg:top-24 static">
                         <div className="mb-6 lg:mb-12">
-                            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-                                The <span className="text-primary">Scaling</span> Reality
+                            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
+                                The <span className="text-primary">scaling</span> reality
                             </h2>
                             <p className="text-muted text-lg leading-relaxed">
-                                Every new client adds admin load. More clients, more chaos — that's the trap. <br />
-                                <span className="text-foreground font-bold">The right systems break that pattern. Your margins grow and your time comes back.</span>
+                                Every new client adds admin load. More clients, more chaos. That's the trap.{' '}
+                                <span className="text-foreground font-semibold">A right hand breaks the pattern. Your margins grow and your time comes back.</span>
                             </p>
                         </div>
 
@@ -148,7 +141,7 @@ const GrowthSimulator: React.FC = () => {
                             <div className="absolute top-0 left-0 w-1 h-full bg-neutral-700" />
                             <div className="flex justify-between items-start mb-6">
                                 <div>
-                                    <h3 className="text-xl font-bold text-muted mb-1">Without an OS</h3>
+                                    <h3 className="text-xl font-bold text-muted mb-1">Without a right hand</h3>
                                     <div className="flex items-baseline gap-2">
                                         <span className="text-3xl font-black text-white">{clients}</span>
                                         <span className="text-neutral-500 text-sm uppercase tracking-wider">Clients</span>
@@ -227,14 +220,14 @@ const GrowthSimulator: React.FC = () => {
                             <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
                             <div className="flex justify-between items-start mb-6">
                                 <div>
-                                    <h3 className="text-xl font-bold text-white mb-1">With a Custom OS</h3>
+                                    <h3 className="text-xl font-bold text-white mb-1">With your right hand</h3>
                                     <div className="flex items-baseline gap-2">
                                         <span className="text-3xl font-black text-primary">{clients}</span>
                                         <span className="text-neutral-400 text-sm uppercase tracking-wider">Clients</span>
                                     </div>
                                 </div>
                                 <div className="text-xs font-mono uppercase text-primary tracking-widest bg-primary/20 px-2 py-1 rounded border border-primary/20">
-                                    Cornerstone OS
+                                    Cornerstone
                                 </div>
                             </div>
 

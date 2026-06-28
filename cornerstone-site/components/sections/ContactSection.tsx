@@ -3,14 +3,15 @@ import ContactForm from '../ui/ContactForm';
 
 const ContactSection: React.FC = () => {
     return (
-        <section className="py-32 bg-background border-y border-neutral-900">
+        <section id="contact" className="py-32 bg-surface/40 border-y border-neutral-900">
             <div className="max-w-3xl mx-auto px-6">
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-                        Start Your <span className="text-primary">Discovery</span>
+                    <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-6">
+                        Want to see what your right hand would{' '}
+                        <span className="text-primary">take over first?</span>
                     </h2>
-                    <p className="text-muted text-lg">
-                        Tell us what's going on in your business. We'll map where the bottlenecks are - and show you what your operating system could look like.
+                    <p className="text-muted text-lg max-w-xl mx-auto">
+                        Book a call. We'll show you where the hours are leaking and what we'd build first. If it's not clearly worth it, we'll tell you straight.
                     </p>
                 </div>
 
