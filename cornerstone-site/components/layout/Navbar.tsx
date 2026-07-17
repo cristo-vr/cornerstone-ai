@@ -7,9 +7,10 @@ interface NavbarProps {
 }
 
 const navLinks = [
-  { label: 'How it works', href: '#how-it-works' },
-  { label: 'Proof', href: '#proof' },
-  { label: 'About', href: '#about' },
+  { label: 'The OS Sprint', href: '/the-os-sprint' },
+  { label: 'How it works', href: '/#how-it-works' },
+  { label: 'Proof', href: '/#proof' },
+  { label: 'About', href: '/#about' },
 ];
 
 const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {

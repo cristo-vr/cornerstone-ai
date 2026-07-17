@@ -1,0 +1,4 @@
+# Raw client screenshots (UNREDACTED originals + working copies).
+# Never commit — these contain real client PII. Only the redacted, web-optimized
+# copies under cornerstone-site/public/case-studies/ are safe to publish.
+/OS Case Studies/

@@ -33,10 +33,11 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
             <h4 className="text-foreground font-bold uppercase tracking-widest text-xs mb-6">Sitemap</h4>
             <ul className="space-y-4 text-sm text-muted text-center md:text-left">
               <li><a href="/" className="hover:text-primary transition-colors">Home</a></li>
-              <li><a href="#how-it-works" className="hover:text-primary transition-colors">How it works</a></li>
-              <li><a href="#proof" className="hover:text-primary transition-colors">Proof</a></li>
-              <li><a href="#about" className="hover:text-primary transition-colors">About</a></li>
-              <li><a href="#faq" className="hover:text-primary transition-colors">FAQ</a></li>
+              <li><a href="/the-os-sprint" className="hover:text-primary transition-colors">The OS Sprint</a></li>
+              <li><a href="/#how-it-works" className="hover:text-primary transition-colors">How it works</a></li>
+              <li><a href="/#proof" className="hover:text-primary transition-colors">Proof</a></li>
+              <li><a href="/#about" className="hover:text-primary transition-colors">About</a></li>
+              <li><a href="/#faq" className="hover:text-primary transition-colors">FAQ</a></li>
             </ul>
           </div>
         </div>
