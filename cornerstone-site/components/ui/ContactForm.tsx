@@ -1,249 +1,284 @@
-import React, { useState } from 'react';
-import Turnstile from 'react-turnstile';
+"use client";
 
-const SITE_KEY = '0x4AAAAAACN3bXEw6zTOBNYc';
-const WEBHOOK_URL = 'https://hook.us1.make.com/hq86ivay0995yhx6in8v4ttr7max7o53';
+import React, { useState, useId } from "react";
+import Turnstile from "react-turnstile";
+import { Check } from "lucide-react";
+
+const SITE_KEY = "0x4AAAAAACN3bXEw6zTOBNYc";
+const WEBHOOK_URL = "https://hook.us1.make.com/hq86ivay0995yhx6in8v4ttr7max7o53";
+
+const EMPTY = {
+  fullName: "",
+  role: "",
+  email: "",
+  phone: "",
+  companyName: "",
+  website: "",
+  teamSize: "5-10",
+  biggestPain: "",
+  anythingElse: "",
+};
+
+const fieldClass =
+  "w-full rounded-lg border border-line bg-background px-4 py-3.5 text-foreground " +
+  "placeholder:text-muted transition-colors duration-200 " +
+  "focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary";
+
+const labelClass =
+  "block text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink-2 mb-2";
 
 const ContactForm: React.FC = () => {
-    const [formData, setFormData] = useState({
-        fullName: '',
-        role: '',
-        email: '',
-        phone: '',
-        companyName: '',
-        website: '',
-        teamSize: '5-10',
-        biggestPain: '',
-        anythingElse: ''
-    });
+  const uid = useId();
+  const [formData, setFormData] = useState(EMPTY);
+  const [token, setToken] = useState<string | null>(null);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-    const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
-    const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-    };
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        if (!turnstileToken) {
-            alert('Please complete the security check.');
-            return;
-        }
-
-        setStatus('submitting');
-
-        try {
-            const response = await fetch(WEBHOOK_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    ...formData,
-                    turnstileToken,
-                    submittedAt: new Date().toISOString()
-                }),
-            });
-
-            if (response.ok) {
-                setStatus('success');
-                setFormData({
-                    fullName: '',
-                    role: '',
-                    email: '',
-                    phone: '',
-                    companyName: '',
-                    website: '',
-                    teamSize: '5-10',
-                    biggestPain: '',
-                    anythingElse: ''
-                });
-                setTurnstileToken(null); // Reset token
-            } else {
-                setStatus('error');
-            }
-        } catch (error) {
-            console.error('Submission error:', error);
-            setStatus('error');
-        }
-    };
-
-    if (status === 'success') {
-        return (
-            <div className="text-center py-12 space-y-4">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                    </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-foreground">Discovery Request Received</h3>
-                <p className="text-muted">We'll review your details and get back to you within 24 hours to schedule your Discovery.</p>
-                <button
-                    onClick={() => setStatus('idle')}
-                    className="text-primary font-bold uppercase tracking-widest text-sm hover:text-white transition-colors mt-4"
-                >
-                    Submit Another
-                </button>
-            </div>
-        );
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!token) {
+      setStatus("error");
+      return;
     }
+    setStatus("submitting");
+    try {
+      const res = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          turnstileToken: token,
+          submittedAt: new Date().toISOString(),
+        }),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setStatus("success");
+      setFormData(EMPTY);
+      setToken(null);
+    } catch {
+      setStatus("error");
+    }
+  };
 
+  if (status === "success") {
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Full Name *</label>
-                    <input
-                        type="text"
-                        name="fullName"
-                        required
-                        value={formData.fullName}
-                        onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
-                        placeholder="John Doe"
-                    />
-                </div>
-                <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Role *</label>
-                    <input
-                        type="text"
-                        name="role"
-                        required
-                        value={formData.role}
-                        onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
-                        placeholder="Founder / CEO / Managing Director"
-                    />
-                </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Email *</label>
-                    <input
-                        type="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
-                        placeholder="john@example.com"
-                    />
-                </div>
-                <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Phone *</label>
-                    <input
-                        type="tel"
-                        name="phone"
-                        required
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
-                        placeholder="+27 82 000 0000"
-                    />
-                </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Company Name *</label>
-                    <input
-                        type="text"
-                        name="companyName"
-                        required
-                        value={formData.companyName}
-                        onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
-                        placeholder="Your Company Name"
-                    />
-                </div>
-                <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted uppercase tracking-wider">Website *</label>
-                    <input
-                        type="url"
-                        name="website"
-                        required
-                        value={formData.website}
-                        onChange={handleChange}
-                        className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors"
-                        placeholder="https://acme.com"
-                    />
-                </div>
-            </div>
-
-            <div className="space-y-2">
-                <label className="text-sm font-bold text-muted uppercase tracking-wider">Team Size *</label>
-                <select
-                    name="teamSize"
-                    required
-                    value={formData.teamSize}
-                    onChange={handleChange}
-                    className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors appearance-none"
-                >
-                    <option value="1-5">1-5</option>
-                    <option value="5-10">5-10</option>
-                    <option value="10-20">10-20</option>
-                    <option value="20-35">20-35</option>
-                    <option value="35-50">35-50</option>
-                    <option value="50+">50+</option>
-                </select>
-            </div>
-
-            <div className="space-y-2">
-                <label className="text-sm font-bold text-muted uppercase tracking-wider">What's the one thing you'd fix tomorrow if you could? *</label>
-                <textarea
-                    name="biggestPain"
-                    required
-                    value={formData.biggestPain}
-                    onChange={handleChange}
-                    rows={4}
-                    className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors resize-none"
-                    placeholder="e.g. Client onboarding takes too long, I spend 15 hours a week on stuff that should be automated, everything is scattered across 5 different tools, I can't step away for a week without things breaking..."
-                />
-            </div>
-
-            <div className="space-y-2">
-                <label className="text-sm font-bold text-muted uppercase tracking-wider">Anything else we should know?</label>
-                <textarea
-                    name="anythingElse"
-                    value={formData.anythingElse}
-                    onChange={handleChange}
-                    rows={2}
-                    className="w-full bg-neutral-900/50 border border-neutral-800 text-foreground p-4 focus:outline-none focus:border-primary transition-colors resize-none"
-                />
-            </div>
-
-            <div className="space-y-4">
-                <Turnstile
-                    sitekey={SITE_KEY}
-                    onVerify={(token) => setTurnstileToken(token)}
-                    theme="dark"
-                />
-
-                {status === 'error' && (
-                    <div className="text-red-500 text-sm font-medium">
-                        Something went wrong. Please try again.
-                    </div>
-                )}
-
-                <p className="text-xs text-muted leading-relaxed">
-                    By submitting this form, you consent to the collection and processing of your personal information in accordance with our{' '}
-                    <a href="/privacy" className="text-primary hover:text-white transition-colors underline">Privacy Policy</a>.
-                </p>
-
-                <button
-                    type="submit"
-                    disabled={status === 'submitting'}
-                    className="w-full bg-primary text-background font-bold uppercase tracking-widest py-4 hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                    {status === 'submitting' ? 'Submitting...' : 'Request Discovery'}
-                </button>
-            </div>
-        </form>
+      <div className="text-center py-12">
+        <span className="grid place-items-center w-14 h-14 rounded-full bg-primary/12 text-accent-ink mx-auto mb-6">
+          <Check className="w-6 h-6" strokeWidth={2.25} />
+        </span>
+        <h3 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">
+          Request received
+        </h3>
+        <p className="text-ink-2 max-w-sm mx-auto leading-relaxed">
+          We&apos;ll go through your details and come back to you within 24 hours to set up
+          the call.
+        </p>
+        <button
+          onClick={() => setStatus("idle")}
+          className="mt-7 text-sm font-semibold text-accent-ink hover:text-accent-ink transition-colors"
+        >
+          Send another
+        </button>
+      </div>
     );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label htmlFor={`${uid}-name`} className={labelClass}>
+            Full name <span className="text-accent-ink">*</span>
+          </label>
+          <input
+            id={`${uid}-name`}
+            type="text"
+            name="fullName"
+            required
+            autoComplete="name"
+            value={formData.fullName}
+            onChange={handleChange}
+            className={fieldClass}
+            placeholder="Thabo Mokoena"
+          />
+        </div>
+        <div>
+          <label htmlFor={`${uid}-role`} className={labelClass}>
+            Role <span className="text-accent-ink">*</span>
+          </label>
+          <input
+            id={`${uid}-role`}
+            type="text"
+            name="role"
+            required
+            autoComplete="organization-title"
+            value={formData.role}
+            onChange={handleChange}
+            className={fieldClass}
+            placeholder="Founder / Managing Director"
+          />
+        </div>
+      </div>
+
+      <div className="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label htmlFor={`${uid}-email`} className={labelClass}>
+            Email <span className="text-accent-ink">*</span>
+          </label>
+          <input
+            id={`${uid}-email`}
+            type="email"
+            name="email"
+            required
+            autoComplete="email"
+            value={formData.email}
+            onChange={handleChange}
+            className={fieldClass}
+            placeholder="you@company.com"
+          />
+        </div>
+        <div>
+          <label htmlFor={`${uid}-phone`} className={labelClass}>
+            Phone <span className="text-accent-ink">*</span>
+          </label>
+          <input
+            id={`${uid}-phone`}
+            type="tel"
+            name="phone"
+            required
+            autoComplete="tel"
+            value={formData.phone}
+            onChange={handleChange}
+            className={fieldClass}
+            placeholder="+27 82 000 0000"
+          />
+        </div>
+      </div>
+
+      <div className="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label htmlFor={`${uid}-company`} className={labelClass}>
+            Company <span className="text-accent-ink">*</span>
+          </label>
+          <input
+            id={`${uid}-company`}
+            type="text"
+            name="companyName"
+            required
+            autoComplete="organization"
+            value={formData.companyName}
+            onChange={handleChange}
+            className={fieldClass}
+            placeholder="Your company"
+          />
+        </div>
+        <div>
+          <label htmlFor={`${uid}-website`} className={labelClass}>
+            Website <span className="text-accent-ink">*</span>
+          </label>
+          <input
+            id={`${uid}-website`}
+            type="url"
+            name="website"
+            required
+            autoComplete="url"
+            value={formData.website}
+            onChange={handleChange}
+            className={fieldClass}
+            placeholder="https://"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor={`${uid}-team`} className={labelClass}>
+          Team size <span className="text-accent-ink">*</span>
+        </label>
+        <select
+          id={`${uid}-team`}
+          name="teamSize"
+          required
+          value={formData.teamSize}
+          onChange={handleChange}
+          className={`${fieldClass} appearance-none`}
+        >
+          {["1-5", "5-10", "10-20", "20-35", "35-50", "50+"].map((v) => (
+            <option key={v} value={v}>
+              {v}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label htmlFor={`${uid}-pain`} className={labelClass}>
+          What would you fix tomorrow if you could? <span className="text-accent-ink">*</span>
+        </label>
+        <textarea
+          id={`${uid}-pain`}
+          name="biggestPain"
+          required
+          rows={4}
+          value={formData.biggestPain}
+          onChange={handleChange}
+          className={`${fieldClass} resize-none`}
+          placeholder="Client onboarding takes too long. Everything is scattered across five tools. I can't step away for a week without things breaking."
+        />
+      </div>
+
+      <div>
+        <label htmlFor={`${uid}-else`} className={labelClass}>
+          Anything else we should know?
+        </label>
+        <textarea
+          id={`${uid}-else`}
+          name="anythingElse"
+          rows={2}
+          value={formData.anythingElse}
+          onChange={handleChange}
+          className={`${fieldClass} resize-none`}
+        />
+      </div>
+
+      <div className="space-y-4 pt-1">
+        <Turnstile sitekey={SITE_KEY} onVerify={setToken} theme="auto" />
+
+        {status === "error" && (
+          <p role="alert" className="text-sm font-medium text-foreground">
+            {token
+              ? "Something went wrong on our side. Please try again."
+              : "Please complete the security check above."}
+          </p>
+        )}
+
+        <p className="text-xs text-ink-2 leading-relaxed">
+          By sending this, you consent to us collecting and processing your details in line
+          with our{" "}
+          <a
+            href="/privacy"
+            className="text-accent-ink underline underline-offset-2 hover:text-accent-ink transition-colors"
+          >
+            Privacy Policy
+          </a>
+          .
+        </p>
+
+        <button
+          type="submit"
+          disabled={status === "submitting"}
+          className="w-full rounded-lg bg-primary py-4 text-sm font-semibold text-accent-txt transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-accent-dk active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none"
+        >
+          {status === "submitting" ? "Sending..." : "Request a call"}
+        </button>
+      </div>
+    </form>
+  );
 };
 
 export default ContactForm;

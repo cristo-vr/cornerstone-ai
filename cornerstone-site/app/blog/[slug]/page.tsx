@@ -49,28 +49,27 @@ export default async function BlogPostPage({ params }: Props) {
 
     return (
         <article className="max-w-3xl mx-auto">
-            <header className="mb-16 border-b border-white/5 pb-10">
-                <div className="text-sm tracking-widest text-blue-400/80 font-medium uppercase mb-6">
+            <header className="mb-14 border-b border-line pb-10">
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-accent-ink mb-5">
                     {post.metadata.date
-                        ? new Date(post.metadata.date).toLocaleDateString('en-US', {
+                        ? new Date(post.metadata.date).toLocaleDateString('en-ZA', {
                             year: 'numeric',
                             month: 'long',
                             day: 'numeric'
                         })
                         : 'Undated'}
-                </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-8 leading-tight">
+                </p>
+                <h1 className="font-display text-[clamp(2.6rem,7vw,4.4rem)] font-bold uppercase leading-[0.9] tracking-[0.005em] text-foreground mb-7">
                     {post.metadata.title}
                 </h1>
                 {post.metadata.description && (
-                    <p className="text-xl md:text-2xl text-white/50 leading-relaxed font-light">
+                    <p className="text-xl text-ink-2 leading-relaxed">
                         {post.metadata.description}
                     </p>
                 )}
             </header>
 
-            {/* Render the MDX using next-mdx-remote and high-tech custom components */}
-            <div className="prose prose-invert max-w-none text-white/80">
+            <div className="prose-concrete max-w-none">
                 <MDXRemote source={post.content} components={MDXComponents} />
             </div>
         </article>

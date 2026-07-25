@@ -14,7 +14,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 const Hero: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
     return (
-        <section className="relative min-h-[80vh] flex flex-col justify-center px-6 pt-24 pb-16 border-b border-foreground/5 overflow-hidden">
+        <section className="relative min-h-[80vh] flex flex-col justify-center px-6 pt-24 pb-16 border-b border-line overflow-hidden">
             <div className="max-w-4xl mx-auto w-full">
                 <motion.div
                     initial={{ opacity: 0, y: 12 }}
@@ -23,12 +23,12 @@ const Hero: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
                     className="flex items-center gap-3 mb-7"
                 >
                     <span className="h-px w-10 bg-primary" />
-                    <span className="text-primary font-mono text-xs tracking-[0.18em] uppercase">
+                    <span className="text-accent-ink font-semibold text-xs tracking-[0.18em] uppercase">
                         The 8-week operating sprint
                     </span>
                 </motion.div>
 
-                <h1 className="font-display font-bold text-foreground tracking-tight leading-[0.98] text-4xl md:text-6xl lg:text-7xl">
+                <h1 className="font-display font-bold uppercase tracking-[0.005em] text-foreground leading-[0.92] text-[clamp(2.6rem,6.5vw,5rem)]">
                     <motion.span
                         initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -43,7 +43,7 @@ const Hero: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
                         transition={{ duration: 0.7, delay: 0.22, ease }}
                         className="block"
                     >
-                        runs on <span className="text-primary">you.</span>
+                        runs on <span className="text-accent-ink">you.</span>
                     </motion.span>
                 </h1>
 
@@ -51,7 +51,7 @@ const Hero: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.38, ease }}
-                    className="mt-7 max-w-xl text-lg md:text-xl text-muted leading-relaxed"
+                    className="mt-7 max-w-xl text-lg md:text-xl text-ink-2 leading-relaxed"
                 >
                     The OS Sprint replaces that with a system. Built around how you work,
                     run by AI, <span className="text-foreground font-medium">owned by you.</span>
@@ -68,7 +68,7 @@ const Hero: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
                     </div>
                     <a
                         href="#the-sprint"
-                        className="text-sm font-semibold uppercase tracking-wide text-muted hover:text-primary transition-colors px-2 py-3"
+                        className="text-sm font-semibold uppercase tracking-wide text-ink-2 hover:text-accent-ink transition-colors px-2 py-3"
                     >
                         See the eight weeks
                     </a>
@@ -80,19 +80,19 @@ const Hero: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.75, ease }}
-                className="absolute bottom-0 left-0 right-0 border-t border-foreground/10"
+                className="absolute bottom-0 left-0 right-0 border-t border-line"
             >
                 <a
                     href="#the-sprint"
-                    className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between gap-3 overflow-x-auto font-mono text-[10px] md:text-xs uppercase tracking-[0.14em] text-muted hover:text-foreground transition-colors"
+                    className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between gap-3 overflow-x-auto font-semibold text-[10px] md:text-xs uppercase tracking-[0.14em] text-ink-2 hover:text-foreground transition-colors"
                 >
-                    <span className="whitespace-nowrap"><span className="text-primary">Wk 1</span> Map</span>
+                    <span className="whitespace-nowrap"><span className="text-accent-ink">Wk 1</span> Map</span>
                     <span className="h-px flex-1 min-w-4 bg-foreground/15" aria-hidden />
-                    <span className="whitespace-nowrap"><span className="text-primary">Wk 2-3</span> Foundation</span>
+                    <span className="whitespace-nowrap"><span className="text-accent-ink">Wk 2-3</span> Foundation</span>
                     <span className="h-px flex-1 min-w-4 bg-foreground/15" aria-hidden />
-                    <span className="whitespace-nowrap"><span className="text-primary">Wk 4-7</span> Build live</span>
+                    <span className="whitespace-nowrap"><span className="text-accent-ink">Wk 4-7</span> Build live</span>
                     <span className="h-px flex-1 min-w-4 bg-foreground/15" aria-hidden />
-                    <span className="whitespace-nowrap"><span className="text-primary">Wk 8</span> You own it</span>
+                    <span className="whitespace-nowrap"><span className="text-accent-ink">Wk 8</span> You own it</span>
                 </a>
             </motion.div>
         </section>
@@ -133,10 +133,10 @@ const PileUp: React.FC = () => {
     return (
         <div
             ref={ref}
-            className="relative w-full aspect-[4/5] rounded-2xl border border-foreground/10 bg-surface/40 overflow-hidden flex flex-col justify-end p-6 md:p-8"
+            className="relative w-full aspect-[4/5] rounded-xl border border-line bg-surface/40 overflow-hidden flex flex-col justify-end p-6 md:p-8"
         >
             <div className="absolute top-6 left-6 right-6 flex items-center justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted/70">
+                <span className="font-semibold text-[10px] uppercase tracking-[0.18em] text-ink-2/70">
                     Today, at your desk
                 </span>
                 <span className="w-2 h-2 rounded-full bg-primary/70 animate-pulse" aria-hidden />
@@ -154,7 +154,7 @@ const PileUp: React.FC = () => {
                             exit={{ opacity: 0, transition: { duration: 0.2 } }}
                             transition={{ duration: 0.45, ease }}
                             style={{ rotate: `${((item.key % 3) - 1) * 1.2}deg` }}
-                            className="px-4 py-2.5 rounded-lg border border-foreground/15 bg-surface text-muted text-xs md:text-sm whitespace-nowrap shadow-[0_2px_12px_rgba(0,0,0,0.35)]"
+                            className="px-4 py-2.5 rounded-lg border border-line bg-surface text-ink-2 text-xs md:text-sm whitespace-nowrap shadow-[0_2px_12px_rgba(0,0,0,0.35)]"
                         >
                             {item.label}
                         </motion.div>
@@ -168,7 +168,7 @@ const PileUp: React.FC = () => {
                 <div className="px-5 py-2 rounded-lg border border-primary/60 bg-surface text-foreground font-medium text-sm">
                     You
                 </div>
-                <span className="mt-2 text-[10px] font-mono uppercase tracking-wider text-muted/70">
+                <span className="mt-2 text-[10px] font-semibold uppercase tracking-wider text-ink-2/70">
                     where it all lands
                 </span>
             </div>
@@ -178,7 +178,7 @@ const PileUp: React.FC = () => {
 
 const TheProblem: React.FC = () => {
     return (
-        <section className="py-28 md:py-32 border-b border-foreground/5">
+        <section className="py-28 md:py-32 border-b border-line">
             <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
                 <div className="lg:col-span-7">
                     <motion.h2
@@ -186,7 +186,7 @@ const TheProblem: React.FC = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.4 }}
                         transition={{ duration: 0.6, ease }}
-                        className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-7"
+                        className="font-display uppercase tracking-[0.005em] text-4xl md:text-5xl font-bold text-foreground  mb-7"
                     >
                         Every business has an operating system. Most founders never chose theirs.
                     </motion.h2>
@@ -195,7 +195,7 @@ const TheProblem: React.FC = () => {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.1, ease }}
-                        className="space-y-5 text-lg text-muted leading-relaxed"
+                        className="space-y-5 text-lg text-ink-2 leading-relaxed"
                     >
                         <p>
                             An operating system is simply the way work moves through your business.
@@ -237,9 +237,9 @@ const Node: React.FC<{
     sub?: string;
 }> = ({ x, y, label, variant = 'default', sub }) => {
     const styles = {
-        default: 'border-foreground/15 bg-surface text-muted',
+        default: 'border-line bg-surface text-ink-2',
         you: 'border-primary/60 bg-surface text-foreground font-medium',
-        os: 'border-primary bg-primary/10 text-primary font-semibold',
+        os: 'border-primary bg-primary/10 text-accent-ink font-semibold',
     }[variant];
     return (
         <div
@@ -250,7 +250,7 @@ const Node: React.FC<{
                 {label}
             </div>
             {sub && (
-                <span className="mt-1 text-[9px] md:text-[10px] font-mono uppercase tracking-wider text-muted/70 whitespace-nowrap">
+                <span className="mt-1 text-[9px] md:text-[10px] font-semibold uppercase tracking-wider text-ink-2/70 whitespace-nowrap">
                     {sub}
                 </span>
             )}
@@ -302,7 +302,7 @@ const OSDiagram: React.FC = () => (
             className="absolute -translate-x-1/2 -translate-y-1/2"
             style={{ left: '50%', top: '50%' }}
         >
-            <div className="px-6 py-3 rounded-xl border border-primary bg-primary/10 text-primary font-semibold text-xs md:text-sm whitespace-nowrap">
+            <div className="px-6 py-3 rounded-xl border border-primary bg-primary/10 text-accent-ink font-semibold text-xs md:text-sm whitespace-nowrap">
                 Your Operating System
             </div>
         </div>
@@ -345,8 +345,8 @@ const Diagram: React.FC = () => {
                         onClick={() => pick(key)}
                         className={`px-4 py-2 text-xs md:text-sm font-semibold rounded-full border transition-colors duration-200 active:scale-[0.98] ${
                             state === key
-                                ? 'border-primary bg-primary/10 text-primary'
-                                : 'border-foreground/15 text-muted hover:text-foreground hover:border-foreground/30'
+                                ? 'border-primary bg-primary/10 text-accent-ink'
+                                : 'border-line text-ink-2 hover:text-foreground hover:border-line'
                         }`}
                     >
                         {label}
@@ -355,7 +355,7 @@ const Diagram: React.FC = () => {
             </div>
 
             {/* Canvas */}
-            <div className="relative max-w-2xl mx-auto aspect-[4/3] rounded-2xl border border-foreground/10 bg-surface/40 overflow-hidden">
+            <div className="relative max-w-2xl mx-auto aspect-[4/3] rounded-xl border border-line bg-surface/40 overflow-hidden">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={state}
@@ -379,7 +379,7 @@ const Diagram: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.25, ease }}
-                        className="text-muted text-base md:text-lg max-w-xl mx-auto"
+                        className="text-ink-2 text-base md:text-lg max-w-xl mx-auto"
                     >
                         {state === 'today' ? (
                             <>Everything routes through you. When you stop, everything stops.</>
@@ -388,7 +388,7 @@ const Diagram: React.FC = () => {
                         )}
                     </motion.p>
                 </AnimatePresence>
-                <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted/60">
+                <p className="mt-3 font-semibold text-[10px] uppercase tracking-[0.14em] text-ink-2/60">
                     Not an off-the-shelf platform. Every piece is built around how your team
                     already works. The tools shown are just examples.
                 </p>
@@ -399,14 +399,14 @@ const Diagram: React.FC = () => {
 
 const TheShift: React.FC = () => {
     return (
-        <section className="py-28 md:py-32 border-b border-foreground/5">
+        <section className="py-28 md:py-32 border-b border-line">
             <div className="max-w-6xl mx-auto px-6">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.6, ease }}
-                    className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-5 text-center"
+                    className="font-display uppercase tracking-[0.005em] text-4xl md:text-5xl font-bold text-foreground  mb-5 text-center"
                 >
                     One layer changes how everything moves.
                 </motion.h2>
@@ -415,7 +415,7 @@ const TheShift: React.FC = () => {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.1, ease }}
-                    className="text-lg text-muted text-center max-w-2xl mx-auto mb-14"
+                    className="text-lg text-ink-2 text-center max-w-2xl mx-auto mb-14"
                 >
                     We build one system that sits across the tools you already use.
                     Work flows through it, not through you.
@@ -437,8 +437,8 @@ const traceSteps = [
 
 const TraceCard: React.FC = () => {
     return (
-        <div className="relative w-full rounded-2xl border border-foreground/10 bg-surface/40 p-6 md:p-8">
-            <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted/70 mb-6">
+        <div className="relative w-full rounded-xl border border-line bg-surface/40 p-6 md:p-8">
+            <div className="font-semibold text-[10px] uppercase tracking-[0.18em] text-ink-2/70 mb-6">
                 A real example, start to finish
             </div>
 
@@ -448,13 +448,13 @@ const TraceCard: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.6 }}
                 transition={{ duration: 0.5, ease }}
-                className="inline-block px-4 py-2 rounded-lg border border-primary/60 bg-primary/10 text-primary text-sm font-semibold mb-5"
+                className="inline-block px-4 py-2 rounded-lg border border-primary/60 bg-primary/10 text-accent-ink text-sm font-semibold mb-5"
             >
                 New client signs: Anika
             </motion.div>
 
             {/* What the system does */}
-            <div className="relative pl-5 border-l border-foreground/15 space-y-3 mb-6">
+            <div className="relative pl-5 border-l border-line space-y-3 mb-6">
                 {traceSteps.map((step, i) => (
                     <motion.div
                         key={step}
@@ -462,9 +462,9 @@ const TraceCard: React.FC = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, amount: 0.6 }}
                         transition={{ duration: 0.45, delay: 0.3 + i * 0.18, ease }}
-                        className="flex items-center gap-3 text-sm md:text-base text-muted"
+                        className="flex items-center gap-3 text-sm md:text-base text-ink-2"
                     >
-                        <Check className="w-4 h-4 text-primary shrink-0" strokeWidth={2.5} />
+                        <Check className="w-4 h-4 text-accent-ink shrink-0" strokeWidth={2.5} />
                         {step}
                     </motion.div>
                 ))}
@@ -476,9 +476,9 @@ const TraceCard: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.6 }}
                 transition={{ duration: 0.5, delay: 1.1, ease }}
-                className="rounded-xl border border-foreground/15 bg-background/60 p-4"
+                className="rounded-xl border border-line bg-background/60 p-4"
             >
-                <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted/70 mb-2">
+                <div className="font-semibold text-[10px] uppercase tracking-[0.18em] text-ink-2/70 mb-2">
                     The one message you get
                 </div>
                 <p className="text-foreground text-sm md:text-base">
@@ -486,7 +486,7 @@ const TraceCard: React.FC = () => {
                 </p>
             </motion.div>
 
-            <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted/60 leading-relaxed">
+            <p className="mt-5 font-semibold text-[10px] uppercase tracking-[0.14em] text-ink-2/60 leading-relaxed">
                 Yours might be a VAT deadline, a placement, or a patient booking.
                 Week one is where we map it.
             </p>
@@ -496,7 +496,7 @@ const TraceCard: React.FC = () => {
 
 const WhatItIs: React.FC = () => {
     return (
-        <section className="py-28 md:py-32 border-b border-foreground/5">
+        <section className="py-28 md:py-32 border-b border-line">
             <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
                 <div className="lg:col-span-6">
                     <motion.h2
@@ -504,7 +504,7 @@ const WhatItIs: React.FC = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.4 }}
                         transition={{ duration: 0.6, ease }}
-                        className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-7"
+                        className="font-display uppercase tracking-[0.005em] text-4xl md:text-5xl font-bold text-foreground  mb-7"
                     >
                         So what is it, actually?
                     </motion.h2>
@@ -513,7 +513,7 @@ const WhatItIs: React.FC = () => {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.1, ease }}
-                        className="space-y-5 text-lg text-muted leading-relaxed"
+                        className="space-y-5 text-lg text-ink-2 leading-relaxed"
                     >
                         <p>
                             Plainly: it&apos;s AI, doing your business&apos;s routine work. Not an
@@ -578,18 +578,18 @@ const dayToDay = [
 
 const WhatItDoes: React.FC = () => {
     return (
-        <section className="py-28 md:py-32 border-b border-foreground/5">
+        <section className="py-28 md:py-32 border-b border-line">
             <div className="max-w-4xl mx-auto px-6">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.6, ease }}
-                    className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-14"
+                    className="font-display uppercase tracking-[0.005em] text-4xl md:text-5xl font-bold text-foreground  mb-14"
                 >
                     What it actually does all day.
                 </motion.h2>
-                <div className="divide-y divide-foreground/10 border-t border-b border-foreground/10">
+                <div className="divide-y divide-line border-t border-b border-line">
                     {dayToDay.map((item, i) => (
                         <motion.div
                             key={item.title}
@@ -599,12 +599,12 @@ const WhatItDoes: React.FC = () => {
                             transition={{ duration: 0.5, delay: i * 0.06, ease }}
                             className="py-8 flex items-start gap-6"
                         >
-                            <item.icon className="w-6 h-6 text-primary shrink-0 mt-1" strokeWidth={1.5} />
+                            <item.icon className="w-6 h-6 text-accent-ink shrink-0 mt-1" strokeWidth={1.5} />
                             <div>
-                                <h3 className="text-xl md:text-2xl font-display font-semibold text-foreground mb-2">
+                                <h3 className="text-xl md:text-2xl font-display font-bold uppercase tracking-[0.005em] text-foreground mb-2">
                                     {item.title}
                                 </h3>
-                                <p className="text-muted text-lg leading-relaxed max-w-xl">{item.body}</p>
+                                <p className="text-ink-2 text-lg leading-relaxed max-w-xl">{item.body}</p>
                             </div>
                         </motion.div>
                     ))}
@@ -632,14 +632,14 @@ const notForYou = [
 
 const WhoItsFor: React.FC = () => {
     return (
-        <section className="py-28 md:py-32 border-b border-foreground/5">
+        <section className="py-28 md:py-32 border-b border-line">
             <div className="max-w-6xl mx-auto px-6">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.6, ease }}
-                    className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-14"
+                    className="font-display uppercase tracking-[0.005em] text-4xl md:text-5xl font-bold text-foreground  mb-14"
                 >
                     Who it&apos;s for. And who it isn&apos;t.
                 </motion.h2>
@@ -649,15 +649,15 @@ const WhoItsFor: React.FC = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.6, ease }}
-                        className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/[0.07] to-transparent p-8 md:p-10"
+                        className="rounded-xl border border-primary/30 bg-gradient-to-br from-primary/[0.07] to-transparent p-8 md:p-10"
                     >
-                        <h3 className="font-display text-2xl font-semibold text-foreground mb-8">
+                        <h3 className="font-display uppercase tracking-[0.005em] text-2xl font-semibold text-foreground mb-8">
                             Built for you if
                         </h3>
                         <ul className="space-y-5">
                             {forYou.map((line) => (
-                                <li key={line} className="flex items-start gap-3 text-lg text-muted leading-relaxed">
-                                    <Check className="w-5 h-5 text-primary shrink-0 mt-1" strokeWidth={2} />
+                                <li key={line} className="flex items-start gap-3 text-lg text-ink-2 leading-relaxed">
+                                    <Check className="w-5 h-5 text-accent-ink shrink-0 mt-1" strokeWidth={2} />
                                     {line}
                                 </li>
                             ))}
@@ -668,15 +668,15 @@ const WhoItsFor: React.FC = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.6, delay: 0.1, ease }}
-                        className="rounded-2xl border border-foreground/10 p-8 md:p-10"
+                        className="rounded-xl border border-line p-8 md:p-10"
                     >
-                        <h3 className="font-display text-2xl font-semibold text-muted mb-8">
+                        <h3 className="font-display uppercase tracking-[0.005em] text-2xl font-semibold text-ink-2 mb-8">
                             Not for you if
                         </h3>
                         <ul className="space-y-5">
                             {notForYou.map((line) => (
-                                <li key={line} className="flex items-start gap-3 text-lg text-muted leading-relaxed">
-                                    <X className="w-5 h-5 text-muted/50 shrink-0 mt-1" strokeWidth={2} />
+                                <li key={line} className="flex items-start gap-3 text-lg text-ink-2 leading-relaxed">
+                                    <X className="w-5 h-5 text-ink-2/50 shrink-0 mt-1" strokeWidth={2} />
                                     {line}
                                 </li>
                             ))}
@@ -715,7 +715,7 @@ const weeks = [
 
 const TheSprint: React.FC = () => {
     return (
-        <section id="the-sprint" className="py-28 md:py-32 border-b border-foreground/5">
+        <section id="the-sprint" className="py-28 md:py-32 border-b border-line">
             <div className="max-w-4xl mx-auto px-6">
                 <motion.div
                     initial={{ opacity: 0, y: 12 }}
@@ -725,7 +725,7 @@ const TheSprint: React.FC = () => {
                     className="flex items-center gap-3 mb-7"
                 >
                     <span className="h-px w-10 bg-primary" />
-                    <span className="text-primary font-mono text-xs tracking-[0.18em] uppercase">
+                    <span className="text-accent-ink font-semibold text-xs tracking-[0.18em] uppercase">
                         The build
                     </span>
                 </motion.div>
@@ -734,7 +734,7 @@ const TheSprint: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.6, ease }}
-                    className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-5"
+                    className="font-display uppercase tracking-[0.005em] text-4xl md:text-5xl font-bold text-foreground  mb-5"
                 >
                     The eight-week operating sprint.
                 </motion.h2>
@@ -743,7 +743,7 @@ const TheSprint: React.FC = () => {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.1, ease }}
-                    className="text-lg text-muted mb-16 max-w-2xl"
+                    className="text-lg text-ink-2 mb-16 max-w-2xl"
                 >
                     One build, fixed scope, done with you. Not a two-month disappearing act.
                     Your side of it: a workshop in week one, then about an hour a week with
@@ -773,13 +773,13 @@ const TheSprint: React.FC = () => {
                                 className="relative pl-12"
                             >
                                 <span className="absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full border-2 border-primary bg-background" aria-hidden />
-                                <div className="font-mono text-xs uppercase tracking-[0.14em] text-primary mb-2">
+                                <div className="font-semibold text-xs uppercase tracking-[0.14em] text-accent-ink mb-2">
                                     {week.label}
                                 </div>
-                                <h3 className="font-display text-2xl md:text-3xl font-semibold text-foreground mb-3">
+                                <h3 className="font-display uppercase tracking-[0.005em] text-2xl md:text-3xl font-semibold text-foreground mb-3">
                                     {week.title}
                                 </h3>
-                                <p className="text-muted text-lg leading-relaxed max-w-xl">{week.body}</p>
+                                <p className="text-ink-2 text-lg leading-relaxed max-w-xl">{week.body}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -791,12 +791,12 @@ const TheSprint: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.6, ease }}
-                    className="mt-20 rounded-2xl border border-foreground/10 p-8 md:p-10"
+                    className="mt-20 rounded-xl border border-line p-8 md:p-10"
                 >
-                    <h3 className="font-display text-2xl md:text-3xl font-semibold text-foreground mb-4">
+                    <h3 className="font-display uppercase tracking-[0.005em] text-2xl md:text-3xl font-semibold text-foreground mb-4">
                         And after week eight?
                     </h3>
-                    <div className="space-y-4 text-lg text-muted leading-relaxed max-w-3xl">
+                    <div className="space-y-4 text-lg text-ink-2 leading-relaxed max-w-3xl">
                         <p>
                             The system is yours and keeps running on its own. Nothing turns off
                             because we walked out the door.
@@ -833,9 +833,9 @@ const handoverRows = [
 
 const HandoverCard: React.FC = () => {
     return (
-        <div className="relative w-full aspect-[4/3] rounded-2xl border border-foreground/10 bg-surface/40 overflow-hidden p-6 md:p-8 flex flex-col justify-between">
+        <div className="relative w-full aspect-[4/3] rounded-xl border border-line bg-surface/40 overflow-hidden p-6 md:p-8 flex flex-col justify-between">
             <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted/70">
+                <span className="font-semibold text-[10px] uppercase tracking-[0.18em] text-ink-2/70">
                     At the end of week eight
                 </span>
                 <motion.div
@@ -846,11 +846,11 @@ const HandoverCard: React.FC = () => {
                     className="w-11 h-11 rounded-full border border-primary/60 bg-primary/10 flex items-center justify-center"
                     aria-hidden
                 >
-                    <Key className="w-5 h-5 text-primary" strokeWidth={1.5} />
+                    <Key className="w-5 h-5 text-accent-ink" strokeWidth={1.5} />
                 </motion.div>
             </div>
 
-            <div className="divide-y divide-foreground/10">
+            <div className="divide-y divide-line">
                 {handoverRows.map((row, i) => (
                     <motion.div
                         key={row.label}
@@ -860,8 +860,8 @@ const HandoverCard: React.FC = () => {
                         transition={{ duration: 0.5, delay: 0.15 + i * 0.12, ease }}
                         className="py-3.5 flex items-center justify-between gap-4"
                     >
-                        <span className="text-sm md:text-base text-muted">{row.label}</span>
-                        <span className="font-mono text-xs md:text-sm uppercase tracking-wider text-primary flex items-center gap-2">
+                        <span className="text-sm md:text-base text-ink-2">{row.label}</span>
+                        <span className="font-semibold text-xs md:text-sm uppercase tracking-wider text-accent-ink flex items-center gap-2">
                             <Check className="w-3.5 h-3.5" strokeWidth={2.5} />
                             {row.value}
                         </span>
@@ -869,7 +869,7 @@ const HandoverCard: React.FC = () => {
                 ))}
             </div>
 
-            <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted/50 text-center">
+            <div className="font-semibold text-[10px] uppercase tracking-[0.18em] text-ink-2/50 text-center">
                 Handed over. Not rented out.
             </div>
         </div>
@@ -878,7 +878,7 @@ const HandoverCard: React.FC = () => {
 
 const Ownership: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
     return (
-        <section className="py-28 md:py-32 border-b border-foreground/5">
+        <section className="py-28 md:py-32 border-b border-line">
             <div className="max-w-6xl mx-auto px-6">
                 <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center mb-16">
                     <motion.div
@@ -896,7 +896,7 @@ const Ownership: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) =
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.4 }}
                             transition={{ duration: 0.6, ease }}
-                            className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-7"
+                            className="font-display uppercase tracking-[0.005em] text-4xl md:text-5xl font-bold text-foreground  mb-7"
                         >
                             You own it. Properly.
                         </motion.h2>
@@ -905,7 +905,7 @@ const Ownership: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) =
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.1, ease }}
-                            className="text-lg text-muted leading-relaxed mb-10"
+                            className="text-lg text-ink-2 leading-relaxed mb-10"
                         >
                             This is not a subscription you rent until the price goes up. It is a
                             system we build into your business, and then hand over.
@@ -920,7 +920,7 @@ const Ownership: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) =
                                     transition={{ duration: 0.5, delay: i * 0.06, ease }}
                                     className="flex items-center gap-4 text-lg text-foreground"
                                 >
-                                    <item.icon className="w-5 h-5 text-primary shrink-0" strokeWidth={1.5} />
+                                    <item.icon className="w-5 h-5 text-accent-ink shrink-0" strokeWidth={1.5} />
                                     {item.text}
                                 </motion.li>
                             ))}
@@ -934,12 +934,12 @@ const Ownership: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) =
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.6, ease }}
-                    className="mb-8 rounded-2xl border border-foreground/10 p-8 md:p-10"
+                    className="mb-8 rounded-xl border border-line p-8 md:p-10"
                 >
-                    <h3 className="font-display text-2xl md:text-3xl font-semibold text-foreground mb-4">
+                    <h3 className="font-display uppercase tracking-[0.005em] text-2xl md:text-3xl font-semibold text-foreground mb-4">
                         Your client data stays in your business.
                     </h3>
-                    <div className="grid md:grid-cols-3 gap-x-10 gap-y-4 text-lg text-muted leading-relaxed">
+                    <div className="grid md:grid-cols-3 gap-x-10 gap-y-4 text-lg text-ink-2 leading-relaxed">
                         <p>
                             Because it&apos;s built inside your own accounts, your data never
                             moves into ours. It stays where it lives today.
@@ -961,16 +961,16 @@ const Ownership: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) =
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.6, ease }}
-                    className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 to-transparent p-8 md:p-12"
+                    className="rounded-xl border border-primary/30 bg-gradient-to-br from-primary/10 to-transparent p-8 md:p-12"
                 >
-                    <div className="font-mono text-xs uppercase tracking-[0.18em] text-primary mb-4">
+                    <div className="font-semibold text-xs uppercase tracking-[0.18em] text-accent-ink mb-4">
                         The guarantee
                     </div>
-                    <p className="text-2xl md:text-3xl font-display font-medium text-foreground leading-snug max-w-3xl">
+                    <p className="text-2xl md:text-3xl font-display font-bold uppercase tracking-[0.005em] text-foreground leading-[1.05] max-w-3xl">
                         At the end of week eight: keep the system, or hand it back and{' '}
-                        <span className="text-primary">get your money back. All of it.</span>
+                        <span className="text-accent-ink">get your money back. All of it.</span>
                     </p>
-                    <p className="mt-4 text-muted text-lg max-w-3xl">
+                    <p className="mt-4 text-ink-2 text-lg max-w-3xl">
                         The mechanics, plainly: you decide at the end of week eight. Hand it
                         back means we disconnect the layer and refund the sprint in full.
                         Your tools, your data and your accounts stay exactly as they were.
@@ -1012,19 +1012,19 @@ const faqs = [
 ];
 
 const FAQItem: React.FC<{ q: string; a: string; open: boolean; onToggle: () => void }> = ({ q, a, open, onToggle }) => (
-    <div className="border-b border-foreground/10">
+    <div className="border-b border-line">
         <button
             onClick={onToggle}
             aria-expanded={open}
             className="w-full py-6 flex items-center justify-between gap-6 text-left group"
         >
-            <span className="font-display text-lg md:text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+            <span className="font-display uppercase tracking-[0.005em] text-lg md:text-xl font-semibold text-foreground group-hover:text-accent-ink transition-colors">
                 {q}
             </span>
             <motion.span
                 animate={{ rotate: open ? 45 : 0 }}
                 transition={{ duration: 0.2, ease }}
-                className="text-primary text-2xl leading-none shrink-0"
+                className="text-accent-ink text-2xl leading-none shrink-0"
                 aria-hidden
             >
                 +
@@ -1039,7 +1039,7 @@ const FAQItem: React.FC<{ q: string; a: string; open: boolean; onToggle: () => v
                     transition={{ duration: 0.3, ease }}
                     className="overflow-hidden"
                 >
-                    <p className="pb-6 text-muted text-lg leading-relaxed max-w-2xl">{a}</p>
+                    <p className="pb-6 text-ink-2 text-lg leading-relaxed max-w-2xl">{a}</p>
                 </motion.div>
             )}
         </AnimatePresence>
@@ -1049,18 +1049,18 @@ const FAQItem: React.FC<{ q: string; a: string; open: boolean; onToggle: () => v
 const FAQ: React.FC = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
     return (
-        <section className="py-28 md:py-32 border-b border-foreground/5">
+        <section className="py-28 md:py-32 border-b border-line">
             <div className="max-w-3xl mx-auto px-6">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.6, ease }}
-                    className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-12"
+                    className="font-display uppercase tracking-[0.005em] text-4xl md:text-5xl font-bold text-foreground  mb-12"
                 >
                     The questions you&apos;re probably asking.
                 </motion.h2>
-                <div className="border-t border-foreground/10">
+                <div className="border-t border-line">
                     {faqs.map((f, i) => (
                         <FAQItem
                             key={f.q}
@@ -1087,7 +1087,7 @@ const FinalCTA: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) =>
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.6, ease }}
-                    className="font-display text-4xl md:text-6xl font-bold text-foreground tracking-tight mb-6"
+                    className="font-display uppercase tracking-[0.005em] text-4xl md:text-6xl font-bold text-foreground  mb-6"
                 >
                     See what yours would look like.
                 </motion.h2>
@@ -1096,7 +1096,7 @@ const FinalCTA: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) =>
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.1, ease }}
-                    className="text-lg md:text-xl text-muted leading-relaxed mb-10 max-w-xl mx-auto"
+                    className="text-lg md:text-xl text-ink-2 leading-relaxed mb-10 max-w-xl mx-auto"
                 >
                     A 30-minute call. We map where your hours go and show you what an
                     operating system would change. No pitch deck. And the sprint itself is

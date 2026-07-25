@@ -1,61 +1,204 @@
 @import "tailwindcss";
 
+/* ============================================================================
+   CORNERSTONE BRAND PACK v2 — "Set in Concrete"
+   Source of truth: docs/cornerstone-brand-pack.html (mason repo)
+   Light = Cool Concrete · Dark = Charcoal Studio · one crema-gold accent.
+   No glow. No green. Warm neutrals only, never pure #000 / #fff.
+   ============================================================================ */
+
 :root {
-  /* Primitive Palette - The raw colors */
-  --palette-gold: #d4af37;
-  --palette-black: #0a0a0a;
-  --palette-dark: #121212;
-  --palette-white: #ffffff;
-  --palette-gray: #b8b8b8;
+  color-scheme: light dark;
 
-  /* Semantic Tokens - The functional roles */
-  --background: var(--palette-black);
-  --foreground: var(--palette-white);
+  /* --- Cool Concrete (light) --- */
+  --ground: #eaeae6;
+  --surface: #e1e1dc;
+  --surface-2: #d6d6d0;
+  --text: #2f2f2c;
+  --text-2: #63625b;
+  --muted: #8b897f;
+  --line: #d3d3cd;
+  --rail: #1c1b18;
+  --rail-text: #edebe4;
+  --carbon: #141310;
 
-  --color-primary: var(--palette-gold);
-  --color-surface: var(--palette-dark);
-  --color-muted: var(--palette-gray);
+  /* --- the one accent, identical in both themes --- */
+  /* Warm Brass. Brand Pack v2.1: a nudge golder than the original #C6934F,
+     which read brown at display size. */
+  --accent: #d1a24f;
+  --accent-dk: #a6792b;
+  --accent-txt: #241f16;
 
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-space-grotesk);
+  /* Gold as text tracks --accent exactly, in both themes, per the pack.
+     Known trade-off: on the light ground Warm Brass measures 1.94:1, under
+     WCAG AA for type. It is kept to brand by decision. Every gold string on the
+     site is also carried by an adjacent full-contrast heading or body line, so
+     nothing is conveyed by the gold alone, and button labels sit on the gold
+     rather than in it (#241F16 on accent = 7.0:1). */
+  --accent-ink: var(--accent);
 
-  /* Strong easing curves (Part II motion craft) */
-  --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
-}
+  /* --- logo block faces, derived from the accent --- */
+  --face-lit: #debd82;
+  --face-mid: #d1a24f;
+  --face-shadow: #986f28;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--color-primary);
-  --color-surface: var(--color-surface);
-  --color-muted: var(--color-muted);
-
-  --font-sans: var(--font-sans);
-  --font-display: var(--font-display);
+  /* --- craft --- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --grain-blend: multiply;
+  --grain-opacity: 0.3;
+  --shadow-soft: 0 1px 2px rgb(20 19 16 / 0.04), 0 8px 30px rgb(20 19 16 / 0.07);
+  --shadow-lift: 0 2px 4px rgb(20 19 16 / 0.06), 0 24px 60px rgb(20 19 16 / 0.14);
 }
 
 @media (prefers-color-scheme: dark) {
-
-  /* If you want to support light mode later, you'd override semantics here */
   :root {
-    /* Currently design is dark-only, so specific dark overrides aren't strictly needed 
-        unless supporting system light-mode switching which might invert these.
-        For now keeping it simple as per current "heavy/dark" brand. */
+    /* --- Charcoal Studio (dark) --- */
+    --ground: #2b2a26;
+    --surface: #343029;
+    --surface-2: #3c382f;
+    --text: #ece9e2;
+    --text-2: #beb9ac;
+    --muted: #8f8b7e;
+    --line: #423d33;
+    --rail: #1a1915;
+    --rail-text: #edebe4;
+
+    --accent: #d1a24f;
+    --accent-dk: #ddbb7d;
+    --accent-txt: #241f16;
+    /* Same crema gold, identical in both themes, per the pack. */
+    --accent-ink: var(--accent);
+
+    --grain-blend: soft-light;
+    --grain-opacity: 0.45;
+    --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 34px rgb(0 0 0 / 0.4);
+    --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.35), 0 24px 60px rgb(0 0 0 / 0.5);
   }
 }
 
+@theme inline {
+  /* v1 semantic names kept so every page inherits the reskin automatically */
+  --color-background: var(--ground);
+  --color-foreground: var(--text);
+  --color-primary: var(--accent);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+
+  /* v2 additions */
+  --color-surface-2: var(--surface-2);
+  --color-ink-2: var(--text-2);
+  --color-line: var(--line);
+  --color-rail: var(--rail);
+  --color-rail-text: var(--rail-text);
+  --color-carbon: var(--carbon);
+  --color-accent-dk: var(--accent-dk);
+  --color-accent-txt: var(--accent-txt);
+  --color-accent-ink: var(--accent-ink);
+
+  --font-display: var(--font-big-shoulders);
+  --font-sans: var(--font-hanken);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ------------------------------------------------------------------ base -- */
+
+html {
+  scroll-behavior: smooth;
+  /* fixed navbar clearance for #anchor jumps */
+  scroll-padding-top: 5rem;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  background: var(--ground);
+  color: var(--text);
+  font-family: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Concrete grain. Fixed + pointer-events-none so it never rides a scroll
+   container. This is the "everything has grain" principle, felt not seen. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+/* Display type is condensed industrial: uppercase, tight, heavy. */
+.font-display {
+  font-variation-settings: normal;
+  letter-spacing: 0.005em;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-txt);
 }
 
 /* Visible, on-brand keyboard focus (WCAG 2.4.7) */
 :focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
   border-radius: 2px;
 }
 :focus:not(:focus-visible) {
   outline: none;
+}
+
+/* Native disclosure marker off (FAQ uses its own chevron) */
+summary::-webkit-details-marker {
+  display: none;
+}
+summary {
+  list-style: none;
+}
+
+/* ---------------------------------------------------------------- motion -- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --------------------------------------------------------------- prose ---- */
+/* Legal + blog pages: readable long-form on concrete. */
+
+.prose-concrete {
+  color: var(--text-2);
+}
+.prose-concrete h2,
+.prose-concrete h3 {
+  color: var(--text);
+  font-family: var(--font-big-shoulders), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+}
+.prose-concrete a {
+  color: var(--accent-dk);
+  text-underline-offset: 3px;
+}
+.prose-concrete a:hover {
+  color: var(--accent);
+}
+.prose-concrete strong {
+  color: var(--text);
+  font-weight: 600;
 }

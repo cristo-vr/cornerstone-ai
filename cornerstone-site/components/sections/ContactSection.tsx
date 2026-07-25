@@ -1,26 +1,34 @@
-import React from 'react';
-import ContactForm from '../ui/ContactForm';
+"use client";
 
-const ContactSection: React.FC = () => {
-    return (
-        <section id="contact" className="py-32 bg-surface/40 border-y border-neutral-900">
-            <div className="max-w-3xl mx-auto px-6">
-                <div className="text-center mb-16">
-                    <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-6">
-                        Want to see what your right hand would{' '}
-                        <span className="text-primary">take over first?</span>
-                    </h2>
-                    <p className="text-muted text-lg max-w-xl mx-auto">
-                        Book a call. We'll show you where the hours are leaking and what we'd build first. If it's not clearly worth it, we'll tell you straight.
-                    </p>
-                </div>
+import React from "react";
+import ContactForm from "../ui/ContactForm";
+import Reveal from "../ui/Reveal";
 
-                <div className="bg-neutral-900/30 p-8 md:p-12 border border-neutral-800 rounded-xl">
-                    <ContactForm />
-                </div>
-            </div>
-        </section>
-    );
-};
+const ContactSection: React.FC = () => (
+  <section id="contact" className="py-28 md:py-36 bg-surface/50 border-t border-line">
+    <div className="max-w-3xl mx-auto px-6">
+      <div className="text-center mb-14">
+        <Reveal>
+          <h2 className="font-display font-bold uppercase text-foreground leading-[0.92] tracking-[0.005em] text-[clamp(2.2rem,5.5vw,3.6rem)] mb-6">
+            Want to see what your right hand would{" "}
+            <span className="text-accent-ink">take over first?</span>
+          </h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="text-lg text-ink-2 leading-relaxed max-w-xl mx-auto">
+            Book a call. We&apos;ll show you where the hours are leaking and what we&apos;d
+            build first. If it&apos;s not clearly worth it, we&apos;ll tell you straight.
+          </p>
+        </Reveal>
+      </div>
+
+      <Reveal delay={0.12}>
+        <div className="rounded-xl border border-line bg-background p-7 md:p-10 shadow-[var(--shadow-soft)]">
+          <ContactForm />
+        </div>
+      </Reveal>
+    </div>
+  </section>
+);
 
 export default ContactSection;

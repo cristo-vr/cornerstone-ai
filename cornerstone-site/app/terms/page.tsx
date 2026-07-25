@@ -13,24 +13,24 @@ export default function TermsOfServicePage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="max-w-3xl mx-auto px-6 py-24 md:py-32">
-        <Link href="/" className="text-primary text-sm font-mono uppercase tracking-widest hover:text-white transition-colors mb-12 inline-block">
+        <Link href="/" className="text-accent-ink text-[0.72rem] font-semibold uppercase tracking-[0.18em] hover:text-accent-ink transition-colors mb-12 inline-block">
           &larr; Back to Home
         </Link>
 
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4">Terms of Service</h1>
-        <p className="text-muted mb-12">Effective date: 3 March 2026</p>
+        <h1 className="font-display text-[clamp(2.4rem,6vw,3.6rem)] font-bold uppercase tracking-[0.005em] leading-[0.92] mb-4">Terms of Service</h1>
+        <p className="text-ink-2 mb-14">Effective date: 3 March 2026</p>
 
-        <div className="prose-custom space-y-10 text-muted text-base leading-relaxed">
+        <div className="prose-concrete space-y-10 text-ink-2 text-base leading-relaxed">
 
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">1. Acceptance of Terms</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">1. Acceptance of Terms</h2>
             <p>
-              By accessing or using the Cornerstone AI website at <a href="https://cornerstone-ai.pro" className="text-primary hover:text-white transition-colors">cornerstone-ai.pro</a> (&quot;the Site&quot;), or by submitting information through our discovery form, you agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to these Terms, please do not use the Site.
+              By accessing or using the Cornerstone AI website at <a href="https://cornerstone-ai.pro" className="text-accent-ink hover:text-accent-ink underline underline-offset-2 transition-colors">cornerstone-ai.pro</a> (&quot;the Site&quot;), or by submitting information through our discovery form, you agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to these Terms, please do not use the Site.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">2. Description of Services</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">2. Description of Services</h2>
             <p>
               This website is informational in nature. It describes the operations automation services offered by Cornerstone AI (Pty) Ltd. The Site includes a discovery form that allows prospective clients to express interest in our services.
             </p>
@@ -40,7 +40,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">3. Intellectual Property</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">3. Intellectual Property</h2>
             <p>
               All content on this Site &mdash; including text, graphics, logos, design elements, code, and layout &mdash; is the property of Cornerstone AI (Pty) Ltd and is protected by South African and international intellectual property laws.
             </p>
@@ -50,7 +50,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">4. Use of the Website</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">4. Use of the Website</h2>
             <p>You agree to use this Site only for lawful purposes. You may not:</p>
             <ul className="list-disc pl-6 mt-2 space-y-1">
               <li>Use the Site in any way that violates applicable South African or international law</li>
@@ -62,21 +62,21 @@ export default function TermsOfServicePage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">5. ECT Act Disclosures (Section 43)</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">5. ECT Act Disclosures (Section 43)</h2>
             <p>
               In compliance with the Electronic Communications and Transactions Act, 2002 (Act No. 25 of 2002), the following information is provided:
             </p>
             <ul className="list-disc pl-6 mt-2 space-y-1">
               <li><strong className="text-foreground">Full name:</strong> Cornerstone AI (Pty) Ltd</li>
               <li><strong className="text-foreground">Main business:</strong> Operations automation consulting and implementation for founder-led businesses</li>
-              <li><strong className="text-foreground">Contact email:</strong> <a href="mailto:info@cornerstone-ai.pro" className="text-primary hover:text-white transition-colors">info@cornerstone-ai.pro</a></li>
-              <li><strong className="text-foreground">Website:</strong> <a href="https://cornerstone-ai.pro" className="text-primary hover:text-white transition-colors">cornerstone-ai.pro</a></li>
+              <li><strong className="text-foreground">Contact email:</strong> <a href="mailto:info@cornerstone-ai.pro" className="text-accent-ink hover:text-accent-ink underline underline-offset-2 transition-colors">info@cornerstone-ai.pro</a></li>
+              <li><strong className="text-foreground">Website:</strong> <a href="https://cornerstone-ai.pro" className="text-accent-ink hover:text-accent-ink underline underline-offset-2 transition-colors">cornerstone-ai.pro</a></li>
               <li><strong className="text-foreground">Country:</strong> South Africa</li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">6. Disclaimer of Warranties</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">6. Disclaimer of Warranties</h2>
             <p>
               The Site and its content are provided on an &quot;as is&quot; and &quot;as available&quot; basis. Cornerstone AI makes no representations or warranties of any kind, express or implied, regarding:
             </p>
@@ -91,7 +91,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">7. Limitation of Liability</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">7. Limitation of Liability</h2>
             <p>
               To the maximum extent permitted by South African law, Cornerstone AI (Pty) Ltd, its directors, employees, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from or related to your use of the Site.
             </p>
@@ -104,14 +104,14 @@ export default function TermsOfServicePage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">8. Governing Law</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">8. Governing Law</h2>
             <p>
               These Terms shall be governed by and construed in accordance with the laws of the Republic of South Africa. Any disputes arising from or relating to these Terms or your use of the Site shall be subject to the jurisdiction of the South African courts.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">9. Dispute Resolution</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">9. Dispute Resolution</h2>
             <p>
               In the event of any dispute arising from these Terms or your use of the Site, the parties agree to the following process:
             </p>
@@ -123,26 +123,26 @@ export default function TermsOfServicePage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">10. Severability</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">10. Severability</h2>
             <p>
               If any provision of these Terms is found to be invalid or unenforceable by a court of competent jurisdiction, the remaining provisions shall continue in full force and effect.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">11. Entire Agreement</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">11. Entire Agreement</h2>
             <p>
-              These Terms, together with our <Link href="/privacy" className="text-primary hover:text-white transition-colors">Privacy Policy</Link> and <Link href="/refund-policy" className="text-primary hover:text-white transition-colors">Refund &amp; Cancellation Policy</Link>, constitute the entire agreement between you and Cornerstone AI regarding your use of this Site. These Terms do not govern any separate service agreements entered into between Cornerstone AI and its clients.
+              These Terms, together with our <Link href="/privacy" className="text-accent-ink hover:text-accent-ink underline underline-offset-2 transition-colors">Privacy Policy</Link> and <Link href="/refund-policy" className="text-accent-ink hover:text-accent-ink underline underline-offset-2 transition-colors">Refund &amp; Cancellation Policy</Link>, constitute the entire agreement between you and Cornerstone AI regarding your use of this Site. These Terms do not govern any separate service agreements entered into between Cornerstone AI and its clients.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-3">12. Contact</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">12. Contact</h2>
             <p>
               For any questions about these Terms of Service, please contact us:
             </p>
             <p className="mt-2">
-              Email: <a href="mailto:info@cornerstone-ai.pro" className="text-primary hover:text-white transition-colors">info@cornerstone-ai.pro</a>
+              Email: <a href="mailto:info@cornerstone-ai.pro" className="text-accent-ink hover:text-accent-ink underline underline-offset-2 transition-colors">info@cornerstone-ai.pro</a>
             </p>
           </section>
 

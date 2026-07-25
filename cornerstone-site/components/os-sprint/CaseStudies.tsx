@@ -176,7 +176,7 @@ const Lightbox: React.FC<{
             <button
                 onClick={onClose}
                 aria-label="Close"
-                className="absolute top-5 right-5 text-muted hover:text-primary transition-colors p-2"
+                className="absolute top-5 right-5 text-ink-2 hover:text-accent-ink transition-colors p-2"
             >
                 <X className="w-6 h-6" />
             </button>
@@ -192,11 +192,11 @@ const Lightbox: React.FC<{
                 <img
                     src={`/case-studies/${study.slug}/${index + 1}.webp`}
                     alt={study.captions[index]}
-                    className="w-full h-auto rounded-lg border border-foreground/15 shadow-2xl"
+                    className="w-full h-auto rounded-lg border border-line shadow-2xl"
                 />
                 <div className="mt-4 flex items-center justify-between gap-4">
-                    <p className="text-muted text-sm md:text-base">{study.captions[index]}</p>
-                    <span className="font-mono text-xs text-muted/60 shrink-0">
+                    <p className="text-ink-2 text-sm md:text-base">{study.captions[index]}</p>
+                    <span className="font-semibold text-xs text-ink-2/60 shrink-0">
                         {index + 1} / {study.images}
                     </span>
                 </div>
@@ -207,14 +207,14 @@ const Lightbox: React.FC<{
                     <button
                         onClick={(e) => { e.stopPropagation(); onNav(-1); }}
                         aria-label="Previous"
-                        className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 p-3 rounded-full border border-foreground/15 bg-surface/60 text-foreground hover:border-primary hover:text-primary transition-colors active:scale-95"
+                        className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 p-3 rounded-full border border-line bg-surface/60 text-foreground hover:border-primary hover:text-accent-ink transition-colors active:scale-95"
                     >
                         <ArrowLeft className="w-5 h-5" />
                     </button>
                     <button
                         onClick={(e) => { e.stopPropagation(); onNav(1); }}
                         aria-label="Next"
-                        className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 p-3 rounded-full border border-foreground/15 bg-surface/60 text-foreground hover:border-primary hover:text-primary transition-colors active:scale-95"
+                        className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 p-3 rounded-full border border-line bg-surface/60 text-foreground hover:border-primary hover:text-accent-ink transition-colors active:scale-95"
                     >
                         <ArrowRight className="w-5 h-5" />
                     </button>
@@ -238,7 +238,7 @@ const CaseStudies: React.FC = () => {
     }, [study.images]);
 
     return (
-        <section id="proof" className="py-28 md:py-32 border-b border-foreground/5">
+        <section id="proof" className="py-28 md:py-32 border-b border-line">
             <div className="max-w-6xl mx-auto px-6">
                 <motion.div
                     initial={{ opacity: 0, y: 12 }}
@@ -248,7 +248,7 @@ const CaseStudies: React.FC = () => {
                     className="flex items-center gap-3 mb-7"
                 >
                     <span className="h-px w-10 bg-primary" />
-                    <span className="text-primary font-mono text-xs tracking-[0.18em] uppercase">
+                    <span className="text-accent-ink font-semibold text-xs tracking-[0.18em] uppercase">
                         Systems we&apos;ve built
                     </span>
                 </motion.div>
@@ -258,7 +258,7 @@ const CaseStudies: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.6, ease }}
-                    className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-5 max-w-3xl"
+                    className="font-display uppercase tracking-[0.005em] text-4xl md:text-5xl font-bold text-foreground  mb-5 max-w-3xl"
                 >
                     Real businesses, running on systems we built them.
                 </motion.h2>
@@ -267,7 +267,7 @@ const CaseStudies: React.FC = () => {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.1, ease }}
-                    className="text-lg text-muted mb-10 max-w-2xl"
+                    className="text-lg text-ink-2 mb-10 max-w-2xl"
                 >
                     Different industries, same pattern: the routine work moves off the founder
                     and onto the system. These are the real ones.
@@ -282,8 +282,8 @@ const CaseStudies: React.FC = () => {
                             aria-pressed={active === i}
                             className={`px-4 py-2 text-sm font-semibold rounded-full border transition-colors duration-200 active:scale-[0.98] ${
                                 active === i
-                                    ? 'border-primary bg-primary/10 text-primary'
-                                    : 'border-foreground/15 text-muted hover:text-foreground hover:border-foreground/30'
+                                    ? 'border-primary bg-primary/10 text-accent-ink'
+                                    : 'border-line text-ink-2 hover:text-foreground hover:border-line'
                             }`}
                         >
                             {s.name}
@@ -303,24 +303,24 @@ const CaseStudies: React.FC = () => {
                     >
                         {/* Narrative */}
                         <div className="lg:col-span-5">
-                            <div className="font-mono text-xs uppercase tracking-[0.16em] text-muted/70 mb-4">
+                            <div className="font-semibold text-xs uppercase tracking-[0.16em] text-ink-2/70 mb-4">
                                 {study.industry}
                             </div>
                             <p className="text-xl text-foreground leading-relaxed mb-8">{study.what}</p>
 
                             <div className="border-l-2 border-primary/50 pl-5 mb-8">
-                                <div className="font-display text-4xl md:text-5xl font-bold text-primary leading-none mb-2">
+                                <div className="font-display uppercase tracking-[0.005em] text-4xl md:text-5xl font-bold text-accent-ink leading-none mb-2">
                                     {study.metric}
                                 </div>
-                                <div className="text-muted">{study.metricLabel}</div>
+                                <div className="text-ink-2">{study.metricLabel}</div>
                             </div>
 
-                            <div className="font-mono text-xs uppercase tracking-[0.16em] text-muted/70 mb-4">
+                            <div className="font-semibold text-xs uppercase tracking-[0.16em] text-ink-2/70 mb-4">
                                 What it runs
                             </div>
                             <ul className="space-y-3">
                                 {study.runs.map((r) => (
-                                    <li key={r} className="flex items-start gap-3 text-muted leading-relaxed">
+                                    <li key={r} className="flex items-start gap-3 text-ink-2 leading-relaxed">
                                         <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                                         {r}
                                     </li>
@@ -335,7 +335,7 @@ const CaseStudies: React.FC = () => {
                                     <button
                                         key={i}
                                         onClick={() => setLightbox(i)}
-                                        className={`group relative overflow-hidden rounded-xl border border-foreground/10 hover:border-primary/50 transition-colors ${
+                                        className={`group relative overflow-hidden rounded-xl border border-line hover:border-primary/50 transition-colors ${
                                             i === 0 ? 'col-span-2 aspect-[16/9]' : 'aspect-[16/10]'
                                         }`}
                                     >
@@ -363,10 +363,10 @@ const CaseStudies: React.FC = () => {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, ease }}
-                    className="mt-14 flex items-start gap-3 rounded-xl border border-foreground/10 bg-surface/30 p-5 max-w-3xl"
+                    className="mt-14 flex items-start gap-3 rounded-xl border border-line bg-surface/30 p-5 max-w-3xl"
                 >
-                    <Lock className="w-4 h-4 text-primary shrink-0 mt-0.5" strokeWidth={1.5} />
-                    <p className="text-sm text-muted leading-relaxed">
+                    <Lock className="w-4 h-4 text-accent-ink shrink-0 mt-0.5" strokeWidth={1.5} />
+                    <p className="text-sm text-ink-2 leading-relaxed">
                         These are screenshots of live client systems. Client names, personal
                         details and financial figures have been redacted to protect
                         confidentiality. The systems themselves are real and running.

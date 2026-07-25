@@ -1,99 +1,97 @@
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from "react";
+import Link from "next/link";
 
+/** Long-form MDX rendered in the v2 concrete language. */
 export const MDXComponents = {
-    h1: (props: any) => (
-        <h1
-            className="text-4xl font-extrabold tracking-tight text-white mb-6 mt-10 md:text-5xl lg:text-6xl"
-            {...props}
+  h1: (props: any) => (
+    <h1
+      className="font-display text-[clamp(2.2rem,5vw,3.4rem)] font-bold uppercase leading-[0.92] tracking-[0.005em] text-foreground mt-14 mb-6"
+      {...props}
+    />
+  ),
+  h2: (props: any) => (
+    <h2
+      className="font-display text-[clamp(1.8rem,4vw,2.6rem)] font-bold uppercase leading-[0.96] tracking-[0.005em] text-foreground mt-12 mb-4 pb-3 border-b border-line"
+      {...props}
+    />
+  ),
+  h3: (props: any) => (
+    <h3
+      className="font-display text-xl md:text-2xl font-bold uppercase tracking-[0.005em] text-foreground mt-9 mb-3"
+      {...props}
+    />
+  ),
+  p: (props: any) => (
+    <p className="text-lg leading-relaxed text-ink-2 mb-6" {...props} />
+  ),
+  a: ({ href, ...props }: any) => (
+    <Link
+      href={href || "/"}
+      className="text-accent-ink underline underline-offset-[3px] hover:text-accent-ink transition-colors"
+      {...props}
+    />
+  ),
+  ul: (props: any) => (
+    <ul
+      className="list-disc marker:text-accent-ink text-lg leading-relaxed text-ink-2 mb-6 pl-6 space-y-2"
+      {...props}
+    />
+  ),
+  ol: (props: any) => (
+    <ol
+      className="list-decimal marker:text-accent-ink text-lg leading-relaxed text-ink-2 mb-6 pl-6 space-y-2"
+      {...props}
+    />
+  ),
+  li: (props: any) => <li {...props} />,
+  blockquote: (props: any) => (
+    <blockquote className="my-9 border-l-2 border-primary pl-6" {...props}>
+      <div className="font-display text-2xl font-bold uppercase leading-[1.06] tracking-[0.005em] text-foreground">
+        {props.children}
+      </div>
+    </blockquote>
+  ),
+  code: (props: any) => {
+    const isInline =
+      typeof props.children === "string" && !props.children.includes("\n");
+    return isInline ? (
+      <code
+        className="rounded-md border border-line bg-surface-2 px-1.5 py-0.5 text-[0.9em] text-foreground"
+        {...props}
+      />
+    ) : (
+      <code className="block overflow-x-auto text-sm text-foreground" {...props} />
+    );
+  },
+  pre: (props: any) => (
+    <pre
+      className="my-7 overflow-x-auto rounded-xl border border-line bg-surface p-5 text-sm"
+      {...props}
+    />
+  ),
+  img: (props: any) => (
+    <figure className="my-9">
+      <div className="overflow-hidden rounded-xl border border-line">
+        {/* MDX images have unknown intrinsic size, so a plain img is correct here. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="w-full h-auto object-cover"
+          alt={props.alt || ""}
+          loading="lazy"
+          decoding="async"
+          {...props}
         />
-    ),
-    h2: (props: any) => (
-        <h2
-            className="text-3xl font-bold tracking-tight text-white/90 mb-4 mt-8 pb-2 border-b border-white/10"
-            {...props}
-        />
-    ),
-    h3: (props: any) => (
-        <h3
-            className="text-2xl font-semibold tracking-tight text-white/80 mb-4 mt-6"
-            {...props}
-        />
-    ),
-    p: (props: any) => (
-        <p
-            className="leading-relaxed text-white/70 mb-6 text-lg"
-            {...props}
-        />
-    ),
-    a: (props: any) => (
-        <Link
-            className="text-blue-400 hover:text-blue-300 underline underline-offset-4 decoration-blue-500/30 hover:decoration-blue-500/80 transition-all"
-            href={props.href || '/'}
-            {...props}
-        />
-    ),
-    ul: (props: any) => (
-        <ul className="list-disc leading-relaxed text-white/70 mb-6 pl-6 space-y-2 text-lg" {...props} />
-    ),
-    ol: (props: any) => (
-        <ol className="list-decimal leading-relaxed text-white/70 mb-6 pl-6 space-y-2 text-lg" {...props} />
-    ),
-    li: (props: any) => <li className="" {...props} />,
-    blockquote: (props: any) => (
-        <blockquote
-            className="my-8 relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8 shadow-2xl backdrop-blur-xl before:absolute before:inset-0 before:bg-gradient-to-br before:from-blue-500/10 before:to-purple-500/10"
-            {...props}
-        >
-            <div className="relative z-10 text-xl italic text-white/90">
-                "{props.children}"
-            </div>
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-purple-500" />
-        </blockquote>
-    ),
-    code: (props: any) => {
-        // If inline code
-        if (typeof props.children === 'string' && !props.children.includes('\n')) {
-            return (
-                <code
-                    className="rounded-md border border-white/10 bg-white/10 px-[0.3rem] py-[0.2rem] font-mono text-sm text-blue-200"
-                    {...props}
-                />
-            );
-        }
-        // Block code (usually handled by pre, but just in case)
-        return (
-            <code
-                className="block rounded-xl border border-white/10 bg-black/50 p-4 font-mono text-sm text-white/90 overflow-x-auto"
-                {...props}
-            />
-        );
-    },
-    pre: (props: any) => (
-        <pre
-            className="my-6 overflow-x-auto rounded-xl border border-white/10 bg-[#0d1117] p-4 text-sm shadow-xl"
-            {...props}
-        />
-    ),
-    img: (props: any) => {
-        return (
-            <div className="my-8 overflow-hidden rounded-2xl border border-white/10 shadow-2xl bg-white/5">
-                {/* We use standard img for simplicity here due to MDX unknown image sizes, 
-            but in a real scenario we'd use next/image with fixed or layout fill */}
-                <img
-                    className="w-full h-auto object-cover transform hover:scale-[1.02] transition-transform duration-700 ease-in-out"
-                    alt={props.alt || 'Blog Image'}
-                    {...props}
-                />
-                {props.alt && (
-                    <div className="p-3 text-center text-sm text-white/50 border-t border-white/5 bg-black/20">
-                        {props.alt}
-                    </div>
-                )}
-            </div>
-        );
-    },
-    hr: (props: any) => <hr className="my-12 border-white/10" {...props} />,
-    strong: (props: any) => <strong className="font-bold text-white/95" {...props} />,
+      </div>
+      {props.alt && (
+        <figcaption className="mt-3 text-center text-sm text-ink-2">
+          {props.alt}
+        </figcaption>
+      )}
+    </figure>
+  ),
+  hr: (props: any) => <hr className="my-12 border-line" {...props} />,
+  strong: (props: any) => (
+    <strong className="font-semibold text-foreground" {...props} />
+  ),
 };

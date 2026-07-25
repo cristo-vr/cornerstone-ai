@@ -1,91 +1,80 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { UserPlus, TrendingUp, Wallet, ShieldCheck } from 'lucide-react';
+"use client";
 
-const ease = [0.16, 1, 0.3, 1] as const;
+import React from "react";
+import { UserPlus, TrendingUp, Wallet, ShieldCheck } from "lucide-react";
+import Reveal from "../ui/Reveal";
 
 const levers = [
   {
     icon: UserPlus,
-    title: 'Sign more clients',
-    body: 'Your capacity stops being capped by your hours, so you can say yes again.',
+    title: "Sign more clients",
+    body: "Your capacity stops being capped by your hours, so you can say yes again.",
   },
   {
     icon: TrendingUp,
-    title: 'Make each client worth more',
-    body: 'Nothing slips. Every client gets your standard every time, so they stay longer and spend more.',
+    title: "Make each client worth more",
+    body: "Nothing slips. Every client gets your standard every time, so they stay longer and spend more.",
   },
   {
     icon: Wallet,
-    title: 'Spend less to deliver',
-    body: 'The admin layer runs itself instead of eating salaries and your evenings.',
+    title: "Spend less to deliver",
+    body: "The admin layer runs itself instead of eating salaries and your evenings.",
   },
   {
     icon: ShieldCheck,
-    title: 'Depend on fewer people',
-    body: 'The business runs without you in every loop, and without us. That last one is worth more than it sounds.',
+    title: "Depend on fewer people",
+    body: "The business runs without you in every loop, and without us. That last one is worth more than it sounds.",
   },
 ];
 
-const Levers: React.FC = () => {
-  return (
-    <section className="py-28 md:py-32 bg-background border-t border-foreground/5">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="max-w-3xl mb-14">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, ease }}
-            className="font-display text-4xl md:text-6xl font-bold text-foreground tracking-tight"
-          >
+const Levers: React.FC = () => (
+  <section className="py-28 md:py-36 border-t border-line">
+    <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-3xl mb-14">
+        <Reveal>
+          <h2 className="font-display font-bold uppercase text-foreground leading-[0.92] tracking-[0.005em] text-[clamp(2.4rem,6vw,4.2rem)]">
             Four ways this puts money back in the business.
-          </motion.h2>
-          <p className="mt-5 text-lg text-muted">
-            Everything we build has to do at least one of these. If it doesn't, we don't build it.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="mt-6 text-lg text-ink-2 leading-relaxed">
+            Everything we build has to do at least one of these. If it doesn&apos;t, we
+            don&apos;t build it.
           </p>
-        </div>
+        </Reveal>
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-px bg-foreground/10 border border-foreground/10 rounded-2xl overflow-hidden">
-          {levers.map((lever, i) => (
-            <motion.div
-              key={lever.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.55, delay: i * 0.07, ease }}
-              className="bg-background p-8 md:p-10 hover:bg-surface/60 transition-colors duration-300"
-            >
-              <div className="p-3 bg-primary/10 rounded-lg w-fit text-primary mb-5">
-                <lever.icon className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl md:text-2xl font-display font-semibold text-foreground mb-2">
+      {/* Hairline grid: the joints show, like set blocks. */}
+      <div className="grid md:grid-cols-2 gap-px bg-line border border-line rounded-xl overflow-hidden">
+        {levers.map((lever, i) => (
+          <Reveal key={lever.title} delay={i * 0.06}>
+            <div className="h-full bg-background p-8 md:p-10 transition-colors duration-300 hover:bg-surface/70">
+              <span className="grid place-items-center w-11 h-11 rounded-lg bg-primary/12 text-accent-ink mb-6">
+                <lever.icon className="w-5 h-5" strokeWidth={1.75} />
+              </span>
+              <h3 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-2.5">
                 {lever.title}
               </h3>
-              <p className="text-muted leading-relaxed">{lever.body}</p>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6, ease }}
-          className="mt-6 rounded-2xl border border-primary/25 bg-gradient-to-br from-primary/10 to-transparent p-8 md:p-12"
-        >
-          <p className="text-xl md:text-2xl text-foreground leading-relaxed max-w-4xl">
-            A business that only works when you're in it is risky to own and hard to sell. A business
-            that runs on its own is worth more, full stop.{' '}
-            <span className="text-primary font-medium">
-              This doesn't just make you more money while it's running. It makes the whole company
-              more valuable.
-            </span>
-          </p>
-        </motion.div>
+              <p className="text-ink-2 leading-relaxed">{lever.body}</p>
+            </div>
+          </Reveal>
+        ))}
       </div>
-    </section>
-  );
-};
+
+      <Reveal delay={0.08}>
+        <div className="mt-5 rounded-xl border border-primary/30 bg-primary/[0.07] p-8 md:p-12">
+          <p className="text-xl md:text-2xl text-ink-2 leading-relaxed max-w-4xl">
+            A business that only works when you&apos;re in it is risky to own and hard to sell.
+            A business that runs on its own is worth more, full stop.{" "}
+            <strong className="font-semibold text-foreground">
+              This doesn&apos;t just make you more money while it&apos;s running. It makes the
+              whole company more valuable.
+            </strong>
+          </p>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+);
 
 export default Levers;
