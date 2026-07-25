@@ -21,7 +21,7 @@ const EMPTY = {
 
 const fieldClass =
   "w-full rounded-lg border border-line bg-background px-4 py-3.5 text-foreground " +
-  "placeholder:text-muted transition-colors duration-200 " +
+  "transition-colors duration-200 " +
   "focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary";
 
 const labelClass =
@@ -105,7 +105,6 @@ const ContactForm: React.FC = () => {
             value={formData.fullName}
             onChange={handleChange}
             className={fieldClass}
-            placeholder="Thabo Mokoena"
           />
         </div>
         <div>
@@ -121,7 +120,6 @@ const ContactForm: React.FC = () => {
             value={formData.role}
             onChange={handleChange}
             className={fieldClass}
-            placeholder="Founder / Managing Director"
           />
         </div>
       </div>
@@ -140,7 +138,6 @@ const ContactForm: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             className={fieldClass}
-            placeholder="you@company.com"
           />
         </div>
         <div>
@@ -156,7 +153,6 @@ const ContactForm: React.FC = () => {
             value={formData.phone}
             onChange={handleChange}
             className={fieldClass}
-            placeholder="+27 82 000 0000"
           />
         </div>
       </div>
@@ -175,7 +171,6 @@ const ContactForm: React.FC = () => {
             value={formData.companyName}
             onChange={handleChange}
             className={fieldClass}
-            placeholder="Your company"
           />
         </div>
         <div>
@@ -191,7 +186,6 @@ const ContactForm: React.FC = () => {
             value={formData.website}
             onChange={handleChange}
             className={fieldClass}
-            placeholder="https://"
           />
         </div>
       </div>
@@ -228,7 +222,6 @@ const ContactForm: React.FC = () => {
           value={formData.biggestPain}
           onChange={handleChange}
           className={`${fieldClass} resize-none`}
-          placeholder="Client onboarding takes too long. Everything is scattered across five tools. I can't step away for a week without things breaking."
         />
       </div>
 
