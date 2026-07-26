@@ -23,11 +23,11 @@ const hanken = Hanken_Grotesk({
 const titleDefault =
   "Cornerstone AI — An AI Chief of Staff for Founder-Led Businesses";
 
+/* Light-only: the site ships Cool Concrete to everyone, so the browser chrome
+   should match it even on a dark-mode device. */
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#EAEAE6" },
-    { media: "(prefers-color-scheme: dark)", color: "#2B2A26" },
-  ],
+  themeColor: "#EAEAE6",
+  colorScheme: "light",
 };
 
 export const metadata: Metadata = {

@@ -1,14 +1,20 @@
 @import "tailwindcss";
 
 /* ============================================================================
-   CORNERSTONE BRAND PACK v2 — "Set in Concrete"
+   CORNERSTONE BRAND PACK v2.1 — "Set in Concrete"
    Source of truth: docs/cornerstone-brand-pack.html (mason repo)
-   Light = Cool Concrete · Dark = Charcoal Studio · one crema-gold accent.
+
+   This site ships Cool Concrete (light) to everyone. The pack's Charcoal
+   Studio tokens are kept below under [data-theme="dark"] so the dark theme
+   stays addressable, but it is deliberately NOT wired to
+   prefers-color-scheme: visitors on a dark-mode OS should still get the
+   light brand, not a surprise charcoal site.
+
    No glow. No green. Warm neutrals only, never pure #000 / #fff.
    ============================================================================ */
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
   /* --- Cool Concrete (light) --- */
   --ground: #eaeae6;
@@ -50,30 +56,30 @@
   --shadow-lift: 0 2px 4px rgb(20 19 16 / 0.06), 0 24px 60px rgb(20 19 16 / 0.14);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* --- Charcoal Studio (dark) --- */
-    --ground: #2b2a26;
-    --surface: #343029;
-    --surface-2: #3c382f;
-    --text: #ece9e2;
-    --text-2: #beb9ac;
-    --muted: #8f8b7e;
-    --line: #423d33;
-    --rail: #1a1915;
-    --rail-text: #edebe4;
+/* Charcoal Studio stays available for an explicit opt-in (set data-theme="dark"
+   on <html>), but never fires off the OS preference. */
+[data-theme="dark"] {
+  /* --- Charcoal Studio (dark) --- */
+  --ground: #2b2a26;
+  --surface: #343029;
+  --surface-2: #3c382f;
+  --text: #ece9e2;
+  --text-2: #beb9ac;
+  --muted: #8f8b7e;
+  --line: #423d33;
+  --rail: #1a1915;
+  --rail-text: #edebe4;
 
-    --accent: #d1a24f;
-    --accent-dk: #ddbb7d;
-    --accent-txt: #241f16;
-    /* Same crema gold, identical in both themes, per the pack. */
-    --accent-ink: var(--accent);
+  --accent: #d1a24f;
+  --accent-dk: #ddbb7d;
+  --accent-txt: #241f16;
+  /* Same warm brass, identical in both themes, per the pack. */
+  --accent-ink: var(--accent);
 
-    --grain-blend: soft-light;
-    --grain-opacity: 0.45;
-    --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 34px rgb(0 0 0 / 0.4);
-    --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.35), 0 24px 60px rgb(0 0 0 / 0.5);
-  }
+  --grain-blend: soft-light;
+  --grain-opacity: 0.45;
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 34px rgb(0 0 0 / 0.4);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.35), 0 24px 60px rgb(0 0 0 / 0.5);
 }
 
 @theme inline {
