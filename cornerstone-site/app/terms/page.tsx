@@ -68,7 +68,7 @@ export default function TermsOfServicePage() {
             </p>
             <ul className="list-disc pl-6 mt-2 space-y-1">
               <li><strong className="text-foreground">Full name:</strong> Cornerstone AI (Pty) Ltd</li>
-              <li><strong className="text-foreground">Main business:</strong> Operations automation consulting and implementation for founder-led businesses</li>
+              <li><strong className="text-foreground">Main business:</strong> Operations automation consulting and implementation for growing businesses</li>
               <li><strong className="text-foreground">Contact email:</strong> <a href="mailto:info@cornerstone-ai.pro" className="text-accent-ink hover:text-accent-ink underline underline-offset-2 transition-colors">info@cornerstone-ai.pro</a></li>
               <li><strong className="text-foreground">Website:</strong> <a href="https://cornerstone-ai.pro" className="text-accent-ink hover:text-accent-ink underline underline-offset-2 transition-colors">cornerstone-ai.pro</a></li>
               <li><strong className="text-foreground">Country:</strong> South Africa</li>

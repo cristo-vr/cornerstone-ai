@@ -94,8 +94,15 @@ const GrowthSimulator: React.FC = () => {
             <p className="text-lg text-ink-2 leading-relaxed mb-9">
               Every new client adds admin load. More clients, more chaos. That&apos;s the trap.{" "}
               <strong className="font-semibold text-foreground">
-                A right hand breaks the pattern. Your margins grow and your time comes back.
+                An operating system breaks the pattern. Your margins grow and your time
+                comes back.
               </strong>
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="text-sm text-ink-2 leading-relaxed mb-9">
+              An illustration of the shape of the problem, not a projection for your
+              business. Your real numbers are what we map in week one.
             </p>
           </Reveal>
 
@@ -127,7 +134,7 @@ const GrowthSimulator: React.FC = () => {
             <div className="flex items-start justify-between gap-4 mb-8">
               <div>
                 <h3 className="font-display text-xl font-bold uppercase tracking-[0.005em] text-ink-2 mb-1">
-                  Without a right hand
+                  Without a system
                 </h3>
                 <p className="flex items-baseline gap-2">
                   <span className="font-display text-4xl font-extrabold text-foreground tabular-nums">
@@ -173,7 +180,7 @@ const GrowthSimulator: React.FC = () => {
             <div className="flex items-start justify-between gap-4 mb-8">
               <div>
                 <h3 className="font-display text-xl font-bold uppercase tracking-[0.005em] text-foreground mb-1">
-                  With your right hand
+                  With your operating system
                 </h3>
                 <p className="flex items-baseline gap-2">
                   <span className="font-display text-4xl font-extrabold text-accent-ink tabular-nums">

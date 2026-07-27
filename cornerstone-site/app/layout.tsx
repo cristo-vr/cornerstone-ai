@@ -21,7 +21,7 @@ const hanken = Hanken_Grotesk({
 });
 
 const titleDefault =
-  "Cornerstone AI — An AI Chief of Staff for Founder-Led Businesses";
+  "Cornerstone AI — Your business needs an operating system. We build it.";
 
 /* Light-only: the site ships Cool Concrete to everyone, so the browser chrome
    should match it even on a dark-mode device. */
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
         url: "/images/og.jpg",
         width: 1200,
         height: 630,
-        alt: "Cornerstone AI — your next hire isn't a person",
+        alt: "Cornerstone AI — right now, your business runs on you",
       },
     ],
   },

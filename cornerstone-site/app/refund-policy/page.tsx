@@ -18,69 +18,65 @@ export default function RefundPolicyPage() {
         </Link>
 
         <h1 className="font-display text-[clamp(2.4rem,6vw,3.6rem)] font-bold uppercase tracking-[0.005em] leading-[0.92] mb-4">Refund &amp; Cancellation Policy</h1>
-        <p className="text-ink-2 mb-14">Effective date: 9 April 2026</p>
+        <p className="text-ink-2 mb-14">Effective date: 27 July 2026</p>
 
         <div className="prose-concrete space-y-10 text-ink-2 text-base leading-relaxed">
 
           <section>
             <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">1. Overview</h2>
             <p>
-              Cornerstone AI builds custom operating systems for founder-led businesses. Our engagements are structured in clearly defined phases, each with its own scope and deliverables. This policy explains how refunds and cancellations are handled at each stage.
+              Cornerstone AI builds custom operating systems for growing businesses. Our core engagement is the eight-week OS build: a single, fixed-scope project, priced and agreed in writing before week one begins. This policy explains how refunds and cancellations are handled.
             </p>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">2. Discovery Sprint</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">2. The eight-week OS build</h2>
             <p>
-              Every engagement begins with a paid Discovery Sprint - a short diagnostic phase where we map how your business operates, identify automation opportunities, and design the architecture for your custom operating system.
+              The build is a fixed fee covering the week-one mapping workshop, eight weeks of embedded development, weekly training for your team, and handover. It is payable either in two instalments across the eight weeks, or in full up front at a 10% discount.
             </p>
             <ul className="list-disc pl-6 mt-2 space-y-1">
-              <li><strong className="text-foreground">Full refund guarantee:</strong> If we are unable to demonstrate measurable operational impact during the Discovery Sprint, you receive a full refund of the sprint fee.</li>
-              <li><strong className="text-foreground">Credit toward build:</strong> If you proceed to the build phase, your Discovery Sprint fee is credited in full toward the project cost.</li>
-              <li><strong className="text-foreground">Cancellation before sprint begins:</strong> If you cancel before the Discovery Sprint has started, you will receive a full refund.</li>
-              <li><strong className="text-foreground">Cancellation during sprint:</strong> If you cancel after the Discovery Sprint has begun, the sprint fee is non-refundable, as diagnostic work will already be underway. You will still receive all completed deliverables up to the point of cancellation.</li>
+              <li><strong className="text-foreground">The week-eight guarantee:</strong> at the end of week eight you decide. Keep the system, or hand it back and receive a full refund of the build fee. This applies to the whole fee, however you paid it.</li>
+              <li><strong className="text-foreground">What handing it back means:</strong> we disconnect the layer we built. Your own tools, accounts and data stay exactly as they were and remain yours.</li>
+              <li><strong className="text-foreground">Cancellation before the build begins:</strong> if you cancel before the week-one workshop, you receive a full refund of anything paid.</li>
+              <li><strong className="text-foreground">Cancellation during the build:</strong> you may stop at any point. You will be billed only for work completed to the date of cancellation, and every deliverable produced to that point is handed over to you.</li>
             </ul>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">3. Build Phase (OS Development)</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">3. Ongoing retainers</h2>
             <p>
-              Build-phase projects are billed on a milestone basis. Each milestone represents a defined scope of work agreed upon before development begins.
+              After handover, some clients engage Cornerstone AI on an optional monthly retainer for continued development, support and training. A retainer is never a condition of the build, and the system keeps running without one.
             </p>
             <ul className="list-disc pl-6 mt-2 space-y-1">
-              <li><strong className="text-foreground">Cancellation before a milestone:</strong> You may cancel or pause the project before any unstarted milestone with no further payment obligation.</li>
-              <li><strong className="text-foreground">Completed milestones:</strong> Payments for milestones that have been completed and delivered are non-refundable, as you retain full ownership of all work produced.</li>
-              <li><strong className="text-foreground">In-progress milestones:</strong> If you cancel while a milestone is in progress, you will be billed for work completed up to the date of cancellation. Any deliverables produced will be handed over to you.</li>
+              <li><strong className="text-foreground">No lock-in:</strong> a retainer may be cancelled at the end of any monthly period. There is no minimum term.</li>
+              <li><strong className="text-foreground">Prepaid fees:</strong> any prepaid retainer fees for unused work within a notice period are refunded on a pro-rata basis.</li>
+              <li><strong className="text-foreground">Work already delivered:</strong> retainer months in which work has been delivered are not refundable, as the service has been provided.</li>
             </ul>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">4. Retainer &amp; Hourly Engagements</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">4. Third-party and usage costs</h2>
             <p>
-              Some clients engage Cornerstone AI on a retainer or hourly basis for ongoing development, support, or training.
+              Your system runs inside your own accounts, so the AI&apos;s usage and any third-party software you use are billed to you directly by those providers, not by us. Those costs are outside this policy and are not refundable by Cornerstone AI. We will tell you what to expect before anything is connected.
             </p>
-            <ul className="list-disc pl-6 mt-2 space-y-1">
-              <li><strong className="text-foreground">Retainer cancellation:</strong> Either party may cancel a retainer arrangement with 14 days&apos; written notice. Any prepaid retainer fees for unused hours within the notice period will be refunded on a pro-rata basis.</li>
-              <li><strong className="text-foreground">Hourly work:</strong> Hourly sessions are billed for time worked. No refunds apply for completed sessions, as the service has been delivered.</li>
-            </ul>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">5. Scope Changes</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">5. Scope changes</h2>
             <p>
               If the scope of a project changes during the engagement, we will discuss and agree on adjusted timelines and costs before proceeding. You are never billed for work that was not agreed upon in advance.
             </p>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">6. Ownership of Deliverables</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">6. Ownership of deliverables</h2>
             <p>
-              Upon payment, you own all deliverables produced during the engagement. This includes system designs, documentation, and any custom software built for your business. Cancellation does not affect ownership of work that has been paid for and delivered.
+              Everything is built inside your own accounts from day one, and on payment you own all deliverables produced during the engagement: system designs, documentation, and any custom software built for your business. Cancellation does not affect ownership of work that has been paid for and delivered. Where the week-eight guarantee is exercised and the fee refunded, the layer we built is disconnected and handed back to us; your own data, accounts and tools are unaffected.
             </p>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">7. How to Request a Refund or Cancel</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">7. How to request a refund or cancel</h2>
             <p>
               To request a refund or cancel an engagement, please contact us in writing:
             </p>
@@ -93,14 +89,14 @@ export default function RefundPolicyPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">8. Governing Law</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">8. Governing law</h2>
             <p>
               This policy is governed by the laws of the Republic of South Africa, including the Consumer Protection Act, 2008 (Act No. 68 of 2008) and the Electronic Communications and Transactions Act, 2002 (Act No. 25 of 2002), where applicable.
             </p>
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">9. Changes to This Policy</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">9. Changes to this policy</h2>
             <p>
               We may update this policy from time to time. Any changes will be posted on this page with an updated effective date. Existing engagements will be governed by the policy in effect at the time the engagement was entered into.
             </p>

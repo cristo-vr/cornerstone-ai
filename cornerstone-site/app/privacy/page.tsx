@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
           <section>
             <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">1. Who We Are</h2>
             <p>
-              Cornerstone AI (Pty) Ltd (&quot;Cornerstone AI&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is an operations automation company based in South Africa. We help founder-led businesses automate acquisition, service delivery, and operational visibility.
+              Cornerstone AI (Pty) Ltd (&quot;Cornerstone AI&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is an operations automation company based in South Africa. We help growing businesses automate acquisition, service delivery, and operational visibility.
             </p>
             <p className="mt-2">
               Contact email: <a href="mailto:info@cornerstone-ai.pro" className="text-accent-ink hover:text-accent-ink underline underline-offset-2 transition-colors">info@cornerstone-ai.pro</a>

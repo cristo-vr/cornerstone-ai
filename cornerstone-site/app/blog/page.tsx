@@ -4,7 +4,7 @@ import { getAllPosts } from "@/lib/mdx";
 
 export const metadata = {
   title: "Blog",
-  description: "Notes on building operating systems for founder-led businesses.",
+  description: "Notes on building operating systems for growing businesses.",
 };
 
 export default function BlogPage() {
@@ -17,7 +17,7 @@ export default function BlogPage() {
           Notes from the build
         </h1>
         <p className="text-lg text-ink-2 max-w-2xl leading-relaxed">
-          What we&apos;re learning building operating systems for founder-led businesses.
+          What we&apos;re learning building operating systems for growing businesses.
         </p>
       </header>
 

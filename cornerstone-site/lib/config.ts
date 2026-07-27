@@ -1,6 +1,7 @@
 export const siteConfig = {
     name: "Cornerstone AI",
-    description: "We build founder-led businesses an AI Chief of Staff: a right hand that runs your operations across the tools you already use. Built in eight weeks, owned by you.",
+    description:
+        "Right now, you are the operating system of your own business. We build you the real one: a system built around how you work, run by AI, owned by you. Eight weeks.",
     url: "https://cornerstone-ai.pro",
     locale: "en_ZA",
     author: "Cristo Van Rensburg",
@@ -10,15 +11,15 @@ export const siteConfig = {
         region: "South Africa",
     },
     services: [
-        "AI Chief of Staff for Founder-Led Businesses",
+        "Custom Business Operating Systems",
         "Business Operations Run by AI",
         "Client Onboarding & Follow-up Automation",
         "Invoicing & Project Tracking Automation",
-        "One Unified Operations Platform You Own"
+        "One Unified Operations Platform You Own",
     ],
     founder: {
         name: "Cristo Van Rensburg",
         role: "Founder",
-        url: "https://cornerstone-ai.pro/#about"
-    }
+        url: "https://cornerstone-ai.pro/#about",
+    },
 };

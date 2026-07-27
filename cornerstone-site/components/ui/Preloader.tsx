@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Mark } from "../brand/Logo";
+import { useScrollLock } from "./useScrollLock";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const HOLD_MS = 1800;
@@ -43,14 +44,7 @@ const Preloader: React.FC = () => {
     return () => clearTimeout(t);
   }, [reduce]);
 
-  useEffect(() => {
-    if (!visible) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [visible]);
+  useScrollLock(visible);
 
   return (
     <AnimatePresence>

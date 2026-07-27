@@ -15,9 +15,24 @@ const EMPTY = {
   companyName: "",
   website: "",
   teamSize: "5-10",
+  monthlyRevenue: "",
   biggestPain: "",
   anythingElse: "",
 };
+
+const TEAM_SIZES = ["1-5", "5-10", "10-20", "20-35", "35-50", "50+"];
+
+/* USD brackets. The band that matters for qualifying is the middle three, so
+   the low and high ends stay deliberately coarse. */
+const REVENUE_BANDS = [
+  "Less than $5,000 / month",
+  "$5,000 - $15,000 / month",
+  "$15,000 - $30,000 / month",
+  "$30,000 - $75,000 / month",
+  "$75,000 - $150,000 / month",
+  "More than $150,000 / month",
+  "Rather not say",
+];
 
 const fieldClass =
   "w-full rounded-lg border border-line bg-background px-4 py-3.5 text-foreground " +
@@ -175,13 +190,12 @@ const ContactForm: React.FC = () => {
         </div>
         <div>
           <label htmlFor={`${uid}-website`} className={labelClass}>
-            Website <span className="text-accent-ink">*</span>
+            Website <span className="font-normal normal-case tracking-normal text-muted">(optional)</span>
           </label>
           <input
             id={`${uid}-website`}
             type="url"
             name="website"
-            required
             autoComplete="url"
             value={formData.website}
             onChange={handleChange}
@@ -190,24 +204,48 @@ const ContactForm: React.FC = () => {
         </div>
       </div>
 
-      <div>
-        <label htmlFor={`${uid}-team`} className={labelClass}>
-          Team size <span className="text-accent-ink">*</span>
-        </label>
-        <select
-          id={`${uid}-team`}
-          name="teamSize"
-          required
-          value={formData.teamSize}
-          onChange={handleChange}
-          className={`${fieldClass} appearance-none`}
-        >
-          {["1-5", "5-10", "10-20", "20-35", "35-50", "50+"].map((v) => (
-            <option key={v} value={v}>
-              {v}
+      <div className="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label htmlFor={`${uid}-team`} className={labelClass}>
+            Team size <span className="text-accent-ink">*</span>
+          </label>
+          <select
+            id={`${uid}-team`}
+            name="teamSize"
+            required
+            value={formData.teamSize}
+            onChange={handleChange}
+            className={`${fieldClass} appearance-none`}
+          >
+            {TEAM_SIZES.map((v) => (
+              <option key={v} value={v}>
+                {v}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor={`${uid}-revenue`} className={labelClass}>
+            Monthly revenue (USD) <span className="text-accent-ink">*</span>
+          </label>
+          <select
+            id={`${uid}-revenue`}
+            name="monthlyRevenue"
+            required
+            value={formData.monthlyRevenue}
+            onChange={handleChange}
+            className={`${fieldClass} appearance-none`}
+          >
+            <option value="" disabled>
+              Select a range
             </option>
-          ))}
-        </select>
+            {REVENUE_BANDS.map((v) => (
+              <option key={v} value={v}>
+                {v}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div>
