@@ -1,7 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useMotionValueEvent,
+  useReducedMotion,
+} from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Logo } from "../brand/Logo";
 
@@ -19,6 +25,7 @@ const navLinks = [
 const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const reduce = useReducedMotion();
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 32));
@@ -31,47 +38,54 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
           : "bg-transparent border-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 h-[68px] flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-[76px] md:h-[88px] flex items-center justify-between">
         <a href="/" aria-label="Cornerstone AI, home" className="shrink-0">
-          <Logo markClassName="w-7 h-7" wordClassName="text-[1.35rem]" />
+          <Logo
+            markClassName="w-8 h-8 md:w-9 md:h-9"
+            wordClassName="text-[1.5rem] md:text-[1.75rem]"
+          />
         </a>
 
-        <nav className="hidden md:flex items-center gap-9">
+        <nav className="hidden md:flex items-center gap-10">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-sm font-medium text-ink-2 hover:text-foreground transition-colors duration-200"
+              className="text-[0.95rem] font-medium text-ink-2 hover:text-foreground transition-colors duration-200"
             >
               {link.label}
             </a>
           ))}
           <button
             onClick={onOpenContact}
-            className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-accent-txt transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-accent-dk active:scale-[0.97]"
+            className="rounded-lg bg-primary px-6 py-3 text-[0.9rem] font-semibold text-accent-txt transition-[transform,background-color] duration-200 ease-[var(--ease-out)] hover:bg-accent-dk active:scale-[0.97]"
           >
             Book a call
           </button>
         </nav>
 
         <button
-          className="md:hidden text-foreground p-1 -mr-1"
+          className="md:hidden text-foreground p-2 -mr-2"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen(!open)}
         >
-          {open ? <X size={22} strokeWidth={2} /> : <Menu size={22} strokeWidth={2} />}
+          {open ? <X size={26} strokeWidth={2} /> : <Menu size={26} strokeWidth={2} />}
         </button>
       </div>
 
       <AnimatePresence>
         {open && (
+          /* Animating height relayouts the document every frame, on exactly the
+             devices least able to afford it. The panel slides on transform and
+             fades instead, and the wrapper is absolutely positioned so the
+             page underneath never reflows. */
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden overflow-hidden border-t border-line bg-background"
+            initial={reduce ? { opacity: 0 } : { opacity: 0, transform: "translateY(-8px)" }}
+            animate={{ opacity: 1, transform: "translateY(0px)" }}
+            exit={reduce ? { opacity: 0 } : { opacity: 0, transform: "translateY(-8px)" }}
+            transition={reduce ? { duration: 0 } : { duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+            className="md:hidden absolute inset-x-0 top-full origin-top border-t border-line bg-background shadow-[var(--shadow-soft)]"
           >
             <nav className="flex flex-col p-6 gap-1">
               {navLinks.map((link) => (

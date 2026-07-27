@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Key, FileText, Ban, DoorOpen, Check } from "lucide-react";
 import Button from "../ui/Button";
 import Reveal from "../ui/Reveal";
@@ -23,7 +23,11 @@ const handoverRows = [
 ];
 
 /** The handover, itemised. What you walk away with at the end of week eight. */
-const HandoverCard: React.FC = () => (
+const HandoverCard: React.FC = () => {
+  const reduce = useReducedMotion();
+  const step = (delay: number, duration = 0.5) =>
+    reduce ? { duration: 0 } : { duration, delay, ease: EASE };
+  return (
   <div className="relative w-full aspect-[4/3] rounded-xl border border-line bg-surface/50 overflow-hidden p-6 md:p-8 flex flex-col justify-between">
     <div className="flex items-center justify-between">
       <span className="font-semibold text-[10px] uppercase tracking-[0.18em] text-ink-2">
@@ -33,7 +37,7 @@ const HandoverCard: React.FC = () => (
         initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
         whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
         viewport={{ once: true, amount: 0.6 }}
-        transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
+        transition={step(0.35, 0.6)}
         className="w-11 h-11 rounded-full border border-primary bg-primary/12 flex items-center justify-center"
         aria-hidden="true"
       >
@@ -48,7 +52,7 @@ const HandoverCard: React.FC = () => (
           initial={{ opacity: 0, x: -10 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.5, delay: 0.15 + i * 0.12, ease: EASE }}
+          transition={step(0.12 + i * 0.09)}
           className="py-3.5 flex items-center justify-between gap-4"
         >
           <span className="text-sm md:text-base text-ink-2">{row.label}</span>
@@ -64,7 +68,8 @@ const HandoverCard: React.FC = () => (
       Handed over. Not rented out.
     </div>
   </div>
-);
+  );
+};
 
 interface OwnershipProps {
   onOpenContact: () => void;
@@ -82,7 +87,7 @@ const Ownership: React.FC<OwnershipProps> = ({ onOpenContact }) => (
           <div className="lg:col-span-7 order-1 lg:order-2">
             <Reveal>
               <h2 className="font-display font-bold uppercase text-foreground leading-[0.92] tracking-[0.005em] text-[clamp(2.4rem,6vw,4.2rem)] mb-7">
-                You own it. Properly.
+                Not rented. Handed over.
               </h2>
             </Reveal>
             <Reveal delay={0.08}>
@@ -129,29 +134,31 @@ const Ownership: React.FC<OwnershipProps> = ({ onOpenContact }) => (
     </section>
 
     {/* The one full-bleed carbon moment on the page. Ownership is the emotional
-        peak of the argument, so the guarantee gets the weight of stone. */}
+        peak of the argument, so it gets the weight of stone. */}
     <section className="relative overflow-hidden bg-carbon py-28 md:py-40">
       <div className="relative z-10 max-w-4xl mx-auto px-6">
         <Reveal>
-          <span className="flex items-center gap-3.5 text-[0.7rem] font-semibold uppercase tracking-[0.26em] text-[#DDBB7D] mb-8">
-            <span aria-hidden="true" className="h-0.5 w-8 bg-[#DDBB7D]" />
-            The guarantee
-          </span>
-        </Reveal>
-
-        <Reveal delay={0.06}>
-          <p className="font-display font-extrabold uppercase leading-[0.92] tracking-[0.005em] text-[clamp(2.2rem,6vw,4.4rem)] text-rail-text">
-            At the end of week eight: keep the system, or hand it back and{" "}
-            <span className="text-[#DDBB7D]">get your money back. All of it.</span>
+          <p className="font-display font-extrabold uppercase leading-[0.92] tracking-[0.005em] text-[clamp(2.4rem,7vw,5rem)] text-rail-text">
+            You own it. <span className="text-[#DDBB7D]">All of it.</span>
           </p>
         </Reveal>
 
-        <Reveal delay={0.12}>
-          <p className="mt-9 text-lg md:text-xl leading-relaxed text-[#BEB9AC] max-w-3xl">
-            The mechanics, plainly: you decide at the end of week eight. Hand it back means
-            we disconnect the layer and refund the build in full. Your tools, your data and
-            your accounts stay exactly as they were.
-          </p>
+        <Reveal delay={0.1}>
+          <div className="mt-9 space-y-6 text-lg md:text-xl leading-relaxed text-[#BEB9AC] max-w-3xl">
+            <p>
+              The whole system sits on your accounts, with your data, under your control.
+              We don&apos;t hold the keys and there&apos;s no licence to keep renewing.{" "}
+              <strong className="font-semibold text-rail-text">
+                If we stopped working together tomorrow, it keeps running exactly as it did.
+              </strong>
+            </p>
+            <p>
+              So why keep us around? Because the technology keeps moving and you want
+              someone in your corner who&apos;s already three steps ahead. We stay on to
+              keep improving it and adding what it can do. Not to keep the lights on. You
+              could do that yourself.
+            </p>
+          </div>
         </Reveal>
 
         <Reveal delay={0.16}>

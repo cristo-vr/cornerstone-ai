@@ -74,7 +74,7 @@ const Pricing: React.FC<PricingProps> = ({ onOpenContact }) => (
                 USD, total
               </p>
               <p className="mt-6 text-ink-2 leading-relaxed grow">
-                One payment up front, 10% off the full price. Same build, same guarantee.
+                One payment up front, 10% off the full price. Same build, same scope.
               </p>
             </div>
           </Reveal>

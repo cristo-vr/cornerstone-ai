@@ -40,8 +40,8 @@ export const faqs = [
       "If you're on the optional retainer, we do, as part of it. If you're not, your team uses the documentation from the handover, or you call us in for the fix. Either way you're never locked out of your own system: it runs on your accounts and your team holds the keys.",
   },
   {
-    question: "What if it doesn't work?",
+    question: "What happens if we stop working together?",
     answer:
-      "You decide at the end of week eight. Keep the system, or hand it back and we refund the build in full. Handing it back means we disconnect the layer; your tools, your data and your accounts stay exactly as they were. The risk of the build sits with us, not you.",
+      "Nothing switches off. Everything is built inside your own accounts from day one, so the system and its data are already yours before the build even finishes. There's no licence to renew and no platform fee to us. Your team holds the keys and the documentation, and it keeps running exactly as it did.",
   },
 ];

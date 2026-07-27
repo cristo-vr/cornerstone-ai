@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
+import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import Reveal from "../ui/Reveal";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-type DiagramState = "today" | "os";
 
 const Node: React.FC<{
   x: number;
@@ -24,11 +23,13 @@ const Node: React.FC<{
       className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center"
       style={{ left: `${(x / 400) * 100}%`, top: `${(y / 300) * 100}%` }}
     >
-      <div className={`px-3 py-1.5 rounded-lg border text-[11px] md:text-xs whitespace-nowrap ${styles}`}>
+      <div
+        className={`px-2.5 py-1 rounded-lg border text-[10px] md:text-[11px] whitespace-nowrap ${styles}`}
+      >
         {label}
       </div>
       {sub && (
-        <span className="mt-1 text-[9px] md:text-[10px] font-semibold uppercase tracking-wider text-ink-2 whitespace-nowrap">
+        <span className="mt-1 text-[8px] md:text-[9px] font-semibold uppercase tracking-wider text-ink-2 whitespace-nowrap">
           {sub}
         </span>
       )}
@@ -46,7 +47,8 @@ const Line: React.FC<{
       className={gold ? "stroke-primary" : "stroke-foreground/25"}
       strokeWidth="1"
       initial={{ pathLength: 0, opacity: 0 }}
-      animate={{ pathLength: 1, opacity: 1 }}
+      whileInView={{ pathLength: 1, opacity: 1 }}
+      viewport={{ once: true, amount: 0.4 }}
       transition={reduce ? { duration: 0 } : { duration: 0.5, delay, ease: EASE }}
     />
   );
@@ -77,18 +79,20 @@ const TodayDiagram: React.FC = () => (
 const OSDiagram: React.FC = () => (
   <>
     <svg viewBox="0 0 400 300" className="absolute inset-0 w-full h-full" aria-hidden="true">
-      <Line x1={140} y1={45} x2={160} y2={128} gold delay={0.05} />
-      <Line x1={260} y1={45} x2={240} y2={128} gold delay={0.1} />
-      <Line x1={95} y1={255} x2={140} y2={172} gold delay={0.15} />
-      <Line x1={165} y1={255} x2={180} y2={172} gold delay={0.2} />
-      <Line x1={235} y1={255} x2={220} y2={172} gold delay={0.25} />
-      <Line x1={305} y1={255} x2={260} y2={172} gold delay={0.3} />
+      <Line x1={140} y1={45} x2={160} y2={128} gold delay={0.45} />
+      <Line x1={260} y1={45} x2={240} y2={128} gold delay={0.5} />
+      <Line x1={95} y1={255} x2={140} y2={172} gold delay={0.55} />
+      <Line x1={165} y1={255} x2={180} y2={172} gold delay={0.6} />
+      <Line x1={235} y1={255} x2={220} y2={172} gold delay={0.65} />
+      <Line x1={305} y1={255} x2={260} y2={172} gold delay={0.7} />
     </svg>
     <Node x={140} y={45} label="You" variant="you" sub="decisions only" />
     <Node x={260} y={45} label="Your team" variant="you" sub="the real work" />
     <div className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: "50%", top: "50%" }}>
-      <div className="px-6 py-3 rounded-xl border border-primary bg-primary/12 text-accent-ink font-semibold text-xs md:text-sm whitespace-nowrap">
-        Your Operating System
+      <div className="px-4 py-2.5 rounded-xl border border-primary bg-primary/12 text-accent-ink font-semibold text-[11px] md:text-xs whitespace-nowrap text-center">
+        Your Operating
+        <br />
+        System
       </div>
     </div>
     <Node x={95} y={255} label="Email" />
@@ -98,96 +102,41 @@ const OSDiagram: React.FC = () => (
   </>
 );
 
-const Diagram: React.FC = () => {
-  const [state, setState] = useState<DiagramState>("today");
-  const [touched, setTouched] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.5 });
-  const reduce = useReducedMotion();
-
-  /* Auto-flip once to show the transformation, unless the visitor beat us to
-     it. The delay is generous so nobody gets cut off mid-read. */
-  useEffect(() => {
-    if (!inView || touched || reduce) return;
-    const t = setTimeout(() => setState("os"), 3000);
-    return () => clearTimeout(t);
-  }, [inView, touched, reduce]);
-
-  const pick = (s: DiagramState) => {
-    setTouched(true);
-    setState(s);
-  };
-
-  return (
-    <div ref={ref}>
-      <div className="flex justify-center gap-2 mb-8" role="tablist" aria-label="Before and after">
-        {(
-          [
-            ["today", "Today"],
-            ["os", "With an operating system"],
-          ] as const
-        ).map(([key, label]) => (
-          <button
-            key={key}
-            role="tab"
-            aria-selected={state === key}
-            onClick={() => pick(key)}
-            className={`px-4 py-2 text-xs md:text-sm font-semibold rounded-full border transition-colors duration-200 active:scale-[0.98] ${
-              state === key
-                ? "border-primary bg-primary/12 text-accent-ink"
-                : "border-line text-ink-2 hover:text-foreground"
-            }`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-
-      <div className="relative max-w-2xl mx-auto aspect-[4/3] rounded-xl border border-line bg-surface/50 overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={state}
-            initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.35, ease: EASE }}
-            className="absolute inset-0"
-          >
-            {state === "today" ? <TodayDiagram /> : <OSDiagram />}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      <div className="mt-6 text-center min-h-[3rem]">
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={state}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.25, ease: EASE }}
-            className="text-ink-2 text-base md:text-lg max-w-xl mx-auto"
-          >
-            {state === "today" ? (
-              <>Everything routes through you. When you stop, everything stops.</>
-            ) : (
-              <>
-                Work flows through the system.{" "}
-                <span className="text-foreground font-medium">
-                  You get decisions, not tasks.
-                </span>
-              </>
-            )}
-          </motion.p>
-        </AnimatePresence>
-        <p className="mt-3 font-semibold text-[10px] uppercase tracking-[0.14em] text-ink-2">
-          Not an off-the-shelf platform. Every piece is built around how your team already
-          works. The tools shown are just examples.
-        </p>
-      </div>
+/**
+ * Both states at once. The comparison is the argument, so hiding half of it
+ * behind a tab made the visitor do work to see the point. Side by side, the
+ * difference reads in a glance.
+ */
+const Panel: React.FC<{
+  label: string;
+  caption: React.ReactNode;
+  accent?: boolean;
+  children: React.ReactNode;
+}> = ({ label, caption, accent, children }) => (
+  <div className="flex flex-col">
+    <div className="flex items-center gap-3 mb-4">
+      <span
+        className={`h-0.5 w-6 ${accent ? "bg-primary" : "bg-foreground/25"}`}
+        aria-hidden="true"
+      />
+      <span
+        className={`text-[0.68rem] font-semibold uppercase tracking-[0.2em] ${
+          accent ? "text-accent-ink" : "text-ink-2"
+        }`}
+      >
+        {label}
+      </span>
     </div>
-  );
-};
+    <div
+      className={`relative aspect-[4/3] rounded-xl border overflow-hidden ${
+        accent ? "border-primary/40 bg-primary/[0.05]" : "border-line bg-surface/50"
+      }`}
+    >
+      {children}
+    </div>
+    <p className="mt-5 text-ink-2 leading-relaxed">{caption}</p>
+  </div>
+);
 
 const Shift: React.FC = () => (
   <section className="py-28 md:py-36 bg-surface/40 border-t border-line">
@@ -198,12 +147,54 @@ const Shift: React.FC = () => (
         </h2>
       </Reveal>
       <Reveal delay={0.08}>
-        <p className="text-lg text-ink-2 text-center max-w-2xl mx-auto mb-14">
+        <p className="text-lg text-ink-2 text-center max-w-2xl mx-auto mb-16">
           We build one system that sits across the tools you already use. Work flows
           through it, not through you.
         </p>
       </Reveal>
-      <Diagram />
+
+      <div className="relative grid md:grid-cols-2 gap-10 md:gap-14 items-start">
+        <Reveal>
+          <Panel
+            label="Today"
+            caption={<>Everything routes through you. When you stop, everything stops.</>}
+          >
+            <TodayDiagram />
+          </Panel>
+        </Reveal>
+
+        {/* The turn, sitting in the gutter between the two states */}
+        <div
+          className="hidden md:grid absolute left-1/2 top-[7.5rem] -translate-x-1/2 place-items-center w-10 h-10 rounded-full border border-primary bg-background text-accent-ink z-10"
+          aria-hidden="true"
+        >
+          <ArrowRight className="w-4 h-4" strokeWidth={2} />
+        </div>
+
+        <Reveal delay={0.12}>
+          <Panel
+            label="With an operating system"
+            accent
+            caption={
+              <>
+                Work flows through the system.{" "}
+                <span className="text-foreground font-medium">
+                  You get decisions, not tasks.
+                </span>
+              </>
+            }
+          >
+            <OSDiagram />
+          </Panel>
+        </Reveal>
+      </div>
+
+      <Reveal delay={0.1}>
+        <p className="mt-12 text-center font-semibold text-[10px] uppercase tracking-[0.14em] text-ink-2 max-w-2xl mx-auto leading-relaxed">
+          Not an off-the-shelf platform. Every piece is built around how your team already
+          works. The tools shown are just examples.
+        </p>
+      </Reveal>
     </div>
   </section>
 );

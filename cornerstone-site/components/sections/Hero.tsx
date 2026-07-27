@@ -34,7 +34,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
   });
 
   return (
-    <section className="relative min-h-[100dvh] flex flex-col justify-center pt-[68px] pb-20 overflow-hidden">
+    <section className="relative min-h-[100dvh] flex flex-col justify-center pt-[76px] md:pt-[88px] pb-20 overflow-hidden">
       <div className="max-w-5xl mx-auto w-full px-6 py-16">
         <motion.span
           {...rise(0, 12)}

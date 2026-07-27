@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Refund & Cancellation Policy',
-  description: 'Refund and Cancellation Policy for Cornerstone AI — how we handle refunds, cancellations, and project changes.',
+  description: 'Refund and Cancellation Policy for Cornerstone AI: how we handle refunds, cancellations, and project changes.',
   alternates: {
     canonical: 'https://cornerstone-ai.pro/refund-policy',
   },
@@ -35,8 +35,6 @@ export default function RefundPolicyPage() {
               The build is a fixed fee covering the week-one mapping workshop, eight weeks of embedded development, weekly training for your team, and handover. It is payable either in two instalments across the eight weeks, or in full up front at a 10% discount.
             </p>
             <ul className="list-disc pl-6 mt-2 space-y-1">
-              <li><strong className="text-foreground">The week-eight guarantee:</strong> at the end of week eight you decide. Keep the system, or hand it back and receive a full refund of the build fee. This applies to the whole fee, however you paid it.</li>
-              <li><strong className="text-foreground">What handing it back means:</strong> we disconnect the layer we built. Your own tools, accounts and data stay exactly as they were and remain yours.</li>
               <li><strong className="text-foreground">Cancellation before the build begins:</strong> if you cancel before the week-one workshop, you receive a full refund of anything paid.</li>
               <li><strong className="text-foreground">Cancellation during the build:</strong> you may stop at any point. You will be billed only for work completed to the date of cancellation, and every deliverable produced to that point is handed over to you.</li>
             </ul>
@@ -71,7 +69,7 @@ export default function RefundPolicyPage() {
           <section>
             <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">6. Ownership of deliverables</h2>
             <p>
-              Everything is built inside your own accounts from day one, and on payment you own all deliverables produced during the engagement: system designs, documentation, and any custom software built for your business. Cancellation does not affect ownership of work that has been paid for and delivered. Where the week-eight guarantee is exercised and the fee refunded, the layer we built is disconnected and handed back to us; your own data, accounts and tools are unaffected.
+              Everything is built inside your own accounts from day one, and on payment you own all deliverables produced during the engagement: system designs, documentation, and any custom software built for your business. Cancellation does not affect ownership of work that has been paid for and delivered.
             </p>
           </section>
 

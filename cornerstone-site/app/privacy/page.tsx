@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Privacy Policy for Cornerstone AI — how we collect, use, and protect your personal information under POPIA.',
+  description: 'Privacy Policy for Cornerstone AI: how we collect, use, and protect your personal information under POPIA.',
   alternates: {
     canonical: 'https://cornerstone-ai.pro/privacy',
   },

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
-  description: 'Terms of Service for Cornerstone AI — the terms governing your use of our website and services.',
+  description: 'Terms of Service for Cornerstone AI: the terms governing your use of our website and services.',
   alternates: {
     canonical: 'https://cornerstone-ai.pro/terms',
   },

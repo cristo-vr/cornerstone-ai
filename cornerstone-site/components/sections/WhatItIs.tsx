@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Check, ListChecks, ShieldCheck, Database, Inbox } from "lucide-react";
 import Reveal from "../ui/Reveal";
 
@@ -14,8 +14,15 @@ const traceSteps = [
   "Deposit invoice drafted in Xero",
 ];
 
-/** One trigger, four things handled, one message back. The whole idea, traced. */
-const TraceCard: React.FC = () => (
+/** One trigger, four things handled, one message back. The whole idea, traced.
+    The stagger is the point here: it reads as a sequence the system runs, not
+    as decoration. Kept under a second end to end so nobody scrolls past the
+    payoff line. */
+const TraceCard: React.FC = () => {
+  const reduce = useReducedMotion();
+  const step = (delay: number) =>
+    reduce ? { duration: 0 } : { duration: 0.45, delay, ease: EASE };
+  return (
   <div className="relative w-full rounded-xl border border-line bg-surface/50 p-6 md:p-8">
     <div className="font-semibold text-[10px] uppercase tracking-[0.18em] text-ink-2 mb-6">
       A real example, start to finish
@@ -25,24 +32,24 @@ const TraceCard: React.FC = () => (
       initial={{ opacity: 0, y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.6 }}
-      transition={{ duration: 0.5, ease: EASE }}
+      transition={step(0)}
       className="inline-block px-4 py-2 rounded-lg border border-primary bg-primary/12 text-accent-ink text-sm font-semibold mb-5"
     >
       New client signs: Anika
     </motion.div>
 
     <div className="relative pl-5 border-l border-line space-y-3 mb-6">
-      {traceSteps.map((step, i) => (
+      {traceSteps.map((label, i) => (
         <motion.div
-          key={step}
+          key={label}
           initial={{ opacity: 0, x: -8 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.45, delay: 0.3 + i * 0.18, ease: EASE }}
+          transition={step(0.18 + i * 0.11)}
           className="flex items-center gap-3 text-sm md:text-base text-ink-2"
         >
           <Check className="w-4 h-4 text-accent-ink shrink-0" strokeWidth={2.5} />
-          {step}
+          {label}
         </motion.div>
       ))}
     </div>
@@ -51,7 +58,7 @@ const TraceCard: React.FC = () => (
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.6 }}
-      transition={{ duration: 0.5, delay: 1.1, ease: EASE }}
+      transition={step(0.68)}
       className="rounded-xl border border-line bg-background p-4"
     >
       <div className="font-semibold text-[10px] uppercase tracking-[0.18em] text-ink-2 mb-2">
@@ -67,7 +74,8 @@ const TraceCard: React.FC = () => (
       we map it.
     </p>
   </div>
-);
+  );
+};
 
 const dayToDay = [
   {
