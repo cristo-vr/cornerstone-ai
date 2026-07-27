@@ -101,7 +101,7 @@ const GrowthSimulator: React.FC = () => {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-sm text-ink-2 leading-relaxed mb-9">
-              An illustration of the shape of the problem, not a projection for your
+              This shows the shape of the problem rather than a forecast for your
               business. Your real numbers are what we map in week one.
             </p>
           </Reveal>

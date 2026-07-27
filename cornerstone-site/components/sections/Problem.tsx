@@ -116,7 +116,7 @@ const Problem: React.FC = () => (
           <Reveal delay={0.08}>
             <div className="space-y-5 text-lg text-ink-2 leading-relaxed">
               <p>
-                An operating system is simply the way work moves through your business.
+                An operating system is the way work moves through your business.
                 How a new client, patient or placement gets onboarded. How projects get
                 tracked. How invoices go out. How nothing falls through the cracks.
               </p>

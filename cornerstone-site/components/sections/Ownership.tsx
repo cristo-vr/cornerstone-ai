@@ -12,7 +12,7 @@ const ownership = [
   { icon: Key, text: "It lives in your accounts: your email, your tools, your logins." },
   { icon: FileText, text: "The system and its code belong to you. In writing." },
   { icon: Ban, text: "No platform fees to us, ever. The only thing you can pay us for is more work." },
-  { icon: DoorOpen, text: "It does not need us to keep running." },
+  { icon: DoorOpen, text: "It doesn't need us to keep running." },
 ];
 
 const handoverRows = [
@@ -87,12 +87,12 @@ const Ownership: React.FC<OwnershipProps> = ({ onOpenContact }) => (
           <div className="lg:col-span-7 order-1 lg:order-2">
             <Reveal>
               <h2 className="font-display font-bold uppercase text-foreground leading-[0.92] tracking-[0.005em] text-[clamp(2.4rem,6vw,4.2rem)] mb-7">
-                Not rented. Handed over.
+                Yours at the end of it.
               </h2>
             </Reveal>
             <Reveal delay={0.08}>
               <p className="text-lg text-ink-2 leading-relaxed mb-10">
-                This is not a subscription you rent until the price goes up. It is a system
+                This isn't a subscription you rent until the price goes up. It's a system
                 we build into your business, and then hand over.
               </p>
             </Reveal>
@@ -153,10 +153,10 @@ const Ownership: React.FC<OwnershipProps> = ({ onOpenContact }) => (
               </strong>
             </p>
             <p>
-              So why keep us around? Because the technology keeps moving and you want
-              someone in your corner who&apos;s already three steps ahead. We stay on to
-              keep improving it and adding what it can do. Not to keep the lights on. You
-              could do that yourself.
+              Most clients keep us on anyway, because the technology moves fast and
+              they&apos;d rather have someone tracking it for them. That work is adding to
+              what the system can do. Keeping it switched on isn&apos;t work anyone needs
+              to pay for.
             </p>
           </div>
         </Reveal>

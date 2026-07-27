@@ -22,7 +22,7 @@ export const faqs = [
   {
     question: "How much of my time does this take?",
     answer:
-      "A workshop in week one, then roughly an hour a week with your team. One hour together, not one hour per person. We build embedded, so you see it working as it goes in rather than waiting eight weeks for a reveal.",
+      "A workshop in week one, then roughly an hour a week with your team, as a group rather than person by person. We build embedded, so you see it working as it goes in rather than waiting eight weeks for a reveal.",
   },
   {
     question: "My team isn't technical. Will they actually use it?",

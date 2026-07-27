@@ -20,7 +20,7 @@ const weeks = [
   {
     label: "Weeks 4-7",
     title: "Build live",
-    body: "One piece at a time, put to work the moment it is ready. Weekly sessions train your team as the system grows.",
+    body: "One piece at a time, put to work the moment it's ready. Weekly sessions train your team as the system grows.",
   },
   {
     label: "Week 8",
@@ -49,9 +49,10 @@ const TheBuild: React.FC = () => {
         </Reveal>
         <Reveal delay={0.08}>
           <p className="text-lg text-ink-2 mb-16 max-w-2xl leading-relaxed">
-            One build, fixed scope, done with you. Not a two-month disappearing act. Your
-            side of it: a workshop in week one, then about an hour a week with your team.
-            One hour together, not one hour per person.
+            One build, fixed scope, done with you. We don&apos;t vanish for two months
+            and come back with a finished box. Your side of it is a workshop in week one,
+            then about an hour a week with your team. One hour together, not one hour per
+            person.
           </p>
         </Reveal>
 
@@ -91,7 +92,7 @@ const TheBuild: React.FC = () => {
         <Reveal>
           <div className="mt-20 rounded-xl border border-line bg-background p-8 md:p-10">
             <h3 className="font-display uppercase tracking-[0.005em] text-2xl md:text-3xl font-bold text-foreground mb-4">
-              And after week eight?
+              After week eight.
             </h3>
             <div className="space-y-4 text-lg text-ink-2 leading-relaxed max-w-3xl">
               <p>

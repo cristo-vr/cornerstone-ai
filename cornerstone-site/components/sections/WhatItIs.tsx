@@ -86,7 +86,7 @@ const dayToDay = [
   {
     icon: ShieldCheck,
     title: "It holds your standard.",
-    body: "Work gets done to the bar you set, every time. Not just when you are watching.",
+    body: "Work gets done to the bar you set, whether or not you're watching.",
   },
   {
     icon: Database,
@@ -107,15 +107,15 @@ const WhatItIs: React.FC = () => (
         <div className="lg:col-span-6">
           <Reveal>
             <h2 className="font-display font-bold uppercase text-foreground leading-[0.92] tracking-[0.005em] text-[clamp(2.4rem,6vw,4.2rem)] mb-7">
-              So what is it, actually?
+              What it actually is.
             </h2>
           </Reveal>
           <Reveal delay={0.08}>
             <div className="space-y-5 text-lg text-ink-2 leading-relaxed">
               <p>
-                Plainly: it&apos;s AI, doing your business&apos;s routine work. Not an
-                off-the-shelf platform your team has to bend around. Not a person doing
-                your admin by hand.
+                It&apos;s AI doing your business&apos;s routine work. Your team
+                doesn&apos;t bend around it the way they bend around off-the-shelf
+                software, and nobody sits there working through your admin by hand.
               </p>
               <p>
                 One rule is built in from day one: the routine runs on its own, but

@@ -6,13 +6,13 @@ import Reveal from "../ui/Reveal";
 
 const forYou = [
   "You run a service business with real clients and a small team.",
-  "Everything still routes through you, and it is capping your growth.",
-  "You have demand. What you are missing is capacity.",
+  "Everything still routes through you, and it's capping your growth.",
+  "You have demand. What you're short of is capacity.",
   "You want to own your system, not rent another subscription.",
 ];
 
 const notForYou = [
-  "You are pre-revenue and still finding your offer.",
+  "You're pre-revenue and still finding your offer.",
   "You want a chatbot, not a way your business runs.",
   "You want a tool your team has to bend around.",
   "You want it done to you, not built with you.",
