@@ -19,7 +19,7 @@ import { Check, Loader2 } from "lucide-react";
  * control instead, backed by the honeypot below. The contact form keeps
  * Turnstile because a booking request is worth the friction.
  */
-const KIT_FORM_ID = "";
+const KIT_FORM_ID = "9736253";
 const KIT_ENDPOINT = `https://app.kit.com/forms/${KIT_FORM_ID}/subscriptions`;
 
 type Status = "idle" | "submitting" | "success" | "error";
