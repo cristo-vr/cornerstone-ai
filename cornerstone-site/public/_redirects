@@ -2,3 +2,10 @@
 # indexed and linked, so it redirects rather than 404s.
 /the-os-sprint  /  301
 /the-os-sprint/ /  301
+
+# Short aliases for the newsletter. Ads and anything spoken out loud want a URL
+# you can say once; the canonical page keeps the full brand name.
+/newsletter   /simple-systems-saturday  301
+/newsletter/  /simple-systems-saturday  301
+/saturday     /simple-systems-saturday  301
+/saturday/    /simple-systems-saturday  301
