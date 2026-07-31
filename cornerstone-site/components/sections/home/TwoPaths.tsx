@@ -127,8 +127,8 @@ const TwoPaths: React.FC = () => (
         </Reveal>
         <Reveal delay={0.08}>
           <p className="text-lg text-ink-2 leading-relaxed">
-            Same system either way. You pay me to build it, or you learn to build it
-            yourself. Money or time. Pick one.
+            It&rsquo;s the same system either way. The Build costs $5,500 and I do the
+            work. The Workshop costs $2,000 a seat and you do it, with me teaching.
           </p>
         </Reveal>
       </div>

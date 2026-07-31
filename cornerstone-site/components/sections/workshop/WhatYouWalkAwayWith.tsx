@@ -29,7 +29,7 @@ const WhatYouWalkAwayWith: React.FC = () => (
 
       <Reveal delay={0.06}>
         <h2 className="mt-7 font-display font-bold uppercase text-foreground leading-[0.92] tracking-[0.005em] text-[clamp(2rem,5vw,3.4rem)] max-w-3xl">
-          Judgement first. Then the systems. Then the proof.
+          Three things, by the end of week eight.
         </h2>
       </Reveal>
 
