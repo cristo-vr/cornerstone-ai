@@ -26,7 +26,7 @@ const faqs = [
   {
     question: "My team isn’t technical. Will they use it?",
     answer:
-      "The usual reason a new system dies is that it was built for a generic company and the team has to bend around it. This is the other way round: it’s built around how they already work, on the tools they already open, and it goes in live one piece at a time with training as it lands. By week eight they’re running on it rather than working it out.",
+      "Most systems die because the team has to bend around them. This one gets built around how they already work, on the tools they already open. It goes in live, one piece at a time, with training as it lands. By week eight they’re using it, not learning it.",
   },
   {
     question: "We handle sensitive information. Patients, legal files, payroll.",
@@ -72,14 +72,14 @@ const FinalCTA: React.FC = () => (
       <div className="mt-24 text-center">
         <Reveal>
           <h2 className="font-display font-bold uppercase text-foreground leading-[0.92] tracking-[0.005em] text-[clamp(2.3rem,5.6vw,4rem)] mb-6">
-            Tell me the part of the week that eats you.
+            Book a call.
           </h2>
         </Reveal>
         <Reveal delay={0.08}>
           <p className="text-lg text-ink-2 leading-relaxed max-w-xl mx-auto">
-            Thirty minutes, with me, not a salesperson. I&rsquo;ll tell you what
-            I&rsquo;d build, which of the two paths fits, and what it costs. If neither
-            fits, you&rsquo;ll hear that on the call rather than after the invoice.
+            Thirty minutes, with me. I&rsquo;ll tell you what I&rsquo;d build, which of
+            the two fits, and what it costs. If neither fits, you&rsquo;ll hear that on
+            the call rather than after the invoice.
           </p>
         </Reveal>
       </div>

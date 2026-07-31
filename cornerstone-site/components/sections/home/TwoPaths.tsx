@@ -30,7 +30,7 @@ const paths: Path[] = [
     priceNote: "or $4,950 paid in full",
     who: "Owners who want the thing running and have no interest in becoming the person who builds it.",
     what: [
-      "Eight weeks. Week one I map how the business actually runs, not how the org chart says it does.",
+      "Eight weeks. Week one I map how the business actually runs.",
       "Then I build, live, in your own accounts. You watch it go in piece by piece instead of waiting for a reveal.",
       "The whole team gets it, each person seeing only what they should, with an audit trail of every action.",
       "You own all of it outright. No licence, no platform fee, nothing that switches off if we part ways.",
@@ -49,7 +49,7 @@ const paths: Path[] = [
     name: "The Workshop",
     price: "$2,000",
     priceNote: "per seat for 8 weeks, team seats $750",
-    who: "Owners who want the skill to live inside the business, and have someone (often themselves) who’ll actually sit down and build.",
+    who: "Owners who want the skill inside the business, and will sit down and build it themselves.",
     what: [
       "Eight weeks of hands on training. You build on your own real work, not on a toy example.",
       "Two sessions a week, plus two private sessions and six written support requests.",
@@ -127,8 +127,8 @@ const TwoPaths: React.FC = () => (
         </Reveal>
         <Reveal delay={0.08}>
           <p className="text-lg text-ink-2 leading-relaxed">
-            Same kind of system either way. The difference is whose hands build it, and
-            whether the skill ends up in your team or stays with me.
+            Same system either way. You pay me to build it, or you learn to build it
+            yourself. Money or time. Pick one.
           </p>
         </Reveal>
       </div>

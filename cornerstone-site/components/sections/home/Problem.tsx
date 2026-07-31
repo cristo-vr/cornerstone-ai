@@ -35,7 +35,7 @@ const Problem: React.FC = () => (
     <div className="max-w-6xl mx-auto px-6">
       <div className="max-w-3xl">
         <Reveal>
-          <Eyebrow className="mb-8">The honest version</Eyebrow>
+          <Eyebrow className="mb-8">The problem</Eyebrow>
         </Reveal>
 
         <Reveal delay={0.06}>
@@ -53,9 +53,9 @@ const Problem: React.FC = () => (
               handed back a chatbot answering questions your customers were never asking.
             </p>
             <p>
-              So AI got filed somewhere between hype and money pit, with one splinter left
-              in it: the suspicion that a competitor has worked something out that you
-              haven&rsquo;t. And no reliable way to tell a real capability from a good
+              So AI got filed somewhere between hype and money pit, with one thing still
+              nagging: the suspicion that a competitor has worked something out that you
+              haven&rsquo;t, and no reliable way to tell a real capability from a good
               demo.
             </p>
             <p className="text-foreground font-medium">
@@ -90,7 +90,7 @@ const Problem: React.FC = () => (
       <Reveal delay={0.08}>
         <div className="mt-10 grid lg:grid-cols-12 gap-8 items-start">
           <p className="lg:col-span-7 text-lg text-ink-2 leading-relaxed">
-            None of that is exotic. It runs on the tools you already pay for (email,
+            None of that is complicated. It runs on the tools you already pay for (email,
             WhatsApp, your accounting package, your project board, your client list),
             inside your own accounts, with permissions per person and a record of every
             action it took. Anything that leaves the business, money or a message to a

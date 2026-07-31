@@ -52,40 +52,34 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
           className="flex items-center gap-3.5 text-[0.7rem] font-semibold uppercase tracking-[0.26em] text-accent-ink mb-9"
         >
           <span aria-hidden="true" className="h-0.5 w-8 bg-primary" />
-          Cristo Van Rensburg, Cornerstone AI
+          Two ways to work together
         </motion.span>
 
-        <h1 className="font-display font-extrabold uppercase text-foreground leading-[0.86] tracking-[0.005em] text-[clamp(2.7rem,7.6vw,6rem)]">
+        <h1 className="font-display font-extrabold uppercase text-foreground leading-[0.86] tracking-[0.005em] text-[clamp(2.9rem,8.2vw,6.5rem)]">
           <motion.span {...rise(0.08)} className="block">
-            I build the AI
+            Right now, your
           </motion.span>
           <motion.span {...rise(0.16)} className="block">
-            that does your
+            business runs
           </motion.span>
           <motion.span {...rise(0.24)} className="block">
-            company&rsquo;s <span className="text-accent-ink">admin.</span>
+            on <span className="text-accent-ink">you.</span>
           </motion.span>
         </h1>
 
         <motion.p
           {...rise(0.38)}
-          className="mt-9 max-w-2xl text-lg md:text-xl text-ink-2 leading-relaxed"
+          className="mt-9 max-w-xl text-lg md:text-xl text-ink-2 leading-relaxed"
         >
-          The quote drafted the minute the enquiry lands. The invoice that&rsquo;s two
-          weeks late, chased. Monday&rsquo;s report written off live numbers instead of
-          somebody&rsquo;s memory. The meeting notes filed and the project updated before
-          anyone opens a laptop.{" "}
+          I build the software that takes the admin off you. The quote drafted when the
+          enquiry lands, the late invoice chased, Monday&rsquo;s report written from live
+          numbers.{" "}
           <strong className="font-semibold text-foreground">
-            Software that does the work, not software that waits for you to open it.
+            Either I build it for your business, or I teach you to build it yourself.
           </strong>
         </motion.p>
 
-        <motion.p {...rise(0.46)} className="mt-5 max-w-2xl text-lg text-ink-2">
-          Two ways to get it: I build it for your business, or I teach you and your team
-          to build it yourselves.
-        </motion.p>
-
-        <motion.div {...rise(0.56)} className="mt-10 flex flex-wrap items-center gap-5">
+        <motion.div {...rise(0.5)} className="mt-11 flex flex-wrap items-center gap-5">
           <Button onClick={onOpenContact} icon>
             Book a call
           </Button>
