@@ -64,8 +64,8 @@ const About: React.FC<AboutProps> = ({ onOpenContact }) => (
         <Reveal delay={0.14}>
           <div className="flex flex-col sm:flex-row sm:items-center gap-6 pt-7 border-t border-line">
             <p className="font-display text-xl font-bold uppercase tracking-[0.005em] text-foreground">
-              Whatever we build, you own outright. No lock-in, no licence, no dependency
-              on us.
+              Whatever I build, you own outright. No lock-in, no licence, no dependency
+              on me.
             </p>
             <div className="shrink-0">
               <Button onClick={onOpenContact} icon>

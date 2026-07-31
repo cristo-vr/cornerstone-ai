@@ -135,10 +135,10 @@ const STUDIES: Study[] = [
   {
     slug: "mason",
     name: "Cornerstone",
-    industry: "Our own operating system",
-    what: "The system we run Cornerstone on. Chat, brief, sessions, clients, time. We build you the same kind of thing we rely on ourselves.",
+    industry: "My own operating system",
+    what: "The system I run Cornerstone on. Chat, brief, sessions, clients, time. I build you the same kind of thing I rely on myself.",
     metric: "Tenant zero",
-    metricLabel: "we run on what we sell",
+    metricLabel: "I run on what I sell",
     runs: [
       "One place to chat to the business and get decisions back",
       "Sessions, clients and billing tracked",
@@ -251,7 +251,7 @@ const patterns: Pattern[] = [
     title: "Reporting that writes itself",
     icon: BrainCircuit,
     pain: "Their highest-paid people were spending hours a week inside messy spreadsheets just to work out how the business was doing. By the time a number reached leadership it was already out of date, so decisions kept getting deferred to the next meeting.",
-    fix: "We built an engine that pulls the data on its own, does the arithmetic, and writes the report. Nobody touches a spreadsheet.",
+    fix: "I built an engine that pulls the data on its own, does the arithmetic, and writes the report. Nobody touches a spreadsheet.",
     win: "Leadership stopped waiting for numbers. The report is there when they open it, so the conversation starts at what to do rather than what happened.",
   },
   {
@@ -259,7 +259,7 @@ const patterns: Pattern[] = [
     title: "Leads routed the moment they land",
     icon: Waypoints,
     pain: "Every incoming lead sat in a queue until somebody copied the details across, wrote an email, and sent it to the right branch. Leads went cold waiting, and the retyping introduced its own mistakes.",
-    fix: "We put a routing layer between the ad and the inbox. A lead arrives, the system reads where they are, and it lands in that branch's pipeline.",
+    fix: "I put a routing layer between the ad and the inbox. A lead arrives, the system reads where they are, and it lands in that branch's pipeline.",
     win: "Nothing sits in the queue any more, and the hand-off role is gone. The sales team now gets the lead while the prospect still has the page open.",
   },
   {
@@ -267,7 +267,7 @@ const patterns: Pattern[] = [
     title: "Qualifying before a human picks up",
     icon: Bot,
     pain: "Hundreds of leads a month, most of them nowhere near ready to buy. Closers were spending their days asking the same opening questions instead of closing, and the good leads waited behind the bad ones.",
-    fix: "We built a WhatsApp assistant on their own sales scripts. It talks to every new lead, answers what they ask, and collects the budget and timing details before anyone on the team is involved.",
+    fix: "I built a WhatsApp assistant on their own sales scripts. It talks to every new lead, answers what they ask, and collects the budget and timing details before anyone on the team is involved.",
     win: "The team only picks up the phone for a lead that's ready. Same headcount, double the closing rate.",
   },
   {
@@ -275,7 +275,7 @@ const patterns: Pattern[] = [
     title: "A content line instead of a content scramble",
     icon: Factory,
     pain: "The marketing team knew what they needed to publish and never got to it, because writing each blog and cutting it into posts by hand ate the whole week.",
-    fix: "We built the production line. It drafts the posts for review, then turns each approved one into captions and visuals and queues them.",
+    fix: "I built the production line. It drafts the posts for review, then turns each approved one into captions and visuals and queues them.",
     win: "The team still sets the strategy and still approves everything. They just stopped doing the assembly, and their output went up five times without another writer.",
   },
   {
@@ -283,7 +283,7 @@ const patterns: Pattern[] = [
     title: "An MVP in three days, not six months",
     icon: Rocket,
     pain: "The client had an idea for the security industry and a six-month development quote in front of them. They needed to know whether it worked before committing that kind of money.",
-    fix: "We built it with them in a three-day workshop, coding the MVP from scratch in the room.",
+    fix: "I built it with them in a three-day workshop, coding the MVP from scratch in the room.",
     win: "The MVP proved the idea was worth funding, which took months off the timeline. The platform they went on to build uses AI to give their own users more capacity.",
   },
   {
@@ -291,7 +291,7 @@ const patterns: Pattern[] = [
     title: "Recruiters recruiting again",
     icon: UserCheck,
     pain: "One of their strongest recruiters was spending most of her day booking interviews, chasing candidates for documents, and updating the CRM. The actual recruiting fit into whatever was left.",
-    fix: "We automated the admin end of her funnel. From the moment a candidate applies, the system handles vetting, the emails and the calendar.",
+    fix: "I automated the admin end of her funnel. From the moment a candidate applies, the system handles vetting, the emails and the calendar.",
     win: "She got most of her week back and every applicant now gets a response straight away, at any hour. The agency runs the same funnel at a fraction of the cost.",
   },
 ];
@@ -338,7 +338,7 @@ const Proof: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
 
         <Reveal delay={0.04}>
           <h2 className="font-display font-bold uppercase text-foreground leading-[0.92] tracking-[0.005em] text-[clamp(2.4rem,6vw,4.2rem)] mb-5 max-w-3xl">
-            Real businesses, running on systems we built them.
+            Real businesses, running on systems I built them.
           </h2>
         </Reveal>
         <Reveal delay={0.08}>

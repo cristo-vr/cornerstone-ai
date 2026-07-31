@@ -1,7 +1,7 @@
 export const siteConfig = {
     name: "Cornerstone AI",
     description:
-        "Right now, you are the operating system of your own business. We build you the real one: a system built around how you work, run by AI, owned by you. Eight weeks.",
+        "Right now, you are the operating system of your own business. I build you the real one, or I teach you to build it yourself. Two ways to work together, both eight weeks.",
     url: "https://cornerstone-ai.pro",
     locale: "en_ZA",
     author: "Cristo Van Rensburg",

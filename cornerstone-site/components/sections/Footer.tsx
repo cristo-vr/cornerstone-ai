@@ -9,10 +9,9 @@ interface FooterProps {
 
 const sitemap = [
   { label: "Home", href: "/" },
-  { label: "What it is", href: "/#what-it-is" },
+  { label: "The Build", href: "/build" },
+  { label: "The Workshop", href: "/workshop" },
   { label: "Proof", href: "/#proof" },
-  { label: "The build", href: "/#the-build" },
-  { label: "Pricing", href: "/#pricing" },
   { label: "About", href: "/#about" },
   { label: "FAQ", href: "/#faq" },
 ];
@@ -35,8 +34,8 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => (
         <div className="md:col-span-7">
           <Logo tone="onDark" markClassName="w-8 h-8" wordClassName="text-2xl" />
           <p className="mt-6 max-w-md text-lg leading-relaxed">
-            Right now, you are the operating system of your own business. We build you the
-            real one: built around how you work, run by AI, owned by you.
+            Right now, you are the operating system of your own business. I build you the
+            real one, or I teach you to build it yourself.
           </p>
           <button
             onClick={onOpenContact}

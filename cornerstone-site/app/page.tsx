@@ -2,29 +2,24 @@
 
 import React, { useState } from "react";
 import Navbar from "../components/layout/Navbar";
-import Hero from "../components/sections/Hero";
-import Problem from "../components/sections/Problem";
-import GrowthSimulator from "../components/sections/GrowthSimulator";
-import Shift from "../components/sections/Shift";
-import WhatItIs from "../components/sections/WhatItIs";
-import Levers from "../components/sections/Levers";
+import Hero from "../components/sections/home/Hero";
+import Problem from "../components/sections/home/Problem";
+import TwoPaths from "../components/sections/home/TwoPaths";
 import Proof from "../components/sections/Proof";
-import WhoItsFor from "../components/sections/WhoItsFor";
-import TheBuild from "../components/sections/TheBuild";
-import Pricing from "../components/sections/Pricing";
-import Ownership from "../components/sections/Ownership";
-import Safety from "../components/sections/Safety";
 import About from "../components/sections/About";
-import FAQ from "../components/sections/FAQ";
-import ContactSection from "../components/sections/ContactSection";
+import FinalCTA from "../components/sections/home/FinalCTA";
 import Footer from "../components/sections/Footer";
 import ContactModal from "../components/ui/ContactModal";
 import Preloader from "../components/ui/Preloader";
 
 /**
- * One page, one argument, in order:
- *   the pain -> what it costs you -> the shift -> what it is -> what it returns
- *   -> proof -> fit -> the build -> the price -> ownership -> safety -> who -> answers -> ask
+ * Six sections, one job: make the fork obvious.
+ *
+ *   what I do -> why the last thing you bought didn't work -> the two ways in
+ *   -> proof -> who I am -> the ask
+ *
+ * The detail of each offer lives on /build and /workshop. This page exists to
+ * send the reader to the right one of the two, in under two minutes.
  */
 const App: React.FC = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -39,19 +34,10 @@ const App: React.FC = () => {
       <main>
         <Hero onOpenContact={openContact} />
         <Problem />
-        <GrowthSimulator />
-        <Shift />
-        <WhatItIs />
-        <Levers />
+        <TwoPaths />
         <Proof onOpenContact={openContact} />
-        <WhoItsFor />
-        <TheBuild />
-        <Pricing onOpenContact={openContact} />
-        <Ownership onOpenContact={openContact} />
-        <Safety />
         <About onOpenContact={openContact} />
-        <FAQ />
-        <ContactSection />
+        <FinalCTA />
       </main>
 
       <Footer onOpenContact={openContact} />

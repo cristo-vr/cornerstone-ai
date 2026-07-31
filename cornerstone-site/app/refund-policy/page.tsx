@@ -41,14 +41,14 @@ export default function RefundPolicyPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">3. Ongoing retainers</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">3. Upkeep and Extensions</h2>
             <p>
-              After handover, some clients engage Cornerstone AI on an optional monthly retainer for continued development, support and training. A retainer is never a condition of the build, and the system keeps running without one.
+              After handover, some clients continue on Upkeep (maintenance and fixes) or Extensions (continued development). Both are billed per four week cycle. Neither is a condition of the build, and the system keeps running without either.
             </p>
             <ul className="list-disc pl-6 mt-2 space-y-1">
-              <li><strong className="text-foreground">No lock-in:</strong> a retainer may be cancelled at the end of any monthly period. There is no minimum term.</li>
-              <li><strong className="text-foreground">Prepaid fees:</strong> any prepaid retainer fees for unused work within a notice period are refunded on a pro-rata basis.</li>
-              <li><strong className="text-foreground">Work already delivered:</strong> retainer months in which work has been delivered are not refundable, as the service has been provided.</li>
+              <li><strong className="text-foreground">No lock-in:</strong> either may be cancelled at the end of any four week cycle. There is no minimum term.</li>
+              <li><strong className="text-foreground">Prepaid fees:</strong> any prepaid fees for unused work within a notice period are refunded on a pro-rata basis.</li>
+              <li><strong className="text-foreground">Work already delivered:</strong> cycles in which work has been delivered are not refundable, as the service has been provided.</li>
             </ul>
           </section>
 

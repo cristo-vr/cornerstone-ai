@@ -7,7 +7,7 @@ export const faqs = [
   {
     question: "What is an operating system, in plain terms?",
     answer:
-      "The way work actually moves through your business: how a client gets onboarded, how projects get tracked, how invoices go out, how nothing slips. Every business already has one. In most, it's the founder's memory plus a group chat plus five tools that don't talk. We build you a real one, so the work runs through the system instead of through you.",
+      "The way work actually moves through your business: how a client gets onboarded, how projects get tracked, how invoices go out, how nothing slips. Every business already has one. In most, it's the founder's memory plus a group chat plus five tools that don't talk. I build you a real one, so the work runs through the system instead of through you.",
   },
   {
     question: "Is this just a chatbot that knows my company?",
@@ -17,12 +17,12 @@ export const faqs = [
   {
     question: "Which tools does it work with?",
     answer:
-      "The ones you already use. Email, WhatsApp, Xero or your bookkeeping tool, spreadsheets, your client list, your project board. Online store, booking calendar, warehouse system: same story. We map your exact stack in week one and tell you then if something can't connect, before anything is built.",
+      "The ones you already use. Email, WhatsApp, Xero or your bookkeeping tool, spreadsheets, your client list, your project board. Online store, booking calendar, warehouse system: same story. I map your exact stack in week one and tell you then if something can't connect, before anything is built.",
   },
   {
     question: "How much of my time does this take?",
     answer:
-      "A workshop in week one, then roughly an hour a week with your team, as a group rather than person by person. We build embedded, so you see it working as it goes in rather than waiting eight weeks for a reveal.",
+      "A mapping session in week one, then roughly an hour a week with your team, as a group rather than person by person. I build embedded, so you see it working as it goes in rather than waiting eight weeks for a reveal.",
   },
   {
     question: "My team isn't technical. Will they actually use it?",
@@ -32,16 +32,16 @@ export const faqs = [
   {
     question: "We handle sensitive information. Patients, legal files, payroll. Still fine?",
     answer:
-      "Yes, and that changes how we build, not whether we can. Regulated information gets stricter rules: tighter access, human sign-off on anything that touches it, and we build to your industry's requirements rather than around them. On the first call we'll walk you through exactly how, for your specific rules.",
+      "Yes, and that changes how I build, not whether I can. Regulated information gets stricter rules: tighter access, human sign-off on anything that touches it, and I build to your industry's requirements rather than around them. On the first call I'll walk you through exactly how, for your specific rules.",
   },
   {
     question: "Who fixes it if something breaks in month three?",
     answer:
-      "If you're on the optional retainer, we do, as part of it. If you're not, your team uses the documentation from the handover, or you call us in for the fix. Either way you're never locked out of your own system: it runs on your accounts and your team holds the keys.",
+      "If you're on Upkeep, I do, inside 48 hours. If you're not, your team uses the documentation from the handover, or you call me in for the fix. Either way you're never locked out of your own system: it runs on your accounts and your team holds the keys.",
   },
   {
     question: "What happens if we stop working together?",
     answer:
-      "Nothing switches off. Everything is built inside your own accounts from day one, so the system and its data are already yours before the build even finishes. There's no licence to renew and no platform fee to us. Your team holds the keys and the documentation, and it keeps running exactly as it did.",
+      "Nothing switches off. Everything is built inside your own accounts from day one, so the system and its data are already yours before the build even finishes. There's no licence to renew and no platform fee to me. Your team holds the keys and the documentation, and it keeps running exactly as it did.",
   },
 ];
