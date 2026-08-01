@@ -11,7 +11,7 @@ const faqs = [
   {
     question: "How do I know which of the two I need?",
     answer:
-      "If you want it running and you don’t want to be the person maintaining it, that’s the Build. If you’d rather the skill lived inside your business, and you or someone on your team will actually sit down and build, that’s the Workshop. Book a call and I’ll tell you which one I think fits, including when the answer is neither.",
+      "If you want the operation running on a system and you don’t want to be the person looking after it, that’s the Build. If you’d rather learn to run the business better yourself, and you or someone on your team will actually put in the hours, that’s the Workshop. Book a call and I’ll tell you which one I think fits, including when the answer is neither.",
   },
   {
     question: "Which tools does it work with?",

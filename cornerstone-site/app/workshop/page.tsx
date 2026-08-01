@@ -4,7 +4,7 @@ import { siteConfig } from "@/lib/config";
 
 const TITLE = "The Workshop";
 const DESCRIPTION =
-  "Eight weeks of building. You'll come out knowing what AI can do inside your business, able to build it yourself, with three working systems running. Two sessions a week, max eight businesses, $2,000 a seat. Five hours a week back per seat, measured, or the seat runs free.";
+  "Eight weeks of tactical training in how to operate with AI. You come out able to look at any part of how your business runs and know what AI can take, with three working systems already running. Two sessions a week, max eight businesses, $2,000 a seat. Five hours a week back per seat, measured, or the seat runs free.";
 
 export const metadata: Metadata = {
   title: TITLE,

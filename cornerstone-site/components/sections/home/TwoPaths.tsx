@@ -21,12 +21,15 @@ type Path = {
   feature?: boolean;
 };
 
-/* These are two different purchases, not two prices for one thing. The Build
-   delivers a system; the Workshop delivers a capability. Framing them as
-   "who does the building" makes the cheaper one read as the same product with
-   the labour removed, which undersells the training and promises a custom
-   operating system the Workshop does not deliver. The deeper pages already
-   draw the line as the skill vs the system, so this matches that vocabulary. */
+/* Both offers sit under operations, because that is the thing the buyer
+   actually wants: a company that runs better. Nobody here is shopping for the
+   ability to build software, so builder language ("learn to build with AI")
+   describes a job the reader has no interest in taking on.
+
+   They are also two different purchases rather than two prices for one thing.
+   Framing them as "who does the building" makes the cheaper one read as the
+   same product with the labour removed, which undersells the training and
+   implies a custom operating system the Workshop does not deliver. */
 const paths: Path[] = [
   {
     id: "build",
@@ -35,7 +38,7 @@ const paths: Path[] = [
     name: "The Build",
     price: "$5,500",
     priceNote: "or $4,950 paid in full",
-    who: "Owners who want the system running, and have no interest in becoming the person who builds it.",
+    who: "Owners who want the operation running on a system, and would rather buy the outcome than run the project.",
     what: [
       "I do the building. Your side is the week one workshop, then about an hour a week with your team.",
       "It runs in your own accounts, permissioned per person, with an audit trail on everything it touches.",
@@ -52,16 +55,16 @@ const paths: Path[] = [
   {
     id: "workshop",
     kicker: "Tactical training",
-    title: "I train you to build with AI",
+    title: "I teach you to operate with AI",
     name: "The Workshop",
     price: "$2,000",
     priceNote: "per seat for 8 weeks, team seats $750",
-    who: "Owners and their teams who want the capability in the building, and will sit down and do the work to get it.",
+    who: "Owners who want to run the business better themselves, and will put in the hours to get there.",
     what: [
-      "Eight weeks of hands on training, two sessions a week, worked on your own real operation rather than a toy example.",
+      "Eight weeks of hands on training, two sessions a week, worked on your own operation rather than a toy example.",
       "Two private sessions and six written support requests, so nobody stays stuck on their own problem.",
-      "You leave able to tell a real capability from a good demo, and to build the next thing without me.",
-      "What you build in the room runs on your machine, under your login. Team wide access and permissions are what the Build adds.",
+      "You leave able to look at any part of how you operate, tell whether AI can take it, and go and make that happen.",
+      "What you put in place runs on your machine, under your login. Team wide access, permissions and an audit trail are what the Build adds.",
     ],
     after: "After the eight weeks: $1,500 per block if you want to keep going.",
     limit: "Maximum eight businesses per intake.",
@@ -132,15 +135,15 @@ const TwoPaths: React.FC = () => (
         </Reveal>
         <Reveal delay={0.06}>
           <h2 className="font-display font-bold uppercase text-foreground leading-[0.92] tracking-[0.005em] text-[clamp(2.3rem,5.6vw,4rem)] mb-6">
-            One hands you a system. The other hands you the skill.
+            I teach you to operate with AI, or I build the system you operate on.
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
           <p className="text-lg text-ink-2 leading-relaxed">
-            These do different jobs. The Build puts a custom operating system into your
-            business for your team to run on. The Workshop trains you and your people to
-            build with AI, and the systems you produce along the way are the proof it
-            worked.
+            Both of these are about how your company runs day to day. In the Build I put a
+            custom operating system into the business and your team works on it. In the
+            Workshop I train you and your people to run your own operation with AI, so the
+            improvements carry on after I&rsquo;ve gone.
           </p>
         </Reveal>
       </div>

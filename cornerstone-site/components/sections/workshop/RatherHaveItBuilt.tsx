@@ -5,8 +5,12 @@ import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 
 const compare = [
-  { k: "Who builds it", workshop: "You do, with me in the room", build: "I do" },
-  { k: "What you end up with", workshop: "The skill, plus three systems", build: "One system, finished" },
+  { k: "Who does the work", workshop: "You do, with me in the room", build: "I do" },
+  {
+    k: "What you end up with",
+    workshop: "Able to run it better yourself, plus three systems",
+    build: "One system, finished",
+  },
   { k: "Where it runs", workshop: "Your machine, your accounts", build: "Your accounts, your whole team" },
   { k: "What it costs", workshop: "$2,000 a seat", build: "$5,500" },
 ];
@@ -27,15 +31,15 @@ const RatherHaveItBuilt: React.FC = () => (
       <Reveal delay={0.1}>
         <div className="mt-6 space-y-5 text-lg text-ink-2 leading-relaxed max-w-2xl">
           <p>
-            Some owners want the skill in the building. Some want the thing running and
-            their attention back on the work they actually do. Both are reasonable, and the
-            second one is The Build.
+            Some owners want to learn to run the business better themselves. Some want the
+            thing running and their attention back on the work they actually do. Both are
+            reasonable, and the second one is The Build.
           </p>
           <p>
-            Same eight weeks, except I do the building. A system built around how your
-            business actually runs, hosted on your accounts, permissioned for your whole
-            team, with an audit trail on everything it touches. You get a finished system
-            instead of the ability to make more of them.
+            Same eight weeks, except I do the work. A system built around how your business
+            actually runs, hosted on your accounts, permissioned for your whole team, with
+            an audit trail on everything it touches. You get a finished operating system,
+            and the know-how stays with me rather than moving into your team.
           </p>
         </div>
       </Reveal>

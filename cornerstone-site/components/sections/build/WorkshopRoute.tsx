@@ -24,7 +24,7 @@ const WorkshopRoute: React.FC = () => (
 
       <Reveal delay={0.05}>
         <h2 className="mt-7 font-display font-bold uppercase text-foreground leading-[0.92] tracking-[0.005em] text-[clamp(2.2rem,5.4vw,3.8rem)] max-w-3xl">
-          Or you learn to build it yourself.
+          Or you learn to operate with AI yourself.
         </h2>
       </Reveal>
 
@@ -32,17 +32,17 @@ const WorkshopRoute: React.FC = () => (
         <Reveal delay={0.08} className="lg:col-span-7">
           <div className="space-y-5 text-lg text-ink-2 leading-relaxed">
             <p>
-              The Build is done for you. Some people would rather have the skill than
-              the system, and some aren&apos;t ready to put $5,500 into something they
-              can&apos;t picture yet. Both of those are fair, so there&apos;s a second
-              door.
+              The Build is done for you. Some owners would rather learn to run the
+              business better themselves than have it handed over, and some aren&apos;t
+              ready to put $5,500 into something they can&apos;t picture yet. Both of
+              those are fair, so there&apos;s a second door.
             </p>
             <p>
-              The Workshop is hands on training in a group setting. Two sessions a
-              week for eight weeks, at most eight businesses in an intake, and you
-              build on your own real work while I&apos;m in the room with you. Not a
-              course, not a community, and nobody is going to coach you. You turn up
-              and do the work with someone who has done it before.
+              The Workshop is tactical training in a group setting. Two sessions a week
+              for eight weeks, at most eight businesses in an intake, and you work on
+              your own operation while I&apos;m in the room with you. There is no
+              curriculum to sit through, no community to join, and nobody coaching you.
+              You turn up and do the work with someone who has done it before.
             </p>
             <p>
               Here&apos;s the ceiling, said now rather than in week seven. What you
