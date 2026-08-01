@@ -21,17 +21,24 @@ type Path = {
   feature?: boolean;
 };
 
+/* These are two different purchases, not two prices for one thing. The Build
+   delivers a system; the Workshop delivers a capability. Framing them as
+   "who does the building" makes the cheaper one read as the same product with
+   the labour removed, which undersells the training and promises a custom
+   operating system the Workshop does not deliver. The deeper pages already
+   draw the line as the skill vs the system, so this matches that vocabulary. */
 const paths: Path[] = [
   {
     id: "build",
     kicker: "Done for you",
-    title: "I build it for you",
+    title: "I build your operating system",
     name: "The Build",
     price: "$5,500",
     priceNote: "or $4,950 paid in full",
-    who: "Owners who want the thing running and have no interest in becoming the person who builds it.",
+    who: "Owners who want the system running, and have no interest in becoming the person who builds it.",
     what: [
       "I do the building. Your side is the week one workshop, then about an hour a week with your team.",
+      "It runs in your own accounts, permissioned per person, with an audit trail on everything it touches.",
       "Fixed scope agreed before I start, so the price doesn’t move once we’re underway.",
       "Documentation and training at handover, so your team can change it later without calling me.",
     ],
@@ -44,17 +51,17 @@ const paths: Path[] = [
   },
   {
     id: "workshop",
-    kicker: "Done with you",
-    title: "I teach you to build it",
+    kicker: "Tactical training",
+    title: "I train you to build with AI",
     name: "The Workshop",
     price: "$2,000",
     priceNote: "per seat for 8 weeks, team seats $750",
-    who: "Owners who want the skill inside the business, and will sit down and build it themselves.",
+    who: "Owners and their teams who want the capability in the building, and will sit down and do the work to get it.",
     what: [
-      "Eight weeks of hands on training. You build on your own real work, not on a toy example.",
-      "Two sessions a week, plus two private sessions and six written support requests.",
-      "It runs in a group setting with other businesses, so you see problems solved that you haven’t hit yet.",
-      "You leave able to build the next one without me, and able to tell a real capability from a good demo.",
+      "Eight weeks of hands on training, two sessions a week, worked on your own real operation rather than a toy example.",
+      "Two private sessions and six written support requests, so nobody stays stuck on their own problem.",
+      "You leave able to tell a real capability from a good demo, and to build the next thing without me.",
+      "What you build in the room runs on your machine, under your login. Team wide access and permissions are what the Build adds.",
     ],
     after: "After the eight weeks: $1,500 per block if you want to keep going.",
     limit: "Maximum eight businesses per intake.",
@@ -125,14 +132,15 @@ const TwoPaths: React.FC = () => (
         </Reveal>
         <Reveal delay={0.06}>
           <h2 className="font-display font-bold uppercase text-foreground leading-[0.92] tracking-[0.005em] text-[clamp(2.3rem,5.6vw,4rem)] mb-6">
-            Two ways to get one built.
+            One hands you a system. The other hands you the skill.
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
           <p className="text-lg text-ink-2 leading-relaxed">
-            Same system, same eight weeks. I can build it for your business, or I can
-            teach you and your team to build it yourselves and the skill stays with you
-            afterwards.
+            These do different jobs. The Build puts a custom operating system into your
+            business for your team to run on. The Workshop trains you and your people to
+            build with AI, and the systems you produce along the way are the proof it
+            worked.
           </p>
         </Reveal>
       </div>
@@ -150,9 +158,9 @@ const TwoPaths: React.FC = () => (
           <strong className="font-semibold text-foreground">
             One thing about the Workshop.
           </strong>{" "}
-          It isn&rsquo;t a course, a community or a coaching programme. It&rsquo;s
-          training that happens to run in a group, where you build your own system on your
-          own work while I&rsquo;m in the room to correct it.
+          It&rsquo;s tactical training that happens to run in a group. You work on your
+          own operation while I&rsquo;m in the room correcting it, which means there is no
+          curriculum to sit through, no community to join, and nobody coaching you.
         </p>
       </Reveal>
     </div>
