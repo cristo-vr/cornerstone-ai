@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import Button from "../../ui/Button";
 
@@ -11,21 +10,15 @@ interface HeroProps {
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-/* The fork, pinned to the bottom of the first screen. A visitor who reads
-   nothing else still leaves knowing there are two offers and what they cost. */
-const paths = [
-  {
-    href: "/build",
-    label: "I build it for you",
-    price: "$5,500",
-    note: "8 weeks, done for you",
-  },
-  {
-    href: "/workshop",
-    label: "I teach you to build it",
-    price: "$2,000",
-    note: "8 weeks per seat, done with you",
-  },
+/* Real systems, running now. This rail is the only claim the hero makes
+   besides the headline, and it is one a visitor can go and verify further
+   down the page. No pricing up here: nobody knows what I do yet. */
+const running = [
+  "BioHarmony",
+  "Technolease",
+  "Roxburgh Trust",
+  "ETJ Consulting",
+  "A Better Question",
 ];
 
 const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
@@ -45,14 +38,14 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
   });
 
   return (
-    <section className="relative min-h-[100dvh] flex flex-col justify-center pt-[76px] md:pt-[88px] pb-32 overflow-hidden">
+    <section className="relative min-h-[100dvh] flex flex-col justify-center pt-[76px] md:pt-[88px] pb-28 overflow-hidden">
       <div className="max-w-5xl mx-auto w-full px-6 py-14">
         <motion.span
           {...rise(0, 12)}
           className="flex items-center gap-3.5 text-[0.7rem] font-semibold uppercase tracking-[0.26em] text-accent-ink mb-9"
         >
           <span aria-hidden="true" className="h-0.5 w-8 bg-primary" />
-          Two ways to work together
+          Custom AI operating systems
         </motion.span>
 
         <h1 className="font-display font-extrabold uppercase text-foreground leading-[0.86] tracking-[0.005em] text-[clamp(2.9rem,8.2vw,6.5rem)]">
@@ -71,11 +64,11 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
           {...rise(0.38)}
           className="mt-9 max-w-xl text-lg md:text-xl text-ink-2 leading-relaxed"
         >
-          I build the software that takes the admin off you. The quote drafted when the
-          enquiry lands, the late invoice chased, Monday&rsquo;s report written from live
-          numbers.{" "}
+          I build the system that takes the routine work off you and your team: the quote
+          drafted the moment an enquiry lands, the late invoice chased, Monday&rsquo;s
+          report written off live numbers.{" "}
           <strong className="font-semibold text-foreground">
-            Either I build it for your business, or I teach you to build it yourself.
+            It runs on the tools you already pay for, and you own all of it.
           </strong>
         </motion.p>
 
@@ -84,42 +77,32 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             Book a call
           </Button>
           <a
-            href="#two-paths"
+            href="#proof"
             className="text-sm font-semibold uppercase tracking-wide text-ink-2 hover:text-accent-ink transition-colors px-1 py-3"
           >
-            Compare the two
+            See what I&rsquo;ve built
           </a>
         </motion.div>
       </div>
 
-      {/* The fork, one glance. Doubles as the scroll cue. */}
+      {/* Credibility rail. Doubles as the scroll cue. */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={reduce ? { duration: 0 } : { duration: 0.6, delay: 0.8, ease: EASE }}
         className="absolute bottom-0 inset-x-0 border-t border-line bg-surface/40"
       >
-        <div className="max-w-5xl mx-auto px-6 grid sm:grid-cols-2">
-          {paths.map((p, i) => (
-            <Link
-              key={p.href}
-              href={p.href}
-              className={`group flex items-baseline justify-between gap-4 py-5 transition-colors hover:bg-surface-2/60 ${
-                i === 1 ? "sm:border-l sm:border-line sm:pl-6" : "sm:pr-6"
-              } ${i === 0 ? "border-b border-line sm:border-b-0" : ""}`}
+        <div className="max-w-5xl mx-auto px-6 py-5 flex flex-wrap items-baseline gap-x-7 gap-y-2">
+          <span className="text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-ink-2">
+            Running today at
+          </span>
+          {running.map((name) => (
+            <span
+              key={name}
+              className="font-display text-base md:text-lg font-bold uppercase tracking-[0.01em] text-foreground/75"
             >
-              <span className="min-w-0">
-                <span className="block font-display text-lg md:text-xl font-bold uppercase tracking-[0.005em] text-foreground group-hover:text-accent-ink transition-colors">
-                  {p.label}
-                </span>
-                <span className="block text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-2">
-                  {p.note}
-                </span>
-              </span>
-              <span className="shrink-0 font-display text-xl md:text-2xl font-bold text-accent-ink">
-                {p.price}
-              </span>
-            </Link>
+              {name}
+            </span>
           ))}
         </div>
       </motion.div>

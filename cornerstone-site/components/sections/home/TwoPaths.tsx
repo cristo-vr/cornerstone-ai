@@ -2,6 +2,7 @@
 
 import React from "react";
 import Reveal from "../../ui/Reveal";
+import Eyebrow from "../../ui/Eyebrow";
 import CtaLink from "./CtaLink";
 
 type Path = {
@@ -30,10 +31,9 @@ const paths: Path[] = [
     priceNote: "or $4,950 paid in full",
     who: "Owners who want the thing running and have no interest in becoming the person who builds it.",
     what: [
-      "Eight weeks. Week one I map how the business actually runs.",
-      "Then I build, live, in your own accounts. You watch it go in piece by piece instead of waiting for a reveal.",
-      "The whole team gets it, each person seeing only what they should, with an audit trail of every action.",
-      "You own all of it outright. No licence, no platform fee, nothing that switches off if we part ways.",
+      "I do the building. Your side is the week one workshop, then about an hour a week with your team.",
+      "Fixed scope agreed before I start, so the price doesn’t move once we’re underway.",
+      "Documentation and training at handover, so your team can change it later without calling me.",
     ],
     after:
       "After it ships: Upkeep at $500 per 4 week cycle (fixes only), or Extensions at $2,000 per cycle (fixes plus continued development). Both optional.",
@@ -121,14 +121,18 @@ const TwoPaths: React.FC = () => (
     <div className="max-w-6xl mx-auto px-6">
       <div className="max-w-3xl mb-14">
         <Reveal>
+          <Eyebrow className="mb-8">Working together</Eyebrow>
+        </Reveal>
+        <Reveal delay={0.06}>
           <h2 className="font-display font-bold uppercase text-foreground leading-[0.92] tracking-[0.005em] text-[clamp(2.3rem,5.6vw,4rem)] mb-6">
-            Two ways to work with me.
+            Two ways to get one built.
           </h2>
         </Reveal>
-        <Reveal delay={0.08}>
+        <Reveal delay={0.1}>
           <p className="text-lg text-ink-2 leading-relaxed">
-            It&rsquo;s the same system either way. The Build costs $5,500 and I do the
-            work. The Workshop costs $2,000 a seat and you do it, with me teaching.
+            Same system, same eight weeks. I can build it for your business, or I can
+            teach you and your team to build it yourselves and the skill stays with you
+            afterwards.
           </p>
         </Reveal>
       </div>

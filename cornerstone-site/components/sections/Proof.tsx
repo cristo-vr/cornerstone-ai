@@ -332,7 +332,7 @@ const Proof: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
         <Reveal>
           <span className="flex items-center gap-3.5 text-[0.7rem] font-semibold uppercase tracking-[0.26em] text-accent-ink mb-7">
             <span aria-hidden="true" className="h-0.5 w-8 bg-primary" />
-            Systems we&apos;ve built
+            Systems I&apos;ve built
           </span>
         </Reveal>
 

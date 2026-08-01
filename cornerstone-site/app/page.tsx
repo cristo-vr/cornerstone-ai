@@ -4,22 +4,25 @@ import React, { useState } from "react";
 import Navbar from "../components/layout/Navbar";
 import Hero from "../components/sections/home/Hero";
 import Problem from "../components/sections/home/Problem";
-import TwoPaths from "../components/sections/home/TwoPaths";
+import TheBetterWay from "../components/sections/home/TheBetterWay";
+import HowIBuild from "../components/sections/home/HowIBuild";
 import Proof from "../components/sections/Proof";
 import About from "../components/sections/About";
+import TwoPaths from "../components/sections/home/TwoPaths";
 import FinalCTA from "../components/sections/home/FinalCTA";
 import Footer from "../components/sections/Footer";
 import ContactModal from "../components/ui/ContactModal";
 import Preloader from "../components/ui/Preloader";
 
 /**
- * Six sections, one job: make the fork obvious.
+ * The page tells one story, in order:
  *
- *   what I do -> why the last thing you bought didn't work -> the two ways in
- *   -> proof -> who I am -> the ask
+ *   hook -> what you already tried -> what it costs you -> what a system is
+ *   -> how I build one -> proof -> who I am -> the two ways in -> the ask
  *
- * The detail of each offer lives on /build and /workshop. This page exists to
- * send the reader to the right one of the two, in under two minutes.
+ * Pricing appears in exactly one place, TwoPaths, and only once the reader
+ * knows what they would be buying. A number quoted anywhere above that is a
+ * regression, not a shortcut.
  */
 const App: React.FC = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -34,9 +37,11 @@ const App: React.FC = () => {
       <main>
         <Hero onOpenContact={openContact} />
         <Problem />
-        <TwoPaths />
+        <TheBetterWay />
+        <HowIBuild />
         <Proof onOpenContact={openContact} />
         <About onOpenContact={openContact} />
+        <TwoPaths />
         <FinalCTA />
       </main>
 

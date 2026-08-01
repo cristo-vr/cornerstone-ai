@@ -4,29 +4,24 @@ import React from "react";
 import Reveal from "../../ui/Reveal";
 import Eyebrow from "../../ui/Eyebrow";
 
-/* Four ordinary moments in a week, each one finished before anybody asked.
-   Concrete on purpose: this is the part of the pitch a visitor has to be able
-   to repeat to their business partner. */
-const moments = [
+/* The knife. Three costs that are already being paid, stated as facts about
+   the reader's week rather than as an argument. This section does not sell
+   anything and does not mention an offer. */
+const costs = [
   {
-    trigger: "An enquiry lands at 21:40.",
-    result:
-      "The quote is drafted off your own rates and last year’s similar jobs, sitting in your drafts before you’ve read the email. You change two numbers and send it.",
+    n: "01",
+    title: "The business moves at your speed",
+    body: "Work only progresses when you touch it. Take a week off and the business takes the week off with you, then hands you the backlog on the Monday.",
   },
   {
-    trigger: "An invoice goes fourteen days past due.",
-    result:
-      "The chase goes out in your wording, politely, then again a week later. You hear about it when the money lands.",
+    n: "02",
+    title: "You pay senior rates for data entry",
+    body: "The people you hired for judgement spend their day retyping, chasing and updating. You are buying their best hours and getting their worst ones.",
   },
   {
-    trigger: "It’s Monday, 06:00.",
-    result:
-      "The report is already written: what came in, what went out, what slipped, which client has gone quiet. Off live numbers, not off somebody’s memory of last week.",
-  },
-  {
-    trigger: "A meeting ends.",
-    result:
-      "Notes filed where they belong, the project updated, and the three things you promised on the call are on the right person’s list with dates.",
+    n: "03",
+    title: "Growing costs more every time",
+    body: "Headcount is the only lever left, so more work means more people, and more people means more of the same admin. The margin moves the wrong way as you grow.",
   },
 ];
 
@@ -58,51 +53,38 @@ const Problem: React.FC = () => (
               haven&rsquo;t, and no reliable way to tell a real capability from a good
               demo.
             </p>
-            <p className="text-foreground font-medium">
-              Every one of those things was a tool. A tool sits there until a person opens
-              it and types. What changes a business is a system that already knows how the
-              place runs, has permission to act, and gets on with it.
-            </p>
           </div>
         </Reveal>
       </div>
 
       <Reveal delay={0.06}>
         <p className="mt-20 mb-10 font-display text-2xl md:text-3xl font-bold uppercase tracking-[0.005em] text-foreground">
-          What that actually looks like in a week
+          What it costs you while nothing changes
         </p>
       </Reveal>
 
-      <div className="grid md:grid-cols-2 gap-px bg-line border border-line rounded-xl overflow-hidden">
-        {moments.map((m, i) => (
-          <Reveal key={m.trigger} delay={Math.min(i, 3) * 0.06}>
+      <div className="grid md:grid-cols-3 gap-px bg-line border border-line rounded-xl overflow-hidden">
+        {costs.map((c, i) => (
+          <Reveal key={c.n} delay={i * 0.06}>
             <div className="h-full bg-background p-8 md:p-9">
               <span className="font-display text-3xl font-bold text-accent-ink block mb-4">
-                {String(i + 1).padStart(2, "0")}
+                {c.n}
               </span>
-              <h3 className="text-foreground font-semibold mb-2">{m.trigger}</h3>
-              <p className="text-ink-2 leading-relaxed">{m.result}</p>
+              <h3 className="font-display text-xl font-bold uppercase tracking-[0.005em] text-foreground mb-3 leading-[1.08]">
+                {c.title}
+              </h3>
+              <p className="text-ink-2 leading-relaxed">{c.body}</p>
             </div>
           </Reveal>
         ))}
       </div>
 
       <Reveal delay={0.08}>
-        <div className="mt-10 grid lg:grid-cols-12 gap-8 items-start">
-          <p className="lg:col-span-7 text-lg text-ink-2 leading-relaxed">
-            None of that is complicated. It runs on the tools you already pay for (email,
-            WhatsApp, your accounting package, your project board, your client list),
-            inside your own accounts, with permissions per person and a record of every
-            action it took. Anything that leaves the business, money or a message to a
-            client, waits for a human yes.
-          </p>
-          <blockquote className="lg:col-span-5 border-l-2 border-primary pl-6">
-            <p className="font-display text-[clamp(1.4rem,2.6vw,1.9rem)] font-bold uppercase leading-[1.08] tracking-[0.005em] text-foreground">
-              Once you can see how it&rsquo;s put together, you can point it at anything.{" "}
-              <span className="text-accent-ink">That&rsquo;s the part worth owning.</span>
-            </p>
-          </blockquote>
-        </div>
+        <p className="mt-12 max-w-3xl text-xl md:text-2xl text-foreground font-medium leading-[1.5]">
+          Every one of those things you bought was a tool, and a tool sits there until a
+          person opens it and types.{" "}
+          <span className="text-accent-ink">That person is still you.</span>
+        </p>
       </Reveal>
     </div>
   </section>
