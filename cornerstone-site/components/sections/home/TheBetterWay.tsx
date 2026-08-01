@@ -32,7 +32,10 @@ const Node: React.FC<{
         {label}
       </div>
       {sub && (
-        <span className="mt-1 text-[8px] md:text-[9px] font-semibold uppercase tracking-wider text-ink-2 whitespace-nowrap">
+        /* Same background as the pills above. The connectors are drawn under
+           the nodes, so a pill masks them and a bare caption does not: without
+           this the lines run straight through the label text. */
+        <span className="mt-1 rounded-sm bg-background px-1.5 text-[8px] md:text-[9px] font-semibold uppercase tracking-wider text-ink-2 whitespace-nowrap">
           {sub}
         </span>
       )}
@@ -40,18 +43,34 @@ const Node: React.FC<{
   );
 };
 
+/**
+ * Drawn as a <path>, not a <line>, on purpose.
+ *
+ * Framer Motion animates `pathLength` by writing a `pathLength="1"` attribute
+ * and driving stroke-dasharray against it. WebKit only honours that attribute
+ * on <path>, so on iOS the dasharray was being read in user units instead:
+ * "0 1" means a zero-length dash, and every connector rendered invisible while
+ * the nodes around it drew fine.
+ *
+ * `amount: "some"` for the same class of reason: two connectors in each
+ * diagram are perfectly horizontal, so their bounding box has zero height and
+ * therefore zero area. Any threshold above zero can never be satisfied by a
+ * zero-area target, and whether it fires anyway is down to the engine.
+ */
 const Line: React.FC<{
   x1: number; y1: number; x2: number; y2: number; gold?: boolean; delay: number;
 }> = ({ x1, y1, x2, y2, gold, delay }) => {
   const reduce = useReducedMotion();
   return (
-    <motion.line
-      x1={x1} y1={y1} x2={x2} y2={y2}
+    <motion.path
+      d={`M ${x1} ${y1} L ${x2} ${y2}`}
+      fill="none"
       className={gold ? "stroke-primary" : "stroke-foreground/25"}
       strokeWidth="1"
+      strokeLinecap="round"
       initial={{ pathLength: 0, opacity: 0 }}
       whileInView={{ pathLength: 1, opacity: 1 }}
-      viewport={{ once: true, amount: 0.4 }}
+      viewport={{ once: true, amount: "some" }}
       transition={reduce ? { duration: 0 } : { duration: 0.5, delay, ease: EASE }}
     />
   );

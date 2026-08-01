@@ -10,17 +10,6 @@ interface HeroProps {
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-/* Real systems, running now. This rail is the only claim the hero makes
-   besides the headline, and it is one a visitor can go and verify further
-   down the page. No pricing up here: nobody knows what I do yet. */
-const running = [
-  "BioHarmony",
-  "Technolease",
-  "Roxburgh Trust",
-  "ETJ Consulting",
-  "A Better Question",
-];
-
 const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
   const reduce = useReducedMotion();
 
@@ -38,7 +27,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
   });
 
   return (
-    <section className="relative min-h-[100dvh] flex flex-col justify-center pt-[76px] md:pt-[88px] pb-28 overflow-hidden">
+    <section className="relative min-h-[100dvh] flex flex-col justify-center pt-[76px] md:pt-[88px] pb-16 overflow-hidden">
       <div className="max-w-5xl mx-auto w-full px-6 py-14">
         <motion.span
           {...rise(0, 12)}
@@ -84,28 +73,6 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
           </a>
         </motion.div>
       </div>
-
-      {/* Credibility rail. Doubles as the scroll cue. */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={reduce ? { duration: 0 } : { duration: 0.6, delay: 0.8, ease: EASE }}
-        className="absolute bottom-0 inset-x-0 border-t border-line bg-surface/40"
-      >
-        <div className="max-w-5xl mx-auto px-6 py-5 flex flex-wrap items-baseline gap-x-7 gap-y-2">
-          <span className="text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-ink-2">
-            Running today at
-          </span>
-          {running.map((name) => (
-            <span
-              key={name}
-              className="font-display text-base md:text-lg font-bold uppercase tracking-[0.01em] text-foreground/75"
-            >
-              {name}
-            </span>
-          ))}
-        </div>
-      </motion.div>
     </section>
   );
 };
