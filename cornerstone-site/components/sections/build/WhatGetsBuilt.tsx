@@ -6,7 +6,11 @@ import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 
 /* The concrete list. Every entry is a trigger and the work that follows it,
-   because "a system built around how you work" tells a buyer nothing. */
+   because "a system built around how you work" tells a buyer nothing.
+
+   Onboarding is deliberately absent: the home page traces that exact scenario,
+   same client name and same kickoff time, and a visitor reading both pages was
+   getting the identical story twice. */
 const systems = [
   {
     n: "01",
@@ -34,12 +38,6 @@ const systems = [
   },
   {
     n: "05",
-    name: "New client onboarding",
-    when: "A client signs",
-    body: "Project opened, folders created, welcome pack out, kickoff booked against real availability, deposit invoice drafted. You get one message: Anika is live, kickoff Thursday 09:00, invoice ready for your sign off.",
-  },
-  {
-    n: "06",
     name: "The answer desk",
     when: "Someone on your team has a question",
     body: "They ask the system instead of asking you. It answers out of your actual documents: your pricing, your process, what you decided in March, what you promised this client in the contract. When it doesn't know, it says it doesn't know.",
