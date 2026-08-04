@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 /**
  * Button.tsx renders a real <button>, which can't be nested inside a link.
- * The home page's primary actions are navigations (/build, /workshop), so this
+ * The home page's primary actions are navigations (/build), so this
  * is the same Brand Pack v2 button skin worn by an anchor. Classes are kept in
  * sync with components/ui/Button.tsx on purpose: one visual language, two
  * elements.

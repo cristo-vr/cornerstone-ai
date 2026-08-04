@@ -10,7 +10,6 @@ import EightWeeks from "./EightWeeks";
 import BuildPricing from "./BuildPricing";
 import BuildOwnership from "./BuildOwnership";
 import BuildSafety from "./BuildSafety";
-import WorkshopRoute from "./WorkshopRoute";
 import BuildClose from "./BuildClose";
 import BuildFooter from "./BuildFooter";
 
@@ -18,7 +17,7 @@ import BuildFooter from "./BuildFooter";
  * The Build page, one argument in order:
  *   the offer -> what actually gets built -> how the eight weeks run
  *   -> what it costs (and what follows it) -> you own it -> it's safe
- *   -> the other door -> the ask
+ *   -> the ask
  *
  * Lives as a client shell because the booking modal is stateful and the route's
  * page.tsx has to stay a server component to export metadata.
@@ -39,7 +38,6 @@ const BuildShell: React.FC = () => {
         <BuildPricing onOpenContact={openContact} />
         <BuildOwnership />
         <BuildSafety />
-        <WorkshopRoute />
         <BuildClose onOpenContact={openContact} />
       </main>
 

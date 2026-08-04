@@ -8,7 +8,6 @@ import { Logo } from "@/components/brand/Logo";
    has to hold the mark, the other door, and the legal links. */
 const links = [
   { label: "Home", href: "/" },
-  { label: "The Workshop", href: "/workshop" },
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
   { label: "Refunds", href: "/refund-policy" },

@@ -17,7 +17,6 @@ interface NavbarProps {
 
 const navLinks = [
   { label: "The Build", href: "/build" },
-  { label: "The Workshop", href: "/workshop" },
   { label: "Proof", href: "/#proof" },
   { label: "About", href: "/#about" },
 ];

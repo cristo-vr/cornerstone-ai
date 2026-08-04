@@ -32,7 +32,7 @@ export default function RefundPolicyPage() {
           <section>
             <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">2. The eight-week OS build</h2>
             <p>
-              The build is a fixed fee covering the week-one mapping workshop, eight weeks of embedded development, weekly training for your team, and handover. It is payable either in two instalments across the eight weeks, or in full up front at a 10% discount.
+              The build is a fixed fee of $6,000 covering the week-one working session, eight weeks of development, two training sessions for your team, handover, and a further four weeks of support at no charge. It is payable in full before the build begins.
             </p>
             <ul className="list-disc pl-6 mt-2 space-y-1">
               <li><strong className="text-foreground">Cancellation before the build begins:</strong> if you cancel before the week-one workshop, you receive a full refund of anything paid.</li>
@@ -41,9 +41,9 @@ export default function RefundPolicyPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">3. Upkeep and Extensions</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.005em] text-foreground mb-3">3. Continuing afterwards</h2>
             <p>
-              After handover, some clients continue on Upkeep (maintenance and fixes) or Extensions (continued development). Both are billed per four week cycle. Neither is a condition of the build, and the system keeps running without either.
+              The build includes four weeks of support after handover at no charge. After that, some clients continue on Keep building (new development plus fixes) or Support (fixes only). Both are billed per four week cycle and neither renews on its own. Neither is a condition of the build, and the system keeps running without either.
             </p>
             <ul className="list-disc pl-6 mt-2 space-y-1">
               <li><strong className="text-foreground">No lock-in:</strong> either may be cancelled at the end of any four week cycle. There is no minimum term.</li>

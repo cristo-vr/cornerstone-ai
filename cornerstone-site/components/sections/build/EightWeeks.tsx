@@ -11,19 +11,19 @@ const EASE = [0.16, 1, 0.3, 1] as const;
    client. Brass carries the figure, the label carries the meaning. */
 const cadence = [
   {
-    value: "2",
-    unit: "calls a week",
-    body: "Eight per four week cycle. After the week one session, that is the entire demand on your diary.",
+    value: "24",
+    unit: "hours",
+    body: "To answer anything you send me, and to fix anything already built. There is no weekly call to wait for.",
   },
   {
     value: "1",
-    unit: "development in flight",
-    body: "One thing being built at a time. Nothing sits half finished, and you always know exactly what is next.",
+    unit: "build at a time",
+    body: "You can keep five requests in the queue. I work them one at a time, so nothing sits half finished.",
   },
   {
     value: "7",
     unit: "days, maximum",
-    body: "From starting a development to it running in your business. That is the ceiling, not the average.",
+    body: "From starting a new build to it running in your business. That is the ceiling, not the average.",
   },
 ];
 
@@ -41,7 +41,7 @@ const weeks = [
   {
     label: "Weeks 4 to 7",
     title: "Build live",
-    body: "One development at a time, in the order we agreed, each one in use within seven days of starting it. Your team learns each piece as it arrives, which beats a training day at the end that everybody forgets by Friday.",
+    body: "One build at a time, in the order we agreed, each one in use within seven days of starting it. Your team learns each piece as it arrives, which beats a training day at the end that everybody forgets by Friday.",
   },
   {
     label: "Week 8",
@@ -132,13 +132,13 @@ const EightWeeks: React.FC = () => {
         <Reveal>
           <div className="mt-20 rounded-xl border border-line bg-background p-8 md:p-10">
             <h3 className="font-display uppercase tracking-[0.005em] text-2xl md:text-3xl font-bold text-foreground mb-4">
-              Three clients a quarter.
+              Three new businesses a month.
             </h3>
             <p className="text-lg text-ink-2 leading-relaxed max-w-3xl">
-              A seven day turnaround is only a promise worth making if I&apos;m not
-              spread across ten businesses at once, so I take three builds a quarter
-              and no more. It also means the calendar is usually the thing that
-              decides when you can start, not the paperwork.
+              A seven day turnaround is only worth promising if I am not spread across
+              twenty businesses at once, so I start three a month and no more. It also
+              means the calendar usually decides when you can start, rather than the
+              paperwork.
             </p>
           </div>
         </Reveal>

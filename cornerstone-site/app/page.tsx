@@ -8,7 +8,7 @@ import TheBetterWay from "../components/sections/home/TheBetterWay";
 import HowIBuild from "../components/sections/home/HowIBuild";
 import Proof from "../components/sections/Proof";
 import About from "../components/sections/About";
-import TwoPaths from "../components/sections/home/TwoPaths";
+import TheOffer from "../components/sections/home/TheOffer";
 import FinalCTA from "../components/sections/home/FinalCTA";
 import Footer from "../components/sections/Footer";
 import ContactModal from "../components/ui/ContactModal";
@@ -18,9 +18,9 @@ import Preloader from "../components/ui/Preloader";
  * The page tells one story, in order:
  *
  *   hook -> what you already tried -> what it costs you -> what a system is
- *   -> how I build one -> proof -> who I am -> the two ways in -> the ask
+ *   -> how I build one -> proof -> who I am -> what it costs -> the ask
  *
- * Pricing appears in exactly one place, TwoPaths, and only once the reader
+ * Pricing appears in exactly one place, TheOffer, and only once the reader
  * knows what they would be buying. A number quoted anywhere above that is a
  * regression, not a shortcut.
  */
@@ -41,7 +41,7 @@ const App: React.FC = () => {
         <HowIBuild />
         <Proof onOpenContact={openContact} />
         <About onOpenContact={openContact} />
-        <TwoPaths />
+        <TheOffer />
         <FinalCTA />
       </main>
 

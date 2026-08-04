@@ -13,10 +13,10 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 /* The four facts a buyer wants before they read a word of the argument.
    Doubles as the scroll cue, same as the home hero. */
 const facts = [
-  { value: "8 weeks", label: "Start to handover" },
-  { value: "2 calls", label: "A week, that's your side" },
-  { value: "$5,500", label: "Fixed, agreed up front" },
-  { value: "3 clients", label: "A quarter, that's the cap" },
+  { value: "8 weeks", label: "Building, then 4 more of support" },
+  { value: "$6,000", label: "Paid up front, that's all of it" },
+  { value: "24 hrs", label: "To answer you, or fix what's built" },
+  { value: "3", label: "New businesses a month" },
 ];
 
 const BuildHero: React.FC<BuildHeroProps> = ({ onOpenContact }) => {

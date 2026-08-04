@@ -22,7 +22,7 @@ export const faqs = [
   {
     question: "How much of my time does this take?",
     answer:
-      "A mapping session in week one, then roughly an hour a week with your team, as a group rather than person by person. I build embedded, so you see it working as it goes in rather than waiting eight weeks for a reveal.",
+      "A working session in week one, then very little. There is no standing weekly call. You get a direct line to me that I answer inside 24 hours, and we talk when something actually needs talking about. I build it in front of you, so you see it working as it goes in rather than waiting eight weeks for a reveal.",
   },
   {
     question: "My team isn't technical. Will they actually use it?",
@@ -37,7 +37,7 @@ export const faqs = [
   {
     question: "Who fixes it if something breaks in month three?",
     answer:
-      "If you're on Upkeep, I do, inside 48 hours. If you're not, your team uses the documentation from the handover, or you call me in for the fix. Either way you're never locked out of your own system: it runs on your accounts and your team holds the keys.",
+      "If you kept me on afterwards, I do, inside 24 hours. If you didn't, your team uses the documentation from the handover, or you call me in for the fix. Either way you're never locked out of your own system: it runs on your accounts and your team holds the keys.",
   },
   {
     question: "What happens if we stop working together?",

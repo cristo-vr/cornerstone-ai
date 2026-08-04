@@ -10,7 +10,6 @@ interface FooterProps {
 const sitemap = [
   { label: "Home", href: "/" },
   { label: "The Build", href: "/build" },
-  { label: "The Workshop", href: "/workshop" },
   { label: "Proof", href: "/#proof" },
   { label: "About", href: "/#about" },
   { label: "FAQ", href: "/#faq" },
@@ -35,7 +34,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => (
           <Logo tone="onDark" markClassName="w-8 h-8" wordClassName="text-2xl" />
           <p className="mt-6 max-w-md text-lg leading-relaxed">
             Right now, you are the operating system of your own business. I build you a
-            real one, or I teach you to operate with AI.
+            real one, in eight weeks, on your own accounts.
           </p>
           <button
             onClick={onOpenContact}

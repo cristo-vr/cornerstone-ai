@@ -9,3 +9,9 @@
 /newsletter/  /simple-systems-saturday  301
 /saturday     /simple-systems-saturday  301
 /saturday/    /simple-systems-saturday  301
+
+# The Workshop was retired before it launched and the page is gone. The URL was
+# linked from the nav and both footers, so it redirects to the offer that
+# replaced it rather than 404s.
+/workshop   /build  301
+/workshop/  /build  301

@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 
@@ -16,16 +15,15 @@ const BuildClose: React.FC<BuildCloseProps> = ({ onOpenContact }) => (
     <div className="relative z-10 max-w-4xl mx-auto px-6">
       <Reveal>
         <p className="font-display font-extrabold uppercase leading-[0.92] tracking-[0.005em] text-[clamp(2.4rem,7vw,5rem)] text-rail-text">
-          Three builds <span className="text-[#DDBB7D]">a quarter.</span>
+          Three a month. <span className="text-[#DDBB7D]">That’s the capacity.</span>
         </p>
       </Reveal>
 
       <Reveal delay={0.1}>
         <div className="mt-9 space-y-6 text-lg md:text-xl leading-relaxed text-[#BEB9AC] max-w-3xl">
           <p>
-            That&apos;s the whole capacity, and it&apos;s the reason the seven day
-            turnaround is worth anything. So the next step is a call, and the call is
-            genuinely a working session.
+            That&apos;s the reason the turnaround times mean anything. The next step
+            is a call, and it&apos;s a working session rather than a pitch.
           </p>
           <p>
             Bring the part of your week that irritates you most. By the end
@@ -44,12 +42,6 @@ const BuildClose: React.FC<BuildCloseProps> = ({ onOpenContact }) => (
           <Button onClick={onOpenContact} variant="onDark" icon>
             Book a call
           </Button>
-          <Link
-            href="/workshop"
-            className="text-sm font-semibold uppercase tracking-wide text-[#BEB9AC] hover:text-rail-text transition-colors px-1 py-3"
-          >
-            Or start with the Workshop
-          </Link>
         </div>
       </Reveal>
     </div>

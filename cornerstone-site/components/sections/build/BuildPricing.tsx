@@ -11,29 +11,32 @@ interface BuildPricingProps {
 }
 
 const included = [
-  "The week one mapping session with you and your team",
-  "Eight weeks of build, one development live at a time",
-  "Two calls a week, eight per four week cycle",
-  "Seven day maximum turnaround on whatever is in flight",
-  "Everything built inside your own accounts from day one",
-  "Handover: keys, documentation, and your team trained on it",
+  "A working session in week one, with you and the people who do the job",
+  "Eight weeks of building, one thing at a time",
+  "A direct line to me, answered inside 24 hours",
+  "Anything already built, fixed inside 24 hours",
+  "Anything new, live within seven days of me starting it",
+  "Two training sessions for your team",
+  "Everything built inside your own accounts from the first day",
+  "Handover: keys, documentation, and your team shown how it works",
+  "Four more weeks of support afterwards, at no charge",
 ];
 
-/* Upkeep and Extensions differ on new development and nothing else, so the
-   table shows exactly that and stops. */
+/* The two continuity options differ on whether anything new gets built. That
+   is the whole distinction, so the table shows that and stops. */
 const continuity = [
   {
-    name: "Upkeep",
-    fixes: "Inside 48 hours",
-    development: "Not included",
-    price: "$500",
+    name: "Keep building",
+    fixes: "Inside 24 hours",
+    development: "Live within 7 days",
+    price: "$2,000",
     cycle: "per 4 week cycle",
   },
   {
-    name: "Extensions",
-    fixes: "Inside 48 hours",
-    development: "7 to 10 days",
-    price: "$2,000",
+    name: "Support",
+    fixes: "Inside 24 hours",
+    development: "Not included",
+    price: "$500",
     cycle: "per 4 week cycle",
   },
 ];
@@ -47,71 +50,34 @@ const BuildPricing: React.FC<BuildPricingProps> = ({ onOpenContact }) => (
 
       <Reveal delay={0.04}>
         <h2 className="mt-7 font-display font-bold uppercase text-foreground leading-[0.92] tracking-[0.005em] text-[clamp(2.4rem,6vw,4.2rem)] mb-5 max-w-3xl">
-          One price for the whole build.
+          One price, paid once, before we start.
         </h2>
       </Reveal>
       <Reveal delay={0.08}>
         <p className="text-lg text-ink-2 leading-relaxed max-w-2xl mb-14">
-          Fixed and agreed in writing before week one starts. No hourly billing, no
-          scope creep, no line items at the end that you never saw coming.
+          You&rsquo;re buying eight weeks of my time aimed at your business, not a
+          fixed list of features. What gets built is decided as we go, by you, based on
+          what&rsquo;s actually costing you the most that week.
         </p>
       </Reveal>
 
       <div className="grid lg:grid-cols-12 gap-5">
-        <div className="lg:col-span-7 grid sm:grid-cols-2 gap-5">
-          <Reveal>
-            <div className="h-full rounded-xl border border-line bg-surface/60 p-8 flex flex-col">
-              <span className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-ink-2 mb-6">
-                Split in two
-              </span>
-              <p className="font-display text-[clamp(2.6rem,5vw,3.4rem)] font-extrabold uppercase leading-none tracking-[0.005em] text-foreground tabular-nums">
-                $5,500
-              </p>
-              <p className="mt-2 text-sm font-semibold uppercase tracking-[0.12em] text-ink-2">
-                USD, total
-              </p>
-              <p className="mt-6 text-ink-2 leading-relaxed grow">
-                Two payments across the eight weeks. Half to start, half at the
-                midpoint.
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.08}>
-            <div className="relative h-full rounded-xl border border-primary bg-primary/[0.09] p-8 flex flex-col">
-              <span className="absolute -top-3 left-8 rounded-full bg-primary px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-accent-txt">
-                Save 10%
-              </span>
-              <span className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-ink-2 mb-6">
-                Paid in full
-              </span>
-              <p className="font-display text-[clamp(2.6rem,5vw,3.4rem)] font-extrabold uppercase leading-none tracking-[0.005em] text-accent-ink tabular-nums">
-                $4,950
-              </p>
-              <p className="mt-2 text-sm font-semibold uppercase tracking-[0.12em] text-ink-2">
-                USD, total
-              </p>
-              <p className="mt-6 text-ink-2 leading-relaxed grow">
-                One payment up front, ten percent off. Same build, same scope, same
-                eight weeks.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-
-        <Reveal delay={0.12} className="lg:col-span-5">
-          <div className="h-full rounded-xl border border-line bg-background p-8 md:p-9 flex flex-col">
-            <h3 className="font-display text-xl font-bold uppercase tracking-[0.005em] text-foreground mb-6">
-              What&apos;s in it
-            </h3>
-            <ul className="space-y-4 grow">
-              {included.map((line) => (
-                <li key={line} className="flex items-start gap-3 text-ink-2 leading-relaxed">
-                  <Check className="w-4 h-4 text-accent-ink shrink-0 mt-1.5" strokeWidth={2.5} />
-                  {line}
-                </li>
-              ))}
-            </ul>
+        <Reveal className="lg:col-span-5">
+          <div className="h-full rounded-xl border border-primary bg-primary/[0.09] p-8 md:p-10 flex flex-col">
+            <span className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-ink-2 mb-6">
+              The Build
+            </span>
+            <p className="font-display text-[clamp(3rem,6vw,4rem)] font-extrabold uppercase leading-none tracking-[0.005em] text-accent-ink tabular-nums">
+              $6,000
+            </p>
+            <p className="mt-3 text-sm font-semibold uppercase tracking-[0.12em] text-ink-2">
+              USD, total
+            </p>
+            <p className="mt-6 text-ink-2 leading-relaxed grow">
+              Eight weeks of building, then four more weeks of support on me. No hourly
+              billing, no change orders, nothing extra at the end you didn&rsquo;t see
+              coming.
+            </p>
             <div className="mt-8">
               <Button onClick={onOpenContact} icon>
                 Book a call
@@ -119,20 +85,37 @@ const BuildPricing: React.FC<BuildPricingProps> = ({ onOpenContact }) => (
             </div>
           </div>
         </Reveal>
+
+        <Reveal delay={0.1} className="lg:col-span-7">
+          <div className="h-full rounded-xl border border-line bg-background p-8 md:p-9 flex flex-col">
+            <h3 className="font-display text-xl font-bold uppercase tracking-[0.005em] text-foreground mb-6">
+              What&apos;s in it
+            </h3>
+            <ul className="space-y-3.5 grow">
+              {included.map((line) => (
+                <li key={line} className="flex items-start gap-3 text-ink-2 leading-relaxed">
+                  <Check className="w-4 h-4 text-accent-ink shrink-0 mt-1.5" strokeWidth={2.5} />
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
       </div>
 
-      {/* ---------------------------------------------------- after week eight */}
+      {/* ------------------------------------------- after the twelve weeks */}
       <div className="mt-24">
         <Reveal>
           <h3 className="font-display font-bold uppercase text-foreground leading-[0.95] tracking-[0.005em] text-[clamp(1.9rem,4vw,3rem)]">
-            After week eight.
+            After the twelve weeks.
           </h3>
         </Reveal>
         <Reveal delay={0.06}>
           <p className="mt-6 text-lg text-ink-2 leading-relaxed max-w-3xl">
-            Nothing switches off when I walk out the door. The system is yours and it
-            carries on. If you want me to stay involved there are two ways to do it,
-            and you pick which one you&apos;re on at the start of every cycle.
+            Nothing switches off when I stop. The system is yours and it carries on. By
+            then you&rsquo;ve had four weeks of support without paying for it, so you
+            already know what having me around is worth. If you want it to continue,
+            pick one of these at the start of each cycle.
           </p>
         </Reveal>
 
@@ -141,14 +124,14 @@ const BuildPricing: React.FC<BuildPricingProps> = ({ onOpenContact }) => (
             <table className="w-full border-collapse min-w-[36rem]">
               <thead>
                 <tr>
-                  <th className="w-[22%] text-left px-6 py-4 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-ink-2">
+                  <th className="w-[24%] text-left px-6 py-4 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-ink-2">
                     &nbsp;
                   </th>
                   <th className="text-left px-6 py-4 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-ink-2">
                     Fixes to what&apos;s built
                   </th>
                   <th className="text-left px-6 py-4 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-ink-2">
-                    New development
+                    Anything new
                   </th>
                   <th className="text-right px-6 py-4 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-ink-2">
                     Price
@@ -188,20 +171,19 @@ const BuildPricing: React.FC<BuildPricingProps> = ({ onOpenContact }) => (
                 Cycle to cycle
               </h4>
               <p className="text-ink-2 leading-relaxed">
-                Both tiers include a call a week, plus the ports and model upgrades
-                for when something changes upstream. Move between them whenever you
-                want, or stop, and everything you own keeps working.
+                Nothing renews on its own. Move between the two whenever you want, or
+                stop at the end of any cycle, and everything you own keeps working.
               </p>
             </div>
           </Reveal>
           <Reveal delay={0.06}>
             <div className="h-full rounded-xl border border-line bg-surface/50 p-7">
               <h4 className="font-display text-lg font-bold uppercase tracking-[0.005em] text-foreground mb-2.5">
-                More of my time
+                Paying ahead
               </h4>
               <p className="text-ink-2 leading-relaxed">
-                Two calls a week covers the build for most people. If you want more,
-                extra sessions are $200 for sixty minutes, or four of them for $600.
+                Three cycles of Keep building bought up front is $5,100 instead of
+                $6,000. Only worth doing once you already know you want to carry on.
               </p>
             </div>
           </Reveal>
@@ -212,7 +194,7 @@ const BuildPricing: React.FC<BuildPricingProps> = ({ onOpenContact }) => (
               </h4>
               <p className="text-ink-2 leading-relaxed">
                 Billed straight to your account by the provider, at cost, because the
-                system runs on your accounts. I take no margin on it and I&apos;ll
+                system runs on your accounts. I take no margin on it and I&rsquo;ll
                 show you the meter during the build.
               </p>
             </div>

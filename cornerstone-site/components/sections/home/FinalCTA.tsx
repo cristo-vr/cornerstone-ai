@@ -5,13 +5,18 @@ import { Plus } from "lucide-react";
 import Reveal from "../../ui/Reveal";
 import ContactForm from "../../ui/ContactForm";
 
-/* Five questions. Anything longer belongs on /build or /workshop, where the
-   reader has already chosen a direction and wants the detail. */
+/* The short answers. Anything longer belongs on /build, where the reader has
+   already decided they are interested and wants the detail. */
 const faqs = [
   {
-    question: "How do I know which of the two I need?",
+    question: "How much of my time does this actually take?",
     answer:
-      "If you want the operation running on a system and you don’t want to be the person looking after it, that’s the Build. If you’d rather learn to run the business better yourself, and you or someone on your team will actually put in the hours, that’s the Workshop. Book a call and I’ll tell you which one I think fits, including when the answer is neither.",
+      "A working session in week one, then very little. There’s no standing weekly call, because you’re short of time already and a meeting in your diary every week isn’t what gets your business built. You get a direct line to me instead, answered inside 24 hours, and we talk when something needs talking about.",
+  },
+  {
+    question: "If the scope isn’t fixed, what stops it drifting?",
+    answer:
+      "The queue. You can keep five requests open at a time and I work them one at a time, each one live within seven days of me starting it. So instead of agreeing a list up front and arguing about it later, you decide what matters most that week and it gets built. Most businesses end up with around eight systems by the end.",
   },
   {
     question: "Which tools does it work with?",
@@ -77,9 +82,10 @@ const FinalCTA: React.FC = () => (
         </Reveal>
         <Reveal delay={0.08}>
           <p className="text-lg text-ink-2 leading-relaxed max-w-xl mx-auto">
-            Thirty minutes, with me. I&rsquo;ll tell you what I&rsquo;d build, which of
-            the two fits, and what it costs. If neither fits, you&rsquo;ll hear that on
-            the call rather than after the invoice.
+            Thirty minutes, with me. Bring the part of your week that irritates you
+            most and I&rsquo;ll tell you what I&rsquo;d build first and what it&rsquo;s
+            worth doing. If it isn&rsquo;t worth doing, you&rsquo;ll hear that on the
+            call rather than after the invoice.
           </p>
         </Reveal>
       </div>

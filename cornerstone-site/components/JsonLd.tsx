@@ -42,10 +42,10 @@ const JsonLd = () => {
         "offers": {
             "@type": "Offer",
             "name": "The eight-week OS build",
-            "price": "5500",
+            "price": "6000",
             "priceCurrency": "USD",
             "description":
-                "A fixed-scope eight-week build of a custom operating system for your business, built inside your own accounts and handed over in full. $4,950 if paid up front."
+                "Eight weeks of build capacity pointed at your business, assembling a custom operating system inside your own accounts. Answers and fixes inside 24 hours, new builds live within 7 days. Four further weeks of support included."
         },
         "priceRange": "$$$"
     };

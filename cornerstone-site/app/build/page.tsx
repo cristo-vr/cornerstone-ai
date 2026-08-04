@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import BuildShell from "@/components/sections/build/BuildShell";
 import { siteConfig } from "@/lib/config";
 
-const TITLE = "The Build: eight weeks to a system your business owns";
+const TITLE = "The Build: eight weeks of building, aimed at your business";
 const DESCRIPTION =
-  "A custom AI system built around how your business actually runs. It drafts the quote, chases the invoice and writes the Monday report. Eight weeks, on your accounts, permissioned for your team, yours at the end. $5,500.";
+  "Eight weeks of build capacity pointed at whatever your business needs, then four more weeks of support. Answers and fixes inside 24 hours, new builds live within seven days. Built on your accounts and yours at the end. $6,000.";
 
 export const metadata: Metadata = {
   title: TITLE,
