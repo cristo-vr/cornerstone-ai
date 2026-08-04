@@ -9,7 +9,7 @@ interface AboutProps {
 }
 
 const About: React.FC<AboutProps> = ({ onOpenContact }) => (
-  <section id="about" className="py-28 md:py-36 border-t border-line">
+  <section id="about" className="py-20 md:py-28 border-t border-line">
     <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
       <div className="lg:col-span-5 lg:sticky lg:top-28">
         <Reveal>
@@ -42,15 +42,13 @@ const About: React.FC<AboutProps> = ({ onOpenContact }) => (
         <Reveal delay={0.1}>
           <div className="space-y-5 text-lg text-ink-2 leading-relaxed">
             <p>
-              A year later I was cold calling from my high school classroom. Since then
-              I&apos;ve built systems across hospitality, construction, real estate,
-              insurance, fintech and franchise operations, and for the founders of a
-              podcast, a financing platform, an accounting practice and a sport academy.
+              Since then I&apos;ve built systems across hospitality, construction, real
+              estate, insurance, fintech and franchise operations.
             </p>
             <p className="text-foreground font-medium">
-              Different industries, same bottleneck every time: the founder had become the
-              operating system of their own business. And the fix was always the same, a
-              real one, built around how they actually work.
+              Different industries, same bottleneck: the founder had become the operating
+              system of their own business. The fix was always the same, a system built
+              around how they actually work.
             </p>
             <p>
               The name comes from my faith. Christ is the cornerstone of the church, and

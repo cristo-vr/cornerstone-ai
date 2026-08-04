@@ -47,7 +47,7 @@ const systems = [
 ];
 
 const WhatGetsBuilt: React.FC = () => (
-  <section id="what-gets-built" className="py-28 md:py-36 border-t border-line">
+  <section id="what-gets-built" className="py-20 md:py-28 border-t border-line">
     <div className="max-w-6xl mx-auto px-6">
       <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         {/* Sticky brief on the left, the goods on the right. */}

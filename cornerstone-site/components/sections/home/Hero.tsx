@@ -53,9 +53,8 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
           {...rise(0.38)}
           className="mt-9 max-w-xl text-lg md:text-xl text-ink-2 leading-relaxed"
         >
-          I build the system that takes the routine work off you and your team: the quote
-          drafted the moment an enquiry lands, the late invoice chased, Monday&rsquo;s
-          report written off live numbers.{" "}
+          I build the system that takes the routine work off you and your team, starting
+          with the quote drafted the moment an enquiry lands.{" "}
           <strong className="font-semibold text-foreground">
             It runs on the tools you already pay for, and you own all of it.
           </strong>

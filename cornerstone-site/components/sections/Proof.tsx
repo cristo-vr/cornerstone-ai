@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   Lock, X, ArrowLeft, ArrowRight,
-  BrainCircuit, Waypoints, Bot, Factory, Rocket, UserCheck,
+  BrainCircuit, Bot, UserCheck,
 } from "lucide-react";
 import Button from "../ui/Button";
 import Reveal from "../ui/Reveal";
@@ -53,7 +53,7 @@ const STUDIES: Study[] = [
     slug: "technolease",
     name: "Technolease",
     industry: "Security-tech rent-to-own distribution",
-    what: "A rent-to-own security distributor running deals across email and spreadsheets. Now every deal moves through one pipeline from application to payout.",
+    what: "A rent-to-own security distributor running deals across email and spreadsheets.",
     metric: "61",
     metricLabel: "deals tracked, application to payout",
     runs: [
@@ -73,7 +73,7 @@ const STUDIES: Study[] = [
     slug: "roxburgh",
     name: "Roxburgh Trust",
     industry: "Trust & fiduciary administration",
-    what: "A fiduciary firm holding client files across a shared drive and memory. Now every trust file, compliance check and take-on document sits in one place.",
+    what: "A fiduciary firm holding client files across a shared drive and memory.",
     metric: "Every file",
     metricLabel: "client, FICA status and document, in one place",
     runs: [
@@ -94,7 +94,7 @@ const STUDIES: Study[] = [
     slug: "etj",
     name: "ETJ Consulting",
     industry: "Accounting & tax practice",
-    what: "An accounting practice where tax season lived in inboxes and spreadsheets. Now the whole register, document chase and compliance run through one system.",
+    what: "An accounting practice where tax season lived in inboxes and spreadsheets.",
     metric: "74",
     metricLabel: "taxpayers run through one tax season",
     runs: [
@@ -115,7 +115,7 @@ const STUDIES: Study[] = [
     slug: "podcast",
     name: "A Better Question",
     industry: "Podcast & media",
-    what: "A podcast run off a to-do list that needed a production line instead. Now a full season moves from idea to published across research, production and distribution.",
+    what: "A podcast run off a to-do list that needed a production line instead.",
     metric: "24 episodes",
     metricLabel: "a full season, planned to published",
     runs: [
@@ -136,7 +136,7 @@ const STUDIES: Study[] = [
     slug: "mason",
     name: "Cornerstone",
     industry: "My own operating system",
-    what: "The system I run Cornerstone on. Chat, brief, sessions, clients, time. I build you the same kind of thing I rely on myself.",
+    what: "The system I run Cornerstone on. I build you the same kind of thing I rely on myself.",
     metric: "Tenant zero",
     metricLabel: "I run on what I sell",
     runs: [
@@ -250,41 +250,17 @@ const patterns: Pattern[] = [
     id: "1",
     title: "Reporting that writes itself",
     icon: BrainCircuit,
-    pain: "Their highest-paid people were spending hours a week inside messy spreadsheets just to work out how the business was doing. By the time a number reached leadership it was already out of date, so decisions kept getting deferred to the next meeting.",
-    fix: "I built an engine that pulls the data on its own, does the arithmetic, and writes the report. Nobody touches a spreadsheet.",
-    win: "Leadership stopped waiting for numbers. The report is there when they open it, so the conversation starts at what to do rather than what happened.",
-  },
-  {
-    id: "2",
-    title: "Leads routed the moment they land",
-    icon: Waypoints,
-    pain: "Every incoming lead sat in a queue until somebody copied the details across, wrote an email, and sent it to the right branch. Leads went cold waiting, and the retyping introduced its own mistakes.",
-    fix: "I put a routing layer between the ad and the inbox. A lead arrives, the system reads where they are, and it lands in that branch's pipeline.",
-    win: "Nothing sits in the queue any more, and the hand-off role is gone. The sales team now gets the lead while the prospect still has the page open.",
+    pain: "Their highest-paid people were spending hours a week in spreadsheets to work out how the business was doing. By the time a number reached leadership it was already out of date, so decisions kept getting deferred to the next meeting.",
+    fix: "I built an engine that pulls the data, does the arithmetic, and writes the report. Nobody touches a spreadsheet.",
+    win: "The report is there when leadership opens it, so the conversation starts at what to do rather than what happened.",
   },
   {
     id: "3",
     title: "Qualifying before a human picks up",
     icon: Bot,
-    pain: "Hundreds of leads a month, most of them nowhere near ready to buy. Closers were spending their days asking the same opening questions instead of closing, and the good leads waited behind the bad ones.",
+    pain: "They were getting hundreds of leads a month and most were nowhere near ready to buy. Closers spent their days asking the same opening questions, and the good leads waited behind the bad ones.",
     fix: "I built a WhatsApp assistant on their own sales scripts. It talks to every new lead, answers what they ask, and collects the budget and timing details before anyone on the team is involved.",
     win: "The team only picks up the phone for a lead that's ready. Same headcount, double the closing rate.",
-  },
-  {
-    id: "4",
-    title: "A content line instead of a content scramble",
-    icon: Factory,
-    pain: "The marketing team knew what they needed to publish and never got to it, because writing each blog and cutting it into posts by hand ate the whole week.",
-    fix: "I built the production line. It drafts the posts for review, then turns each approved one into captions and visuals and queues them.",
-    win: "The team still sets the strategy and still approves everything. They just stopped doing the assembly, and their output went up five times without another writer.",
-  },
-  {
-    id: "5",
-    title: "An MVP in three days, not six months",
-    icon: Rocket,
-    pain: "The client had an idea for the security industry and a six-month development quote in front of them. They needed to know whether it worked before committing that kind of money.",
-    fix: "I built it with them in a three-day workshop, coding the MVP from scratch in the room.",
-    win: "The MVP proved the idea was worth funding, which took months off the timeline. The platform they went on to build uses AI to give their own users more capacity.",
   },
   {
     id: "6",
@@ -292,7 +268,7 @@ const patterns: Pattern[] = [
     icon: UserCheck,
     pain: "One of their strongest recruiters was spending most of her day booking interviews, chasing candidates for documents, and updating the CRM. The actual recruiting fit into whatever was left.",
     fix: "I automated the admin end of her funnel. From the moment a candidate applies, the system handles vetting, the emails and the calendar.",
-    win: "She got most of her week back and every applicant now gets a response straight away, at any hour. The agency runs the same funnel at a fraction of the cost.",
+    win: "She got most of her week back, and every applicant gets a response straight away at any hour.",
   },
 ];
 
@@ -327,7 +303,7 @@ const Proof: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
   }, [pattern, closePattern]);
 
   return (
-    <section id="proof" className="py-28 md:py-36 border-t border-line">
+    <section id="proof" className="py-20 md:py-28 border-t border-line">
       <div className="max-w-6xl mx-auto px-6">
         <Reveal>
           <span className="flex items-center gap-3.5 text-[0.7rem] font-semibold uppercase tracking-[0.26em] text-accent-ink mb-7">
@@ -343,8 +319,8 @@ const Proof: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
         </Reveal>
         <Reveal delay={0.08}>
           <p className="text-lg text-ink-2 mb-10 max-w-2xl">
-            Different industries, same pattern: the routine work moves off the founder and
-            onto the system. These are the real ones.
+            In every one of these, the routine work moved off the founder and onto the
+            system.
           </p>
         </Reveal>
 
@@ -436,8 +412,7 @@ const Proof: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
             <Lock className="w-4 h-4 text-accent-ink shrink-0 mt-0.5" strokeWidth={1.5} />
             <p className="text-sm text-ink-2 leading-relaxed">
               These are screenshots of live client systems. Client names, personal details
-              and financial figures have been redacted to protect confidentiality. The
-              systems themselves are real and running.
+              and financial figures have been redacted to protect confidentiality.
             </p>
           </div>
         </Reveal>
@@ -451,8 +426,7 @@ const Proof: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
           </Reveal>
           <Reveal delay={0.06}>
             <p className="text-lg text-ink-2 leading-relaxed max-w-2xl mb-12">
-              Different businesses, the same jobs to do. Open any one for the before, the
-              fix, and the result.
+              Open any one for the before, the fix, and the result.
             </p>
           </Reveal>
 

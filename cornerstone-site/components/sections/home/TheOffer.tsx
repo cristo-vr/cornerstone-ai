@@ -12,11 +12,8 @@ import CtaLink from "./CtaLink";
 
 const included = [
   "A working session in week one, with you and the people who actually do the job",
-  "Eight weeks of build, and I work one thing at a time",
-  "A direct line to me, answered inside 24 hours",
   "Two training sessions for your team",
   "Everything built inside your own accounts from the first day",
-  "Handover at the end: keys, documentation, and your team shown how it works",
 ];
 
 const promises = [
@@ -37,23 +34,8 @@ const promises = [
   },
 ];
 
-const after = [
-  {
-    name: "Keep building",
-    price: "$2,000",
-    cycle: "per 4 weeks",
-    body: "Same as the build. New things get made, everything stays fixed inside 24 hours.",
-  },
-  {
-    name: "Support",
-    price: "$500",
-    cycle: "per 4 weeks",
-    body: "I keep what you have working. Nothing new gets built.",
-  },
-];
-
 const TheOffer: React.FC = () => (
-  <section id="the-offer" className="py-28 md:py-36 bg-surface/40 border-t border-line">
+  <section id="the-offer" className="py-20 md:py-28 bg-surface/40 border-t border-line">
     <div className="max-w-6xl mx-auto px-6">
       <div className="max-w-3xl">
         <Reveal>
@@ -66,10 +48,9 @@ const TheOffer: React.FC = () => (
         </Reveal>
         <Reveal delay={0.1}>
           <p className="text-lg text-ink-2 leading-relaxed">
-            You&rsquo;re not buying a fixed list of features. You&rsquo;re buying eight
-            weeks of building, aimed at whatever your business actually needs, decided
-            as we go. Most businesses end up with somewhere around eight systems and a
-            platform holding them together.
+            There&rsquo;s no fixed feature list. You decide what gets built as we go,
+            and most businesses end up with around eight systems and a platform holding
+            them together.
           </p>
         </Reveal>
       </div>
@@ -87,8 +68,8 @@ const TheOffer: React.FC = () => (
               Eight weeks, paid up front
             </p>
             <p className="mt-6 text-ink-2 leading-relaxed grow">
-              Then four more weeks of support on me, so you get to use the thing with me
-              still around before you decide whether you want me to stay.
+              Then four more weeks of support on me, so you use it with me still
+              around.
             </p>
             <div className="mt-8 pt-6 border-t border-line">
               <p className="text-sm font-semibold text-foreground">
@@ -157,43 +138,14 @@ const TheOffer: React.FC = () => (
         </p>
       </Reveal>
 
-      <div className="mt-20 pt-16 border-t border-line">
-        <Reveal>
-          <h3 className="font-display font-bold uppercase text-foreground leading-[0.95] tracking-[0.005em] text-[clamp(1.8rem,3.6vw,2.6rem)] mb-5">
-            After the twelve weeks.
-          </h3>
-        </Reveal>
-        <Reveal delay={0.06}>
-          <p className="text-lg text-ink-2 leading-relaxed max-w-2xl mb-10">
-            The system is yours and it carries on whether I&rsquo;m involved or not.
-            If you want me to stay, pick one. Nothing renews on its own and you can
-            stop at the end of any cycle.
-          </p>
-        </Reveal>
+      <Reveal delay={0.08}>
+        <p className="mt-16 pt-14 border-t border-line max-w-3xl text-lg text-ink-2 leading-relaxed">
+          After the twelve weeks the system is yours and it carries on either way. If you
+          want me to stay on, it&rsquo;s $2,000 per four week cycle to keep building or
+          $500 to keep what you have running. Nothing renews on its own.
+        </p>
+      </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-5">
-          {after.map((a, i) => (
-            <Reveal key={a.name} delay={i * 0.06}>
-              <div className="h-full rounded-xl border border-line bg-background p-7 md:p-8">
-                <div className="flex items-baseline justify-between gap-4 flex-wrap">
-                  <h4 className="font-display text-xl font-bold uppercase tracking-[0.005em] text-foreground">
-                    {a.name}
-                  </h4>
-                  <span className="text-right">
-                    <span className="font-display text-2xl font-bold text-accent-ink tabular-nums">
-                      {a.price}
-                    </span>
-                    <span className="block text-[0.66rem] font-semibold uppercase tracking-[0.12em] text-ink-2 mt-1">
-                      {a.cycle}
-                    </span>
-                  </span>
-                </div>
-                <p className="mt-4 text-ink-2 leading-relaxed">{a.body}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
     </div>
   </section>
 );

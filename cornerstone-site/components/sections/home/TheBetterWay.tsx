@@ -168,24 +168,19 @@ const moments = [
   {
     trigger: "An invoice goes fourteen days past due.",
     result:
-      "The chase goes out in your wording, politely, then again a week later. You hear about it when the money lands.",
+      "The chase goes out in your wording, then again a week later. You hear about it when the money lands.",
   },
   {
     trigger: "It’s Monday, 06:00.",
     result:
-      "The report is already written: what came in, what went out, what slipped, which client has gone quiet. Off live numbers, not off somebody’s memory of last week.",
-  },
-  {
-    trigger: "A meeting ends.",
-    result:
-      "Notes filed where they belong, the project updated, and the three things you promised on the call are on the right person’s list with dates.",
+      "The report is written: what came in, what went out, which client has gone quiet, off live numbers rather than somebody’s memory of last week.",
   },
 ];
 
 /* ---------------------------------------------------------------- section -- */
 
 const TheBetterWay: React.FC = () => (
-  <section id="the-better-way" className="py-28 md:py-36 bg-surface/40 border-t border-line">
+  <section id="the-better-way" className="py-20 md:py-28 bg-surface/40 border-t border-line">
     <div className="max-w-6xl mx-auto px-6">
       <div className="max-w-3xl">
         <Reveal>
@@ -201,13 +196,8 @@ const TheBetterWay: React.FC = () => (
         <Reveal delay={0.1}>
           <div className="space-y-5 text-lg text-ink-2 leading-relaxed">
             <p>
-              A tool is a place you go to do the work yourself. A system already knows how
-              your business runs, has permission to act, and gets on with it before anyone
-              asks.
-            </p>
-            <p className="text-foreground font-medium">
-              The tools underneath stay the same. What changes is that something other
-              than you is now driving them.
+              A tool waits for you. A system already knows how your business runs, has
+              permission to act, and gets on with it before anyone asks.
             </p>
           </div>
         </Reveal>
@@ -217,7 +207,7 @@ const TheBetterWay: React.FC = () => (
         <Reveal>
           <Panel
             label="Today"
-            caption={<>Everything routes through you. When you stop, everything stops.</>}
+            caption={<>Everything routes through you.</>}
           >
             <TodayDiagram />
           </Panel>
@@ -255,7 +245,7 @@ const TheBetterWay: React.FC = () => (
         </p>
       </Reveal>
 
-      <div className="grid md:grid-cols-2 gap-px bg-line border border-line rounded-xl overflow-hidden">
+      <div className="grid md:grid-cols-3 gap-px bg-line border border-line rounded-xl overflow-hidden">
         {moments.map((m, i) => (
           <Reveal key={m.trigger} delay={Math.min(i, 3) * 0.06}>
             <div className="h-full bg-background p-8 md:p-9">
@@ -272,10 +262,8 @@ const TheBetterWay: React.FC = () => (
       <Reveal delay={0.08}>
         <div className="mt-10 grid lg:grid-cols-12 gap-8 items-start">
           <p className="lg:col-span-7 text-lg text-ink-2 leading-relaxed">
-            None of that is complicated. It runs on the tools you already pay for (email,
-            WhatsApp, your accounting package, your project board, your client list),
-            inside your own accounts, with permissions per person and a record of every
-            action it took.
+            It runs on the tools you already pay for, inside your own accounts, with
+            permissions per person and a record of every action it took.
           </p>
           <blockquote className="lg:col-span-5 border-l-2 border-primary pl-6">
             <p className="font-display text-[clamp(1.4rem,2.6vw,1.9rem)] font-bold uppercase leading-[1.08] tracking-[0.005em] text-foreground">

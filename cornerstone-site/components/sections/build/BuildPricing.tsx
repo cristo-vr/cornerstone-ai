@@ -13,11 +13,9 @@ interface BuildPricingProps {
 const included = [
   "A working session in week one, with you and the people who do the job",
   "Eight weeks of building, one thing at a time",
-  "A direct line to me, answered inside 24 hours",
-  "Anything already built, fixed inside 24 hours",
+  "A direct line to me, with answers and fixes inside 24 hours",
   "Anything new, live within seven days of me starting it",
   "Two training sessions for your team",
-  "Everything built inside your own accounts from the first day",
   "Handover: keys, documentation, and your team shown how it works",
   "Four more weeks of support afterwards, at no charge",
 ];
@@ -42,7 +40,7 @@ const continuity = [
 ];
 
 const BuildPricing: React.FC<BuildPricingProps> = ({ onOpenContact }) => (
-  <section id="price" className="py-28 md:py-36 border-t border-line">
+  <section id="price" className="py-20 md:py-28 border-t border-line">
     <div className="max-w-6xl mx-auto px-6">
       <Reveal>
         <Eyebrow>What it costs</Eyebrow>
@@ -55,9 +53,8 @@ const BuildPricing: React.FC<BuildPricingProps> = ({ onOpenContact }) => (
       </Reveal>
       <Reveal delay={0.08}>
         <p className="text-lg text-ink-2 leading-relaxed max-w-2xl mb-14">
-          You&rsquo;re buying eight weeks of my time aimed at your business, not a
-          fixed list of features. What gets built is decided as we go, by you, based on
-          what&rsquo;s actually costing you the most that week.
+          You&rsquo;re buying eight weeks of my time, not a fixed list of features. You
+          decide what gets built, in the order that costs you the most.
         </p>
       </Reveal>
 
@@ -74,9 +71,8 @@ const BuildPricing: React.FC<BuildPricingProps> = ({ onOpenContact }) => (
               USD, total
             </p>
             <p className="mt-6 text-ink-2 leading-relaxed grow">
-              Eight weeks of building, then four more weeks of support on me. No hourly
-              billing, no change orders, nothing extra at the end you didn&rsquo;t see
-              coming.
+              Eight weeks of building, then four more weeks of support at no charge. No
+              hourly billing and no change orders.
             </p>
             <div className="mt-8">
               <Button onClick={onOpenContact} icon>
@@ -112,10 +108,8 @@ const BuildPricing: React.FC<BuildPricingProps> = ({ onOpenContact }) => (
         </Reveal>
         <Reveal delay={0.06}>
           <p className="mt-6 text-lg text-ink-2 leading-relaxed max-w-3xl">
-            Nothing switches off when I stop. The system is yours and it carries on. By
-            then you&rsquo;ve had four weeks of support without paying for it, so you
-            already know what having me around is worth. If you want it to continue,
-            pick one of these at the start of each cycle.
+            Nothing switches off when I stop. If you want me to carry on after the four
+            free weeks of support, pick one of these at the start of each cycle.
           </p>
         </Reveal>
 
@@ -172,7 +166,7 @@ const BuildPricing: React.FC<BuildPricingProps> = ({ onOpenContact }) => (
               </h4>
               <p className="text-ink-2 leading-relaxed">
                 Nothing renews on its own. Move between the two whenever you want, or
-                stop at the end of any cycle, and everything you own keeps working.
+                stop at the end of any cycle.
               </p>
             </div>
           </Reveal>
@@ -183,7 +177,7 @@ const BuildPricing: React.FC<BuildPricingProps> = ({ onOpenContact }) => (
               </h4>
               <p className="text-ink-2 leading-relaxed">
                 Three cycles of Keep building bought up front is $5,100 instead of
-                $6,000. Only worth doing once you already know you want to carry on.
+                $6,000.
               </p>
             </div>
           </Reveal>
@@ -193,9 +187,8 @@ const BuildPricing: React.FC<BuildPricingProps> = ({ onOpenContact }) => (
                 The AI&apos;s own usage
               </h4>
               <p className="text-ink-2 leading-relaxed">
-                Billed straight to your account by the provider, at cost, because the
-                system runs on your accounts. I take no margin on it and I&rsquo;ll
-                show you the meter during the build.
+                Billed straight to your account by the provider, at cost. I take no
+                margin on it and I&rsquo;ll show you the meter during the build.
               </p>
             </div>
           </Reveal>

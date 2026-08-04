@@ -60,9 +60,8 @@ const BuildHero: React.FC<BuildHeroProps> = ({ onOpenContact }) => {
           {...rise(0.38)}
           className="mt-9 max-w-2xl text-lg md:text-xl text-ink-2 leading-relaxed"
         >
-          Eight weeks. I build a custom AI system around the way your business
-          already runs, on your accounts, permissioned for your team, with a log of
-          everything it does.{" "}
+          I build a custom AI system around the way your business already runs, inside
+          your own accounts, with a log of everything it does.{" "}
           <strong className="font-semibold text-foreground">
             You own the whole thing at the end of week eight.
           </strong>

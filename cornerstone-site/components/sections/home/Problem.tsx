@@ -11,22 +11,22 @@ const costs = [
   {
     n: "01",
     title: "The business moves at your speed",
-    body: "Work only progresses when you touch it. Take a week off and the business takes the week off with you, then hands you the backlog on the Monday.",
+    body: "Take a week off and the business takes the week off with you, then hands you the backlog on the Monday.",
   },
   {
     n: "02",
     title: "You pay senior rates for data entry",
-    body: "The people you hired for judgement spend their day retyping, chasing and updating. You are buying their best hours and getting their worst ones.",
+    body: "The people you hired for judgement spend their day retyping, chasing and updating.",
   },
   {
     n: "03",
     title: "Growing costs more every time",
-    body: "Headcount is the only lever left, so more work means more people, and more people means more of the same admin. The margin moves the wrong way as you grow.",
+    body: "Headcount is the only lever left, so more work means more people and more of the same admin.",
   },
 ];
 
 const Problem: React.FC = () => (
-  <section id="the-problem" className="py-28 md:py-36 border-t border-line">
+  <section id="the-problem" className="py-20 md:py-28 border-t border-line">
     <div className="max-w-6xl mx-auto px-6">
       <div className="max-w-3xl">
         <Reveal>
@@ -48,10 +48,8 @@ const Problem: React.FC = () => (
               handed back a chatbot answering questions your customers were never asking.
             </p>
             <p>
-              So AI got filed somewhere between hype and money pit, with one thing still
-              nagging: the suspicion that a competitor has worked something out that you
-              haven&rsquo;t, and no reliable way to tell a real capability from a good
-              demo.
+              What nags is the suspicion that a competitor has worked something out that
+              you haven&rsquo;t, and no way to tell a real capability from a good demo.
             </p>
           </div>
         </Reveal>

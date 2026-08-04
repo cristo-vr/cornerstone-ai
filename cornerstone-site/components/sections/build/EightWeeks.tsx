@@ -18,12 +18,12 @@ const cadence = [
   {
     value: "1",
     unit: "build at a time",
-    body: "You can keep five requests in the queue. I work them one at a time, so nothing sits half finished.",
+    body: "You can keep five requests in the queue, and I work them in order.",
   },
   {
     value: "7",
     unit: "days, maximum",
-    body: "From starting a new build to it running in your business. That is the ceiling, not the average.",
+    body: "From starting a new build to it running in your business.",
   },
 ];
 
@@ -31,22 +31,22 @@ const weeks = [
   {
     label: "Week 1",
     title: "Map",
-    body: "A working session with you and the people who actually do the work. I trace how a job moves from first contact to paid, and where the hours disappear. It ends with a list: what gets built, in what order, and what each one is worth to you.",
+    body: "A working session with you and the people who do the work. I trace how a job moves from first contact to paid, and where the hours go. It ends with a list of what gets built and in what order.",
   },
   {
     label: "Weeks 2 to 3",
     title: "Foundation",
-    body: "The layer everything else stands on. Your clients, projects and money in one place, connected to the tools you already use, with roles and access set to match your team. Built inside your own accounts from day one, so even the work in progress is already yours.",
+    body: "The layer everything else stands on. Your clients, projects and money in one place, connected to the tools you already use, with roles and access set to match your team.",
   },
   {
     label: "Weeks 4 to 7",
     title: "Build live",
-    body: "One build at a time, in the order we agreed, each one in use within seven days of starting it. Your team learns each piece as it arrives, which beats a training day at the end that everybody forgets by Friday.",
+    body: "The builds land in the order we agreed. Your team learns each piece as it arrives, which beats a training day at the end that everybody forgets by Friday.",
   },
   {
     label: "Week 8",
     title: "Handover",
-    body: "Keys, documentation, and a walkthrough of every piece with whoever is going to own it. Then I step back and it keeps running.",
+    body: "Keys, documentation, and a walkthrough of every piece with whoever is going to own it.",
   },
 ];
 
@@ -54,7 +54,7 @@ const EightWeeks: React.FC = () => {
   const reduce = useReducedMotion();
 
   return (
-    <section id="eight-weeks" className="py-28 md:py-36 bg-surface/40 border-t border-line">
+    <section id="eight-weeks" className="py-20 md:py-28 bg-surface/40 border-t border-line">
       <div className="max-w-5xl mx-auto px-6">
         <Reveal>
           <Eyebrow>How it runs</Eyebrow>
@@ -67,9 +67,8 @@ const EightWeeks: React.FC = () => {
         </Reveal>
         <Reveal delay={0.08}>
           <p className="text-lg text-ink-2 max-w-2xl leading-relaxed">
-            I don&apos;t vanish for two months and come back with a finished box. Each
-            piece goes in one at a time and starts working the week it&apos;s built, so
-            you can feel the thing growing rather than take my word for it.
+            Each piece goes in one at a time and starts working the week it&apos;s
+            built, so you can feel the thing growing rather than take my word for it.
           </p>
         </Reveal>
 
@@ -135,10 +134,9 @@ const EightWeeks: React.FC = () => {
               Three new businesses a month.
             </h3>
             <p className="text-lg text-ink-2 leading-relaxed max-w-3xl">
-              A seven day turnaround is only worth promising if I am not spread across
-              twenty businesses at once, so I start three a month and no more. It also
-              means the calendar usually decides when you can start, rather than the
-              paperwork.
+              I start three a month and no more, which is what makes the seven day
+              turnaround possible. The calendar usually decides when you can start,
+              rather than the paperwork.
             </p>
           </div>
         </Reveal>

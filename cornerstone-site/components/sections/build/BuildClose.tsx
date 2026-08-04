@@ -22,13 +22,13 @@ const BuildClose: React.FC<BuildCloseProps> = ({ onOpenContact }) => (
       <Reveal delay={0.1}>
         <div className="mt-9 space-y-6 text-lg md:text-xl leading-relaxed text-[#BEB9AC] max-w-3xl">
           <p>
-            That&apos;s the reason the turnaround times mean anything. The next step
-            is a call, and it&apos;s a working session rather than a pitch.
+            The next step is a call, and it&apos;s a working session rather than a
+            pitch.
           </p>
           <p>
             Bring the part of your week that irritates you most. By the end
-            you&apos;ll know what the first three systems would be, roughly what each
-            one is worth to you, and whether the eight weeks is the right move at all.{" "}
+            you&apos;ll know what the first three systems would be and whether the eight
+            weeks is the right move.{" "}
             <strong className="font-semibold text-rail-text">
               If it isn&apos;t, I&apos;ll tell you on the call rather than sell you
               something.

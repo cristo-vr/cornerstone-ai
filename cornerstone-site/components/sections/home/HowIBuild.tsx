@@ -12,22 +12,22 @@ const weeks = [
   {
     label: "Week 1",
     title: "Map",
-    body: "I sit down with you and your team and trace how work actually moves, not how the process document says it moves. You keep that map whether or not anything gets built on top of it.",
+    body: "I trace how work actually moves, not how the process document says it moves. You keep that map either way.",
   },
   {
     label: "Weeks 2 to 3",
     title: "Foundation",
-    body: "The core layer goes in. Clients, projects and money in one place, wired to the tools you already use. It is built inside your own accounts from day one, so even the half-finished work belongs to you.",
+    body: "Clients, projects and money in one place, wired to the tools you already use.",
   },
   {
     label: "Weeks 4 to 7",
     title: "Build live",
-    body: "One piece at a time, put to work the day it is ready. Your team learns each piece as it lands rather than sitting through a training day at the end.",
+    body: "Your team learns each piece as it lands rather than sitting through a training day at the end.",
   },
   {
     label: "Week 8",
     title: "Handover",
-    body: "Keys, documentation, ownership. Your team runs it without me, and I show them how to change it when the business changes.",
+    body: "Keys, documentation, ownership. I show your team how to change it when the business changes.",
   },
 ];
 
@@ -96,8 +96,7 @@ const TraceCard: React.FC = () => {
       </motion.div>
 
       <p className="mt-5 font-semibold text-[10px] uppercase tracking-[0.14em] text-ink-2 leading-relaxed">
-        Yours might be a VAT deadline, a placement, or a patient booking. Week one is
-        where I map it.
+        Yours might be a VAT deadline, a placement, or a patient booking.
       </p>
     </div>
   );
@@ -106,19 +105,19 @@ const TraceCard: React.FC = () => {
 const rules = [
   {
     title: "You own it outright",
-    body: "No licence, no platform fee, nothing that switches off if we stop working together. It lives in your accounts from the first day, so it is yours before it is even finished.",
+    body: "No licence, no platform fee, nothing that switches off if we stop working together. It lives in your accounts from the first day, so it is yours before it is finished.",
   },
   {
     title: "Anything leaving the business waits for a yes",
-    body: "Money and messages to clients need a person to approve them. The routine runs on its own, and you choose exactly where that line sits.",
+    body: "Money and messages to clients need a person to approve them, and you choose where that line sits.",
   },
   {
     title: "Each person sees only what they should",
-    body: "Permissions per role, and a record of every action the system took and when. Sensitive work gets tighter access rather than a workaround.",
+    body: "Permissions per role, and a record of every action the system took and when.",
   },
   {
     title: "Your team keeps working where they work",
-    body: "It goes in on the tools they already open. Most systems die because the team has to bend around them, so this one gets built around them instead.",
+    body: "Most systems die because the team has to bend around them. This one goes in on the tools they already open.",
   },
 ];
 
@@ -126,7 +125,7 @@ const HowIBuild: React.FC = () => {
   const reduce = useReducedMotion();
 
   return (
-    <section id="how-i-build" className="py-28 md:py-36 border-t border-line">
+    <section id="how-i-build" className="py-20 md:py-28 border-t border-line">
       <div className="max-w-6xl mx-auto px-6">
         <div className="max-w-3xl">
           <Reveal>
@@ -141,9 +140,9 @@ const HowIBuild: React.FC = () => {
 
           <Reveal delay={0.1}>
             <p className="text-lg text-ink-2 leading-relaxed">
-              I don&rsquo;t disappear for two months and come back with a finished box. It
-              goes in one piece at a time and each piece starts working the day it lands,
-              so you can tell early whether this is worth carrying on with.
+              I don&rsquo;t disappear for two months and come back with a finished box.
+              Each piece starts working the day it lands, so you can tell early whether
+              this is worth carrying on with.
             </p>
           </Reveal>
         </div>

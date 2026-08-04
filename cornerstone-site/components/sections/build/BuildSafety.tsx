@@ -118,7 +118,7 @@ const PermissionMatrix: React.FC = () => {
 };
 
 const BuildSafety: React.FC = () => (
-  <section id="safety" className="py-28 md:py-36 border-t border-line">
+  <section id="safety" className="py-20 md:py-28 border-t border-line">
     <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
       {/* min-w-0: a grid item defaults to min-width:auto, so the matrix table's
           min-width would otherwise push the column past the viewport instead of

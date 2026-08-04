@@ -11,37 +11,32 @@ const faqs = [
   {
     question: "How much of my time does this actually take?",
     answer:
-      "A working session in week one, then very little. There’s no standing weekly call, because you’re short of time already and a meeting in your diary every week isn’t what gets your business built. You get a direct line to me instead, answered inside 24 hours, and we talk when something needs talking about.",
+      "A working session in week one, then very little. You get a direct line to me rather than a place in my calendar, and we talk when something needs talking about.",
   },
   {
     question: "If the scope isn’t fixed, what stops it drifting?",
     answer:
-      "The queue. You can keep five requests open at a time and I work them one at a time, each one live within seven days of me starting it. So instead of agreeing a list up front and arguing about it later, you decide what matters most that week and it gets built. Most businesses end up with around eight systems by the end.",
+      "The queue does. You decide what matters most that week, and it gets built. What stops it sprawling is that I only work one thing at a time.",
   },
   {
     question: "Which tools does it work with?",
     answer:
-      "The ones you already use. Email, WhatsApp, Xero or whatever you do the books in, spreadsheets, your project board, your client list, your booking calendar, your online store. I map your exact stack in week one and tell you straight away if something can’t connect, before anything gets built on the assumption that it can.",
-  },
-  {
-    question: "Do I own it, or am I renting it from you?",
-    answer:
-      "You own it. Everything is built inside your own accounts from day one, so the system and the data are yours before the build even finishes. No licence, no platform fee, nothing to renew with me. If we stop working together, nothing switches off.",
+      "The ones you already use. I map your exact stack in week one and tell you straight away if something can’t connect, before anything gets built on the assumption that it can.",
   },
   {
     question: "My team isn’t technical. Will they use it?",
     answer:
-      "Most systems die because the team has to bend around them. This one gets built around how they already work, on the tools they already open. It goes in live, one piece at a time, with training as it lands. By week eight they’re using it, not learning it.",
+      "They get trained on each piece as it lands rather than sitting through one long session at the end, so by week eight they’re using it rather than learning it.",
   },
   {
     question: "We handle sensitive information. Patients, legal files, payroll.",
     answer:
-      "That changes how I build, not whether I can. Sensitive information gets tighter access, human sign-off on anything that touches it, and I build to your industry’s rules rather than around them. Bring the specifics to the call and I’ll walk you through exactly how it would work for yours.",
+      "That changes how I build, not whether I can. Sensitive information gets tighter access, human sign-off on anything that touches it, and I build to your industry’s rules. Bring the specifics to the call.",
   },
 ];
 
 const FinalCTA: React.FC = () => (
-  <section id="contact" className="py-28 md:py-36 bg-surface/40 border-t border-line">
+  <section id="contact" className="py-20 md:py-28 bg-surface/40 border-t border-line">
     <div className="max-w-3xl mx-auto px-6">
       <div id="faq" className="scroll-mt-28">
         <Reveal>
