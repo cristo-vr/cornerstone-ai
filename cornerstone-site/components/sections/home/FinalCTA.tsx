@@ -16,7 +16,7 @@ const faqs = [
   {
     question: "If the scope isn’t fixed, what stops it drifting?",
     answer:
-      "The queue does. You decide what matters most that week, and it gets built. What stops it sprawling is that I only work one thing at a time.",
+      "The queue does. You decide what matters most that week and it gets built, and what stops it sprawling is that I only work one thing at a time. You are buying eight weeks of building toward one system your business runs on, not a shopping list of features.",
   },
   {
     question: "Which tools does it work with?",

@@ -62,7 +62,7 @@ const WhatGetsBuilt: React.FC = () => (
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-6 text-lg text-ink-2 leading-relaxed">
-              Six examples of the kind of thing that comes out of the eight weeks.
+              Examples of what comes out of the eight weeks.
               Each one runs on a Tuesday without anybody thinking about it, which is
               the only test that matters.
             </p>
@@ -112,11 +112,10 @@ const WhatGetsBuilt: React.FC = () => (
               Your list won&apos;t be this list.
             </h3>
             <p className="text-ink-2 leading-relaxed">
-              Week one is where I trace how a job actually moves through your
-              business, from first contact to paid, and we pick what gets built and
-              in what order. Usually four to six systems, plus the layer they all
-              stand on: your clients, projects and money in one place, wired into the
-              tools your team already opens every morning.
+              Yours gets decided in week one, once I have seen how a job actually
+              moves through your business. Whatever we build sits on one layer: your
+              clients, projects and money in one place, wired into the tools your team
+              already opens every morning.
             </p>
           </div>
         </Reveal>

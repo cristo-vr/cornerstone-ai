@@ -49,8 +49,8 @@ const TheOffer: React.FC = () => (
         <Reveal delay={0.1}>
           <p className="text-lg text-ink-2 leading-relaxed">
             There&rsquo;s no fixed feature list. You decide what gets built as we go,
-            and most businesses end up with around eight systems and a platform holding
-            them together.
+            and by the end your business is running on one system instead of five
+            half-updated tools and a group chat.
           </p>
         </Reveal>
       </div>

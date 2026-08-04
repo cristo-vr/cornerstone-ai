@@ -27,8 +27,8 @@ const BuildClose: React.FC<BuildCloseProps> = ({ onOpenContact }) => (
           </p>
           <p>
             Bring the part of your week that irritates you most. By the end
-            you&apos;ll know what the first three systems would be and whether the eight
-            weeks is the right move.{" "}
+            you&apos;ll know what I would build first and whether the eight weeks is
+            the right move.{" "}
             <strong className="font-semibold text-rail-text">
               If it isn&apos;t, I&apos;ll tell you on the call rather than sell you
               something.

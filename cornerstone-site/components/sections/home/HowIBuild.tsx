@@ -8,29 +8,6 @@ import Eyebrow from "../../ui/Eyebrow";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const weeks = [
-  {
-    label: "Week 1",
-    title: "Map",
-    body: "I trace how work actually moves, not how the process document says it moves. You keep that map either way.",
-  },
-  {
-    label: "Weeks 2 to 3",
-    title: "Foundation",
-    body: "Clients, projects and money in one place, wired to the tools you already use.",
-  },
-  {
-    label: "Weeks 4 to 7",
-    title: "Build live",
-    body: "Your team learns each piece as it lands rather than sitting through a training day at the end.",
-  },
-  {
-    label: "Week 8",
-    title: "Handover",
-    body: "Keys, documentation, ownership. I show your team how to change it when the business changes.",
-  },
-];
-
 const traceSteps = [
   "Project opened, team assigned",
   "Welcome pack sent",
@@ -121,10 +98,10 @@ const rules = [
   },
 ];
 
-const HowIBuild: React.FC = () => {
-  const reduce = useReducedMotion();
-
-  return (
+/* The four week timeline that used to sit here is on /build, with more detail,
+   and the offer section's CTA sends the reader straight to it. Repeating it
+   here was the home page pre-answering the question its own CTA exists for. */
+const HowIBuild: React.FC = () => (
     <section id="how-i-build" className="py-20 md:py-28 border-t border-line">
       <div className="max-w-6xl mx-auto px-6">
         <div className="max-w-3xl">
@@ -147,51 +124,13 @@ const HowIBuild: React.FC = () => {
           </Reveal>
         </div>
 
-        <div className="mt-16 grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          <div className="lg:col-span-7">
-            <div className="relative">
-              {/* Rail: a string line pulled taut as you scroll it. */}
-              <div
-                className="absolute left-[7px] top-2 bottom-2 w-px bg-foreground/10"
-                aria-hidden="true"
-              />
-              <motion.div
-                initial={{ scaleY: 0 }}
-                whileInView={{ scaleY: 1 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={reduce ? { duration: 0 } : { duration: 1.2, ease: EASE }}
-                style={{ originY: 0 }}
-                className="absolute left-[7px] top-2 bottom-2 w-px bg-primary"
-                aria-hidden="true"
-              />
-              <div className="space-y-12">
-                {weeks.map((week, i) => (
-                  <Reveal key={week.label} delay={i * 0.08} y={12}>
-                    <div className="relative pl-12">
-                      <span
-                        className="absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full border-2 border-primary bg-background"
-                        aria-hidden="true"
-                      />
-                      <div className="font-semibold text-xs uppercase tracking-[0.14em] text-accent-ink mb-2">
-                        {week.label}
-                      </div>
-                      <h3 className="font-display uppercase tracking-[0.005em] text-2xl md:text-3xl font-bold text-foreground mb-3">
-                        {week.title}
-                      </h3>
-                      <p className="text-ink-2 leading-relaxed">{week.body}</p>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <Reveal delay={0.12} className="lg:col-span-5 lg:sticky lg:top-28">
+        <Reveal delay={0.12}>
+          <div className="mt-14 max-w-2xl">
             <TraceCard />
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
 
-        <div className="mt-24 md:mt-28 pt-20 border-t border-line">
+        <div className="mt-20 pt-16 border-t border-line">
           <Reveal>
             <h3 className="font-display font-bold uppercase text-foreground leading-[0.95] tracking-[0.005em] text-[clamp(1.9rem,4vw,3rem)] mb-12 max-w-2xl">
               Four things that are true of every build.
@@ -213,7 +152,6 @@ const HowIBuild: React.FC = () => {
         </div>
       </div>
     </section>
-  );
-};
+);
 
 export default HowIBuild;
