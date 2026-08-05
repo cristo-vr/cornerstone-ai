@@ -60,9 +60,13 @@ const terms = [
 
 /* The whole ask, in a form nobody has to think about. Most referrals die at
    "I should introduce them at some point", so the page ends by handing over
-   the actual sentence. */
+   the actual sentence.
+
+   Written to sound like a client typing in WhatsApp rather than in brand
+   voice, and left deliberately loose. A message that reads as marketing copy
+   does not get sent, and is not believed if it is. */
 const INTRO =
-  "Hey [Name], this is Cristo. He built a custom operating system for my team and it has taken a serious amount of admin off us. Thought you two should talk.";
+  "Hey [Name], this is Cristo. He built a really great custom operating system for us to run on, and it's allowed us to scale well. Thought it would be good for you two to connect.";
 
 const ReferralsShell: React.FC = () => {
   const [contactOpen, setContactOpen] = useState(false);
