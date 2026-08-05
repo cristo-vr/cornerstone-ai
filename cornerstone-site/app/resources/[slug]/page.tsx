@@ -15,8 +15,19 @@ import { siteConfig } from "@/lib/config";
 // Static export: every published resource becomes a real HTML file at build
 // time. That is what makes these pages indexable and instant, and it is why
 // publishing in the panel is followed by a rebuild.
+//
+// ⚠ Next refuses a dynamic route under `output: export` if generateStaticParams
+// returns nothing, and fails the ENTIRE site build with "missing
+// generateStaticParams()" — which is a misleading message for what is actually
+// an empty list. An empty library is a legitimate state (nothing published yet,
+// everything archived, or a local build with no Supabase key), and none of those
+// should be able to take the marketing site down over a section that is additive
+// to it. One sentinel keeps the route valid; the page below 404s it.
+const NO_RESOURCES = "not-found";
+
 export async function generateStaticParams() {
   const resources = await getResources();
+  if (resources.length === 0) return [{ slug: NO_RESOURCES }];
   return resources.map((r) => ({ slug: r.slug }));
 }
 

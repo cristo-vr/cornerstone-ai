@@ -15,3 +15,15 @@
 # replaced it rather than 404s.
 /workshop   /build  301
 /workshop/  /build  301
+
+# The resource library. The canonical path is /resources; these are the short
+# names it gets called by out loud and in posts.
+#
+# ⚠ resources.cornerstone-ai.pro is a Cloudflare CUSTOM DOMAIN on this Pages
+# project plus one Redirect Rule ("/" on that host -> /resources). It cannot be
+# done here: _redirects matches paths, not hostnames, so a rule written here
+# would fire on the apex domain too.
+/library    /resources  301
+/library/   /resources  301
+/free       /resources  301
+/free/      /resources  301

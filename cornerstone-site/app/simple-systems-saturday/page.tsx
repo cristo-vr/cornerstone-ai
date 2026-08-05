@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Shuffle, Workflow, Wrench, AlertCircle, Repeat, Check, X } from "lucide-react";
+import { Shuffle, Workflow, Wrench, AlertCircle, Repeat, Check, X, ArrowUpRight } from "lucide-react";
 
 import { Logo } from "@/components/brand/Logo";
 import Eyebrow from "@/components/ui/Eyebrow";
@@ -73,6 +73,16 @@ const forYou = [
 const notForYou = [
   "You're a developer and you want the technical depth",
   "You're after model releases, benchmarks and tool roundups",
+];
+
+/* What is actually in the library, in the reader's terms. Deliberately concrete
+   rather than a count, because "12 resources" says nothing about whether any of
+   them are for you. */
+const inTheLibrary = [
+  "A time audit that gives you one number and a file you keep editing",
+  "The context setup that stops you re-explaining your business to AI",
+  "Templates and skills lifted straight out of real client builds",
+  "Everything free, nothing gated behind a call",
 ];
 
 export default function SimpleSystemsSaturdayPage() {
@@ -333,6 +343,54 @@ export default function SimpleSystemsSaturdayPage() {
                   There are better newsletters than mine for both of those, and I&apos;d
                   rather you read those instead.
                 </p>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------------ library */}
+        {/* The second reason to subscribe. The newsletter is one system a week;
+            the library is where the finished, downloadable version of that work
+            accumulates. Signing up gets both, which is worth saying once here
+            rather than leaving people to find the library from a post. */}
+        <section className="py-20 md:py-28 border-t border-line">
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="grid md:grid-cols-12 gap-10 md:gap-14 items-start">
+              <Reveal className="md:col-span-7">
+                <Eyebrow>You also get the library</Eyebrow>
+                <h2 className="mt-5 font-display font-bold uppercase text-foreground leading-[0.94] tracking-[0.005em] text-[clamp(1.8rem,4.4vw,2.9rem)]">
+                  The tools, not just the reading
+                </h2>
+                <p className="mt-5 text-lg text-ink-2 leading-relaxed">
+                  Some weeks the system is small enough to describe in an email. Some weeks it
+                  is a real thing you run, so I build it properly and put it in the library:
+                  the audits, templates and Claude Code skills I use on actual client work.
+                </p>
+                <p className="mt-4 text-lg text-ink-2 leading-relaxed">
+                  It is all free and there is no call attached to any of it. Subscribers get
+                  each one as it goes up.
+                </p>
+                <a
+                  href="/resources"
+                  className="mt-7 inline-flex items-center gap-2 rounded-lg border border-line px-5 py-3
+                             font-sans text-[0.9rem] font-semibold text-foreground
+                             transition-[transform,border-color] duration-200 ease-[var(--ease-out)]
+                             hover:border-primary active:scale-[0.97]"
+                >
+                  Browse the library
+                  <ArrowUpRight className="w-4 h-4" strokeWidth={2} aria-hidden="true" />
+                </a>
+              </Reveal>
+
+              <Reveal delay={0.08} className="md:col-span-5">
+                <ul className="space-y-4 rounded-xl border border-line bg-surface/60 p-6 md:p-7">
+                  {inTheLibrary.map((line) => (
+                    <li key={line} className="flex gap-3.5 text-base text-foreground leading-relaxed">
+                      <Check className="w-5 h-5 mt-0.5 shrink-0 text-accent-ink" strokeWidth={2} />
+                      {line}
+                    </li>
+                  ))}
+                </ul>
               </Reveal>
             </div>
           </div>

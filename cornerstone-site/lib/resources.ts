@@ -96,7 +96,13 @@ export async function getResources(): Promise<Resource[]> {
       `${SUPABASE_URL}/rest/v1/library_resources?status=eq.published&select=${COLS}&order=sort_order.asc,published_at.desc`,
       {
         headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` },
-        cache: "no-store",
+        // ⚠ Not `cache: "no-store"`. Next treats that as a request for dynamic
+        // rendering and bails out of static generation — silently, in a worker,
+        // which is how the sitemap quietly lost every resource URL while the
+        // pages themselves built fine. Freshness comes from the module-level
+        // cache below (one fetch per build) and from the fact that `out/` is
+        // rebuilt from scratch on every deploy.
+        cache: "force-cache",
       },
     );
     if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
