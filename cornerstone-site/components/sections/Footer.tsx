@@ -13,6 +13,7 @@ const sitemap = [
   { label: "Proof", href: "/#proof" },
   { label: "About", href: "/#about" },
   { label: "FAQ", href: "/#faq" },
+  { label: "Referrals", href: "/referrals" },
 ];
 
 const legal = [
