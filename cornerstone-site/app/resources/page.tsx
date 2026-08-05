@@ -103,12 +103,16 @@ export default async function ResourcesPage() {
 
         <section className="mt-20 rounded-xl border border-line bg-surface/60 p-8 md:p-10">
           <Eyebrow>Get the next one</Eyebrow>
+          {/* No cadence claim here. The newsletter promises a weekly issue and
+              keeps that promise; the library fills up when something is worth
+              building properly, and inventing a rhythm for it would be a
+              promise to break in public. */}
           <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold uppercase leading-[1.02] tracking-[0.005em]">
-            New things land here most weeks
+            Nothing here stays finished
           </h2>
           <p className="mb-6 mt-3 max-w-2xl leading-relaxed text-ink-2">
-            Bookmark this page, or put your address in and I will send each one as it goes up, along with Simple Systems
-            Saturday. One email a week, one click to leave.
+            Bookmark this page, or put your address in and each new one comes to you as it goes up, along with Simple
+            Systems Saturday. One email a week, one click to leave.
           </p>
           <div className="max-w-xl">
             <NewsletterForm cta="Send me the new ones" />
