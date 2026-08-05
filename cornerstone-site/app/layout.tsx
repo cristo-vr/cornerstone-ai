@@ -3,7 +3,23 @@ import { Big_Shoulders, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import JsonLd from "@/components/JsonLd";
 import BrandDefs from "@/components/brand/BrandDefs";
+import SiteAnalytics from "@/components/analytics/SiteAnalytics";
 import { siteConfig } from "@/lib/config";
+
+/**
+ * Cloudflare Web Analytics beacon token.
+ *
+ * ⚠ This is what makes the traffic numbers in the OS real. Without it Cloudflare
+ * has no page-load data at all, and the only numbers available are zone/Pages
+ * REQUEST counts — every JS chunk, font, image, bot and prefetch — which read as
+ * enormous and mean nothing. The OS deliberately refuses to show those.
+ *
+ * The token is public by design (it ships in the HTML of every page). Get it at
+ * Cloudflare dashboard → Analytics & Logs → Web Analytics → the cornerstone-ai.pro
+ * site → the JS snippet. Set it as NEXT_PUBLIC_CF_BEACON_TOKEN in the Pages build
+ * environment, or paste it into the fallback below.
+ */
+const CF_BEACON_TOKEN = process.env.NEXT_PUBLIC_CF_BEACON_TOKEN ?? "";
 
 /* Brand Pack v2 type: condensed industrial display + humanist body. */
 const bigShoulders = Big_Shoulders({
@@ -84,6 +100,14 @@ export default function RootLayout({
         <BrandDefs />
         {children}
         <JsonLd />
+        <SiteAnalytics />
+        {CF_BEACON_TOKEN && (
+          <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={JSON.stringify({ token: CF_BEACON_TOKEN })}
+          />
+        )}
       </body>
     </html>
   );

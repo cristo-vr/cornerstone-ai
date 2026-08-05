@@ -3,9 +3,24 @@
 import React, { useState, useId } from "react";
 import Turnstile from "react-turnstile";
 import { Check } from "lucide-react";
+import { readAttribution } from "@/lib/attribution";
 
 const SITE_KEY = "0x4AAAAAACN3bXEw6zTOBNYc";
-const WEBHOOK_URL = "https://hook.us1.make.com/hq86ivay0995yhx6in8v4ttr7max7o53";
+
+/**
+ * Inquiries land in the Cornerstone OS (Supabase), not in a third-party
+ * automation tool.
+ *
+ * This used to POST to a make.com webhook, which meant the only record of a lead
+ * lived somewhere nobody looked, the Turnstile token was handed to Make and its
+ * verdict trusted rather than verified, and there was no way to answer "how many
+ * enquiries came in last month" without logging into another product.
+ *
+ * The endpoint verifies Turnstile server-side against Cloudflare, checks the
+ * origin, and writes the row. Cross-origin by design: this site is a static
+ * export with no server of its own, and the OS is where the data belongs.
+ */
+const LEAD_ENDPOINT = "https://aios.cornerstone-ai.pro/api/public/lead";
 
 const EMPTY = {
   fullName: "",
@@ -46,6 +61,7 @@ const ContactForm: React.FC = () => {
   const uid = useId();
   const [formData, setFormData] = useState(EMPTY);
   const [token, setToken] = useState<string | null>(null);
+  const [company, setCompany] = useState(""); // honeypot
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
   const handleChange = (
@@ -63,11 +79,18 @@ const ContactForm: React.FC = () => {
     }
     setStatus("submitting");
     try {
-      const res = await fetch(WEBHOOK_URL, {
+      // Captured on the landing page, not here — by now the UTM parameters are
+      // several navigations gone. See lib/attribution.ts.
+      const attribution = readAttribution();
+
+      const res = await fetch(LEAD_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
+          ...attribution,
+          company, // honeypot: empty for every real person
+          submittedPath: window.location.pathname,
           turnstileToken: token,
           submittedAt: new Date().toISOString(),
         }),
@@ -276,6 +299,20 @@ const ContactForm: React.FC = () => {
           className={`${fieldClass} resize-none`}
         />
       </div>
+
+      {/* Honeypot. Hidden from people, irresistible to bots — the same pattern
+          the newsletter form uses. The endpoint answers a filled one with a 200
+          so the bot believes it worked and doesn't come back in another shape. */}
+      <input
+        type="text"
+        name="company"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        value={company}
+        onChange={(e) => setCompany(e.target.value)}
+        className="absolute w-px h-px -m-px overflow-hidden opacity-0 pointer-events-none"
+      />
 
       <div className="space-y-4 pt-1">
         <Turnstile sitekey={SITE_KEY} onVerify={setToken} theme="auto" />
