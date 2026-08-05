@@ -44,7 +44,7 @@ const steps = [
   {
     n: "03",
     title: "They start",
-    body: "Both rewards are confirmed once their payment clears, not when the call is booked.",
+    body: "Your two weeks are confirmed once their build actually starts, not when the call is booked.",
   },
   {
     n: "04",
@@ -54,9 +54,9 @@ const steps = [
 ];
 
 const terms = [
-  "Their price is still $6,000. This is not a discount and it does not stack with anything else.",
+  "Their price does not change. The reward is extra time rather than money off, so it sits on top of whatever payment terms they take.",
   "I take on three new businesses a month, and a referral does not jump that queue. It does mean I will tell you straight away when the next start is.",
-  "Up to three referrals a year each. Past that, come and talk to me, because at that point I owe you cash rather than weeks.",
+  "Up to four a year each, one a quarter, since a full engagement runs twelve weeks. Past that, come and talk to me, because at that point I owe you cash rather than weeks.",
   "If they cancel before the build starts and get refunded, the reward falls away with it.",
 ];
 
@@ -227,9 +227,14 @@ const ReferralsShell: React.FC = () => {
                 <p className="text-lg text-ink-2 leading-relaxed">
                   Free build weeks are no use to you, so it works differently.
                   Accountants, consultants and anyone else who sends people my way get
-                  15 percent of the fee in cash, paid once their payment clears. If you
-                  send more than the odd one, come and talk to me and we will do
-                  something better than that.
+                  $750 in cash for every one who becomes a client. That is fifteen
+                  percent, fixed as a flat number so it never moves with the payment
+                  terms they happen to choose.
+                </p>
+                <p className="mt-5 text-lg text-ink-2 leading-relaxed">
+                  It is paid once their fee is fully collected, which is immediately if
+                  they pay up front. If you send more than the odd one, come and talk to
+                  me and we will do something better than this.
                 </p>
               </div>
             </Reveal>
