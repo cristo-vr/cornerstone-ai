@@ -203,6 +203,32 @@ footer{margin:38px 0 0;padding:20px 0 0;border-top:1px solid var(--line)}
   </div>
 </section>
 
+<!-- ── 1b. THE GATE. Asked BEFORE the report, with a visible way past it.
+     Showing the whole diagnosis first left nothing to want, so nobody had a
+     reason to type anything. Skipping is one click, says so plainly, and
+     returns the identical document. ── -->
+<section class="panel" id="pg" tabindex="-1">
+  <div class="card">
+    <p class="eyebrow" style="color:var(--accent-ink);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:12px;margin:0 0 10px">Done</p>
+    <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(26px,5vw,38px);line-height:.96;margin:0 0 12px">That's everything<br>I need</h2>
+    <p class="lede" id="gsum">Give me a moment and I'll write it up.</p>
+    <p>Where should I send it? You'll get the diagnosis as a document you can forward to whoever actually runs the process.</p>
+    <form class="row" id="gateform" style="display:flex;gap:10px;margin:16px 0 0;flex-wrap:wrap">
+      <label class="sr" for="gmail">Your email</label>
+      <input id="gmail" type="email" placeholder="you@company.com" maxlength="320" autocomplete="email"
+             style="flex:1;min-width:220px;font:inherit;font-size:16px;color:var(--text);background:var(--sunken);border:1px solid var(--line-2);border-radius:4px;padding:12px">
+      <button class="btn primary" id="gatego" type="submit">Send it and show me</button>
+    </form>
+    <p class="err" id="eg" hidden></p>
+    <p style="margin:14px 0 0">
+      <button type="button" id="skip"
+              style="background:none;border:0;padding:0;font:inherit;font-size:15px;color:var(--text-3);text-decoration:underline;cursor:pointer">
+        No thanks, just show me on screen
+      </button>
+    </p>
+  </div>
+</section>
+
 <!-- ── 2. THE REPORT ────────────────────────────────────────────────────── -->
 <section class="panel" id="p2" tabindex="-1">
   <div class="card">
@@ -224,9 +250,9 @@ footer{margin:38px 0 0;padding:20px 0 0;border-top:1px solid var(--line)}
 
   <div class="card report" id="report"></div>
 
-  <div class="gate" id="gate">
-    <p style="margin:0 0 2px;color:var(--text);font-weight:600">Want this in writing?</p>
-    <p class="hint">You've read the whole thing already. This just puts a copy in your inbox so you can forward it to whoever runs the process.</p>
+  <div class="gate" id="gate" hidden>
+    <p style="margin:0 0 2px;color:var(--text);font-weight:600">Want a copy of this?</p>
+    <p class="hint">You skipped it earlier, which was allowed. If you'd rather have it in writing to forward on, it's one field.</p>
     <form class="row" id="mailform">
       <label class="sr" for="mail">Your email</label>
       <input id="mail" type="email" placeholder="you@company.com" maxlength="320" autocomplete="email">
@@ -257,14 +283,14 @@ footer{margin:38px 0 0;padding:20px 0 0;border-top:1px solid var(--line)}
   var SITE_KEY = "0x4AAAAAACN3bXEw6zTOBNYc";
 
   var $ = function(id){ return document.getElementById(id); };
-  var state = { id:null, token:null, turns:0, max:20, busy:false, done:false, can:false, report:null };
+  var state = { id:null, token:null, turns:0, max:20, busy:false, done:false, can:false, report:null, extracted:null };
 
   // ── panels ───────────────────────────────────────────────────────────────
-  function show(n){
-    ["p0","p1","p2"].forEach(function(p,i){
-      $(p).classList.toggle("on", i === n);
+  function show(id){
+    ["p0","p1","pg","p2"].forEach(function(p){
+      $(p).classList.toggle("on", p === id);
     });
-    $("p"+n).focus();
+    $(id).focus();
     window.scrollTo({ top:0, behavior:"smooth" });
   }
   function fail(el, msg){
@@ -424,7 +450,7 @@ footer{margin:38px 0 0;padding:20px 0 0;border-top:1px solid var(--line)}
       .then(function(j){
         state.id = j.id;
         state.max = j.max_turns || 20;
-        show(1);
+        show("p1");
         bubble("them", j.message);
         updateLeft();
         $("say").focus();
@@ -467,6 +493,7 @@ footer{margin:38px 0 0;padding:20px 0 0;border-top:1px solid var(--line)}
         state.turns = j.turns || state.turns + 1;
         state.done = j.done === true;
         state.can = j.can_report === true;
+        state.extracted = j.extracted;
         drawSoFar(j.extracted);
         updateLeft();
         // The button appears the moment there is enough to write about, and it
@@ -513,27 +540,56 @@ footer{margin:38px 0 0;padding:20px 0 0;border-top:1px solid var(--line)}
   });
 
   // ── the report ───────────────────────────────────────────────────────────
+  // The interview ends at the gate, not at the report. Nothing has been
+  // generated yet at this point, so nothing is being withheld: the Sonnet call
+  // happens on whichever button they press.
   $("finish").addEventListener("click", function(){
     if (state.busy) return;
-    state.busy = true;
-    $("finish").disabled = true;
-    $("finish").textContent = "Writing";
-    typing(true);
+    var steps = (state.extracted && state.extracted.steps) || [];
+    var proc = (state.extracted && state.extracted.process_name) || "this process";
+    $("gsum").textContent =
+      "I've got " + steps.length + (steps.length === 1 ? " step" : " steps") +
+      " for " + proc + ". Give me a moment and I'll write up where the time goes.";
+    show("pg");
+    $("gmail").focus();
+  });
 
-    post({ action:"report", id: state.id })
+  // Both paths run the same request. The only difference is whether an address
+  // rides along with it, and skipping returns the identical document.
+  function generate(email){
+    if (state.busy) return;
+    state.busy = true;
+    $("gatego").disabled = true;
+    $("skip").disabled = true;
+    $("gatego").textContent = "Writing it up";
+    if (!email) $("skip").textContent = "Writing it up...";
+    $("eg").hidden = true;
+
+    post(email ? { action:"report", id: state.id, email: email } : { action:"report", id: state.id })
       .then(function(j){
-        typing(false);
         drawReport(j);
-        show(2);
+        // Never claim a send that did not happen.
+        $("sent").hidden = !j.emailed;
+        $("gate").hidden = !!j.emailed;
+        show("p2");
       })
       .catch(function(err){
-        typing(false);
-        bubble("sys", err.message);
-        $("finish").disabled = false;
-        $("finish").textContent = "Write it up";
+        fail("eg", err.message);
+        $("gatego").disabled = false;
+        $("skip").disabled = false;
+        $("gatego").textContent = "Send it and show me";
+        $("skip").textContent = "No thanks, just show me on screen";
       })
       .finally(function(){ state.busy = false; });
+  }
+
+  $("gateform").addEventListener("submit", function(e){
+    e.preventDefault();
+    var m = $("gmail").value.trim();
+    if (!m) { fail("eg", "Put an address in, or use the link below to skip."); return; }
+    generate(m);
   });
+  $("skip").addEventListener("click", function(){ generate(null); });
 
   function drawReport(j){
     state.report = true;
