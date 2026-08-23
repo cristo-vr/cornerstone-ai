@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Bottleneck Unlock (the short form)</title>
+<!-- v1. THE FALLBACK, NOT THE MAGNET.
+     /unlock is the interview (v2, 2026-08-23). This is the original form, kept
+     for two reasons: somebody who won't type into a chat still gets an answer,
+     and the completion rates of the two are worth comparing before one of them
+     is deleted. Nothing links here from the site; the interview page is what
+     posts and the content piece point at.
+     noindex so it does not compete with /unlock in search for the same words. -->
+<meta name="robots" content="noindex,follow">
+<meta name="description" content="Map one process in about five minutes. See where the job actually gets stuck, and how much of it is waiting rather than work.">
+<meta property="og:title" content="The Bottleneck Unlock">
+<meta property="og:description" content="Map one process in about five minutes. See where the job actually gets stuck, and how much of it is waiting rather than work.">
+<meta property="og:type" content="website">
+<link rel="icon" href="/brand/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Cornerstone v2.2 "Set in Concrete". Values mirror functions/_shared/brand.ts.
+   No theme toggle: this page is unauthenticated, so there is nothing to store a
+   preference on. System preference is the whole story. */
+:root{
+  color-scheme:light dark;
+  --ground:#EAEAE6; --surface:#E1E1DC; --surface-2:#D6D6D0; --sunken:#DCDCD6;
+  --line:#D3D3CD; --line-2:#BFBFB7; --line-3:#727067;
+  --text:#2F2F2C; --text-2:#4F4E48; --text-3:#5E5D56;
+  --accent:#D1A24F; --accent-dk:#A6792B; --accent-ink:#785614; --accent-txt:#141310;
+  --danger-ink:#8E3524;
+  --focus:#8A6420;
+  --sh-1:0 1px 2px rgb(20 19 16 / .06), 0 1px 1px rgb(20 19 16 / .04);
+  --display:'Big Shoulders Display','Big Shoulders',ui-sans-serif,system-ui,sans-serif;
+  --body:'Hanken Grotesk',ui-sans-serif,system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ground:#2B2A26; --surface:#343029; --surface-2:#3C382F; --sunken:#24231F;
+    --line:#423D33; --line-2:#554E3F; --line-3:#8F8B7E;
+    --text:#ECE9E2; --text-2:#BEB9AC; --text-3:#ADA89A;
+    /* No room below --accent in dark, so ink goes UP. */
+    --accent:#D1A24F; --accent-dk:#DDBB7D; --accent-ink:#DDBB7D; --accent-txt:#141310;
+    --danger-ink:#E7A594;
+    --focus:#D1A24F;
+    --sh-1:0 1px 2px rgb(0 0 0 / .3);
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--text);font-family:var(--body);
+  font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:28px 20px 96px}
+h1,h2{font-family:var(--display);text-transform:uppercase;letter-spacing:0;line-height:.94}
+h1{font-weight:800;font-size:clamp(38px,7vw,64px);margin:0 0 16px}
+h2{font-weight:700;font-size:clamp(24px,4vw,32px);margin:0 0 6px}
+.eyebrow{font-family:var(--body);font-weight:600;font-size:12px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent-ink);margin:0 0 10px}
+p{margin:0 0 14px;color:var(--text-2)}
+.lede{font-size:19px;color:var(--text-2);max-width:58ch}
+small,.hint{font-size:14px;color:var(--text-3);line-height:1.5;display:block}
+
+/* Brand mark, same geometry as functions/_shared/brand.ts markSvg(). */
+.brandbar{display:flex;align-items:center;gap:10px;margin:0 0 22px}
+.plate{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;
+  background:var(--accent-txt);border-radius:5px}
+.wordmark{font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--text-2)}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;
+  padding:24px;box-shadow:var(--sh-1);margin:0 0 18px}
+.panel{display:none}
+.panel.on{display:block}
+.panel:focus{outline:none}
+
+label{display:block;font-weight:600;font-size:14px;color:var(--text);margin:0 0 6px}
+input,select{width:100%;font:inherit;font-size:16px;color:var(--text);
+  background:var(--sunken);border:1px solid var(--line-2);border-radius:4px;padding:11px 12px}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+input::placeholder{color:var(--text-3);opacity:.8}
+.field{margin:0 0 18px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){.row2{grid-template-columns:1fr}}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.chip{font:inherit;font-size:14px;cursor:pointer;background:var(--surface-2);
+  color:var(--text-2);border:1px solid var(--line-2);border-radius:999px;
+  padding:11px 15px;min-height:44px}
+.chip:hover{border-color:var(--accent-dk);color:var(--text)}
+
+.steps{display:flex;flex-direction:column;gap:12px;margin:0 0 14px}
+.step{background:var(--sunken);border:1px solid var(--line);border-radius:5px;
+  padding:16px 16px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;position:relative}
+@media (max-width:560px){.step{grid-template-columns:1fr}}
+.step .full{grid-column:1 / -1}
+.step .kill{position:absolute;top:6px;right:6px;background:none;border:0;cursor:pointer;
+  color:var(--text-3);font-size:22px;line-height:1;width:44px;height:44px;border-radius:4px}
+.step .kill:hover{color:var(--text);background:var(--surface-2)}
+.stepno{grid-column:1 / -1;font-family:var(--body);font-weight:600;font-size:12px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin:0}
+.mine{grid-column:1 / -1;display:flex;align-items:flex-start;gap:10px;margin:2px 0 0}
+.mine input{width:20px;height:20px;flex:0 0 auto;margin:2px 0 0;accent-color:var(--accent-dk)}
+.mine label{margin:0;font-weight:500;font-size:14px;color:var(--text-2)}
+
+.btn{font:inherit;font-weight:600;font-size:16px;cursor:pointer;border-radius:4px;
+  padding:13px 24px;border:1px solid transparent;min-height:44px;transition:background .12s ease}
+.primary{background:var(--accent);color:var(--accent-txt);border-color:var(--accent)}
+.primary:hover{background:var(--accent-dk)}
+.primary:disabled{opacity:.5;cursor:not-allowed;background:var(--accent)}
+.ghost{background:transparent;color:var(--text-2);border-color:var(--line-2)}
+.ghost:hover{color:var(--text);border-color:var(--line-3)}
+.ghost:disabled{opacity:.45;cursor:not-allowed}
+.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:22px 0 0}
+
+.prog{display:flex;gap:6px;margin:0 0 22px}
+.prog i{height:4px;flex:1;background:var(--line-3);border-radius:2px;opacity:.35}
+.prog i.done{background:var(--accent-dk);opacity:1}
+
+.big{font-family:var(--display);font-weight:800;font-size:clamp(44px,10vw,80px);
+  line-height:.92;color:var(--accent-ink);margin:2px 0 2px;letter-spacing:-.01em;
+  overflow-wrap:anywhere}
+.punch{font-size:21px;color:var(--text);margin:0 0 4px}
+.stat{border-top:1px solid var(--line);padding:14px 0}
+.stat b{display:block;font-family:var(--display);font-weight:800;font-size:30px;
+  line-height:1.05;color:var(--accent-ink);overflow-wrap:anywhere}
+.statgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+@media (max-width:560px){.statgrid{grid-template-columns:1fr}}
+.callout{background:var(--sunken);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;
+  padding:16px 18px;margin:0 0 16px}
+.callout p:last-child{margin:0}
+ol.delete{margin:0 0 16px;padding:0 0 0 20px;color:var(--text-2)}
+ol.delete li{margin:0 0 10px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.err{color:var(--danger-ink);font-size:14px;margin:8px 0 0}
+.ok{background:var(--sunken);border:1px solid var(--line);border-radius:5px;padding:18px}
+footer{margin:38px 0 0;padding:20px 0 0;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute"><filter id="rc" x="-25%" y="-25%" width="150%" height="150%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="8" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5"/></filter></svg>
+
+<div class="wrap">
+
+<!-- 0. INTRO -->
+<section class="panel on" id="p0" tabindex="-1">
+  <div class="brandbar">
+    <span class="plate"><svg viewBox="0 0 100 100" width="20" height="20" aria-hidden="true" focusable="false"><g filter="url(#rc)"><path d="M50 10 L88 31 L50 52 L12 31 Z" fill="#DEBD82"/><path d="M12 31 L50 52 L50 92 L12 71 Z" fill="#D1A24F"/><path d="M88 31 L50 52 L50 92 L88 71 Z" fill="#986F28"/></g></svg></span>
+    <span class="wordmark">Cornerstone</span>
+  </div>
+  <div class="prog"><i></i><i></i><i></i></div>
+  <h1>The Bottleneck<br>Unlock</h1>
+  <p class="lede">Pick a process you're tired of dealing with and walk it step by step. At the end you'll know where the job actually gets stuck, and how much of it is real work rather than sitting still.</p>
+  <div class="callout">
+    <p><strong>The waiting is usually the surprise.</strong></p>
+    <p class="hint">Most processes spend more time on a desk than in anyone's hands. You can't see it until the steps sit next to each other.</p>
+  </div>
+  <p class="hint">Four screens, about five minutes. Nothing to install and no account. Your answers stay in the browser unless you ask for a copy.</p>
+  <div class="actions"><button class="btn primary" data-go="1">Start</button></div>
+</section>
+
+<!-- 1. THE PROCESS -->
+<section class="panel" id="p1" tabindex="-1">
+  <div class="prog"><i class="done"></i><i></i><i></i></div>
+  <h2>One process</h2>
+  <p>Pick the one you'd most like to stop thinking about.</p>
+  <div class="card">
+    <div class="field">
+      <label for="proc">What is it called?</label>
+      <input id="proc" placeholder="Quoting a new job" autocomplete="off" maxlength="200">
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label for="runs">How many times does it run?</label>
+        <input id="runs" type="number" min="0" max="100000" step="1" placeholder="12" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label for="per">In a</label>
+        <select id="per">
+          <option value="52">week</option>
+          <option value="12" selected>month</option>
+          <option value="1">year</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="btn primary" data-go="2">Next</button>
+    <button class="btn ghost" data-go="0">Back</button>
+  </div>
+</section>
+
+<!-- 2. THE STEPS -->
+<section class="panel" id="p2" tabindex="-1">
+  <div class="prog"><i class="done"></i><i class="done"></i><i></i></div>
+  <h2>The steps</h2>
+  <p>Walk it from the first thing that happens to the last. Three or four steps is plenty. Estimate. Don't go looking anything up.</p>
+  <div class="callout">
+    <p><strong>Two numbers per step. The second one matters more.</strong></p>
+    <p class="hint">Work is the minutes someone is actually doing it. Waiting is how long the job sits there first. Some of that waiting isn't yours to remove, so there's a box for it. A client signs when they sign.</p>
+  </div>
+  <div class="steps" id="steps"></div>
+  <button class="btn ghost" id="addstep" type="button">Add a step</button>
+  <p class="hint" style="margin-top:12px">If two steps really run at the same time, enter the slower one and fold the other's minutes into it. Otherwise the total comes out longer than your process is.</p>
+  <p class="err" id="err2" role="alert" hidden></p>
+  <div class="actions">
+    <button class="btn primary" data-go="3">Next</button>
+    <button class="btn ghost" data-go="1">Back</button>
+  </div>
+</section>
+
+<!-- 3. THE COST -->
+<section class="panel" id="p3" tabindex="-1">
+  <div class="prog"><i class="done"></i><i class="done"></i><i class="done"></i></div>
+  <h2>What an hour is worth</h2>
+  <p>Optional. Skip it and you still get everything else.</p>
+  <div class="card">
+    <div class="row2">
+      <div class="field">
+        <label for="cur">Currency</label>
+        <select id="cur">
+          <option value="$" selected>$</option>
+          <option value="R">R</option>
+          <option value="&pound;">&pound;</option>
+          <option value="&euro;">&euro;</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="rate">Cost of an hour</label>
+        <input id="rate" type="number" min="0" max="100000" step="1" placeholder="45" inputmode="decimal">
+      </div>
+    </div>
+    <span class="hint">Roughly what an hour of this work costs you. Guess, don't calculate. If it's mostly you doing it, use what you'd pay someone to take it off your hands.</span>
+  </div>
+  <div class="actions">
+    <button class="btn primary" id="calc">See the result</button>
+    <button class="btn ghost" data-go="2">Back</button>
+  </div>
+</section>
+
+<!-- 4. RESULT -->
+<section class="panel" id="p4" tabindex="-1">
+  <p class="eyebrow" id="rproc">Your process</p>
+  <p style="margin:0 0 2px">Start to finish, this takes</p>
+  <div class="big" id="rcycle">&mdash;</div>
+  <p class="punch" id="rpunch"></p>
+
+  <div class="card" style="margin-top:22px">
+    <div class="statgrid">
+      <div class="stat"><b id="rhours">&mdash;</b><small id="rhourslab">a year on this process</small></div>
+      <div class="stat"><b id="rtouch">&mdash;</b><small>of real work per run</small></div>
+      <div class="stat"><b id="rmoney">&mdash;</b><small id="rmoneylab">what those hours cost</small></div>
+    </div>
+    <p class="hint" id="rbasis" style="margin-top:6px"></p>
+  </div>
+
+  <div class="callout" id="cbott">
+    <p><strong id="rbotthead">&mdash;</strong></p>
+    <p class="hint" id="rbottbody"></p>
+  </div>
+  <div class="callout" id="cext" hidden>
+    <p><strong id="rexthead">&mdash;</strong></p>
+    <p class="hint" id="rextbody"></p>
+  </div>
+  <div class="callout">
+    <p><strong>The step that eats the most hours is <span id="rcost">&mdash;</span>.</strong></p>
+    <p class="hint">That's where the work goes. Worth asking whether the step needs to exist at all, before anyone tries to speed it up.</p>
+  </div>
+
+  <h2 style="margin-top:30px">What to do with this</h2>
+  <p>Take each step and ask whether skipping it would break a law or a contract, put your insurance at risk, or let a mistake through. If it's none of those, that step is a candidate to cut. Change one thing at a time and watch what breaks.</p>
+  <ol class="delete" id="rlist"></ol>
+  <p>A step you can't cut can still get faster. A signature by post and a signature by email are the same step at very different speeds. Before you call a wait fixed, ask what's making it long.</p>
+
+  <div class="card" id="capture" style="margin-top:26px">
+    <h2 style="font-size:22px">Want a copy you can send on?</h2>
+    <p>The same thing you're looking at, written up as one page with your step table. Easier to send on than a screenshot.</p>
+    <div class="field" style="margin-bottom:10px">
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="you@company.com" autocomplete="email" maxlength="320">
+    </div>
+    <div class="hp" aria-hidden="true"><label for="company_website">Leave this empty</label><input id="company_website" tabindex="-1" autocomplete="off"></div>
+    <button class="btn primary" id="send">Send it to me</button>
+    <p class="err" id="err" role="alert" hidden></p>
+    <span class="hint" style="margin-top:12px">One email with your result. No list, no sequence. Your answers are stored so I can send it and see which processes people map. That's all.</span>
+  </div>
+
+  <footer>
+    <p>This shows where the time goes and how much of it is waiting. Taking the waiting out is the part I do with business owners, one at a time.</p>
+    <span class="hint">Built by Cristo van Rensburg, Cornerstone.</span>
+  </footer>
+</section>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var SUGGESTIONS = ["Quoting a new job","Onboarding a client","Getting an invoice paid","Monthly reporting",
+    "Handling an inbound enquiry","Hiring someone","Approving work","Ordering stock"];
+
+  /* Named waits, in hours. People do not know "how many hours does it sit",
+     but they do know "about a day". The number is an estimate either way. */
+  var WAITS = [
+    ["", "Choose one"],
+    ["0", "No wait, it starts straight away"],
+    ["2", "An hour or two"],
+    ["6", "Later the same day"],
+    ["24", "The next day"],
+    ["60", "Two or three days"],
+    ["120", "About a week"],
+    ["336", "Two weeks or more"],
+    ["custom", "I know the hours"]
+  ];
+
+  var MAX_STEPS = 20;   // must match MAX_STEPS in functions/api/public/unlock.ts
+  var CAP_MIN = 100000; // must match the num() caps in the same file
+  var CAP_RATE = 100000;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var stepsEl = $("steps");
+  var result = null;
+  var uid = 0;
+
+  /* ---- panels ---------------------------------------------------------- */
+  function go(n) {
+    var all = document.querySelectorAll(".panel");
+    for (var i = 0; i < all.length; i++) all[i].classList.remove("on");
+    var p = $("p" + n);
+    p.classList.add("on");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    p.focus();   // without this, focus falls to <body> and AT users lose the thread
+  }
+  document.addEventListener("click", function (e) {
+    var t = e.target && e.target.closest ? e.target.closest("[data-go]") : null;
+    if (!t) return;
+    if (t.getAttribute("data-go") === "3" && !validateSteps()) return;
+    go(t.getAttribute("data-go"));
+  });
+
+  function showErr(el, msg) { el.textContent = msg; el.hidden = false; }
+  function clearErr(el) { el.hidden = true; }
+
+  /* ---- suggestion chips ------------------------------------------------ */
+  SUGGESTIONS.forEach(function (s) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.textContent = s;
+    b.addEventListener("click", function () { $("proc").value = s; });
+    $("chips").appendChild(b);
+  });
+
+  /* ---- step rows ------------------------------------------------------- */
+  function renumber() {
+    var rows = stepsEl.querySelectorAll(".step");
+    for (var i = 0; i < rows.length; i++) rows[i].querySelector(".stepno").textContent = "Step " + (i + 1);
+    $("addstep").disabled = rows.length >= MAX_STEPS;
+    $("addstep").textContent = rows.length >= MAX_STEPS ? "That's as many as this takes" : "Add a step";
+  }
+
+  function addStep() {
+    if (stepsEl.querySelectorAll(".step").length >= MAX_STEPS) return;
+    var id = ++uid;
+    var opts = WAITS.map(function (w) { return '<option value="' + w[0] + '">' + w[1] + '</option>'; }).join("");
+    var d = document.createElement("div");
+    d.className = "step";
+    d.innerHTML =
+      '<p class="stepno"></p>' +
+      '<button class="kill" type="button" aria-label="Remove this step">&times;</button>' +
+      '<div class="full"><label for="l' + id + '">What happens</label>' +
+        '<input id="l' + id + '" class="s-label" placeholder="Someone writes the quote" autocomplete="off" maxlength="160"></div>' +
+      '<div class="full"><label for="w' + id + '">Who does it (optional)</label>' +
+        '<input id="w' + id + '" class="s-who" placeholder="Me, or the office" autocomplete="off" maxlength="120"></div>' +
+      '<div><label for="t' + id + '">Minutes of work</label>' +
+        '<input id="t' + id + '" class="s-touch" type="number" min="0" max="' + CAP_MIN + '" step="1" placeholder="30" inputmode="numeric"></div>' +
+      '<div><label for="s' + id + '">How long it sits before this happens</label>' +
+        '<select id="s' + id + '" class="s-wait">' + opts + '</select>' +
+        '<input id="c' + id + '" class="s-wait-custom" type="number" min="0" max="' + CAP_MIN + '" step="0.5" placeholder="Hours" inputmode="decimal" aria-label="Hours it sits" hidden style="margin-top:8px"></div>' +
+      '<div class="mine"><input id="m' + id + '" type="checkbox" class="s-ext">' +
+        '<label for="m' + id + '">This wait is not mine to fix. Someone outside my business controls it (a client, a supplier, a council).</label></div>';
+
+    var sel = d.querySelector(".s-wait");
+    var custom = d.querySelector(".s-wait-custom");
+    sel.addEventListener("change", function () {
+      custom.hidden = sel.value !== "custom";
+      if (!custom.hidden) custom.focus();
+    });
+    d.querySelector(".kill").addEventListener("click", function () {
+      if (stepsEl.querySelectorAll(".step").length <= 1) return;
+      d.remove(); renumber();
+    });
+    stepsEl.appendChild(d);
+    renumber();
+  }
+  $("addstep").addEventListener("click", addStep);
+  addStep();   // one row, not three. The form grows with effort.
+
+  /* ---- gather + compute ------------------------------------------------ */
+  function n(v, max) {
+    var x = parseFloat(v);
+    if (!isFinite(x) || x < 0) return 0;
+    return Math.min(x, max);   // clamp, matching the server. Never silently zero.
+  }
+
+  function gather() {
+    var out = [];
+    var rows = stepsEl.querySelectorAll(".step");
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      var label = r.querySelector(".s-label").value.trim();
+      var who = r.querySelector(".s-who").value.trim();
+      var touchRaw = r.querySelector(".s-touch").value.trim();
+      var selv = r.querySelector(".s-wait").value;
+      var waitRaw = selv === "custom" ? r.querySelector(".s-wait-custom").value.trim() : selv;
+      /* `who` counts as content too: naming an owner before you know the
+         timings should not make the step vanish. */
+      if (!label && !who && !touchRaw && !waitRaw) continue;
+      out.push({
+        label: label || ("Step " + (i + 1)),
+        who: who,
+        touch_min: n(touchRaw, CAP_MIN),
+        wait_hours: n(waitRaw, CAP_MIN),
+        external: r.querySelector(".s-ext").checked
+      });
+    }
+    return out;
+  }
+
+  function validateSteps() {
+    var steps = gather();
+    if (!steps.length) {
+      showErr($("err2"), "Add at least one step before you carry on.");
+      return false;
+    }
+    clearErr($("err2"));
+    return true;
+  }
+
+  function fmt(x) { return Math.round(x).toLocaleString("en-US"); }
+
+  /* Adaptive units. The email renderer in unlock.ts mirrors this exactly;
+     change one and change the other or the two documents disagree. */
+  function duration(hours) {
+    if (hours >= 48) {
+      var d = Math.round(hours / 24 * 10) / 10;
+      return d + (d === 1 ? " day" : " days");
+    }
+    if (hours >= 1) {
+      var h = Math.round(hours * 10) / 10;
+      return h + (h === 1 ? " hour" : " hours");
+    }
+    return Math.round(hours * 60) + " min";
+  }
+
+  function compute() {
+    var steps = gather();
+    var runs = n($("runs").value, 100000) * parseFloat($("per").value || "12");
+    var rate = n($("rate").value, CAP_RATE);
+    var touch = 0, wait = 0, owned = null, ext = null, cost = null;
+    steps.forEach(function (s) {
+      touch += s.touch_min; wait += s.wait_hours;
+      if (s.external) { if (!ext || s.wait_hours > ext.wait_hours) ext = s; }
+      else if (!owned || s.wait_hours > owned.wait_hours) owned = s;
+      if (!cost || s.touch_min > cost.touch_min) cost = s;
+    });
+    var cycle = wait + touch / 60;
+    return {
+      steps: steps, runs: runs, rate: rate,
+      touch: touch, wait: wait, cycle: cycle,
+      hoursYear: (touch / 60) * runs,
+      annual: (touch / 60) * rate * runs,
+      pct: cycle > 0 ? (wait / cycle) * 100 : 0,
+      owned: owned, ext: ext, cost: cost,
+      hasRate: $("rate").value.trim() !== "",
+      hasRuns: $("runs").value.trim() !== ""
+    };
+  }
+
+  /* ---- render ---------------------------------------------------------- */
+  $("calc").addEventListener("click", function () {
+    if (!validateSteps()) { go(2); return; }
+    var r = compute();
+    result = r;
+    var cur = $("cur").value;
+
+    $("rproc").textContent = $("proc").value.trim() || "Your process";
+    $("rcycle").textContent = duration(r.cycle);
+    $("rpunch").textContent = r.wait > 0
+      ? Math.round(r.pct * 10) / 10 + "% of that is the job sitting still."
+      : "All of that is real work. That's rare.";
+
+    if (r.hasRuns) {
+      $("rhours").textContent = fmt(r.hoursYear) + (Math.round(r.hoursYear) === 1 ? " hour" : " hours");
+      $("rhourslab").textContent = "a year on this process";
+    } else {
+      $("rhours").textContent = "—";
+      $("rhourslab").textContent = "add how often it runs";
+    }
+    $("rtouch").textContent = duration(r.touch / 60);
+
+    if (r.hasRate && r.hasRuns) {
+      $("rmoney").textContent = cur + fmt(r.annual);
+      $("rmoneylab").textContent = "what those hours cost";
+      $("rbasis").textContent = "That last figure is " + fmt(r.touch) + " minutes of work, " + fmt(r.runs) +
+        " times a year, at " + cur + fmt(r.rate) + " an hour. Labour time only. It doesn't price the waiting, " +
+        "and salaried people get paid either way, so read it as capacity tied up, not cash you'd get back.";
+    } else {
+      $("rmoney").textContent = "—";
+      $("rmoneylab").textContent = "add a rate to see this";
+      $("rbasis").textContent = "";
+    }
+
+    /* Bottleneck, split by who controls it. Naming a council as the thing to
+       fix is worse than naming nothing. */
+    if (r.owned && r.owned.wait_hours > 0) {
+      $("cbott").hidden = false;
+      $("rbotthead").textContent = "Your longest wait is " + r.owned.label + ", at " + duration(r.owned.wait_hours) + ".";
+      $("rbottbody").textContent = "This one's inside your business, so it's the one worth taking apart. " +
+        "Nothing you fix elsewhere moves the total until it changes.";
+    } else if (r.owned) {
+      $("cbott").hidden = false;
+      $("rbotthead").textContent = "Nothing inside your business is really waiting.";
+      $("rbottbody").textContent = "Your steps run back to back. If it still feels slow, the time is in the work itself.";
+    } else {
+      $("cbott").hidden = true;
+    }
+
+    if (r.ext && r.ext.wait_hours > 0) {
+      $("cext").hidden = false;
+      $("rexthead").textContent = "Your longest wait overall is " + r.ext.label + ", and it isn't your clock to fix.";
+      $("rextbody").textContent = "Someone outside your business sets that pace. Chase it or start it earlier, but you " +
+        "can't delete it. Plan around it and spend your effort on the waits you own.";
+    } else {
+      $("cext").hidden = true;
+    }
+
+    $("rcost").textContent = r.cost ? r.cost.label : "not clear yet";
+
+    var ol = $("rlist"); ol.innerHTML = "";
+    var multi = false, first = null;
+    r.steps.forEach(function (s) { if (s.who) { if (first === null) first = s.who; else if (s.who !== first) multi = true; } });
+    r.steps.forEach(function (s) {
+      var li = document.createElement("li");
+      li.textContent = s.label + (multi && s.who ? " (" + s.who + ")" : "") +
+        ". Law, contract, insurance, or does it catch a mistake?";
+      ol.appendChild(li);
+    });
+
+    go(4);
+  });
+
+  /* ---- capture --------------------------------------------------------- */
+  var q = new URLSearchParams(location.search);
+  function payload(email) {
+    var r = result || compute();
+    return {
+      email: email || null,
+      process_name: $("proc").value.trim() || null,
+      runs_per_year: r.hasRuns ? r.runs : null,
+      currency: $("cur").value,
+      hourly_rate: r.hasRate ? r.rate : null,
+      steps: r.steps,
+      company_website: $("company_website").value,
+      source: q.get("s"),
+      utm_source: q.get("utm_source"),
+      utm_medium: q.get("utm_medium"),
+      utm_campaign: q.get("utm_campaign"),
+      referrer: document.referrer || null,
+      landing_path: location.pathname + location.search
+    };
+  }
+
+  $("send").addEventListener("click", function () {
+    var email = $("email").value.trim();
+    var err = $("err");
+    clearErr(err);
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      showErr(err, "That address doesn't look right. Check it and try again.");
+      return;
+    }
+    var btn = $("send");
+    btn.disabled = true; btn.textContent = "Sending";
+    fetch("https://aios.cornerstone-ai.pro/api/public/unlock", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload(email))
+    }).then(function (res) {
+      if (!res.ok) throw new Error("bad status");
+      return res.json();
+    }).then(function (data) {
+      if (data && data.stored === false) throw new Error("not stored");
+      var ok = document.createElement("div");
+      ok.className = "ok";
+      var h = document.createElement("h2");
+      h.style.fontSize = "22px"; h.style.marginBottom = "6px"; h.textContent = "On its way";
+      var p = document.createElement("p");
+      p.style.margin = "0";
+      p.textContent = "Check " + email + " in a minute or two. If it hasn't arrived, look in promotions or spam.";
+      ok.appendChild(h); ok.appendChild(p);
+      $("capture").innerHTML = ""; $("capture").appendChild(ok);
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = "Send it to me";
+      showErr(err, "That didn't go through. Try again in a moment.");
+    });
+  });
+})();
+</script>
+</body>
+</html>
