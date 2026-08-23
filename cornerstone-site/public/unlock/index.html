@@ -372,13 +372,21 @@ footer{margin:38px 0 0;padding:20px 0 0;border-top:1px solid var(--line)}
       d.appendChild(b);
       var meta = [];
       if (s.who) meta.push(s.who);
-      if (s.touch_min) meta.push(s.touch_min + " min work");
+      // null means nobody has said yet, which is worth showing: it is the
+      // difference between a step that takes no time and one we never asked
+      // about, and the visitor can see the gap and fill it.
+      if (s.touch_min !== null && s.touch_min !== undefined) meta.push(s.touch_min + " min work");
       if (s.wait_hours) meta.push("waits " + dur(s.wait_hours));
+      else if (s.wait_hours === 0) meta.push("no wait");
       var sp = document.createElement("span");
       sp.textContent = meta.join(" · ");
-      if (s.external) {
+      var tags = [];
+      if (s.external) tags.push("not yours");
+      if (s.always === false) tags.push("not every run");
+      if (s.parallel_group) tags.push("at the same time");
+      if (tags.length) {
         var em = document.createElement("em");
-        em.textContent = meta.length ? " · not yours" : "not yours";
+        em.textContent = (meta.length ? " · " : "") + tags.join(" · ");
         sp.appendChild(em);
       }
       d.appendChild(sp);
@@ -579,10 +587,23 @@ footer{margin:38px 0 0;padding:20px 0 0;border-top:1px solid var(--line)}
         e.textContent = " (not yours to fix)";
         first.appendChild(e);
       }
+      if (s.always === false) {
+        var c = document.createElement("em");
+        c.style.color = "var(--text-3)";
+        c.style.fontStyle = "normal";
+        c.textContent = " (not every run)";
+        first.appendChild(c);
+      }
       tr.appendChild(first);
       tr.appendChild(td(s.who || ""));
-      tr.appendChild(td((s.touch_min || 0) + " min", "n"));
-      tr.appendChild(td(dur(s.wait_hours), "n"));
+      // Absent is not zero. A figure nobody gave says so instead of rendering a
+      // confident 0 that the totals were never built from.
+      tr.appendChild(
+        td(s.touch_min === null || s.touch_min === undefined ? "not said" : s.touch_min + " min", "n"),
+      );
+      tr.appendChild(
+        td(s.wait_hours === null || s.wait_hours === undefined ? "not said" : dur(s.wait_hours), "n"),
+      );
       body.appendChild(tr);
     });
 
