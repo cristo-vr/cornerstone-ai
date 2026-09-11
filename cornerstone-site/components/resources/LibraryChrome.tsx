@@ -60,7 +60,7 @@ export function LibraryFooter() {
               One system a week, in plain English, for people who run a business. Free, and one click to leave.
             </p>
             <a
-              href="https://cornerstone-ai.pro/simple-systems-saturday"
+              href="https://cornerstone-ai.pro/simple-systems"
               className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary underline underline-offset-4 hover:text-[#DDBB7D]"
             >
               Have a look at it

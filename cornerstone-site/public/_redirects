@@ -3,12 +3,14 @@
 /the-os-sprint  /  301
 /the-os-sprint/ /  301
 
-# Short aliases for the newsletter. Ads and anything spoken out loud want a URL
-# you can say once; the canonical page keeps the full brand name.
-/newsletter   /simple-systems-saturday  301
-/newsletter/  /simple-systems-saturday  301
-/saturday     /simple-systems-saturday  301
-/saturday/    /simple-systems-saturday  301
+# The newsletter. /simple-systems is canonical; the rest are what it gets
+# called out loud, in ads, and in anything published before the rename.
+/simple-systems-saturday   /simple-systems  301
+/simple-systems-saturday/  /simple-systems  301
+/newsletter   /simple-systems  301
+/newsletter/  /simple-systems  301
+/saturday     /simple-systems  301
+/saturday/    /simple-systems  301
 
 # The Workshop was retired before it launched and the page is gone. The URL was
 # linked from the nav and both footers, so it redirects to the offer that
