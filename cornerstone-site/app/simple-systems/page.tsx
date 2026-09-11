@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         url: "/images/og-simple-systems.jpg",
         width: 1200,
         height: 630,
-        alt: "Simple Systems. Simpler businesses scale further.",
+        alt: "Simple systems that scale. The Cornerstone AI newsletter.",
       },
     ],
   },

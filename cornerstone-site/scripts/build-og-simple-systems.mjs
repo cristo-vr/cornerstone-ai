@@ -4,11 +4,17 @@
  *
  *   node scripts/build-og-simple-systems.mjs
  *
- * WHY A GENERATOR. The card is the /simple-systems hero at 1200x630: the same
- * mark, the same Big Shoulders line, the same concrete. Hand-exporting it from
+ * WHY A GENERATOR. The card is the /simple-systems page at 1200x630: the same
+ * mark, the same Big Shoulders face, the same concrete. Hand-exporting it from
  * a design tool makes a second copy of the brand that stops tracking the first,
  * which is the exact failure the mason brand-asset builder exists to avoid.
- * Change the headline on the page, change it here, re-run.
+ * Change the line here, re-run.
+ *
+ * The card's line is NOT the page's H1. The page argues ("simpler businesses
+ * scale further"); the card is read in a feed at thumbnail size and has to name
+ * the thing instead. That is also why there is no eyebrow: with the newsletter
+ * named in the headline, a tracked-caps "SIMPLE SYSTEMS" above it was the same
+ * words twice.
  *
  * WHY CHROME. The mark's character is the `cs-rough` feDisplacementMap. sharp /
  * librsvg silently drop feTurbulence and hand back a clean geometric block,
@@ -163,11 +169,9 @@ body::after{
 .word{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:37px;
       text-transform:uppercase;letter-spacing:.01em;line-height:1}
 .spacer{flex:1}
-.eyebrow{display:flex;align-items:center;gap:15px;font-size:15px;font-weight:600;
-         text-transform:uppercase;letter-spacing:.26em;color:${ACCENT_INK}}
-.rule{width:38px;height:3px;background:${ACCENT}}
-h1{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:134px;
-   line-height:.88;text-transform:uppercase;letter-spacing:.005em;margin-top:26px}
+.rule{width:56px;height:4px;background:${ACCENT}}
+h1{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:148px;
+   line-height:.88;text-transform:uppercase;letter-spacing:.005em;margin-top:30px}
 .hair{height:1px;background:${LINE};margin-top:44px}
 .foot{margin-top:24px;font-size:23px;color:${TEXT_2}}
 </style></head>
@@ -175,8 +179,8 @@ h1{font-family:"Big Shoulders Display",sans-serif;font-weight:800;font-size:134p
   <div class="card">
     <div class="lockup">${markSvg(46)}<span class="word">Cornerstone</span></div>
     <div class="spacer"></div>
-    <div class="eyebrow"><span class="rule"></span>Simple Systems</div>
-    <h1>Simpler businesses<br>scale further.</h1>
+    <div class="rule"></div>
+    <h1>Simple systems<br>that scale.</h1>
     <div class="hair"></div>
     <div class="foot">One email a week. Free.</div>
   </div>
