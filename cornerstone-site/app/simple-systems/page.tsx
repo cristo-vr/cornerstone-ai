@@ -5,6 +5,7 @@ import { Logo } from "@/components/brand/Logo";
 import Reveal from "@/components/ui/Reveal";
 import NewsletterForm from "@/components/newsletter/NewsletterForm";
 import { siteConfig } from "@/lib/config";
+import { OG_IMAGE } from "./og-image";
 
 const TITLE = "Simple Systems";
 /* What a pasted link says. Different job to the <title>: this one is read in a
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/og-simple-systems.jpg",
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
         alt: "Simple systems that scale. The Cornerstone AI newsletter.",
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SHARE_TITLE,
     description: DESCRIPTION,
-    images: ["/images/og-simple-systems.jpg"],
+    images: [OG_IMAGE],
   },
   alternates: { canonical: `${siteConfig.url}/simple-systems` },
 };
