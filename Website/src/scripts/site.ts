@@ -79,13 +79,21 @@ const sheet = document.getElementById("nav-sheet");
 if (nav && toggle && sheet) {
   const setOpen = (open: boolean) => {
     nav.classList.toggle("is-open", open);
-    sheet.classList.toggle("hidden", !open);
+    sheet.toggleAttribute("inert", !open);
+    sheet.setAttribute("aria-hidden", String(!open));
     toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     document.body.style.overflow = open ? "hidden" : "";
+    if (open) sheet.querySelector<HTMLAnchorElement>("a")?.focus({ preventScroll: true });
   };
   toggle.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
   sheet.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
-  window.matchMedia("(min-width: 768px)").addEventListener("change", (e) => e.matches && setOpen(false));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && nav.classList.contains("is-open")) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
 }
 
 // ── The hero cube: a click on the blocks rebuilds it from the cornerstone ──
@@ -160,7 +168,6 @@ if (lead) {
   const step2 = document.getElementById("step-2") as HTMLFieldSetElement;
   const btn1 = lead.querySelector<HTMLButtonElement>('button[data-step="1"]')!;
   const btn2 = lead.querySelector<HTMLButtonElement>('button[data-step="2"]')!;
-  const skip = lead.querySelector<HTMLButtonElement>("[data-skip]")!;
   const done = document.getElementById("lead-done")!;
   const slot = lead.querySelector<HTMLElement>(".cf-turnstile")!;
   let token: string | null = null;
@@ -288,7 +295,6 @@ if (lead) {
     status.textContent = `${reason} If it keeps failing, email info@cornerstone-ai.pro and we'll set it up by hand.`;
   };
 
-  skip.addEventListener("click", finish);
 
   lead.addEventListener("submit", async (ev) => {
     ev.preventDefault();

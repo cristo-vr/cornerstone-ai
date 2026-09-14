@@ -25,7 +25,6 @@ const title = "Cornerstone AI";
 const description =
   "An AI advisory and development agency. We build the foundations a business scales on in the agentic era.";
 
-const BOOKING_URL = "https://cal.cornerstone-ai.pro/cristo/discovery-call-30-mins";
 
 const clients = ["BioHarmony", "Technolease", "Roxburgh Trust", "ETJ Consulting", "A Better Question", "Resonance Den", "TFL Academy"];
 
@@ -91,7 +90,7 @@ const orgLd = {
         </p>
         <div class="flex flex-wrap gap-3 pointer-events-auto">
           <a href="#contact" class="btn btn-primary">
-            Talk to us
+            Get in touch
             <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           <a href="#what" class="btn btn-ghost">What we do</a>
@@ -189,7 +188,7 @@ const orgLd = {
     <div class="wrap section relative text-center flex flex-col items-center gap-10">
       <p class="voice max-w-[26ch]" data-reveal>The agentic era won't reward whoever adds the most AI.</p>
       <p class="display display-2 max-w-[14ch] brass" data-reveal style="--d: 140ms">It'll reward whoever built on the right foundation.</p>
-      <a href="#contact" class="btn btn-primary" data-reveal style="--d: 260ms">Talk to us</a>
+      <a href="#contact" class="btn btn-primary" data-reveal style="--d: 260ms">Get in touch</a>
     </div>
   </section>
 
@@ -197,16 +196,11 @@ const orgLd = {
   <section id="contact" class="wrap section border-t border-line-2" aria-labelledby="contact-h">
     <div class="grid gap-14 lg:grid-cols-12 lg:gap-20">
       <div class="lg:col-span-5">
-        <h2 id="contact-h" class="display display-2" data-reveal>Talk to us.</h2>
-        <p class="lead mt-6" data-reveal style="--d: 80ms">Thirty minutes with Cristo, the founder. You'll leave knowing whether it fits and what we'd do first.</p>
-        <a href={BOOKING_URL} class="btn btn-primary mt-8" data-reveal style="--d: 160ms">
-          Book a call
-          <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <p class="mt-6 text-[0.9rem] text-text-3" data-reveal style="--d: 220ms">Or write: <a href="mailto:info@cornerstone-ai.pro" class="link text-text-2">info@cornerstone-ai.pro</a></p>
+        <h2 id="contact-h" class="display display-2" data-reveal>Get in touch.</h2>
+        <p class="lead mt-6" data-reveal style="--d: 80ms">Tell us what's going on in the business. Cristo reads every one and comes back within a working day.</p>
+        <p class="mt-6 text-[0.9rem] text-text-3" data-reveal style="--d: 160ms">Or write: <a href="mailto:info@cornerstone-ai.pro" class="link text-text-2">info@cornerstone-ai.pro</a></p>
       </div>
       <div class="lg:col-span-7 relative" data-reveal style="--d: 120ms">
-        <p class="label mb-6">Or leave a note</p>
         <LeadForm />
       </div>
     </div>

@@ -1,11 +1,16 @@
 ---
 import Mark from "./Mark.astro";
 
+/**
+ * The header: the logo on the left, a two-bar menu on the right, and nothing
+ * else. The menu opens a full-screen sheet with the site in large type. Same on
+ * every page, so `minimal` is accepted for compatibility and changes nothing.
+ */
 interface Props {
   home?: boolean;
   minimal?: boolean;
 }
-const { home = false, minimal = false } = Astro.props;
+const { home = false } = Astro.props;
 const p = home ? "" : "/";
 
 const links = [
@@ -16,64 +21,85 @@ const links = [
   { href: "/simple-systems", label: "Simple Systems" },
 ];
 ---
-<header id="site-nav" class="fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300 border-b border-transparent">
-  <div class="wrap flex items-center justify-between" style="height: var(--nav-h)">
+<header id="site-nav" class="fixed inset-x-0 top-0 z-50 transition-[background-color] duration-300">
+  <div class="wrap relative z-[2] flex items-center justify-between" style="height: var(--nav-h)">
     <a href="/" class="flex items-center gap-3" aria-label="Cornerstone AI, home">
       <Mark size={30} rough={true} />
       <span class="display text-[1.35rem] tracking-[0.05em] leading-none translate-y-[1px]">Cornerstone</span>
     </a>
 
-    {!minimal && (
-      <nav class="hidden md:flex items-center gap-8" aria-label="Primary">
-        {links.map((l) => (
-          <a href={l.href} class="text-[0.92rem] font-medium text-text-2 hover:text-text transition-colors">{l.label}</a>
-        ))}
-        <a href={`${p}#contact`} class="btn btn-primary !h-11 !px-5">Talk to us</a>
-      </nav>
-    )}
-
-    {minimal && (
-      <a href="/" class="text-[0.92rem] font-medium text-text-2 hover:text-text transition-colors">Back to the site</a>
-    )}
-
-    {!minimal && (
-      <button
-        id="nav-toggle"
-        class="md:hidden inline-flex items-center justify-center w-11 h-11 -mr-2"
-        aria-expanded="false"
-        aria-controls="nav-sheet"
-        aria-label="Menu"
-      >
-        <span class="relative block w-6 h-4">
-          <span class="nav-bar absolute left-0 top-0 h-[2px] w-full bg-text transition-transform duration-300"></span>
-          <span class="nav-bar absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-full bg-text transition-opacity duration-200"></span>
-          <span class="nav-bar absolute left-0 bottom-0 h-[2px] w-full bg-text transition-transform duration-300"></span>
-        </span>
-      </button>
-    )}
+    <button
+      id="nav-toggle"
+      class="inline-flex items-center justify-center w-12 h-12 -mr-3"
+      aria-expanded="false"
+      aria-controls="nav-sheet"
+      aria-label="Open menu"
+    >
+      <span class="relative block w-7 h-[10px]">
+        <span class="nav-bar absolute left-0 top-0 h-[2px] w-full bg-text"></span>
+        <span class="nav-bar absolute left-0 bottom-0 h-[2px] w-full bg-text"></span>
+      </span>
+    </button>
   </div>
 
-  {!minimal && (
-    <div id="nav-sheet" class="md:hidden hidden border-t border-line-2 bg-ground min-h-[calc(100dvh-var(--nav-h))]">
-      <nav class="wrap py-6 grid gap-1" aria-label="Primary, mobile">
-        {links.map((l) => (
-          <a href={l.href} class="py-4 display text-[1.6rem] tracking-wide border-b border-line-2">{l.label}</a>
+  <div id="nav-sheet" class="nav-sheet fixed inset-0 z-[1] bg-ground" aria-hidden="true" inert>
+    <div class="wrap h-full flex flex-col" style="padding-top: var(--nav-h)">
+      <nav class="flex-1 flex flex-col justify-center gap-1 md:gap-2" aria-label="Site">
+        {links.map((l, i) => (
+          <a href={l.href} class="nav-link display w-fit" style={`--i: ${i}`}>{l.label}</a>
         ))}
-        <a href={`${p}#contact`} class="btn btn-primary mt-6 w-full">Talk to us</a>
       </nav>
+      <div class="nav-foot flex flex-wrap items-center justify-between gap-6 border-t border-line-2 py-8">
+        <a href="mailto:info@cornerstone-ai.pro" class="link text-text-2">info@cornerstone-ai.pro</a>
+        <a href={`${p}#contact`} class="btn btn-primary">Get in touch</a>
+      </div>
     </div>
-  )}
+  </div>
 </header>
 
 <style>
-  #site-nav.is-scrolled {
-    background: color-mix(in srgb, var(--color-ground) 82%, transparent);
+  #site-nav.is-scrolled:not(.is-open) {
+    background: color-mix(in srgb, var(--color-ground) 80%, transparent);
     backdrop-filter: blur(12px) saturate(1.1);
     -webkit-backdrop-filter: blur(12px) saturate(1.1);
-    border-bottom-color: var(--color-line-2);
   }
-  #site-nav.is-open { background: var(--color-ground); border-bottom-color: var(--color-line-2); }
-  #site-nav.is-open .nav-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  #site-nav.is-open .nav-bar:nth-child(2) { opacity: 0; }
-  #site-nav.is-open .nav-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Two bars that cross into an X */
+  .nav-bar { transition: transform 320ms var(--ease-out), top 320ms var(--ease-out), bottom 320ms var(--ease-out); }
+  #site-nav.is-open .nav-bar:nth-child(1) { top: 4px; transform: rotate(45deg); }
+  #site-nav.is-open .nav-bar:nth-child(2) { bottom: 4px; transform: rotate(-45deg); }
+
+  .nav-sheet {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 360ms var(--ease-out), visibility 0s linear 360ms;
+  }
+  #site-nav.is-open .nav-sheet {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 360ms var(--ease-out), visibility 0s;
+  }
+
+  .nav-link {
+    font-size: clamp(2.6rem, 8vw, 6.5rem);
+    line-height: 0.98;
+    color: var(--color-text);
+    opacity: 0;
+    transform: translateY(18px);
+    transition: color 200ms ease, opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+  }
+  #site-nav.is-open .nav-link {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0ms, calc(80ms + var(--i) * 45ms), calc(80ms + var(--i) * 45ms);
+  }
+  .nav-link:hover, .nav-link:focus-visible { color: var(--color-accent-lt); }
+
+  .nav-foot { opacity: 0; transition: opacity 400ms var(--ease-out); }
+  #site-nav.is-open .nav-foot { opacity: 1; transition-delay: 320ms; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-sheet, .nav-link, .nav-foot, .nav-bar { transition: none; }
+    .nav-link { transform: none; }
+  }
 </style>

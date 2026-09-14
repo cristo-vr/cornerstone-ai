@@ -6,7 +6,6 @@
  * same lead. Turnstile is verified server-side on both.
  */
 const TURNSTILE_SITE_KEY = "0x4AAAAAACN3bXEw6zTOBNYc";
-const BOOKING_URL = "https://cal.cornerstone-ai.pro/cristo/discovery-call-30-mins";
 
 const budgets = ["Under $5,000", "$5,000 to $15,000", "$15,000 to $50,000", "More than $50,000", "Not decided yet"];
 const authority = ["It's my call", "Me and a partner", "Someone else signs off", "Not sure yet"];
@@ -46,10 +45,7 @@ const timelines = ["This month", "Within three months", "Three to six months", "
   </fieldset>
 
   <fieldset id="step-2" hidden class="grid gap-5 border-0 p-0 m-0 min-w-0">
-    <div>
-      <p class="display display-3">Two more minutes.</p>
-      <p class="mt-2 text-text-2 max-w-[44ch]">Four quick answers so the call starts in the right place. Skip if you'd rather talk first.</p>
-    </div>
+    <p class="text-text-2 max-w-[48ch]">Thanks, that's with us. If you have a moment, these help us come back with something useful. All optional.</p>
     <div class="grid gap-5 sm:grid-cols-2">
       <div class="field">
         <label for="budget">What budget have you set aside?</label>
@@ -79,7 +75,6 @@ const timelines = ["This month", "Within three months", "Three to six months", "
     </div>
     <div class="flex flex-wrap items-center gap-4">
       <button type="submit" class="btn btn-primary" data-step="2">Send</button>
-      <button type="button" class="link text-[0.9rem] text-text-2" data-skip>Skip this</button>
     </div>
   </fieldset>
 
@@ -88,9 +83,5 @@ const timelines = ["This month", "Within three months", "Three to six months", "
 
 <div id="lead-done" hidden class="slab p-8">
   <p class="display display-3">Got it.</p>
-  <p class="mt-3 text-text-2 max-w-[40ch]">You'll hear back within a working day. If you'd rather pick a time now, go ahead.</p>
-  <a href={BOOKING_URL} class="btn btn-primary mt-6">
-    Book the call
-    <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </a>
+  <p class="mt-3 text-text-2 max-w-[40ch]">You'll hear back within a working day.</p>
 </div>
