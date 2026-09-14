@@ -1,0 +1,78 @@
+---
+import Mark from "./Mark.astro";
+
+interface Props {
+  home?: boolean;
+  minimal?: boolean;
+}
+const { home = false, minimal = false } = Astro.props;
+const p = home ? "" : "/";
+
+const links = [
+  { href: `${p}#what`, label: "What we do" },
+  { href: `${p}#work`, label: "Work" },
+  { href: "/about", label: "About" },
+  { href: "/simple-systems", label: "Simple Systems" },
+];
+---
+<header id="site-nav" class="fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300 border-b border-transparent">
+  <div class="wrap flex items-center justify-between" style="height: var(--nav-h)">
+    <a href="/" class="flex items-center gap-3" aria-label="Cornerstone AI, home">
+      <Mark size={30} rough={true} />
+      <span class="display text-[1.35rem] tracking-[0.05em] leading-none translate-y-[1px]">Cornerstone</span>
+    </a>
+
+    {!minimal && (
+      <nav class="hidden md:flex items-center gap-8" aria-label="Primary">
+        {links.map((l) => (
+          <a href={l.href} class="text-[0.92rem] font-medium text-text-2 hover:text-text transition-colors">{l.label}</a>
+        ))}
+        <a href={`${p}#contact`} class="btn btn-primary !h-11 !px-5">Talk to us</a>
+      </nav>
+    )}
+
+    {minimal && (
+      <a href="/" class="text-[0.92rem] font-medium text-text-2 hover:text-text transition-colors">Back to the site</a>
+    )}
+
+    {!minimal && (
+      <button
+        id="nav-toggle"
+        class="md:hidden inline-flex items-center justify-center w-11 h-11 -mr-2"
+        aria-expanded="false"
+        aria-controls="nav-sheet"
+        aria-label="Menu"
+      >
+        <span class="relative block w-6 h-4">
+          <span class="nav-bar absolute left-0 top-0 h-[2px] w-full bg-text transition-transform duration-300"></span>
+          <span class="nav-bar absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-full bg-text transition-opacity duration-200"></span>
+          <span class="nav-bar absolute left-0 bottom-0 h-[2px] w-full bg-text transition-transform duration-300"></span>
+        </span>
+      </button>
+    )}
+  </div>
+
+  {!minimal && (
+    <div id="nav-sheet" class="md:hidden hidden border-t border-line-2 bg-ground min-h-[calc(100dvh-var(--nav-h))]">
+      <nav class="wrap py-6 grid gap-1" aria-label="Primary, mobile">
+        {links.map((l) => (
+          <a href={l.href} class="py-4 display text-[1.6rem] tracking-wide border-b border-line-2">{l.label}</a>
+        ))}
+        <a href={`${p}#contact`} class="btn btn-primary mt-6 w-full">Talk to us</a>
+      </nav>
+    </div>
+  )}
+</header>
+
+<style>
+  #site-nav.is-scrolled {
+    background: color-mix(in srgb, var(--color-ground) 82%, transparent);
+    backdrop-filter: blur(12px) saturate(1.1);
+    -webkit-backdrop-filter: blur(12px) saturate(1.1);
+    border-bottom-color: var(--color-line-2);
+  }
+  #site-nav.is-open { background: var(--color-ground); border-bottom-color: var(--color-line-2); }
+  #site-nav.is-open .nav-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  #site-nav.is-open .nav-bar:nth-child(2) { opacity: 0; }
+  #site-nav.is-open .nav-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+</style>

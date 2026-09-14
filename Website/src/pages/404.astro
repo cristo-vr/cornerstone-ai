@@ -1,0 +1,15 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="Not found: Cornerstone AI" description="That page isn't here." minimal noindex>
+  <section class="wrap min-h-[100dvh] flex flex-col justify-center" style="padding-top: var(--nav-h)">
+    <div id="nav-sentinel" class="absolute top-0 h-px w-px" aria-hidden="true"></div>
+    <p class="label">404</p>
+    <h1 class="display display-1 mt-4 max-w-[10ch]">Nothing runs through here.</h1>
+    <p class="lead mt-8">The page moved or never existed. Everything is a scroll away from the start.</p>
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a href="/" class="btn btn-primary">Back to the start</a>
+      <a href="/#contact" class="btn btn-ghost">Talk to us</a>
+    </div>
+  </section>
+</Base>

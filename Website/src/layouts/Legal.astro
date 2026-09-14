@@ -1,0 +1,22 @@
+---
+import Base from "./Base.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  effective: string;
+}
+const { title, description, effective } = Astro.props;
+---
+<Base title={`${title}: Cornerstone AI`} description={description} minimal>
+  <article class="wrap" style="padding-top: calc(var(--nav-h) + clamp(3rem, 8vh, 6rem)); padding-bottom: var(--section)">
+    <div id="nav-sentinel" class="absolute top-0 h-px w-px" aria-hidden="true"></div>
+    <div class="max-w-[68ch]">
+      <h1 class="display display-2">{title}</h1>
+      <p class="mt-4 text-text-3 text-[0.9rem]">Effective {effective}</p>
+      <div class="legal mt-12">
+        <slot />
+      </div>
+    </div>
+  </article>
+</Base>

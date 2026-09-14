@@ -1,0 +1,127 @@
+---
+/**
+ * The hero background. One brass cornerstone, then twenty-six hollow blocks
+ * glitch into place around it until a 3x3x3 cube stands, and the cube orbits.
+ * Real CSS 3D, so the orbit is a true rotation and nothing is a drawing.
+ * Reduced motion: the finished cube, still.
+ */
+const N = 3;
+const corner = { i: 0, j: N - 1, k: 0 }; // bottom layer, front-left: the cornerstone
+
+type Blk = { i: number; j: number; k: number; d: number; corner: boolean };
+const blocks: Blk[] = [];
+for (let k = 0; k < N; k++)
+  for (let j = 0; j < N; j++)
+    for (let i = 0; i < N; i++) {
+      const d = Math.abs(i - corner.i) + Math.abs(j - corner.j) + Math.abs(k - corner.k);
+      blocks.push({ i, j, k, d, corner: d === 0 });
+    }
+blocks.sort((a, b) => a.d - b.d || a.k - b.k || a.j - b.j || a.i - b.i);
+---
+<div class="cube-stage" aria-hidden="true" title="Click to rebuild">
+  <div class="cube-tilt">
+    <div class="cube-orbit">
+      {blocks.map((b, n) => (
+        <div
+          class:list={["blk", b.corner && "blk-corner"]}
+          style={`--i:${b.i};--j:${b.j};--k:${b.k};--n:${n};--d:${b.d}`}
+        >
+          <i class="f f-front"></i><i class="f f-back"></i>
+          <i class="f f-right"></i><i class="f f-left"></i>
+          <i class="f f-top"></i><i class="f f-bottom"></i>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .cube-stage {
+    --s: clamp(64px, 9vw, 112px);
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    perspective: 1800px;
+    perspective-origin: 50% 40%;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .cube-tilt {
+    transform-style: preserve-3d;
+    transform: rotateX(-26deg);
+  }
+  .cube-orbit {
+    position: relative;
+    width: calc(var(--s) * 3);
+    height: calc(var(--s) * 3);
+    transform-style: preserve-3d;
+    animation: orbit 56s linear infinite both;
+    animation-delay: 3.8s;
+  }
+  .blk {
+    position: absolute;
+    width: var(--s);
+    height: var(--s);
+    left: 0;
+    top: 0;
+    transform-style: preserve-3d;
+    --t: translate3d(calc(var(--i) * var(--s)), calc((2 - var(--k)) * var(--s)), calc((var(--j) - 1) * var(--s)));
+    transform: var(--t);
+    --delay: calc(320ms + var(--d) * 260ms + var(--n) * 22ms);
+    animation: jitter 760ms linear both;
+    animation-delay: var(--delay);
+  }
+  .cube-orbit { pointer-events: auto; cursor: pointer; }
+  .f {
+    position: absolute;
+    inset: 0;
+    border: 1px solid color-mix(in srgb, var(--color-accent-lt) 50%, transparent);
+    backface-visibility: visible;
+    opacity: 0;
+    animation: flicker 760ms linear both;
+    animation-delay: var(--delay);
+  }
+  .f-front  { transform: translateZ(calc(var(--s) / 2)); }
+  .f-back   { transform: rotateY(180deg) translateZ(calc(var(--s) / 2)); }
+  .f-right  { transform: rotateY(90deg) translateZ(calc(var(--s) / 2)); }
+  .f-left   { transform: rotateY(-90deg) translateZ(calc(var(--s) / 2)); }
+  .f-top    { transform: rotateX(90deg) translateZ(calc(var(--s) / 2)); }
+  .f-bottom { transform: rotateX(-90deg) translateZ(calc(var(--s) / 2)); }
+
+  /* The cornerstone: the only solid block, the brand's three faces. */
+  .blk-corner .f { border-color: var(--color-ground); }
+  .blk-corner .f-top { background: #debd82; }
+  .blk-corner .f-front, .blk-corner .f-left { background: #d1a24f; }
+  .blk-corner .f-right, .blk-corner .f-back, .blk-corner .f-bottom { background: #986f28; }
+
+  @keyframes jitter {
+    0%   { transform: var(--t) translate3d(10px, -7px, 0); }
+    30%  { transform: var(--t) translate3d(10px, -7px, 0); }
+    31%  { transform: var(--t) translate3d(-8px, 5px, 0); }
+    56%  { transform: var(--t) translate3d(-8px, 5px, 0); }
+    57%  { transform: var(--t) translate3d(4px, 0, 0); }
+    78%  { transform: var(--t) translate3d(4px, 0, 0); }
+    79%, 100% { transform: var(--t); }
+  }
+  @keyframes flicker {
+    0%   { opacity: 0; }
+    12%  { opacity: 1; }
+    22%  { opacity: 0; }
+    34%  { opacity: 1; }
+    46%  { opacity: 0.2; }
+    58%  { opacity: 1; }
+    70%  { opacity: 0.45; }
+    100% { opacity: 1; }
+  }
+  @keyframes orbit {
+    from { transform: rotateY(38deg); }
+    to { transform: rotateY(398deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blk { animation: none; }
+    .f { animation: none; opacity: 1; }
+    .cube-orbit { animation: none; transform: rotateY(38deg); }
+  }
+</style>

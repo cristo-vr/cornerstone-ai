@@ -1,0 +1,26 @@
+# Old URLs that were linked or indexed. Everything lands on the one page or the newsletter.
+/the-os-sprint        /            301
+/the-os-sprint/       /            301
+/build                /#what       301
+/build/               /#what       301
+/workshop             /#what       301
+/workshop/            /#what       301
+/case-studies/*       /#work       301
+/simple-systems-saturday   /simple-systems  301
+/simple-systems-saturday/  /simple-systems  301
+/newsletter           /simple-systems  301
+/newsletter/          /simple-systems  301
+/saturday             /simple-systems  301
+/saturday/            /simple-systems  301
+/library              /simple-systems  301
+/library/             /simple-systems  301
+/free                 /simple-systems  301
+/free/                /simple-systems  301
+/resources            /simple-systems  301
+/resources/*          /simple-systems  301
+/referrals            /            301
+/referrals/           /            301
+/unlock               /            301
+/unlock/*             /            301
+/blog                 /simple-systems  301
+/blog/*               /simple-systems  301

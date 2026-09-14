@@ -1,0 +1,29 @@
+---
+/**
+ * The cornerstone mark. Geometry verbatim from the brand pack §02: three
+ * quadrilaterals on a 100-unit frame. `rough` applies the pack's
+ * feDisplacementMap cast (the filter itself is declared once in Base.astro).
+ * Flat is the only correct form at 24px and below.
+ */
+interface Props {
+  size?: number | string;
+  rough?: boolean;
+  class?: string;
+  title?: string;
+}
+const { size = 40, rough = true, class: cls = "", title = "Cornerstone" } = Astro.props;
+---
+<svg
+  class={cls}
+  width={size}
+  height={size}
+  viewBox="0 0 100 100"
+  role="img"
+  aria-label={title}
+>
+  <g class={rough ? "mark-rough" : undefined}>
+    <path d="M50 10 L88 31 L50 52 L12 31 Z" fill="#DEBD82" />
+    <path d="M12 31 L50 52 L50 92 L12 71 Z" fill="#D1A24F" />
+    <path d="M88 31 L50 52 L50 92 L88 71 Z" fill="#986F28" />
+  </g>
+</svg>

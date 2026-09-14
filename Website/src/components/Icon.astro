@@ -1,0 +1,25 @@
+---
+/**
+ * A Phosphor icon (thin weight), inlined at build time so it takes the
+ * current colour and needs no runtime. Names are the package's file names.
+ */
+import { existsSync, readFileSync } from "node:fs";
+import { createRequire } from "node:module";
+import { resolve } from "node:path";
+
+interface Props {
+  name: string;
+  class?: string;
+  weight?: "thin" | "light" | "regular";
+}
+const { name, class: cls = "", weight = "thin" } = Astro.props;
+const require = createRequire(import.meta.url);
+// A local copy in src/icons/ (an adjusted Phosphor path) wins over the package.
+const local = resolve(process.cwd(), "src/icons", `${name}.svg`);
+const file = existsSync(local) ? local : require.resolve(`@phosphor-icons/core/assets/${weight}/${name}-${weight}.svg`);
+const svg = readFileSync(file, "utf8")
+  .replace("<svg", `<svg class="${cls}" aria-hidden="true" focusable="false"`)
+  .replace(/width="\d+"/, "")
+  .replace(/height="\d+"/, "");
+---
+<Fragment set:html={svg} />

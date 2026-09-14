@@ -1,0 +1,214 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import Cube from "../components/Cube.astro";
+import Icon from "../components/Icon.astro";
+import LeadForm from "../components/LeadForm.astro";
+
+import bioharmony1 from "../assets/images/systems/bioharmony.webp";
+import bioharmony2 from "../assets/images/systems/bioharmony-2.webp";
+import technolease1 from "../assets/images/systems/technolease-1.webp";
+import technolease2 from "../assets/images/systems/technolease-2.webp";
+import roxburgh1 from "../assets/images/systems/roxburgh.webp";
+import roxburgh2 from "../assets/images/systems/roxburgh-2.webp";
+import etj1 from "../assets/images/systems/etj.webp";
+import etj2 from "../assets/images/systems/etj-2.webp";
+import podcast1 from "../assets/images/systems/podcast.webp";
+import podcast2 from "../assets/images/systems/podcast-2.webp";
+import mason1 from "../assets/images/systems/mason-1.webp";
+import mason2 from "../assets/images/systems/mason-2.webp";
+import compassImg from "../assets/images/icons/compass.png";
+import hammerImg from "../assets/images/icons/hammer.png";
+import plantImg from "../assets/images/icons/plant.png";
+
+const title = "Cornerstone AI";
+const description =
+  "An AI advisory and development agency. We build the foundations a business scales on in the agentic era.";
+
+const BOOKING_URL = "https://cal.cornerstone-ai.pro/cristo/discovery-call-30-mins";
+
+const clients = ["BioHarmony", "Technolease", "Roxburgh Trust", "ETJ Consulting", "A Better Question", "Resonance Den", "TFL Academy"];
+
+const finale = "That's how you scale. That's what we build.";
+const story = [
+  'Everyone is rushing to "use AI" in their business.',
+  "And all businesses run on a system. For most founders, they are that system.",
+  "So when AI or automation is thrown on, it makes your life more complex, not more simple.",
+  "That doesn't scale. Simple scales.",
+  "So we lay the foundation right, and build from the ground up. The data, the processes, the team.",
+  "The real system your business can run on, with AI, so it's not running on you.",
+];
+
+const pillars = [
+  { name: "Advise", icon: "compass", img: compassImg, scale: 1.02, line: "We find what's capping the business and design the process it should run on, before anything gets built." },
+  { name: "Build", icon: "hammer-long", img: hammerImg, scale: 1.12, line: "Custom systems inside your own accounts, owned outright. The smallest system that enforces the new process." },
+  { name: "Adopt", icon: "plant", img: plantImg, scale: 1.08, line: "Your team uses it from the day it lands and is still using it a year later. That's the only result that counts." },
+];
+
+const work = [
+  { img: bioharmony1, name: "BioHarmony", kind: "E-commerce" },
+  { img: technolease1, name: "Technolease", kind: "Supply-chain financing and management" },
+  { img: roxburgh1, name: "Roxburgh Trust", kind: "Wealth management" },
+  { img: etj1, name: "ETJ Consulting", kind: "Accounting practice" },
+  { img: podcast1, name: "A Better Question", kind: "Podcast" },
+  { img: mason1, name: "Cornerstone", kind: "Our own operating system" },
+  { img: bioharmony2, name: "BioHarmony", kind: "E-commerce" },
+  { img: technolease2, name: "Technolease", kind: "Supply-chain financing and management" },
+  { img: roxburgh2, name: "Roxburgh Trust", kind: "Wealth management" },
+  { img: etj2, name: "ETJ Consulting", kind: "Accounting practice" },
+  { img: podcast2, name: "A Better Question", kind: "Podcast" },
+  { img: mason2, name: "Cornerstone", kind: "Our own operating system" },
+];
+
+const orgLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Cornerstone AI",
+  url: "https://cornerstone-ai.pro",
+  email: "info@cornerstone-ai.pro",
+  description,
+  founder: { "@type": "Person", name: "Cristo Van Rensburg" },
+};
+---
+<Base title={title} description={description} home jsonLd={[orgLd]}>
+  <!-- ═══ HERO ═══════════════════════════════════════════════════════════ -->
+  <section class="relative min-h-[100dvh] flex flex-col overflow-hidden" aria-labelledby="hero-h">
+    <div id="nav-sentinel" class="absolute top-0 h-px w-px" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_45%_at_50%_55%,rgba(209,162,79,0.09),transparent_70%)]" aria-hidden="true"></div>
+
+    <Cube />
+
+    <div class="wrap relative z-[1] flex-1 flex flex-col pointer-events-none" style="padding-top: var(--nav-h)">
+      <div class="flex-1 flex items-center justify-center text-center">
+        <h1 id="hero-h" class="display hero-h max-w-[12ch] rise" style="--d: 120ms">
+          Scale on solid ground.
+        </h1>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-[1fr_auto] md:items-end pb-[clamp(2rem,6vh,4rem)] rise" style="--d: 520ms">
+        <p class="lead">
+          Cornerstone is an AI advisory and development agency. We build the foundations a business scales on in the agentic era.
+        </p>
+        <div class="flex flex-wrap gap-3 pointer-events-auto">
+          <a href="#contact" class="btn btn-primary">
+            Talk to us
+            <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#what" class="btn btn-ghost">What we do</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CLIENTS ════════════════════════════════════════════════════════ -->
+  <section class="wrap" aria-label="Businesses running on systems we built">
+    <div class="rule pt-6 grid gap-4 lg:grid-cols-[auto_1fr] lg:items-baseline" data-reveal>
+      <span class="label">Running on systems we built</span>
+      <ul class="flex flex-wrap gap-x-7 gap-y-2 lg:justify-end">
+        {clients.map((n) => (
+          <li class="display text-[1.3rem] tracking-[0.03em] text-text-2">{n}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══ THE STORY: words light up as the reader reaches them ═══════════ -->
+  <section class="relative" aria-label="Why the foundations">
+    <div class="wrap max-w-[66rem] pt-[clamp(5rem,14vh,10rem)] pb-[38vh]">
+      <div class="stream grid gap-10 md:gap-14">
+        {story.map((line) => (
+          <p class="stream-line">
+            {line.split(" ").map((w) => <span class="w">{w} </span>)}
+          </p>
+        ))}
+        <p class="stream-line stream-final display display-2 max-w-[24ch]">
+          {finale.split(" ").map((w) => <span class="w">{w} </span>)}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHAT WE DO ═════════════════════════════════════════════════════ -->
+  <section id="what" class="wrap section" aria-labelledby="what-h">
+    <h2 id="what-h" class="display display-2 text-center mx-auto max-w-[16ch]" data-reveal>Here's how.</h2>
+
+    <div class="mt-16 md:mt-24 grid gap-[3px] lg:grid-cols-3">
+      {pillars.map((p, i) => (
+        <article class="slab pillar p-8 md:p-10 grid gap-12 content-between min-h-[28rem]" data-reveal style={`--d: ${i * 110}ms`}>
+          <div class="flex items-start justify-between gap-6">
+            <span class="num pillar-num text-[4rem] leading-none text-line-4">{i + 1}</span>
+            <div class="visual relative w-[7.5rem] md:w-[9rem] aspect-square">
+              <Icon name={p.icon} class="visual-icon absolute inset-0 w-full h-full text-accent-lt" />
+              <Image src={p.img} alt="" widths={[288, 576]} sizes="9rem" class="visual-img absolute inset-0 w-full h-full object-contain" style={`transform: scale(${p.scale})`} loading="lazy" decoding="async" />
+            </div>
+          </div>
+          <div>
+            <h3 class="display display-3">{p.name}</h3>
+            <p class="mt-4 text-text-2 max-w-[34ch] text-wrap-pretty">{p.line}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══ WORK ═══════════════════════════════════════════════════════════ -->
+  <section id="work" class="section" aria-labelledby="work-h">
+    <div class="wrap grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
+      <h2 id="work-h" class="display display-2 max-w-[12ch]" data-reveal>Built, and in use.</h2>
+      <p class="text-text-2 max-w-[34ch] md:text-right" data-reveal style="--d: 100ms">Live systems. Names, people and money are redacted.</p>
+    </div>
+
+    <div class="marquee mt-14" data-reveal>
+      <div class="marquee-track">
+        {[...work, ...work].map((w, n) => (
+          <figure class="slab overflow-hidden w-[clamp(18rem,30vw,26rem)] shrink-0" aria-hidden={n >= work.length ? "true" : undefined}>
+            <div class="bg-sunken border-b border-line-2">
+              <Image
+                src={w.img}
+                alt={n < work.length ? `${w.name}: the system built for them` : ""}
+                widths={[480, 760]}
+                sizes="(min-width: 768px) 30vw, 80vw"
+                class="block w-full h-auto aspect-[16/10] object-cover object-left-top opacity-90"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <figcaption class="p-5 flex items-baseline justify-between gap-4">
+              <span class="display display-4">{w.name}</span>
+              <span class="label text-right">{w.kind}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MANIFESTO ══════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden" aria-label="The agentic era">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_60%_at_50%_100%,rgba(209,162,79,0.14),transparent_70%)]" aria-hidden="true"></div>
+    <div class="wrap section relative text-center flex flex-col items-center gap-10">
+      <p class="voice max-w-[26ch]" data-reveal>The agentic era won't reward whoever adds the most AI.</p>
+      <p class="display display-2 max-w-[14ch] brass" data-reveal style="--d: 140ms">It'll reward whoever built on the right foundation.</p>
+      <a href="#contact" class="btn btn-primary" data-reveal style="--d: 260ms">Talk to us</a>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ════════════════════════════════════════════════════════ -->
+  <section id="contact" class="wrap section border-t border-line-2" aria-labelledby="contact-h">
+    <div class="grid gap-14 lg:grid-cols-12 lg:gap-20">
+      <div class="lg:col-span-5">
+        <h2 id="contact-h" class="display display-2" data-reveal>Talk to us.</h2>
+        <p class="lead mt-6" data-reveal style="--d: 80ms">Thirty minutes with Cristo, the founder. You'll leave knowing whether it fits and what we'd do first.</p>
+        <a href={BOOKING_URL} class="btn btn-primary mt-8" data-reveal style="--d: 160ms">
+          Book a call
+          <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <p class="mt-6 text-[0.9rem] text-text-3" data-reveal style="--d: 220ms">Or write: <a href="mailto:info@cornerstone-ai.pro" class="link text-text-2">info@cornerstone-ai.pro</a></p>
+      </div>
+      <div class="lg:col-span-7 relative" data-reveal style="--d: 120ms">
+        <p class="label mb-6">Or leave a note</p>
+        <LeadForm />
+      </div>
+    </div>
+  </section>
+</Base>

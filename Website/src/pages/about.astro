@@ -1,0 +1,83 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import headshot from "../assets/images/cristo-headshot.png";
+import Orbit from "../components/Orbit.astro";
+
+const title = "About: Cornerstone AI";
+const description =
+  "Cornerstone AI is an advisory and development agency founded by Cristo Van Rensburg. Our mission is to help businesses scale the right way in the agentic era, by building the foundations right.";
+
+const beliefs = [
+  { title: "The shift", body: "AI is the biggest shift in how a business runs since the internet, and most of it is being bolted onto operations that were never designed in the first place." },
+  { title: "Foundations first", body: "The businesses that scale won't be the ones with the most AI. They'll be the ones that built the foundations first: the process, the data, the way work moves." },
+  { title: "Simple scales", body: "Simple scales. Complexity is a cost the founder pays every single day by being the system the business runs on." },
+  { title: "People first", body: "People are the lifeblood of a business. It's our heart to enable and better equip people so they can do more of what they are great at, and less of what a system can do for them." },
+  { title: "Used, or not built", body: "It only counts if the team uses it. A system nobody uses isn't a system, it's a second job." },
+];
+
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Cristo Van Rensburg",
+  jobTitle: "Founder",
+  worksFor: { "@type": "Organization", name: "Cornerstone AI" },
+  url: "https://cornerstone-ai.pro/about",
+};
+---
+<Base title={title} description={description} jsonLd={[personLd]}>
+  <!-- ═══ MISSION ════════════════════════════════════════════════════════ -->
+  <section class="relative min-h-[88dvh] flex items-center overflow-hidden" aria-labelledby="mission-h">
+    <div id="nav-sentinel" class="absolute top-0 h-px w-px" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_45%_at_50%_50%,rgba(209,162,79,0.08),transparent_70%)]" aria-hidden="true"></div>
+    <div class="wrap relative text-center" style="padding-top: var(--nav-h)">
+      <h1 id="mission-h" class="voice mission mx-auto max-w-[26ch] rise" style="--d: 100ms">
+        <span class="brass">Our mission</span> is to help businesses scale the right way in the agentic era, by building the foundations right.
+      </h1>
+    </div>
+  </section>
+
+  <!-- ═══ WHAT WE BELIEVE ════════════════════════════════════════════════ -->
+  <section class="wrap section" aria-labelledby="believe-h">
+    <h2 id="believe-h" class="display display-2" data-reveal>What we believe.</h2>
+    <div class="mt-12 md:mt-16" data-reveal style="--d: 100ms">
+      <Orbit items={beliefs} />
+    </div>
+  </section>
+
+  <!-- ═══ FOUNDER ════════════════════════════════════════════════════════ -->
+  <section class="wrap section" aria-labelledby="founder-h">
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-20 items-end">
+      <div class="lg:col-span-5" data-reveal>
+        <div class="slab overflow-hidden max-w-[28rem]">
+          <Image src={headshot} alt="Cristo Van Rensburg, founder of Cornerstone AI" widths={[480, 720, 1024]} sizes="(min-width: 1024px) 28rem, 90vw" class="block w-full h-auto aspect-square object-cover" loading="lazy" decoding="async" />
+        </div>
+      </div>
+      <div class="lg:col-span-7">
+        <h2 id="founder-h" class="display display-2 brass" data-reveal>Cristo Van Rensburg</h2>
+        <p class="label mt-3" data-reveal style="--d: 60ms">Founder</p>
+        <div class="mt-8 grid gap-5 max-w-[56ch] text-[1.1rem] leading-[1.6] text-text-2" data-reveal style="--d: 120ms">
+          <p>
+            I started my first business at 16 and I've built systems across hospitality, construction, real estate, insurance, fintech and franchise operations since. Different industries, one pattern every time: the founder had become the operating system, and the fix was never more software. It was a simpler way of working, built around how the business already ran, then enforced.
+          </p>
+          <p>
+            Cornerstone runs on the same kind of system I build for clients, so I feel every rough edge before they do. The name comes from my faith. Christ is the cornerstone, and that's the foundation this company stands on. Day to day it means people come first: I build the thing the person doing the job on a Tuesday will use.
+          </p>
+        </div>
+        <div class="mt-8 flex flex-wrap gap-3" data-reveal style="--d: 180ms">
+          <a href="/#contact" class="btn btn-primary">Talk to us</a>
+          <a href="/simple-systems" class="btn btn-ghost">Read Simple Systems</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CLOSE ══════════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden border-t border-line-2" aria-label="Work with us">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_60%_at_50%_100%,rgba(209,162,79,0.14),transparent_70%)]" aria-hidden="true"></div>
+    <div class="wrap section relative text-center flex flex-col items-center gap-8">
+      <p class="display display-2 max-w-[16ch]" data-reveal>Build on a solid foundation.</p>
+      <a href="/#contact" class="btn btn-primary" data-reveal style="--d: 120ms">Talk to us</a>
+    </div>
+  </section>
+</Base>

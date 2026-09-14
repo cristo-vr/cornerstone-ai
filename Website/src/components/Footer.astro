@@ -1,0 +1,43 @@
+---
+import Mark from "./Mark.astro";
+import Newsletter from "./Newsletter.astro";
+const year = new Date().getFullYear();
+---
+<footer class="border-t border-line-2">
+  <div class="wrap pt-16 pb-10">
+    <div class="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-20">
+      <div>
+        <a href="/" class="inline-flex items-center gap-3" aria-label="Cornerstone AI, home">
+          <Mark size={34} />
+          <span class="display text-[1.5rem] tracking-[0.05em] leading-none translate-y-[1px]">Cornerstone</span>
+        </a>
+        <p class="mt-6 max-w-[36ch] text-text-2 text-[0.98rem] leading-relaxed">
+          AI advisory and development. The foundations a business scales on.
+        </p>
+        <a href="mailto:info@cornerstone-ai.pro" class="link mt-5 inline-block">info@cornerstone-ai.pro</a>
+        <nav aria-label="Site" class="mt-6 flex gap-6 text-[0.92rem] text-text-2">
+          <a href="/#what" class="hover:text-text transition-colors">What we do</a>
+          <a href="/#work" class="hover:text-text transition-colors">Work</a>
+          <a href="/about" class="hover:text-text transition-colors">About</a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="label">Simple Systems</p>
+        <p class="mt-3 text-text-2 text-[0.98rem] max-w-[40ch]">Our founder's notes on scaling by simplifying, from his own business and the ones we help. Free, one click to leave.</p>
+        <div class="mt-5 max-w-[30rem]">
+          <Newsletter id="news-footer" buttonLabel="Send me the next one" />
+        </div>
+      </div>
+    </div>
+
+    <div class="rule mt-14 pt-6 flex flex-wrap items-center justify-between gap-x-8 gap-y-3 text-[0.82rem] text-text-3">
+      <span>Cornerstone AI (Pty) Ltd. South Africa. {year}</span>
+      <nav aria-label="Legal" class="flex gap-6">
+        <a href="/privacy" class="hover:text-text transition-colors">Privacy</a>
+        <a href="/terms" class="hover:text-text transition-colors">Terms</a>
+        <a href="/refund-policy" class="hover:text-text transition-colors">Refunds</a>
+      </nav>
+    </div>
+  </div>
+</footer>

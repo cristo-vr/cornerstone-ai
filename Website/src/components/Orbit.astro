@@ -1,0 +1,235 @@
+---
+/**
+ * The beliefs, as points on a slow orbit. Built natively in the brand's
+ * language rather than pulling in React, shadcn and lucide for one widget:
+ * a ring, a core, N numbered nodes drifting round it. Click a node and the
+ * orbit swings it to the front, pauses, and its text opens beside the ring.
+ * Click the ring or press Escape and it drifts on. Reduced motion: no drift.
+ */
+interface Belief { title: string; body: string }
+interface Props { items: Belief[] }
+const { items } = Astro.props;
+---
+<div class="orbit-wrap grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 items-center">
+  <div class="orbit" data-orbit tabindex="-1" aria-label="Five beliefs on an orbit">
+    <div class="orbit-ring" aria-hidden="true"></div>
+    <div class="orbit-core" aria-hidden="true"><i></i><i></i><span></span></div>
+    {items.map((b, i) => (
+      <button type="button" class="orbit-node" data-node={i} style={`--base: ${(i / items.length) * 360}`} aria-pressed="false" aria-controls={`belief-${i}`}>
+        <span class="orbit-dot num">{i + 1}</span>
+        <span class="orbit-label">{b.title}</span>
+      </button>
+    ))}
+  </div>
+
+  <div class="orbit-panel">
+    <p class="orbit-hint text-text-2 max-w-[34ch]" data-hint>Five things we hold to. Pick a point on the ring.</p>
+    {items.map((b, i) => (
+      <div class="orbit-item" id={`belief-${i}`} data-item={i} hidden>
+        <p class="label brass">{String(i + 1).padStart(2, "0")}</p>
+        <h3 class="display display-3 mt-2">{b.title}</h3>
+        <p class="mt-5 text-[1.1rem] leading-[1.55] text-text-2 max-w-[42ch] text-wrap-pretty">{b.body}</p>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .orbit {
+    --r: 0px; /* set by script from the box size */
+    position: relative;
+    width: min(100%, 34rem);
+    aspect-ratio: 1;
+    margin-inline: auto;
+    display: grid;
+    place-items: center;
+    cursor: default;
+    outline: none;
+  }
+  .orbit-ring {
+    position: absolute;
+    inset: 12%;
+    border-radius: 50%;
+    border: 1px solid var(--color-line-3);
+  }
+  .orbit-core {
+    position: absolute;
+    width: 3.25rem;
+    height: 3.25rem;
+    display: grid;
+    place-items: center;
+  }
+  .orbit-core span {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+  .orbit-core i {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--color-accent-lt) 45%, transparent);
+    animation: core-ring 3.2s var(--ease-out) infinite;
+  }
+  .orbit-core i:nth-child(2) { animation-delay: 1.6s; }
+  @keyframes core-ring {
+    from { transform: scale(0.5); opacity: 0.9; }
+    to { transform: scale(1.9); opacity: 0; }
+  }
+
+  .orbit-node {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: grid;
+    justify-items: center;
+    gap: 0.55rem;
+    width: 7.5rem;
+    margin: -1.375rem 0 0 -3.75rem;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    transform: translate(var(--x, 0px), var(--y, 0px));
+    transition: opacity 500ms var(--ease-out);
+    color: var(--color-text);
+  }
+  .orbit-dot {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 1.35rem;
+    line-height: 1;
+    padding-top: 0.15rem;
+    background: var(--color-ground);
+    border: 1px solid var(--color-line-4);
+    color: var(--color-text-2);
+    transition: transform 320ms var(--ease-out), background-color 240ms ease, color 240ms ease, border-color 240ms ease;
+  }
+  .orbit-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-3);
+    white-space: nowrap;
+    transition: color 240ms ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .orbit-node:hover .orbit-dot { color: var(--color-accent-lt); border-color: var(--color-accent-lt); }
+    .orbit-node:hover .orbit-label { color: var(--color-text); }
+  }
+  .orbit-node[aria-pressed="true"] .orbit-dot {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-accent-txt);
+    transform: scale(1.3);
+  }
+  .orbit-node[aria-pressed="true"] .orbit-label { color: var(--color-accent-lt); }
+  .orbit-node:focus-visible .orbit-dot { outline: 2px solid var(--color-accent-lt); outline-offset: 3px; }
+
+  .orbit-panel { min-height: 14rem; }
+  .orbit-item { animation: rise 600ms var(--ease-out) both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .orbit-core i { animation: none; opacity: 0.5; transform: scale(1.4); }
+    .orbit-item { animation: none; }
+  }
+</style>
+
+<script>
+  const orbit = document.querySelector<HTMLElement>("[data-orbit]");
+  if (orbit) {
+    const nodes = Array.from(orbit.querySelectorAll<HTMLButtonElement>(".orbit-node"));
+    const items = Array.from(document.querySelectorAll<HTMLElement>(".orbit-item"));
+    const hint = document.querySelector<HTMLElement>("[data-hint]");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const N = nodes.length;
+    let angle = -90; // start with node 1 at the top
+    let target: number | null = null;
+    let active: number | null = null;
+    let radius = 0;
+    let last = performance.now();
+    let raf = 0;
+
+    const measure = () => {
+      radius = orbit.clientWidth * 0.38; // the ring sits at inset 12%
+    };
+
+    const place = () => {
+      for (let i = 0; i < N; i++) {
+        const a = ((i / N) * 360 + angle) * (Math.PI / 180);
+        const x = radius * Math.cos(a);
+        const y = radius * Math.sin(a);
+        const n = nodes[i];
+        n.style.setProperty("--x", `${x.toFixed(1)}px`);
+        n.style.setProperty("--y", `${y.toFixed(1)}px`);
+        // Points toward the panel (the right) sit forward and brighter.
+        const front = (1 + Math.cos(a)) / 2;
+        n.style.zIndex = String(10 + Math.round(front * 10));
+        n.style.opacity = active === null || active === i ? String(0.55 + 0.45 * front) : "0.35";
+      }
+    };
+
+    const tick = (now: number) => {
+      const dt = Math.min(64, now - last);
+      last = now;
+      if (target !== null) {
+        const diff = target - angle;
+        angle += diff * Math.min(1, dt / 220);
+        if (Math.abs(diff) < 0.05) {
+          angle = target;
+          target = null;
+        }
+      } else if (active === null && !reduce) {
+        angle = (angle + (dt / 1000) * 5) % 360; // five degrees a second
+      }
+      place();
+      raf = requestAnimationFrame(tick);
+    };
+
+    const show = (i: number | null) => {
+      active = i;
+      nodes.forEach((n, k) => n.setAttribute("aria-pressed", String(k === i)));
+      items.forEach((el, k) => (el.hidden = k !== i));
+      if (hint) hint.hidden = i !== null;
+      if (i !== null) {
+        // Swing the chosen point round to face the text.
+        const base = (i / N) * 360;
+        let t = -base;
+        while (t - angle > 180) t -= 360;
+        while (t - angle < -180) t += 360;
+        target = t;
+      }
+    };
+
+    nodes.forEach((n, i) =>
+      n.addEventListener("click", (e) => {
+        e.stopPropagation();
+        show(active === i ? null : i);
+      }),
+    );
+    orbit.addEventListener("click", () => show(null));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && active !== null) show(null);
+    });
+
+    measure();
+    place();
+    window.addEventListener("resize", measure, { passive: true });
+    // Only spend frames while the orbit is on screen.
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        last = performance.now();
+        if (!raf) raf = requestAnimationFrame(tick);
+      } else if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+    });
+    io.observe(orbit);
+  }
+</script>

@@ -1,0 +1,45 @@
+---
+/**
+ * Simple Systems Saturday signup. Posts straight to Kit. No Turnstile on
+ * purpose: every extra step costs signups, and Kit's double opt-in plus the
+ * honeypot is the spam control.
+ */
+interface Props {
+  buttonLabel?: string;
+  /** A wider input for the standalone page. */
+  large?: boolean;
+  id?: string;
+}
+const { buttonLabel = "Send me the next one", large = false, id = "newsletter" } = Astro.props;
+---
+<div>
+  <form data-newsletter class="grid gap-3" novalidate>
+    <div class:list={["flex flex-col gap-3", large ? "sm:flex-row" : "sm:flex-row"]}>
+      <div class="field flex-1">
+        <label for={`${id}-email`} class="sr-only">Email</label>
+        <input
+          class:list={["input", large && "sm:!min-h-[3.5rem]"]}
+          id={`${id}-email`}
+          type="email"
+          name="email_address"
+          autocomplete="email"
+          inputmode="email"
+          placeholder="you@yourbusiness.com"
+          required
+        />
+      </div>
+      <div class="absolute -left-[9999px] opacity-0 h-0 overflow-hidden" aria-hidden="true">
+        <label for={`${id}-company`}>Company</label>
+        <input id={`${id}-company`} name="company" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+      <button type="submit" class:list={["btn btn-primary", large && "sm:!h-[3.5rem]"]}>{buttonLabel}</button>
+    </div>
+    <p data-status class="text-[0.85rem] text-danger-ink min-h-[1.2em]" aria-live="polite"></p>
+  </form>
+  <div data-newsletter-done hidden class="border border-line-2 bg-surface p-6">
+    <p class="font-semibold">One more click.</p>
+    <p class="mt-2 text-text-2 text-[0.95rem] max-w-[44ch]">
+      There's a confirmation link in your inbox. Without it I can't send you anything. It sometimes lands in promotions, so look there too.
+    </p>
+  </div>
+</div>
