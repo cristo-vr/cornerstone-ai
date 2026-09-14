@@ -345,8 +345,127 @@ if (lead) {
   });
 }
 
-// ── Newsletter → Kit ───────────────────────────────────────────────────────
+// ── The library gate: name + email → the file, Kit, and a telemetry row ────
 const KIT_ENDPOINT = "https://app.kit.com/forms/9736253/subscriptions";
+const TELEMETRY = "https://aios.cornerstone-ai.pro/api/public/resource-event";
+const GATE_KEY = "cs_library_lead";
+const track = (payload: Record<string, unknown>) => {
+  try {
+    void fetch(TELEMETRY, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {
+    /* telemetry never breaks the page it measures */
+  }
+};
+const shareSource = () => {
+  try {
+    return new URLSearchParams(location.search).get("s");
+  } catch {
+    return null;
+  }
+};
+
+document.querySelectorAll<HTMLFormElement>("form[data-gate]").forEach((gate) => {
+  const slug = gate.dataset.slug!;
+  const href = gate.dataset.href!;
+  const fileName = gate.dataset.file || null;
+  const done = gate.parentElement?.querySelector<HTMLElement>("[data-gate-done]") ?? null;
+  const status = gate.querySelector<HTMLElement>("[data-status]")!;
+  const button = gate.querySelector<HTMLButtonElement>("button[type=submit]")!;
+  const nameEl = gate.elements.namedItem("firstName") as HTMLInputElement;
+  const emailEl = gate.elements.namedItem("email") as HTMLInputElement;
+
+  track({ kind: "view", slug, source: shareSource(), referrer: document.referrer || null });
+
+  // Someone who has given their details on this device gets them back.
+  try {
+    const known = JSON.parse(localStorage.getItem(GATE_KEY) || "null") as { name?: string; email?: string } | null;
+    if (known?.email) {
+      nameEl.value = known.name ?? "";
+      emailEl.value = known.email;
+    }
+  } catch {
+    /* storage may be unavailable; the form still works */
+  }
+
+  const setError = (name: string, msg: string | null) => {
+    const input = gate.elements.namedItem(name) as HTMLElement | null;
+    const err = gate.querySelector<HTMLElement>(`[data-error-for="${name}"]`);
+    if (input) input.setAttribute("aria-invalid", msg ? "true" : "false");
+    if (err) err.textContent = msg ?? "";
+  };
+
+  const startDownload = () => {
+    const a = document.createElement("a");
+    a.href = href;
+    if (fileName) a.download = fileName;
+    a.rel = "noopener";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  };
+
+  gate.addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const trap = gate.querySelector<HTMLInputElement>("input[name=company]");
+    if (trap && trap.value) return; // bot
+    const name = nameEl.value.trim();
+    const email = emailEl.value.trim();
+    let ok = true;
+    setError("firstName", name ? null : "Your first name, so the email has one.");
+    if (!name) ok = false;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("email", "That email doesn't look right.");
+      ok = false;
+    } else setError("email", null);
+    if (!ok) return;
+
+    // The file first. Nothing below can stand between them and it.
+    startDownload();
+    button.disabled = true;
+    button.textContent = "Sending";
+    try {
+      localStorage.setItem(GATE_KEY, JSON.stringify({ name, email }));
+    } catch {
+      /* fine */
+    }
+
+    let kitOk = false;
+    try {
+      const body = new URLSearchParams({ email_address: email, "fields[first_name]": name });
+      const res = await fetch(KIT_ENDPOINT, { method: "POST", headers: { Accept: "application/json" }, body });
+      kitOk = res.ok;
+    } catch {
+      kitOk = false;
+    }
+    track({
+      kind: "download",
+      slug,
+      source: shareSource(),
+      email,
+      kitOk,
+      referrer: attribution.referrer ?? document.referrer ?? null,
+      landingPath: attribution.landingPath ?? location.pathname,
+      utmSource: attribution.utm_source ?? null,
+      utmMedium: attribution.utm_medium ?? null,
+      utmCampaign: attribution.utm_campaign ?? null,
+    });
+
+    if (done) {
+      gate.hidden = true;
+      done.hidden = false;
+    } else {
+      status.textContent = "";
+      button.textContent = "Sent";
+    }
+  });
+});
+
+// ── Newsletter → Kit ───────────────────────────────────────────────────────
 document.querySelectorAll<HTMLFormElement>("form[data-newsletter]").forEach((form) => {
   const input = form.querySelector<HTMLInputElement>("input[type=email]")!;
   const button = form.querySelector<HTMLButtonElement>("button[type=submit]")!;

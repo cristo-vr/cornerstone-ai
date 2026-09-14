@@ -1,0 +1,49 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getResources, KIND_LABEL, fileSize } from "../../lib/resources";
+
+const resources = await getResources();
+const title = "Resources: Cornerstone AI";
+const description =
+  "Tactical resources for founders scaling with AI and systems. Skills, guides and templates from real client work. Free, no call attached.";
+---
+<Base title={title} description={description}>
+  <section class="wrap" style="padding-top: calc(var(--nav-h) + clamp(3rem, 10vh, 7rem)); padding-bottom: var(--section)">
+    <div id="nav-sentinel" class="absolute top-0 h-px w-px" aria-hidden="true"></div>
+
+    <div class="max-w-[60rem]">
+      <p class="label rise">Resources</p>
+      <h1 class="display display-1 mt-4 rise" style="--d: 80ms">Use it this week.</h1>
+      <p class="lead mt-8 max-w-[52ch] rise" style="--d: 180ms">
+        Tactical resources for founders scaling with AI and systems. The skills, guides and templates we use on real client work, written so you can run them without us. Free, no call attached.
+      </p>
+    </div>
+
+    {resources.length === 0 ? (
+      <p class="mt-16 text-text-2 rise" style="--d: 260ms">The first one lands shortly.</p>
+    ) : (
+      <ol class="mt-16 md:mt-20 grid gap-[3px] md:grid-cols-2 xl:grid-cols-3 rise" style="--d: 260ms">
+        {resources.map((r) => (
+          <li>
+            <a href={`/resources/${r.slug}`} class="slab block h-full p-7 md:p-8 group">
+              <div class="flex items-center justify-between gap-4">
+                <span class="label">{KIND_LABEL[r.kind] ?? r.kind}</span>
+                {r.file_size && <span class="text-[0.78rem] text-text-3">{fileSize(r.file_size)}</span>}
+              </div>
+              <h2 class="display display-4 mt-6 group-hover:text-accent-lt transition-colors">{r.title}</h2>
+              {r.summary && <p class="mt-3 text-text-2 text-[0.98rem] leading-[1.5] text-wrap-pretty">{r.summary}</p>}
+              <span class="mt-6 inline-flex items-center gap-2 text-[0.9rem] font-semibold">
+                Get it
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="transition-transform group-hover:translate-x-1"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    )}
+
+    <div class="rule mt-20 pt-8 max-w-[60ch] text-text-2 rise" style="--d: 340ms">
+      <p>Each one costs a name and an email. That puts you on <a href="/simple-systems" class="link text-text">Simple Systems</a>, our founder's notes on scaling by simplifying, and every new resource lands there first. One click to leave.</p>
+    </div>
+  </section>
+</Base>

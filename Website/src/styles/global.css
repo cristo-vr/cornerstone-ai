@@ -332,6 +332,24 @@ textarea.input { min-height: 7rem; resize: vertical; }
   overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 
+/* ── Resource copy (rendered from the panel's markdown) ───────────────────── */
+.prose-md { color: var(--color-text-2); font-size: 1.05rem; line-height: 1.6; max-width: 62ch; }
+.prose-md p + p, .prose-md ul + p, .prose-md ol + p, .prose-md p + ul, .prose-md p + ol { margin-top: 1em; }
+.prose-md h2, .prose-md h3 {
+  font-family: var(--font-display); font-weight: 800; text-transform: uppercase; color: var(--color-text);
+  line-height: 1; margin: 2.2rem 0 0.8rem;
+}
+.prose-md h2 { font-size: clamp(1.4rem, 2vw, 1.8rem); }
+.prose-md h3 { font-size: clamp(1.2rem, 1.6vw, 1.45rem); }
+.prose-md ul, .prose-md ol { display: grid; gap: 0.5rem; padding-left: 1.4rem; margin: 0.6rem 0; }
+.prose-md ul { list-style: disc; }
+.prose-md ol { list-style: decimal; }
+.prose-md li::marker { color: var(--color-accent-lt); }
+.prose-md strong { color: var(--color-text); font-weight: 650; }
+.prose-md code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 0.9em; background: var(--color-surface-2); padding: 0.1em 0.4em; border-radius: 2px; color: var(--color-text); }
+.prose-md a { text-decoration: underline; text-underline-offset: 0.2em; text-decoration-color: var(--color-line-4); color: var(--color-text); }
+.prose-md a:hover { text-decoration-color: currentColor; }
+
 /* ── Legal pages ──────────────────────────────────────────────────────────── */
 .legal h2 {
   font-family: var(--font-display);

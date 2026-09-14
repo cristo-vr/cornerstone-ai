@@ -12,12 +12,10 @@
 /newsletter/          /simple-systems  301
 /saturday             /simple-systems  301
 /saturday/            /simple-systems  301
-/library              /simple-systems  301
-/library/             /simple-systems  301
-/free                 /simple-systems  301
-/free/                /simple-systems  301
-/resources            /simple-systems  301
-/resources/*          /simple-systems  301
+/library              /resources  301
+/library/             /resources  301
+/free                 /resources  301
+/free/                /resources  301
 /referrals            /            301
 /referrals/           /            301
 /unlock               /            301

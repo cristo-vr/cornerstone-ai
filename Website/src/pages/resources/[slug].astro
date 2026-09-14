@@ -1,0 +1,69 @@
+---
+import Base from "../../layouts/Base.astro";
+import ResourceGate from "../../components/ResourceGate.astro";
+import { getResources, KIND_LABEL, fileUrl, fileSize, type Resource } from "../../lib/resources";
+import { prose } from "../../lib/prose";
+
+export async function getStaticPaths() {
+  const all = await getResources();
+  return all.map((r) => ({ params: { slug: r.slug }, props: { resource: r } }));
+}
+
+const { resource } = Astro.props as { resource: Resource };
+const r = resource;
+const href = fileUrl(r);
+const kind = KIND_LABEL[r.kind] ?? r.kind;
+const description = r.summary ?? `A free ${kind.toLowerCase()} from Cornerstone AI.`;
+
+const ld = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: r.title,
+  description,
+  isAccessibleForFree: true,
+  publisher: { "@type": "Organization", name: "Cornerstone AI" },
+  url: `https://cornerstone-ai.pro/resources/${r.slug}`,
+};
+---
+<Base title={`${r.title}: Cornerstone AI`} description={description} jsonLd={[ld]}>
+  <article class="wrap" style="padding-top: calc(var(--nav-h) + clamp(3rem, 9vh, 6rem)); padding-bottom: var(--section)" data-resource={r.slug}>
+    <div id="nav-sentinel" class="absolute top-0 h-px w-px" aria-hidden="true"></div>
+
+    <a href="/resources" class="link text-[0.9rem] text-text-2 rise">All resources</a>
+
+    <div class="mt-8 grid gap-14 lg:grid-cols-12 lg:gap-16 items-start">
+      <div class="lg:col-span-7">
+        <p class="label rise" style="--d: 60ms">{kind}{r.file_size ? ` · ${fileSize(r.file_size)}` : ""}</p>
+        <h1 class="display display-2 mt-4 rise" style="--d: 120ms">{r.title}</h1>
+        {r.summary && <p class="lead mt-6 rise" style="--d: 200ms">{r.summary}</p>}
+
+        {r.description && (
+          <div class="prose-md mt-12" data-reveal set:html={prose(r.description)} />
+        )}
+
+        {r.video_url && (
+          <div class="mt-12 slab overflow-hidden aspect-video" data-reveal>
+            <iframe src={r.video_url} title={`${r.title}, walkthrough`} class="w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+        )}
+
+        {r.how_to && (
+          <div class="mt-14" data-reveal>
+            <h2 class="display display-3">How to use it</h2>
+            <div class="prose-md mt-6" set:html={prose(r.how_to)} />
+          </div>
+        )}
+      </div>
+
+      <aside class="lg:col-span-5 lg:sticky lg:top-28 order-first lg:order-last rise" style="--d: 260ms">
+        <div class="slab p-7 md:p-8">
+          {href ? (
+            <ResourceGate slug={r.slug} href={href} fileName={r.file_name} title={r.title} />
+          ) : (
+            <p class="text-text-2">The file for this one is on its way.</p>
+          )}
+        </div>
+      </aside>
+    </div>
+  </article>
+</Base>

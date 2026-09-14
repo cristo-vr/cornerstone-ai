@@ -1,0 +1,48 @@
+---
+/**
+ * The library gate. A name and an email buys the file and puts the person on
+ * Simple Systems. The file starts downloading the moment the form is sent,
+ * before Kit or telemetry are even asked, so nothing on our side can stand
+ * between a person and the thing we said was theirs. Someone who has given
+ * their details once on this device gets one click next time.
+ */
+interface Props {
+  slug: string;
+  href: string;
+  fileName: string | null;
+  title: string;
+}
+const { slug, href, fileName, title } = Astro.props;
+---
+<form class="gate grid gap-5" data-gate data-slug={slug} data-href={href} data-file={fileName ?? ""} novalidate>
+  <div>
+    <p class="display display-4">Where should we send it?</p>
+    <p class="mt-2 text-text-2 text-[0.95rem]">The file downloads straight away. You'll also get Simple Systems, our founder's notes on scaling by simplifying. One click to leave.</p>
+  </div>
+  <div class="field">
+    <label for={`gate-name-${slug}`}>First name</label>
+    <input class="input" id={`gate-name-${slug}`} name="firstName" type="text" autocomplete="given-name" required />
+    <span class="error" data-error-for="firstName" aria-live="polite"></span>
+  </div>
+  <div class="field">
+    <label for={`gate-email-${slug}`}>Email</label>
+    <input class="input" id={`gate-email-${slug}`} name="email" type="email" autocomplete="email" inputmode="email" required />
+    <span class="error" data-error-for="email" aria-live="polite"></span>
+  </div>
+  <div class="absolute -left-[9999px] opacity-0 h-0 overflow-hidden" aria-hidden="true">
+    <label for={`gate-company-${slug}`}>Company</label>
+    <input id={`gate-company-${slug}`} name="company" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+  <button type="submit" class="btn btn-primary w-full">
+    Get the file
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M3 13h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <p class="text-[0.8rem] text-text-3"><a href="/privacy" class="link">Privacy</a>. No spam, no call, and the address never goes anywhere but our own list.</p>
+  <p data-status class="text-[0.9rem] text-danger-ink" aria-live="polite"></p>
+</form>
+
+<div data-gate-done hidden>
+  <p class="display display-4">It's on its way.</p>
+  <p class="mt-2 text-text-2 text-[0.95rem]">If the download didn't start, <a href={href} class="link text-text" download={fileName ?? undefined} data-retry>here it is again</a>. And check your inbox for the Simple Systems confirmation.</p>
+  <p class="mt-4 text-[0.85rem] text-text-3">{title}</p>
+</div>
