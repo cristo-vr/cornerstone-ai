@@ -185,6 +185,10 @@ if (lead) {
         callback: (t: string) => {
           token = t;
           if (step === 1) btn1.disabled = false;
+          if (status.dataset.kind === "turnstile") {
+            status.textContent = "";
+            delete status.dataset.kind;
+          }
         },
         "expired-callback": () => {
           token = null;
@@ -203,9 +207,13 @@ if (lead) {
     document.head.appendChild(s);
   };
   btn1.disabled = true;
+  // Judged by the widget's own signals, never by looking for its iframe:
+  // Turnstile renders inside a shadow root, where a page query can't see it,
+  // so an iframe check reported "didn't load" under a widget saying Success.
   const fallbackTimer = () =>
     window.setTimeout(() => {
-      if (!slot.querySelector("iframe")) {
+      if (!window.turnstile && widgetId === undefined && !token) {
+        status.dataset.kind = "turnstile";
         status.textContent =
           "The security check didn't load, so the form can't send. Email info@cornerstone-ai.pro with the same details and we'll take it from there.";
       }
