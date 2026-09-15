@@ -166,8 +166,8 @@ if (lead) {
   const status = lead.querySelector<HTMLElement>("[data-status]")!;
   const step1 = document.getElementById("step-1") as HTMLFieldSetElement;
   const step2 = document.getElementById("step-2") as HTMLFieldSetElement;
-  const btn1 = lead.querySelector<HTMLButtonElement>('button[data-step="1"]')!;
-  const btn2 = lead.querySelector<HTMLButtonElement>('button[data-step="2"]')!;
+  // One button carries both steps: "Continue", then "Send".
+  const btn1 = lead.querySelector<HTMLButtonElement>("button[data-next]")!;
   const done = document.getElementById("lead-done")!;
   const slot = lead.querySelector<HTMLElement>(".cf-turnstile")!;
   let token: string | null = null;
@@ -184,7 +184,7 @@ if (lead) {
         theme: "dark",
         callback: (t: string) => {
           token = t;
-          if (step === 1) btn1.disabled = false;
+          btn1.disabled = false;
           if (status.dataset.kind === "turnstile") {
             status.textContent = "";
             delete status.dataset.kind;
@@ -304,58 +304,90 @@ if (lead) {
   };
 
 
+  const back = lead.querySelector<HTMLButtonElement>("[data-back]")!;
+  const progress = lead.querySelector<HTMLElement>(".progress")!;
+  const bars = lead.querySelectorAll<HTMLElement>(".progress-bar");
+
+  const required = (keys: string[]) => {
+    let ok = true;
+    let first: HTMLElement | null = null;
+    for (const k of keys) {
+      const empty = !v(k);
+      setError(k, empty ? "This one we need." : null);
+      if (empty) {
+        ok = false;
+        first ??= lead.elements.namedItem(k) as HTMLElement;
+      }
+    }
+    return { ok, first };
+  };
+
+  const showStep = (n: 1 | 2) => {
+    step = n;
+    lead.dataset.step = String(n);
+    step1.hidden = n !== 1;
+    step2.hidden = n !== 2;
+    back.hidden = n !== 2;
+    btn1.textContent = n === 1 ? "Continue" : "Send";
+    btn1.disabled = !token;
+    bars[1].classList.toggle("is-on", n === 2);
+    progress.setAttribute("aria-valuenow", String(n));
+    progress.setAttribute("aria-label", `Step ${n} of 2`);
+    status.textContent = "";
+    const firstField = (n === 1 ? step1 : step2).querySelector<HTMLElement>("input, select, textarea");
+    lead.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    firstField?.focus({ preventScroll: true });
+  };
+
+  back.addEventListener("click", () => showStep(1));
+
+  // An error clears the moment its field gets an answer.
+  const clearIfAnswered = (e: Event) => {
+    const el = e.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+    if (el.name && el.getAttribute("aria-invalid") === "true" && el.value.trim()) setError(el.name, null);
+  };
+  lead.addEventListener("input", clearIfAnswered);
+  lead.addEventListener("change", clearIfAnswered);
+
   lead.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     status.textContent = "";
 
     if (step === 1) {
-      let ok = true;
-      for (const k of ["fullName", "email", "biggestPain"]) {
-        const empty = !v(k);
-        setError(k, empty ? "This one we need." : null);
-        if (empty) ok = false;
-      }
+      let { ok, first } = required(["fullName", "email", "biggestPain"]);
       if (v("email") && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v("email"))) {
         setError("email", "That email doesn't look right.");
+        first ??= lead.elements.namedItem("email") as HTMLElement;
         ok = false;
       }
-      if (!ok) return;
+      if (!ok) return first?.focus();
 
-      btn1.disabled = true;
-      btn1.textContent = "Sending";
-      try {
-        await post({ ...basePayload(), turnstileToken: token });
-        step = 2;
-        step1.hidden = true;
-        step2.hidden = false;
-        step2.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-        // Start fetching the next token now, so step two never waits on it.
-        void freshToken();
-      } catch (err) {
-        explain(err);
-        btn1.disabled = false;
-        btn1.textContent = "Continue";
-        if (widgetId !== undefined) window.turnstile?.reset(widgetId);
-      }
+      // Save what they've written so far, silently. If it fails, the final
+      // send carries all of it again, so nothing is lost and nothing is shown.
+      if (token) void post({ ...basePayload(), turnstileToken: token }).catch(() => {});
+      showStep(2);
+      // The first token is spent; fetch the next one now so Send never waits.
+      void freshToken();
       return;
     }
 
-    // Step two: the qualifying answers, folded into the same lead.
-    btn2.disabled = true;
-    btn2.textContent = "Sending";
-    const lines = [
-      v("budget") && `Budget: ${v("budget")}`,
-      v("timeline") && `Timeline: ${v("timeline")}`,
-      v("need") && `Six months from now: ${v("need")}`,
-    ].filter(Boolean);
+    const { ok, first } = required(["budget", "role", "need", "timeline"]);
+    if (!ok) return first?.focus();
+
+    btn1.disabled = true;
+    back.disabled = true;
+    btn1.textContent = "Sending";
+    const lines = [`Budget: ${v("budget")}`, `Timeline: ${v("timeline")}`, `Six months from now: ${v("need")}`];
     try {
       const t = token ?? (await freshToken());
       await post({ ...basePayload(), role: v("role"), anythingElse: lines.join("\n"), turnstileToken: t });
-    } catch {
-      // The lead is already in. Losing the extra answers is not worth
-      // showing the visitor an error over.
+      finish();
+    } catch (err) {
+      explain(err);
+      btn1.textContent = "Send";
+      back.disabled = false;
+      if (widgetId !== undefined) window.turnstile?.reset(widgetId);
     }
-    finish();
   });
 }
 
