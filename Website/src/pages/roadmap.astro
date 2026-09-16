@@ -1,0 +1,319 @@
+---
+/**
+ * The Expansion Roadmap: the capture form.
+ *
+ * Six questions place the founder on a five stage ladder, a few details qualify
+ * them, and the endpoint emails the stage PDF and starts the sequence. The
+ * rubric is arithmetic and lives server side in Mason
+ * (functions/_shared/roadmap-score.ts): this page collects answers and renders
+ * what comes back. Nothing here decides a stage.
+ *
+ * The wire names ARE the column names (q1_doing, q2_knowing, ... revenue_band,
+ * team_size, businesses). One vocabulary end to end, so there is no mapping
+ * layer here to drift from the table.
+ *
+ * Spec: mason/docs/plans/2026-09-11-roadmap-outline.md
+ */
+import Base from "../layouts/Base.astro";
+
+const TURNSTILE_SITE_KEY = "0x4AAAAAACN3bXEw6zTOBNYc";
+
+const title = "The Expansion Roadmap";
+const description =
+  "Six questions, about a minute. Find out what your business still needs you for, what happens when the work doubles, and what it takes to clear the stage you're in.";
+
+/** Verbatim from the outline. The order of the answers IS the score: index 0
+ *  scores 0, index 3 scores 3, and pass is 2 or 3. */
+const QUESTIONS = [
+  {
+    field: "q1_doing",
+    stage: "Stage 1",
+    question: "How much of your week goes on work you know you shouldn't be doing, but have to?",
+    answers: [
+      "Most of it. That's my week.",
+      "A big chunk. It's the first thing that eats my day.",
+      "Some of it. I get the odd day clear.",
+      "Hardly any. What's left is work I want to be doing.",
+    ],
+  },
+  {
+    field: "q2_knowing",
+    stage: "Stage 2",
+    question: "If your best person left next week, how would the next one learn the job?",
+    answers: [
+      "From me, over a few weeks.",
+      "They'd shadow whoever's around.",
+      "There are notes, some of them out of date.",
+      "It's written down, and the last person we hired actually used it.",
+    ],
+  },
+  {
+    field: "q3_deciding",
+    stage: "Stage 3",
+    question: "In a normal week, how much waits for your approval or your call?",
+    answers: [
+      "Constantly. It's most of my day.",
+      "Several things a day.",
+      "A few things a week.",
+      "Rarely. The team knows where the lines are.",
+    ],
+  },
+  {
+    field: "q4_checking",
+    stage: "Stage 4",
+    question: "What reaches a client without you looking at it first?",
+    answers: [
+      "Nothing.",
+      "Only the routine things.",
+      "Most of it. I spot check.",
+      "All of it, and I'm comfortable with that.",
+    ],
+  },
+  {
+    field: "q5_seeing",
+    stage: "Stage 5",
+    question: "If I asked how this week is going (jobs, cash, clients at risk), how would you answer?",
+    answers: [
+      "Honestly, I'd be guessing.",
+      "I'd check three or four places and work it out.",
+      "Mostly one place, with gaps.",
+      "I'd open one place and tell you.",
+    ],
+  },
+  {
+    field: "q6_gut",
+    stage: "Gut check",
+    question: "If twice the work landed next month, what would happen?",
+    /** Scored 1..5 rather than 0..3: this one never places anybody, it only
+     *  gets compared against the rubric afterwards. */
+    base: 1,
+    answers: [
+      "I'd be working every hour there is, or turning work down.",
+      "I'd have to hire, and spend months getting them up to speed.",
+      "The team could do it, but it would all queue up behind me.",
+      "It'd get done, but I'd be up late reviewing all of it.",
+      "It'd probably be fine, but I wouldn't know until something went wrong.",
+    ],
+  },
+];
+
+const REVENUE_BANDS = ["under $10k", "$10k to $30k", "$30k to $100k", "$100k to $250k", "$250k+"];
+const TEAM_SIZES = ["just me", "2 to 4", "5 to 9", "10 to 19", "20 to 30", "30+"];
+const BUSINESSES = [
+  { value: 1, label: "One" },
+  { value: 2, label: "Two" },
+  { value: 3, label: "Three or more" },
+];
+const TOTAL_STEPS = QUESTIONS.length + 2;
+---
+
+<Base title={title} description={description} minimal>
+  <section class="wrap min-h-[100dvh] flex flex-col justify-center" style="padding-top: var(--nav-h)">
+    <div id="nav-sentinel" class="absolute top-0 h-px w-px" aria-hidden="true"></div>
+
+    <div class="py-16 md:py-24 max-w-[46rem] mx-auto w-full">
+      <!-- ── the opening ──────────────────────────────────────────────── -->
+      <div id="rm-intro" class="grid gap-8">
+        <div>
+          <p class="label rise">The Expansion Roadmap</p>
+          <h1 class="display display-1 mt-4 rise" style="--d: 80ms">Take on more without it landing on you.</h1>
+        </div>
+        <div class="grid gap-5 max-w-[46ch] text-[1.1rem] leading-[1.6] text-text-2 rise" style="--d: 180ms">
+          <p>
+            Every growing business runs into the same wall: it still needs the founder for something, and that something
+            decides how much more it can take.
+          </p>
+          <p>
+            Six questions work out which one it is for you. You get a roadmap for your stage, the one you came from, and
+            the one coming next.
+          </p>
+        </div>
+        <div class="rise" style="--d: 280ms">
+          <button type="button" class="btn btn-primary" data-start>
+            Start<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span>
+          </button>
+          <p class="mt-3 text-[0.85rem] text-text-3">Six questions, about a minute. No call, no pitch at the end of it.</p>
+        </div>
+      </div>
+
+      <!-- ── the form ─────────────────────────────────────────────────── -->
+      <form id="rm-form" hidden class="grid gap-8" novalidate data-total={TOTAL_STEPS}>
+        <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax={TOTAL_STEPS} aria-valuenow="1">
+          {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
+            <span class={`progress-bar${i === 0 ? " is-on" : ""}`}></span>
+          ))}
+        </div>
+
+        {QUESTIONS.map((q, i) => (
+          <fieldset class="rm-step grid gap-5 border-0 p-0 m-0 min-w-0" data-step={i + 1} hidden>
+            <legend class="sr-only">{`Question ${i + 1} of ${TOTAL_STEPS}`}</legend>
+            <p class="label">{q.stage}</p>
+            <h2 class="display display-3 max-w-[30ch]">{q.question}</h2>
+            <div class="grid gap-3">
+              {q.answers.map((a, j) => (
+                <button
+                  type="button"
+                  class="rm-answer"
+                  data-field={q.field}
+                  data-value={(q.base ?? 0) + j}
+                >
+                  {a}
+                </button>
+              ))}
+            </div>
+          </fieldset>
+        ))}
+
+        <!-- details -->
+        <fieldset class="rm-step grid gap-6 border-0 p-0 m-0 min-w-0" data-step={QUESTIONS.length + 1} hidden>
+          <legend class="sr-only">About the business</legend>
+          <p class="label">About the business</p>
+          <h2 class="display display-3 max-w-[30ch]">Four quick ones, so the roadmap fits.</h2>
+
+          <div class="field">
+            <label for="businesses">How many businesses are you running right now?</label>
+            <select class="input" id="businesses" name="businesses">
+              <option value="" selected disabled>Pick one</option>
+              {BUSINESSES.map((b) => <option value={b.value}>{b.label}</option>)}
+            </select>
+            <span class="hint" data-multi hidden>Answer the rest for the one that takes most of your time.</span>
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div class="field">
+              <label for="revenue_band">Monthly revenue</label>
+              <select class="input" id="revenue_band" name="revenue_band">
+                <option value="" selected disabled>Pick one</option>
+                {REVENUE_BANDS.map((r) => <option value={r}>{r}</option>)}
+              </select>
+            </div>
+            <div class="field">
+              <label for="team_size">Team size</label>
+              <select class="input" id="team_size" name="team_size">
+                <option value="" selected disabled>Pick one</option>
+                {TEAM_SIZES.map((t) => <option value={t}>{t}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="one_liner">In a line, what does the business do?</label>
+            <input class="input" id="one_liner" name="one_liner" type="text" maxlength="200" />
+          </div>
+
+          <div>
+            <button type="button" class="btn btn-primary" data-next>
+              Continue<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span>
+            </button>
+          </div>
+        </fieldset>
+
+        <!-- where to send it -->
+        <fieldset class="rm-step grid gap-5 border-0 p-0 m-0 min-w-0" data-step={TOTAL_STEPS} hidden>
+          <legend class="sr-only">Where to send it</legend>
+          <p class="label">Last step</p>
+          <h2 class="display display-3 max-w-[30ch]">Where should I send it?</h2>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div class="field">
+              <label for="first_name">First name</label>
+              <input class="input" id="first_name" name="first_name" type="text" autocomplete="given-name" required />
+              <span class="error" data-error-for="first_name" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input
+                class="input"
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                inputmode="email"
+                required
+              />
+              <span class="error" data-error-for="email" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <!-- Seen by a form-filling bot, never by a person. -->
+          <div class="absolute -left-[9999px] opacity-0 h-0 overflow-hidden" aria-hidden="true">
+            <label for="company_website">Company website</label>
+            <input id="company_website" name="company_website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark"></div>
+
+          <div>
+            <button type="submit" class="btn btn-primary" data-submit>
+              Send me the roadmap<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span>
+            </button>
+            <p class="mt-3 text-[0.85rem] text-text-3">
+              One email with the roadmap, then a few over the next two weeks. One click to leave, any time.
+            </p>
+          </div>
+          <p class="text-[0.9rem] text-danger-ink" data-status aria-live="polite"></p>
+        </fieldset>
+
+        <div>
+          <button type="button" class="link text-text-3 text-[0.85rem] justify-self-start" data-back hidden>
+            &larr; Back
+          </button>
+        </div>
+      </form>
+
+      <!-- ── the result ───────────────────────────────────────────────── -->
+      <div id="rm-result" hidden class="grid gap-8">
+        <div>
+          <p class="label">You are here</p>
+          <h1 class="display display-1 mt-4" data-result-stage></h1>
+          <p class="mt-4 text-[1.1rem] leading-[1.6] text-text-2 max-w-[46ch]" data-result-bottleneck></p>
+        </div>
+
+        <div class="rule pt-6 grid gap-3">
+          <h2 class="display display-4">Your profile</h2>
+          <ul class="grid gap-2" data-result-scores></ul>
+        </div>
+
+        <div class="rule pt-6 grid gap-3" data-result-skipped-wrap hidden>
+          <h2 class="display display-4">You've skipped a step</h2>
+          <ul class="grid gap-2 text-text-2" data-result-skipped></ul>
+        </div>
+
+        <div class="rule pt-6 grid gap-3" data-result-gut-wrap hidden>
+          <h2 class="display display-4">Your gut said something else</h2>
+          <p class="text-text-2" data-result-gut></p>
+        </div>
+
+        <div class="rule pt-6 grid gap-3" data-result-multi-wrap hidden>
+          <h2 class="display display-4" data-result-multi-head></h2>
+          <div class="grid gap-3 text-text-2">
+            <p>The stage above is one of them. The dependency isn't.</p>
+            <p>
+              Whatever this one needs you for, the others need in the same week, from the same person. Adding a business
+              doesn't spread the load. It stacks it.
+            </p>
+            <p>
+              Fix it where it hurts most. Written work, decision rules and checks move to the next business almost
+              unchanged. The second business is where you find out whether you fixed the system or yourself.
+            </p>
+          </div>
+        </div>
+
+        <div class="rule pt-6 grid gap-4">
+          <p class="text-text-2" data-result-sent></p>
+          <div class="flex flex-wrap gap-3">
+            <a class="btn btn-primary" data-result-pdf href="#" hidden target="_blank" rel="noopener">
+              Read it now<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span>
+            </a>
+            <a class="btn btn-ghost" href="/">Back to the site</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
+<script>
+  import "../scripts/roadmap";
+</script>
