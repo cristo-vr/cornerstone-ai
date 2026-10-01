@@ -22,3 +22,5 @@
 /unlock/*             /            301
 /blog                 /simple-systems  301
 /blog/*               /simple-systems  301
+/roadmap              /simple-systems  302
+/roadmap/             /simple-systems  302
