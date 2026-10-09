@@ -133,7 +133,6 @@ const PIXEL_ID = "1412498887021989";
                 <label for="fx-company">Company</label>
                 <input id="fx-company" type="text" tabindex="-1" autocomplete="off" />
               </div>
-              <div class="fx-turnstile mt-4"></div>
             </fieldset>
 
             <!-- 2. stage: hard gate -->
@@ -201,7 +200,10 @@ const PIXEL_ID = "1412498887021989";
               <legend class="fx-q">Last thing. Where do I confirm your call?</legend>
               <div class="field mt-5">
                 <label for="fx-phone">WhatsApp number</label>
-                <input id="fx-phone" class="input" type="tel" autocomplete="tel" inputmode="tel" maxlength="40" placeholder="+27 ..." required />
+                <div class="fx-phone">
+                  <select id="fx-country" class="input" aria-label="Country code" autocomplete="tel-country-code"></select>
+                  <input id="fx-phone" class="input" type="tel" autocomplete="tel-national" inputmode="tel" maxlength="24" required />
+                </div>
               </div>
               <div class="field mt-4">
                 <label for="fx-site">Business website</label>
@@ -222,6 +224,8 @@ const PIXEL_ID = "1412498887021989";
                 <p class="text-text">You picked <strong id="fx-picked"></strong>.</p>
               </div>
             </fieldset>
+
+            <div id="fx-turnstile" class="fx-ts" aria-live="polite"></div>
 
             <p id="fx-error" class="mt-4 min-h-[1.2em] text-[0.92rem] text-danger-ink" role="alert"></p>
 
@@ -300,6 +304,10 @@ const PIXEL_ID = "1412498887021989";
   .fx-times { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.2rem, 1fr)); gap: 0.5rem; }
   .fx-time { padding: 0.65rem 0.5rem; text-align: center; font-variant-numeric: tabular-nums; }
 
+  .fx-ts { max-height: 0; overflow: hidden; transition: max-height 200ms ease; }
+  .fx-ts.is-open { max-height: 120px; margin-top: 1rem; }
+  .fx-phone { display: grid; grid-template-columns: minmax(7.5rem, 9.5rem) 1fr; gap: 0.5rem; }
+  .fx-phone select { padding-right: 0.5rem; }
   .fx-sticky { position: fixed; inset-inline: 0; bottom: 0; z-index: 40; padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom)); background: linear-gradient(to top, var(--color-ground) 70%, transparent); }
 </style>
 

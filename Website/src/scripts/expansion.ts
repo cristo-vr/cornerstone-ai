@@ -14,7 +14,11 @@
  * marked internal for good (?internal=0 undoes it). The panel leaves those out.
  */
 
-export {};
+import { DIAL_CODES, flag, toE164 } from "../lib/dial-codes";
+
+/** Same patterns Mason checks server side. */
+const EMAIL_RE = /^[a-z0-9._%+'-]+@[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,24}$/i;
+const WEBSITE_RE = /^(https?:\/\/)?([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,24}(:\d{2,5})?(\/\S*)?$/i;
 
 const API = "https://aios.cornerstone-ai.pro/api/public/funnel";
 const CAL = "https://cal.cornerstone-ai.pro/api/cal/cristo/expansion-call";
@@ -183,28 +187,44 @@ if (vsl && video && start) {
     v.src = mp4Url;
   };
 
+  // hls.js wherever Media Source exists (every desktop browser, Android, and
+  // iOS 17.1+). Chrome's own HLS player started on the 480p rendition and was
+  // slow to climb, which read as a soft video. Native HLS only for older iOS.
   async function attach(): Promise<void> {
-    if (v.canPlayType("application/vnd.apple.mpegurl")) {
-      v.src = hlsUrl; // Safari and iOS play HLS natively
-      return;
-    }
-    try {
-      await loadScript(HLS_JS);
-      if (window.Hls?.isSupported()) {
-        const hls = new window.Hls({ capLevelToPlayerSize: true, startLevel: -1 });
-        hls.on(window.Hls.Events.ERROR, (_e: unknown, data: { fatal?: boolean }) => {
-          if (data?.fatal) {
-            hls.destroy();
-            useMp4();
-            v.play().catch(() => {});
-          }
-        });
-        hls.loadSource(hlsUrl);
-        hls.attachMedia(v);
-        return;
+    const mse = "MediaSource" in window || "ManagedMediaSource" in window;
+    if (mse) {
+      try {
+        await loadScript(HLS_JS);
+        if (window.Hls?.isSupported()) {
+          const hls = new window.Hls({
+            capLevelToPlayerSize: true,
+            // Assume a decent connection until measured, so it opens sharp and
+            // only steps down if the line really can't keep up.
+            abrEwmaDefaultEstimate: 6_000_000,
+            maxBufferLength: 30,
+          });
+          hls.on(window.Hls.Events.ERROR, (_e: unknown, data: { fatal?: boolean }) => {
+            if (data?.fatal) {
+              hls.destroy();
+              useMp4();
+              v.play().catch(() => {});
+            }
+          });
+          hls.on(window.Hls.Events.LEVEL_SWITCHED, (_e: unknown, data: { level: number }) => {
+            const h = hls.levels?.[data.level]?.height;
+            if (h) track("video_quality", { height: h });
+          });
+          hls.loadSource(hlsUrl);
+          hls.attachMedia(v);
+          return;
+        }
+      } catch {
+        /* fall through */
       }
-    } catch {
-      /* fall back to the single file */
+    }
+    if (v.canPlayType("application/vnd.apple.mpegurl")) {
+      v.src = hlsUrl;
+      return;
     }
     useMp4();
   }
@@ -287,14 +307,27 @@ let tsWaiters: Array<(t: string | null) => void> = [];
 
 function mountTurnstile() {
   if (document.getElementById("cf-turnstile-script")) return;
-  const slot = document.querySelector<HTMLElement>(".fx-turnstile");
+  const slot = document.getElementById("fx-turnstile");
   if (!slot) return;
   window.__fxTurnstileReady = () => {
     tsWidget = window.turnstile?.render(slot, {
       sitekey: TURNSTILE_SITE_KEY,
       appearance: "interaction-only",
+      retry: "auto",
+      "retry-interval": 1500,
+      "refresh-expired": "auto",
+      // The box only shows when Cloudflare genuinely wants a click. A failed
+      // first attempt retries on its own and is never shown: the server keeps
+      // the lead either way, it just won't email one that never verified.
+      "before-interactive-callback": () => {
+        slot.classList.add("is-open");
+      },
+      "after-interactive-callback": () => {
+        slot.classList.remove("is-open");
+      },
       callback: (t: string) => {
         tsToken = t;
+        slot.classList.remove("is-open");
         tsWaiters.splice(0).forEach((w) => w(t));
       },
       "expired-callback": () => {
@@ -302,7 +335,9 @@ function mountTurnstile() {
       },
       "error-callback": () => {
         tsToken = null;
-        tsWaiters.splice(0).forEach((w) => w(null));
+        slot.classList.remove("is-open");
+        // Returning true tells Turnstile we've handled it: no error UI.
+        return true;
       },
     });
   };
@@ -351,6 +386,36 @@ if (form) {
   const done = document.getElementById("fx-done")!;
   const notyet = document.getElementById("fx-notyet")!;
   const answers: Record<string, string | string[]> = {};
+
+  // ── the country picker for WhatsApp ──
+  // Defaults to where Cloudflare says they are (sent back by Mason when the
+  // lead is captured), then their browser's region, then South Africa. Names
+  // come from the browser, in the visitor's own language.
+  const countryEl = document.getElementById("fx-country") as HTMLSelectElement;
+  const phoneInput = document.getElementById("fx-phone") as HTMLInputElement;
+  (() => {
+    let names: Intl.DisplayNames | null = null;
+    try {
+      names = new Intl.DisplayNames([navigator.language || "en"], { type: "region" });
+    } catch {
+      /* very old browser: codes only */
+    }
+    const opts = DIAL_CODES.map((c) => ({ ...c, name: names?.of(c.iso) ?? c.iso })).sort((a, b) => a.name.localeCompare(b.name));
+    countryEl.innerHTML = opts.map((c) => `<option value="${c.iso}">${flag(c.iso)} +${c.dial}  ${c.name}</option>`).join("");
+  })();
+  const setCountry = (iso: unknown) => {
+    if (typeof iso !== "string") return false;
+    const up = iso.toUpperCase();
+    if (!DIAL_CODES.some((c) => c.iso === up)) return false;
+    countryEl.value = up;
+    syncPlaceholder();
+    return true;
+  };
+  const syncPlaceholder = () => {
+    phoneInput.placeholder = countryEl.value === "ZA" ? "e.g. 082 123 4567" : "Your number";
+  };
+  countryEl.addEventListener("change", syncPlaceholder);
+  setCountry((navigator.language || "").split("-")[1]) || setCountry("ZA");
   const breaking = new Set<string>();
   let step = 1;
   let lead: Lead | null = null;
@@ -469,7 +534,7 @@ if (form) {
     const name = (document.getElementById("fx-name") as HTMLInputElement).value.trim();
     const email = (document.getElementById("fx-email") as HTMLInputElement).value.trim();
     if (!name) return fail("What should I call you?");
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fail("That email doesn't look right.");
+    if (!EMAIL_RE.test(email)) return fail("That email doesn't look right. Check for a typo.");
     setBusy(true, "One moment");
     try {
       const data = await post({
@@ -487,6 +552,7 @@ if (form) {
       });
       lead = { id: String(data.lead_id), token: String(data.token), status: String(data.status) };
       saveLead();
+      setCountry(data.country);
       track("lead_captured");
       if (!data.returning) pixel("track", "Lead", {}, { eventID: `lead:${lead.id}` });
       if (data.returning) restore(data);
@@ -500,6 +566,7 @@ if (form) {
 
   /** Someone we already know: put their answers back and send them onward. */
   function restore(data: Dict, focus = true) {
+    setCountry(data.country);
     const prev = (data.answers ?? {}) as Dict;
     for (const k of ["stage", "revenue", "authority", "urgency"]) {
       if (typeof prev[k] === "string") {
@@ -608,10 +675,24 @@ if (form) {
       return show(4);
     }
     if (step === 7) {
-      const phone = (document.getElementById("fx-phone") as HTMLInputElement).value.trim();
-      const site = (document.getElementById("fx-site") as HTMLInputElement).value.trim();
-      if (phone.replace(/\D/g, "").length < 8) return fail("I need a number to confirm the call on.");
+      const phoneEl = document.getElementById("fx-phone") as HTMLInputElement;
+      const siteEl = document.getElementById("fx-site") as HTMLInputElement;
+      const e164 = toE164(countryEl.value, phoneEl.value);
+      if (!e164.ok) {
+        phoneEl.setAttribute("aria-invalid", "true");
+        phoneEl.focus();
+        return fail(e164.error);
+      }
+      phoneEl.setAttribute("aria-invalid", "false");
+      const site = siteEl.value.trim().replace(/\/+$/, "");
       if (!site) return fail("Add your website so I can look before we speak.");
+      if (!WEBSITE_RE.test(site)) {
+        siteEl.setAttribute("aria-invalid", "true");
+        siteEl.focus();
+        return fail("That website doesn't look right, e.g. yourbusiness.com");
+      }
+      siteEl.setAttribute("aria-invalid", "false");
+      const phone = e164.value;
       setBusy(true, "One moment");
       try {
         const data = await save({ phone, website: site }, true);
@@ -730,7 +811,7 @@ if (form) {
       `Decides: ${label(`.fx-opt[data-field="authority"][data-value="${answers.authority}"]`)}`,
       `Urgency: ${label(`.fx-opt[data-field="urgency"][data-value="${answers.urgency}"]`)}`,
       `Website: ${(document.getElementById("fx-site") as HTMLInputElement).value.trim()}`,
-      `WhatsApp: ${(document.getElementById("fx-phone") as HTMLInputElement).value.trim()}`,
+      `WhatsApp: ${(() => { const r = toE164(countryEl.value, (document.getElementById("fx-phone") as HTMLInputElement).value); return r.ok ? r.value : ""; })()}`,
     ];
     const chips = [...breaking].map((b) => form!.querySelector<HTMLElement>(`.fx-chip[data-value="${CSS.escape(b)}"]`)?.textContent?.trim() || b);
     if (chips.length) lines.push(`In the way: ${chips.join("; ")}`);
