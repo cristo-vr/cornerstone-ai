@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import Mark from "../components/Mark.astro";
 
 interface Props {
   title: string;
@@ -15,6 +16,9 @@ interface Props {
   noindex?: boolean;
   /** Extra JSON-LD blocks for this page. */
   jsonLd?: Record<string, unknown>[];
+  /** A paid landing page: logo only, no menu, a one-line footer. Nothing on the
+   *  page leads anywhere but the page's own ask. */
+  bare?: boolean;
 }
 
 const {
@@ -25,6 +29,7 @@ const {
   minimal = false,
   noindex = false,
   jsonLd = [],
+  bare = false,
 } = Astro.props;
 
 const site = Astro.site ?? new URL("https://cornerstone-ai.pro");
@@ -83,6 +88,7 @@ const org = {
     {jsonLd.map((block) => (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(block)} />
     ))}
+    <slot name="head" />
   </head>
   <body class="grain">
     <!-- The rough-cast filter, declared once for every mark on the page. -->
@@ -97,14 +103,37 @@ const org = {
 
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-ground focus:px-4 focus:py-2 focus:border focus:border-text">Skip to content</a>
 
-    <Nav home={home} minimal={minimal} />
+    {bare ? (
+      <header class="absolute inset-x-0 top-0 z-50">
+        <div class="wrap flex items-center justify-center md:justify-start" style="height: var(--nav-h)">
+          <span class="flex items-center gap-3" aria-label="Cornerstone AI">
+            <Mark size={30} rough={true} />
+            <span class="display text-[1.35rem] tracking-[0.05em] leading-none translate-y-[1px]">Cornerstone</span>
+          </span>
+        </div>
+      </header>
+    ) : (
+      <Nav home={home} minimal={minimal} />
+    )}
 
     <main id="main">
       <slot />
     </main>
 
-    <Footer />
+    {bare ? (
+      <footer class="border-t border-line py-8">
+        <div class="wrap flex flex-wrap items-center justify-between gap-4 text-[0.85rem] text-text-3">
+          <span>&copy; {new Date().getFullYear()} Cornerstone AI</span>
+          <span class="flex gap-5">
+            <a class="link" href="/privacy">Privacy</a>
+            <a class="link" href="/terms">Terms</a>
+          </span>
+        </div>
+      </footer>
+    ) : (
+      <Footer />
+    )}
 
-    <script src="../scripts/site.ts"></script>
+    {!bare && <script src="../scripts/site.ts"></script>}
   </body>
 </html>

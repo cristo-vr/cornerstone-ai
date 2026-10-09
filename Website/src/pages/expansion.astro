@@ -1,0 +1,306 @@
+---
+import Base from "../layouts/Base.astro";
+
+/**
+ * /expansion: the VSL page. Headline, the video, one ask.
+ *
+ * The form under the video is the booking: name and email first (saved the
+ * moment they continue, so nobody who leaves is lost), five quick questions,
+ * then a calendar drawn straight from Mason's booking service. Everything a
+ * visitor does is counted by Mason itself (src/scripts/expansion.ts posts to
+ * aios.cornerstone-ai.pro/api/public/funnel/*), not by Cloudflare.
+ *
+ * Copy rules: matches what the VSL says, no price, no invented proof, no dashes.
+ */
+
+const title = "Take on more clients without a bigger team | Cornerstone AI";
+const description =
+  "For founders at capacity. Watch how I find the bottlenecks capping your growth and build the system your business runs on, then book a call.";
+
+const MEDIA = "https://media.cornerstone-ai.pro/vsl/expansion-v2";
+const PIXEL_ID = "1412498887021989";
+---
+<Base title={title} description={description} bare noindex>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://media.cornerstone-ai.pro" crossorigin />
+    <link rel="preconnect" href="https://aios.cornerstone-ai.pro" crossorigin />
+    <link rel="preload" as="image" href={`${MEDIA}/poster.jpg`} />
+    <script is:inline define:vars={{ PIXEL_ID }}>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', PIXEL_ID);
+      fbq('track', 'PageView');
+    </script>
+  </Fragment>
+
+  <!-- ── Hero: the offer, the video, the ask ─────────────────────────────── -->
+  <section class="wrap pb-16 md:pb-20" style="padding-top: calc(var(--nav-h) + 1.5rem)">
+    <div class="mx-auto max-w-[60rem] text-center">
+      <p class="label rise">For founders at capacity</p>
+      <h1 class="display mt-4 rise text-[clamp(2.6rem,7vw,5.6rem)] leading-[0.92]" style="--d: 80ms">
+        Take on more clients <span class="brass">without a bigger team.</span>
+      </h1>
+      <p class="mx-auto mt-5 max-w-[46ch] text-[1.12rem] leading-[1.55] text-text-2 rise" style="--d: 160ms">
+        Your offer works and your clients love the work. The business just can't carry more while it runs on you. Watch this first.
+      </p>
+    </div>
+
+    <div class="mx-auto mt-8 max-w-[60rem] rise" style="--d: 240ms">
+      <div id="vsl" class="vsl relative aspect-video w-full overflow-hidden border border-line-2 bg-sunken" data-media={MEDIA}>
+        <video
+          id="vsl-video"
+          class="absolute inset-0 h-full w-full"
+          poster={`${MEDIA}/poster.jpg`}
+          preload="none"
+          playsinline
+          controls
+          controlslist="nodownload noplaybackrate"
+          disablepictureinpicture
+          hidden
+        ></video>
+        <button id="vsl-start" type="button" class="vsl-start absolute inset-0 grid place-items-center" aria-label="Play the video, about 7 minutes">
+          <img src={`${MEDIA}/poster.jpg`} alt="" class="absolute inset-0 h-full w-full object-cover" fetchpriority="high" />
+          <span class="absolute inset-0 bg-gradient-to-t from-ground/85 via-ground/25 to-ground/10" aria-hidden="true"></span>
+          <span class="vsl-play relative grid h-16 w-16 place-items-center rounded-full bg-accent md:h-24 md:w-24" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="ml-1 h-6 w-6 md:h-9 md:w-9"><path d="M6 4l14 8-14 8z" fill="#141310" /></svg>
+          </span>
+          <span class="label absolute bottom-3 md:bottom-5 inset-x-0 text-center text-text text-[0.62rem] md:text-[0.72rem]">Watch first &middot; 7 min &middot; sound on</span>
+        </button>
+      </div>
+
+      <div class="mt-8 flex flex-col items-center gap-3">
+        <a href="#book" class="btn btn-primary text-[1rem]" data-cta="hero">Book your call<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></a>
+        <p class="text-[0.9rem] text-text-3">Free &middot; 45 minutes &middot; takes about two minutes to book</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Fit ──────────────────────────────────────────────────────────────── -->
+  <section class="border-t border-line">
+    <div class="wrap py-16 md:py-20">
+      <div class="mx-auto grid max-w-[60rem] gap-10 md:grid-cols-2">
+        <div>
+          <h2 class="display display-4">This is for you if</h2>
+          <ul class="fit-list mt-5 grid gap-3 text-text-2">
+            <li>Your offer is proven and your clients love the work.</li>
+            <li>You're saying no to work you could do, or dreading the next hire.</li>
+            <li>Everything still runs through you, and you're the one catching what slips.</li>
+            <li>You and your team will put in the time to actually run on the system.</li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="display display-4">It isn't if</h2>
+          <ul class="fit-list is-no mt-5 grid gap-3 text-text-2">
+            <li>You're still figuring out your offer.</li>
+            <li>Your real problem is leads and sales. You're not at capacity yet.</li>
+            <li>You want a cool AI tool, not a business that runs better.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Book ─────────────────────────────────────────────────────────────── -->
+  <section id="book" class="border-t border-line bg-surface scroll-mt-4">
+    <div class="wrap py-16 md:py-24">
+      <div class="mx-auto max-w-[40rem]">
+        <h2 class="display display-3 text-center">Book your call</h2>
+        <ul class="mx-auto mt-5 grid max-w-[34rem] gap-2 text-[0.98rem] text-text-2">
+          <li class="flex gap-3"><span class="brass" aria-hidden="true">01</span>We look at the bottlenecks you're facing right now.</li>
+          <li class="flex gap-3"><span class="brass" aria-hidden="true">02</span>I show you real systems I've built for other founders, and what they did for them.</li>
+          <li class="flex gap-3"><span class="brass" aria-hidden="true">03</span>You leave with the clearest picture you've had of the system your business needs, whether we work together or not.</li>
+        </ul>
+
+        <div id="fx" class="fx mt-10 border border-line-2 bg-ground p-6 md:p-8">
+          <div class="fx-progress" aria-hidden="true"><span id="fx-bar"></span></div>
+
+          <form id="fx-form" novalidate>
+            <!-- 1. who -->
+            <fieldset class="fx-step" data-step="1" data-name="contact">
+              <legend class="fx-q">Let's start with you.</legend>
+              <div class="field mt-5">
+                <label for="fx-name">First name</label>
+                <input id="fx-name" class="input" type="text" autocomplete="given-name" maxlength="120" required />
+              </div>
+              <div class="field mt-4">
+                <label for="fx-email">Email</label>
+                <input id="fx-email" class="input" type="email" autocomplete="email" inputmode="email" maxlength="320" required />
+              </div>
+              <div class="absolute -left-[9999px]" aria-hidden="true">
+                <label for="fx-company">Company</label>
+                <input id="fx-company" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+              <div class="fx-turnstile mt-4"></div>
+            </fieldset>
+
+            <!-- 2. stage: hard gate -->
+            <fieldset class="fx-step" data-step="2" data-name="stage" data-auto hidden>
+              <legend class="fx-q">Which sounds most like you?</legend>
+              <div class="fx-opts mt-5">
+                <button type="button" class="fx-opt" data-field="stage" data-value="fit">My offer is proven and clients love the work. The day to day is what's holding us back.</button>
+                <button type="button" class="fx-opt" data-field="stage" data-value="demand">I'm mostly trying to get more leads and sales right now.</button>
+                <button type="button" class="fx-opt" data-field="stage" data-value="early">I'm still figuring out my offer.</button>
+              </div>
+            </fieldset>
+
+            <!-- 3. what's in the way: optional, multi -->
+            <fieldset class="fx-step" data-step="3" data-name="breaking" hidden>
+              <legend class="fx-q">What's getting in the way right now?</legend>
+              <p class="mt-1 text-[0.9rem] text-text-3">Pick any that apply, or add your own.</p>
+              <div class="fx-chips mt-5" id="fx-chips">
+                <button type="button" class="fx-chip" data-value="capacity" aria-pressed="false">We can't take on more work without things slipping</button>
+                <button type="button" class="fx-chip" data-value="founder" aria-pressed="false">Everything still runs through me</button>
+                <button type="button" class="fx-chip" data-value="scattered" aria-pressed="false">Our info and tools are scattered everywhere</button>
+                <button type="button" class="fx-chip" data-value="visibility" aria-pressed="false">I can't see what's actually happening each week</button>
+                <button type="button" class="fx-chip" data-value="hiring" aria-pressed="false">Hiring feels like more chaos, not more capacity</button>
+                <button type="button" class="fx-chip" data-value="admin" aria-pressed="false">Too much of our week goes on admin</button>
+              </div>
+              <div class="mt-3 flex gap-2">
+                <input id="fx-other" class="input" type="text" maxlength="160" placeholder="Something else? Type it and press Add" aria-label="Add your own" />
+                <button type="button" id="fx-add" class="btn btn-ghost shrink-0">Add</button>
+              </div>
+            </fieldset>
+
+            <!-- 4. revenue: hard gate at $20k -->
+            <fieldset class="fx-step" data-step="4" data-name="revenue" data-auto hidden>
+              <legend class="fx-q">Roughly what does the business bring in each month?</legend>
+              <div class="fx-opts fx-opts-2 mt-5">
+                <button type="button" class="fx-opt" data-field="revenue" data-value="u20">Less than $20k</button>
+                <button type="button" class="fx-opt" data-field="revenue" data-value="20-50">$20k to $50k</button>
+                <button type="button" class="fx-opt" data-field="revenue" data-value="50-100">$50k to $100k</button>
+                <button type="button" class="fx-opt" data-field="revenue" data-value="100-250">$100k to $250k</button>
+                <button type="button" class="fx-opt" data-field="revenue" data-value="250+">$250k+</button>
+              </div>
+            </fieldset>
+
+            <!-- 5. authority -->
+            <fieldset class="fx-step" data-step="5" data-name="authority" data-auto hidden>
+              <legend class="fx-q">If we're a fit, who makes the call to get started?</legend>
+              <div class="fx-opts mt-5">
+                <button type="button" class="fx-opt" data-field="authority" data-value="me">Me</button>
+                <button type="button" class="fx-opt" data-field="authority" data-value="partner">Me, together with a partner or co-founder</button>
+                <button type="button" class="fx-opt" data-field="authority" data-value="other">Someone else in the business</button>
+              </div>
+            </fieldset>
+
+            <!-- 6. urgency -->
+            <fieldset class="fx-step" data-step="6" data-name="urgency" data-auto hidden>
+              <legend class="fx-q">How urgent is getting your business onto a system it can scale with?</legend>
+              <div class="fx-opts mt-5">
+                <button type="button" class="fx-opt" data-field="urgency" data-value="now">Urgent. It's holding us back right now.</button>
+                <button type="button" class="fx-opt" data-field="urgency" data-value="soon">Important, and I want it sorted in the next few months.</button>
+                <button type="button" class="fx-opt" data-field="urgency" data-value="exploring">I'm just exploring for now.</button>
+              </div>
+            </fieldset>
+
+            <!-- 7. where to confirm -->
+            <fieldset class="fx-step" data-step="7" data-name="details" hidden>
+              <legend class="fx-q">Last thing. Where do I confirm your call?</legend>
+              <div class="field mt-5">
+                <label for="fx-phone">WhatsApp number</label>
+                <input id="fx-phone" class="input" type="tel" autocomplete="tel" inputmode="tel" maxlength="40" placeholder="+27 ..." required />
+              </div>
+              <div class="field mt-4">
+                <label for="fx-site">Business website</label>
+                <input id="fx-site" class="input" type="text" inputmode="url" autocomplete="url" maxlength="300" placeholder="yourbusiness.com" required />
+              </div>
+            </fieldset>
+
+            <!-- 8. the calendar -->
+            <fieldset class="fx-step" data-step="8" data-name="calendar" hidden>
+              <legend class="fx-q">Pick a time that works.</legend>
+              <p class="mt-1 text-[0.9rem] text-text-3">Times are in <span id="fx-tz">your time zone</span>. 45 minutes on Google Meet.</p>
+              <div id="fx-cal" class="mt-5">
+                <p class="text-text-3" id="fx-cal-loading">Finding open times&hellip;</p>
+                <div id="fx-days" class="fx-days" hidden></div>
+                <div id="fx-times" class="fx-times mt-4" hidden></div>
+              </div>
+              <div id="fx-confirm" class="mt-6 border-t border-line-2 pt-5" hidden>
+                <p class="text-text">You picked <strong id="fx-picked"></strong>.</p>
+              </div>
+            </fieldset>
+
+            <p id="fx-error" class="mt-4 min-h-[1.2em] text-[0.92rem] text-danger-ink" role="alert"></p>
+
+            <div class="mt-4 flex items-center justify-between gap-4">
+              <button type="button" id="fx-back" class="text-[0.92rem] text-text-2 underline underline-offset-4" hidden>Back</button>
+              <span></span>
+              <button type="submit" id="fx-next" class="btn btn-primary">Continue<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></button>
+            </div>
+          </form>
+
+          <!-- done -->
+          <div id="fx-done" class="text-center" hidden tabindex="-1">
+            <h3 class="display display-4">You're booked.</h3>
+            <p class="mt-4 text-text-2" id="fx-done-when"></p>
+            <p class="mt-3 text-text-2">The calendar invite with the Google Meet link is on its way to your inbox. I'll also send a short email asking you to confirm, so please keep an eye out for it.</p>
+            <p class="mt-3 text-text-2" id="fx-done-partner" hidden>You mentioned you decide with a partner. Bring them onto the call so you can both see the same picture.</p>
+          </div>
+
+          <!-- not yet -->
+          <div id="fx-notyet" class="text-center" hidden tabindex="-1">
+            <h3 class="display display-4">Not quite yet.</h3>
+            <p class="mt-4 text-text-2" id="fx-notyet-why">This works best once the offer is proven and the business is established. Right now a system isn't the thing that will move you forward.</p>
+            <p class="mt-4 text-text-2">In the meantime, <a class="link text-text" href="/simple-systems">Simple Systems</a> is my free founder journal on scaling by simplifying. I'll send you a note about it too.</p>
+            <button type="button" id="fx-notyet-back" class="mt-6 text-[0.92rem] text-text-2 underline underline-offset-4">I picked the wrong answer</button>
+          </div>
+        </div>
+
+        <p class="mt-6 text-center text-[0.85rem] text-text-3">
+          Your answers only go to me, and I use them to prepare for the call. <a class="link" href="/privacy">Privacy</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- A thumb-reach ask on phones, only between the video and the form. -->
+  <div id="fx-sticky" class="fx-sticky md:hidden" hidden>
+    <a href="#book" class="btn btn-primary w-full justify-center" data-cta="sticky">Book your call<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></a>
+  </div>
+</Base>
+
+<style>
+  .vsl-start { cursor: pointer; }
+  .vsl-play { transition: transform 220ms var(--ease-out); box-shadow: 0 0 0 10px rgb(209 162 79 / 0.18); }
+  .vsl-start:hover .vsl-play, .vsl-start:focus-visible .vsl-play { transform: scale(1.06); }
+  .vsl-start:focus-visible { outline: 2px solid var(--color-accent-lt); outline-offset: -4px; }
+  @media (prefers-reduced-motion: reduce) { .vsl-play { transition: none; } }
+
+  .fit-list li { position: relative; padding-left: 1.6rem; }
+  .fit-list li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 0.7rem; height: 2px; background: var(--color-accent); }
+  .fit-list.is-no li::before { background: var(--color-line-4); }
+
+  .fx-progress { height: 4px; background: var(--color-line-2); margin-bottom: 1.75rem; }
+  .fx-progress span { display: block; height: 100%; width: 0; background: var(--color-accent); transition: width 300ms var(--ease-out); }
+  .fx-step { border: 0; padding: 0; margin: 0; min-width: 0; }
+  .fx-q { font-size: clamp(1.25rem, 2.4vw, 1.5rem); font-weight: 650; line-height: 1.3; color: var(--color-text); padding: 0; }
+  .fx-opts { display: grid; gap: 0.6rem; }
+  .fx-opts-2 { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 520px) { .fx-opts-2 { grid-template-columns: 1fr; } }
+  .fx-opt, .fx-chip, .fx-day, .fx-time {
+    text-align: left; border: 1px solid var(--color-line-3); background: var(--color-surface);
+    color: var(--color-text-2); transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .fx-opt { padding: 0.95rem 1.1rem; font-size: 1rem; line-height: 1.4; }
+  .fx-opt:hover, .fx-chip:hover, .fx-day:hover, .fx-time:hover { border-color: var(--color-line-4); color: var(--color-text); }
+  .fx-opt.is-picked, .fx-chip[aria-pressed="true"], .fx-day.is-picked, .fx-time.is-picked {
+    border-color: var(--color-accent); background: rgb(209 162 79 / 0.12); color: var(--color-text);
+  }
+  .fx-opt:focus-visible, .fx-chip:focus-visible, .fx-day:focus-visible, .fx-time:focus-visible { outline: 2px solid var(--color-accent-lt); outline-offset: 2px; }
+  .fx-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .fx-chip { padding: 0.6rem 0.85rem; font-size: 0.92rem; }
+  .fx-chip[aria-pressed="true"]::before { content: "\2713\00a0"; color: var(--color-accent-lt); font-weight: 800; }
+  .fx-days { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.25rem; scrollbar-width: thin; }
+  .fx-day { flex: 0 0 auto; min-width: 5.2rem; padding: 0.6rem 0.75rem; text-align: center; font-size: 0.88rem; line-height: 1.3; }
+  .fx-day b { display: block; font-size: 1.05rem; color: var(--color-text); }
+  .fx-times { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.2rem, 1fr)); gap: 0.5rem; }
+  .fx-time { padding: 0.65rem 0.5rem; text-align: center; font-variant-numeric: tabular-nums; }
+
+  .fx-sticky { position: fixed; inset-inline: 0; bottom: 0; z-index: 40; padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom)); background: linear-gradient(to top, var(--color-ground) 70%, transparent); }
+</style>
+
+<script src="../scripts/expansion.ts"></script>
