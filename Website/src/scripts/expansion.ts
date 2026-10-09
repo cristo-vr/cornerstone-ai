@@ -394,7 +394,9 @@ if (form) {
     next.hidden = auto;
     next.innerHTML = nextLabel();
     next.disabled = n === 8 && !picked;
-    if (!shown.has(n)) {
+    // Step 1 is on screen for every visitor; it counts once they touch the
+    // form (form_start), so the step chart starts with real intent.
+    if (!shown.has(n) && (n > 1 || started)) {
       shown.add(n);
       track("form_step", { step: n });
     }
