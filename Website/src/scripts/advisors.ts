@@ -6,7 +6,7 @@
  * gates are run here only to pick the next screen, Mason runs them again.
  */
 
-import { DIAL_CODES, flag, toE164 } from "../lib/dial-codes";
+import { DIAL_CODES, toE164 } from "../lib/dial-codes";
 import { QUESTIONS, TOTAL_STEPS, DISQUALIFY_COPY, gate, summarise, type DisqualifyReason } from "../lib/advisor-questions";
 import { CONTACT_EMAIL, FUNNEL } from "../lib/advisors-config";
 import {
@@ -203,6 +203,7 @@ if (form) {
   const progress = $("ax-progress");
   const err = $("ax-error");
   const back = $<HTMLButtonElement>("ax-back");
+  const actions = $("ax-actions");
   const next = $<HTMLButtonElement>("ax-next");
   const resumeNote = $("ax-resume");
   const nameEl = $<HTMLInputElement>("ax-name");
@@ -254,6 +255,15 @@ if (form) {
     err.textContent = msg;
   };
 
+  /** A field's own error, right under it. */
+  const fieldError = (el: HTMLInputElement, msg: string) => {
+    const hint = $(`${el.id}-err`);
+    el.setAttribute("aria-invalid", String(!!msg));
+    hint.textContent = msg;
+    hint.hidden = !msg;
+  };
+  for (const el of [nameEl, emailEl]) el.addEventListener("input", () => fieldError(el, ""));
+
   const buttonLabel = (n: number) => {
     const q = questionAt(n);
     return `${q?.button ?? "Continue"}${arrow}`;
@@ -262,13 +272,17 @@ if (form) {
   function show(n: number, focus = true) {
     step = n;
     steps.forEach((s) => (s.hidden = Number(s.dataset.step) !== n));
-    bar.style.width = `${Math.round((n / TOTAL_STEPS) * 100)}%`;
+    // Filled by the steps already answered, so step 1 starts empty.
+    bar.style.width = `${Math.round(((n - 1) / TOTAL_STEPS) * 100)}%`;
     progressText.textContent = `Step ${n} of ${TOTAL_STEPS}`;
     back.hidden = n <= 1 || (n === 2 && !!lead);
     err.textContent = "";
     const q = questionAt(n);
     next.hidden = !!q?.auto;
     next.innerHTML = buttonLabel(n);
+    // Auto advance steps have no buttons: drop the empty row and its space.
+    actions.hidden = back.hidden && next.hidden;
+    err.style.minHeight = q?.auto ? "0" : "";
     resumeNote.hidden = Number(resumeNote.dataset.keep || 0) !== n;
     // Step 1 is on screen for every visitor; it counts once they touch it.
     if (!shown.has(n) && (n > 1 || started)) {
@@ -320,17 +334,11 @@ if (form) {
   async function capture() {
     const name = nameEl.value.trim();
     const email = emailEl.value.trim();
-    nameEl.setAttribute("aria-invalid", String(!name));
-    if (!name) {
-      nameEl.focus();
-      return fail("Add your name.");
-    }
     const okEmail = EMAIL_RE.test(email);
-    emailEl.setAttribute("aria-invalid", String(!okEmail));
-    if (!okEmail) {
-      emailEl.focus();
-      return fail("That email doesn't look right.");
-    }
+    fieldError(nameEl, name ? "" : "Add your name.");
+    fieldError(emailEl, okEmail ? "" : "That email doesn't look right.");
+    if (!name) return nameEl.focus();
+    if (!okEmail) return emailEl.focus();
     busy = true;
     next.disabled = true;
     next.textContent = "One moment";
@@ -491,7 +499,7 @@ if (form) {
   // ─── the calendar ─────────────────────────────────────────────────────────
 
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "Africa/Johannesburg";
-  const tzLabel = tz.replace(/_/g, " ");
+  const SA_TZ = tz === "Africa/Johannesburg";
   const daysEl = $("ax-days");
   const timesEl = $("ax-times");
   const loadingEl = $("ax-cal-loading");
@@ -511,12 +519,17 @@ if (form) {
       /* codes only */
     }
     const opts = DIAL_CODES.map((c) => ({ ...c, name: names?.of(c.iso) ?? c.iso })).sort((a, b) => a.name.localeCompare(b.name));
-    countryEl.innerHTML = opts.map((c) => `<option value="${c.iso}">${flag(c.iso)} +${c.dial}  ${c.name}</option>`).join("");
+    // No flag emoji: Windows draws them as the letters "ZA".
+    countryEl.innerHTML = opts.map((c) => `<option value="${c.iso}">${c.name} +${c.dial}</option>`).join("");
     countryEl.value = DIAL_CODES.some((c) => c.iso === "ZA") ? "ZA" : opts[0].iso;
-    phoneEl.placeholder = "e.g. 082 123 4567";
-    countryEl.addEventListener("change", () => {
-      phoneEl.placeholder = countryEl.value === "ZA" ? "e.g. 082 123 4567" : "Your number";
-    });
+    const face = $("ax-cc-label");
+    const sync = () => {
+      const c = DIAL_CODES.find((x) => x.iso === countryEl.value);
+      face.textContent = c ? `+${c.dial}` : "+";
+      phoneEl.placeholder = countryEl.value === "ZA" ? "082 123 4567" : "Your number";
+    };
+    sync();
+    countryEl.addEventListener("change", sync);
   })();
 
   const fmtTime = (iso: string) => new Intl.DateTimeFormat(undefined, { timeZone: tz, hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
@@ -524,6 +537,18 @@ if (form) {
     new Intl.DateTimeFormat(undefined, { timeZone: tz, weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" }).format(
       new Date(iso),
     );
+  /** "SA time" at home, the short zone name ("GMT+1") anywhere else. */
+  const zoneLabel = (iso: string) => {
+    if (SA_TZ) return "SA time";
+    try {
+      const part = new Intl.DateTimeFormat(undefined, { timeZone: tz, timeZoneName: "short" })
+        .formatToParts(new Date(iso))
+        .find((x) => x.type === "timeZoneName");
+      return part?.value ?? tz.replace(/_/g, " ");
+    } catch {
+      return tz.replace(/_/g, " ");
+    }
+  };
   const dayKey = (iso: string) =>
     new Intl.DateTimeFormat("en-CA", { timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(iso));
 
@@ -586,7 +611,15 @@ if (form) {
       if (!first) first = b;
     }
     first?.click();
+    fadeDays();
   }
+
+  /** Fade the right edge while more days sit off screen. */
+  function fadeDays() {
+    daysEl.classList.toggle("is-more", daysEl.scrollLeft + daysEl.clientWidth < daysEl.scrollWidth - 4);
+  }
+  daysEl.addEventListener("scroll", fadeDays, { passive: true });
+  window.addEventListener("resize", fadeDays, { passive: true });
 
   function renderTimes(list: string[]) {
     timesEl.hidden = false;
@@ -661,7 +694,7 @@ if (form) {
       lead.status = "booked";
       saveLead();
       $("ax-done-h").textContent = firstName ? `You're booked, ${firstName}.` : "You're booked.";
-      $("ax-done-when").textContent = `${fmtFull(data.startsAt)} (${tzLabel}) with Cristo. The invite is in your inbox.`;
+      $("ax-done-when").textContent = `${fmtFull(data.startsAt)} ${zoneLabel(data.startsAt)} with Cristo. The invite is in your inbox.`;
       end(done);
     } catch (e) {
       if (e instanceof BookError && e.code === "already_booked") {

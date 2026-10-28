@@ -428,6 +428,12 @@ html[data-theme="light"] {
   --color-danger-ink: #8e3524;
 }
 /* Hover on a brass fill steps DOWN in light: #141310 on #A6792B is 4.77:1. */
-html[data-theme="light"] .btn-primary:hover { background: #a6792b; border-color: #a6792b; }
+@media (hover: hover) {
+  html[data-theme="light"] .btn-primary:hover { background: #a6792b; border-color: #a6792b; }
+}
+/* Touch: a tap leaves :hover stuck on, so a light brass button stays brass. */
+@media (hover: none) {
+  html[data-theme="light"] .btn-primary:hover { background: var(--color-accent); border-color: var(--color-accent); }
+}
 /* Screen grain lightens; on concrete it has to darken instead. */
 html[data-theme="light"] .grain::before { mix-blend-mode: multiply; opacity: 0.05; }

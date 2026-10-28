@@ -79,7 +79,7 @@ export const QUESTIONS: Question[] = [
     key: "decides",
     kind: "single",
     auto: true,
-    question: "Who signs off on a decision like this?",
+    question: "Who decides on changes to how the practice runs?",
     options: [
       { value: "me", label: "I do" },
       { value: "partner", label: "Me and a partner", flag: "partner" },

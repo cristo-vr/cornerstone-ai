@@ -21,9 +21,9 @@ interface Node {
   icon: string;
 }
 const nodes: Node[] = [
-  { lines: ["Glacier, Allan Gray,", "Momentum"], phone: ["Glacier,", "Allan Gray,", "Momentum"], icon: icon("bank") },
+  { lines: ["Glacier, Allan Gray, Momentum"], phone: ["Glacier,", "Allan Gray,", "Momentum"], icon: icon("bank") },
   { lines: ["OneDrive"], icon: icon("folder-simple") },
-  { lines: ["Planner"], icon: icon("list-checks") },
+  { lines: ["Microsoft Planner"], phone: ["Microsoft", "Planner"], icon: icon("list-checks") },
   { lines: ["Everyone's inbox"], icon: icon("tray") },
   { lines: ["Compliance", "spreadsheet"], icon: icon("table") },
   { lines: ["WhatsApp"], icon: icon("chat-circle") },
@@ -51,12 +51,12 @@ const wide: Layout = {
   pad: 16,
   you: { x: 405, y: 185, w: 150, h: 70 },
   nodes: [
-    { x: 20, y: 30, w: 250, h: 72 },
-    { x: 20, y: 184, w: 250, h: 72 },
-    { x: 20, y: 338, w: 250, h: 72 },
-    { x: 690, y: 30, w: 250, h: 72 },
-    { x: 690, y: 184, w: 250, h: 72 },
-    { x: 690, y: 338, w: 250, h: 72 },
+    { x: 0, y: 30, w: 320, h: 72 },
+    { x: 0, y: 184, w: 320, h: 72 },
+    { x: 0, y: 338, w: 320, h: 72 },
+    { x: 640, y: 30, w: 320, h: 72 },
+    { x: 640, y: 184, w: 320, h: 72 },
+    { x: 640, y: 338, w: 320, h: 72 },
   ],
 };
 // Phone: two above, one each side of You, two below. Indexed like `nodes`.
@@ -101,7 +101,7 @@ const layouts = [
 <figure class="gaps">
   {layouts.map(({ l, cls }) => (
     <svg class={`gaps-svg ${cls}`} viewBox={`0 0 ${l.vb[0]} ${l.vb[1]}`} role="img" aria-labelledby="gaps-title">
-      <title id="gaps-title">Your provider platforms, OneDrive, the planner, everyone's inbox, the compliance spreadsheet and WhatsApp. None of them connect to each other. Each one has a line to you.</title>
+      <title id="gaps-title">Your provider platforms, OneDrive, Microsoft Planner, everyone's inbox, the compliance spreadsheet and WhatsApp. None of them connect to each other. Each one has a line to you.</title>
       <g class="gaps-lines">
         {l.nodes.map((n) => {
           const k = link(n, l.you);
@@ -147,7 +147,7 @@ const layouts = [
   @keyframes gaps-flow { to { stroke-dashoffset: -9; } }
   @media (prefers-reduced-motion: reduce) { .gaps-lines line { animation: none; } }
   .gaps-node rect { fill: var(--color-surface-3); stroke: var(--color-line-2); stroke-width: 1; }
-  .gaps-node text { fill: var(--color-text); font-family: var(--font-body); font-weight: 550; }
+  .gaps-node text { fill: var(--color-text); font-family: var(--font-body); font-weight: 550; white-space: pre; }
   .gaps-icon { color: var(--color-text-3); }
   .gaps-you rect { fill: var(--color-accent); }
   .gaps-you text { fill: var(--color-accent-txt); font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; }
