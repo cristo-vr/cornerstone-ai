@@ -162,33 +162,47 @@ function loadScript(src: string): Promise<void> {
   });
 })();
 
-// The sticky phone CTA: shown once the hero ask has scrolled away, hidden while
-// the application is in view.
+// The sticky phone CTA: the form sits right under the video, so the bar shows
+// only once the application has scrolled up past the top, and hides again at
+// the closing ask.
 (() => {
   const sticky = document.getElementById("ax-sticky");
-  const heroCta = document.querySelector<HTMLElement>('[data-cta="hero"]');
   const apply = document.getElementById("apply");
   const closing = document.getElementById("closing");
-  if (!sticky || !heroCta || !apply || !("IntersectionObserver" in window)) return;
-  let heroGone = false;
-  let applyIn = false;
+  if (!sticky || !apply || !("IntersectionObserver" in window)) return;
+  let applyGone = false;
   let closingIn = false;
   const update = () => {
-    sticky.hidden = !(heroGone && !applyIn && !closingIn);
+    sticky.hidden = !(applyGone && !closingIn);
   };
   new IntersectionObserver(([e]) => {
-    heroGone = !e.isIntersecting && e.boundingClientRect.top < 0;
+    applyGone = !e.isIntersecting && e.boundingClientRect.top < 0;
     update();
-  }).observe(heroCta);
-  new IntersectionObserver(([e]) => {
-    applyIn = e.isIntersecting;
-    update();
-  }, { rootMargin: "0px 0px -20% 0px" }).observe(apply);
+  }).observe(apply);
   if (closing)
     new IntersectionObserver(([e]) => {
       closingIn = e.isIntersecting;
       update();
     }).observe(closing);
+})();
+
+// Scroll reveals: each [data-ax-rv] block fades up once as it enters. Bare
+// pages don't load site.ts, so the page carries its own. ?still shows all.
+(() => {
+  const els = Array.from(document.querySelectorAll<HTMLElement>("[data-ax-rv]"));
+  const all = () => els.forEach((el) => el.classList.add("is-in"));
+  if (params.has("still") || !("IntersectionObserver" in window)) return all();
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        e.target.classList.add("is-in");
+        io.unobserve(e.target);
+      }
+    },
+    { rootMargin: "0px 0px -10% 0px" },
+  );
+  els.forEach((el) => io.observe(el));
 })();
 
 // ─── the application ────────────────────────────────────────────────────────

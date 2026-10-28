@@ -116,14 +116,16 @@ const parts = [
     )}
   </Fragment>
 
-  <!-- ── 1. Hero ───────────────────────────────────────────────────────────── -->
-  <section class="ax-hero wrap pb-14 md:pb-20">
+
+  <div class="axp">
+  <!-- ── 1. Hero: headline, the video ─────────────────────────────────────── -->
+  <section class="ax-hero wrap">
     <div class="mx-auto max-w-[60rem] text-center">
       <p class="label rise">For wealth advisors</p>
       <h1 class="ax-h1 display rise mt-3 leading-[0.92]" style="--d: 80ms">
-        Your practice isn't understaffed. <span class="ax-ink">It's uncoordinated.</span>
+        Your practice isn't understaffed. <span class="ax-mark">It's uncoordinated.</span>
       </h1>
-      <p class="ax-sub ax-balance rise mx-auto max-w-[46ch] text-[1.1rem] leading-[1.5] text-text-2" style="--d: 160ms">
+      <p class="ax-sub ax-lead ax-balance rise mx-auto max-w-[46ch]" style="--d: 160ms">
         Stop checking the team's work at 10 PM, and grow your book without hiring more people.
       </p>
     </div>
@@ -131,7 +133,7 @@ const parts = [
     <div class="ax-stage rise mx-auto" style="--d: 240ms">
       <div
         id="vsl"
-        class="vsl relative aspect-video w-full overflow-hidden border border-line-2 bg-sunken"
+        class="vsl relative aspect-video w-full overflow-hidden bg-sunken"
         data-hls={video.hls ?? ""}
         data-mp4={video.mp4}
         data-gate={GATE_VIDEO ? "1" : "0"}
@@ -158,126 +160,23 @@ const parts = [
       </div>
       <p id="vsl-gate-note" class="mt-2 text-center text-[0.9rem] text-text-2" hidden>Add your name and email below and the video starts.</p>
 
-      <div class="mt-4 flex flex-col items-center gap-x-5 gap-y-2 sm:flex-row sm:justify-center">
-        <a href="#apply" class="btn btn-primary text-[1rem]" data-cta="hero">Apply for a call<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></a>
-        <p class="text-[0.9rem] text-text-3">Applications close {CLOSE_DATE}.</p>
-      </div>
-      <p class="ax-balance mx-auto mt-4 max-w-[52ch] text-center text-[0.9rem] text-text-3">
-        The video covers where the work leaks in your practice, what we build to fix it, and how the end of year selection works.
-      </p>
-    </div>
-  </section>
-
-  <!-- ── 2. The five second version ────────────────────────────────────────── -->
-  <section class="border-t border-line bg-surface">
-    <div class="wrap py-16 md:py-24">
-      <div class="mx-auto max-w-[60rem]">
-        <h2 class="display display-3 text-center">Every gap runs through you.</h2>
-        <div class="mx-auto mt-10 max-w-[52rem]">
-          <GapsMap />
-        </div>
-        <p class="ax-balance mx-auto mt-10 max-w-[44ch] text-center text-[1.12rem] leading-[1.55] text-text-2">
-          None of it talks to the rest. So you became the system that fills the gaps, and every new client adds to the load.
-        </p>
+      <div class="ax-meta">
+        <p>The video covers where the work leaks in your practice, what we build to fix it, and how the end of year selection works.</p>
+        <p class="ax-meta-close">Applications close {CLOSE_DATE}.</p>
       </div>
     </div>
   </section>
 
-  <!-- ── 2b. What we build ──────────────────────────────────────────────────── -->
-  <section class="border-t border-line">
-    <div class="wrap py-16 md:py-24">
-      <div class="mx-auto max-w-[60rem]">
-        <h2 class="display display-3 text-center">What we build</h2>
-        <p class="ax-balance mx-auto mt-5 max-w-[46ch] text-center text-[1.08rem] leading-[1.55] text-text-2">
-          One system for how work moves through your practice, set up around how your team already works.
-        </p>
-        <ol class="ax-parts mt-10 grid gap-px sm:grid-cols-2">
-          {parts.map((p, i) => (
-            <li class="p-6 md:p-7">
-              <span class="num ax-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-              <h3 class="mt-3 text-[1.08rem] font-semibold text-text">{p.t}</h3>
-              <p class="mt-2 leading-[1.6] text-text-2">{p.d}</p>
-            </li>
-          ))}
-        </ol>
+  <!-- ── 2. Application, straight under the video ──────────────────────────── -->
+  <section id="apply" class="ax-apply wrap scroll-mt-4">
+    <div class="ax-apply-grid mx-auto max-w-[66rem]">
+      <div class="ax-apply-head">
+        <h2 class="display ax-h2">Apply for a call</h2>
       </div>
-    </div>
-  </section>
 
-  <!-- ── 3. Fit ────────────────────────────────────────────────────────────── -->
-  <section class="border-t border-line bg-surface">
-    <div class="wrap py-16 md:py-24">
-      <div class="mx-auto max-w-[60rem]">
-        <h2 class="display display-3 text-center">Built for advisors with a team behind them.</h2>
-        <div class="mt-10 grid gap-10 md:grid-cols-2 md:gap-14">
-          <div>
-            <h3 class="label">This is for you if</h3>
-            <ul class="ax-fit mt-5 grid gap-3 text-text-2">
-              <li>You advise on your own book of clients.</li>
-              <li>You have at least one admin or support person working with you.</li>
-              <li>You look after 100 or more client households.</li>
-              <li>You'd rather grow the book than hire people to carry it.</li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="label">This isn't for you if</h3>
-            <ul class="ax-fit is-no mt-5 grid gap-3 text-text-2">
-              <li>You need more clients first. We fix how the work moves. Finding clients is a different job.</li>
-              <li>You want software dropped off and left with you. This only works with your team, so your team has to give it time.</li>
-              <li>You work in support or admin. Send this page to the advisor you work with.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      <div class="ax-apply-card">
 
-  <!-- ── 4. The end of year selection ──────────────────────────────────────── -->
-  <section class="border-t border-line">
-    <div class="wrap py-16 md:py-24">
-      <div class="mx-auto grid max-w-[60rem] gap-10 md:grid-cols-[1.1fr_1fr] md:gap-14">
-        <div>
-          <p class="label ax-ink">End of year selection</p>
-          <h2 class="display display-3 mt-3">One advisor's team gets the full process free.</h2>
-          <p class="mt-5 text-[1.08rem] leading-[1.6] text-text-2">
-            Valued at up to <strong class="text-text">R150,000</strong>, depending on the size of the team. The full process: we map where the work leaks in your practice, build the system around your team, roll it out with them, and support them while it beds in.
-          </p>
-          <p class="mt-4 text-[1.08rem] leading-[1.6] text-text-2">
-            It's a judged selection, so nobody's name comes out of a hat. The rules set out how we choose.
-          </p>
-          <dl class="ax-dates mt-7">
-            <div><dt class="label">Applications close</dt><dd class="num">{CLOSE_DATE}</dd></div>
-            <div><dt class="label">Winner announced</dt><dd class="num">{ANNOUNCE_DATE}</dd></div>
-          </dl>
-        </div>
-        <div class="ax-enter border border-line-2 p-6 md:p-8">
-          <h3 class="label">How to enter</h3>
-          <ol class="ax-steps mt-5 grid gap-5">
-            <li><span class="num ax-n" aria-hidden="true">01</span><p><strong>Apply.</strong> Answer the questions below.</p></li>
-            <li><span class="num ax-n" aria-hidden="true">02</span><p><strong>Book.</strong> Pick a time before 15 November. The call itself can be after.</p></li>
-            <li><span class="num ax-n" aria-hidden="true">03</span><p><strong>Attend.</strong> The call is how we assess your practice for the selection. If it looks like a fit, we'll also tell you what working together involves. You don't have to buy anything to stay in.</p></li>
-          </ol>
-          <p class="mt-6 border-t border-line-2 pt-5 text-text-2">In a firm with several advisors? Each advisor enters for their own team.</p>
-          <p class="mt-3 text-text-2">Not selected? Every practice that entered and starts with us gets its first 4 weeks of the work free.</p>
-          <a class="link mt-3 inline-block text-[0.95rem] text-text" href="/advisors/giveaway-rules">Read the selection rules</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 5. Application ────────────────────────────────────────────────────── -->
-  <section id="apply" class="border-t border-line bg-surface scroll-mt-4">
-    <div class="wrap py-16 md:py-24">
-      <div class="mx-auto max-w-[40rem]">
-        <h2 class="display display-3 text-center">Apply for a call</h2>
-        <h3 class="label mt-6 text-center">On the call</h3>
-        <ol class="mx-auto mt-4 grid max-w-[34rem] gap-2.5 text-[0.98rem] text-text-2">
-          <li class="flex gap-3"><span class="num ax-ink" aria-hidden="true">01</span>Where the work leaks in your practice, and what it's costing you.</li>
-          <li class="flex gap-3"><span class="num ax-ink" aria-hidden="true">02</span>The system on screen, with demo clients, not slides.</li>
-          <li class="flex gap-3"><span class="num ax-ink" aria-hidden="true">03</span>The first process we'd fix in your practice, and how.</li>
-        </ol>
-
-        <div id="ax" class="mt-10 border border-line-2 bg-surface-3 p-5 sm:p-6 md:p-8 scroll-mt-4">
+        <div id="ax" class="ax-card ax-form-card scroll-mt-4">
           <div id="ax-progress">
             <div class="flex items-center justify-between">
               <p id="ax-progress-text" class="label" aria-live="polite">Step 1 of {TOTAL_STEPS}</p>
@@ -382,24 +281,135 @@ const parts = [
             <button type="button" id="ax-dq-back" class="ax-textbtn mt-6">I picked the wrong answer</button>
           </div>
         </div>
+      </div>
 
-        <p class="mt-6 text-center text-[0.85rem] text-text-3">
+      <div class="ax-apply-aside">
+        <h3 class="label">On the call</h3>
+        <ol class="ax-oncall mt-4">
+          <li><span class="num" aria-hidden="true">01</span>Where the work leaks in your practice, and what it's costing you.</li>
+          <li><span class="num" aria-hidden="true">02</span>The system on screen, with demo clients, not slides.</li>
+          <li><span class="num" aria-hidden="true">03</span>The first process we'd fix in your practice, and how.</li>
+        </ol>
+        <p class="ax-small mt-6">
           We use your answers to assess your application and to prepare for the call. Read our <a class="link" href="/privacy">privacy policy</a>.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- ── 6. Questions advisors ask ─────────────────────────────────────────── -->
-  <section class="border-t border-line">
-    <div class="wrap py-16 md:py-24">
-      <div class="mx-auto max-w-[60rem]">
-        <h2 class="display display-3 text-center">Questions advisors ask</h2>
-        <dl class="ax-faq mt-10 grid gap-px md:grid-cols-2">
-          {faqs.map((f) => (
-            <div class="p-6 md:p-7">
-              <dt class="text-[1.08rem] font-semibold text-text">{f.q}</dt>
-              {f.a.map((p) => <dd class="mt-2 text-text-2 leading-[1.6]">{p}</dd>)}
+  <!-- ── 3. The five second version ────────────────────────────────────────── -->
+  <section class="ax-sec ax-band">
+    <div class="wrap">
+      <div class="mx-auto max-w-[75rem]">
+        <div class="ax-intro" data-ax-rv>
+          <h2 class="display ax-h2">Every gap runs through you.</h2>
+          <p class="ax-lead mt-5 max-w-[44ch]">
+            None of it talks to the rest. So you became the system that fills the gaps, and every new client adds to the load.
+          </p>
+        </div>
+        <div class="mt-12 md:mt-16" data-ax-rv style="--d: 80ms">
+          <GapsMap />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. What we build ──────────────────────────────────────────────────── -->
+  <section class="ax-sec">
+    <div class="wrap">
+      <div class="ax-build mx-auto max-w-[66rem]">
+        <div class="ax-build-head" data-ax-rv>
+          <h2 class="display ax-h2">What we build</h2>
+          <p class="ax-lead mt-5 max-w-[34ch]">
+            One system for how work moves through your practice, set up around how your team already works.
+          </p>
+        </div>
+        <ol class="ax-parts">
+          {parts.map((p, i) => (
+            <li data-ax-rv style={`--d: ${i * 70}ms`}>
+              <span class="num ax-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+              <div>
+                <h3 class="ax-h3">{p.t}</h3>
+                <p class="mt-2">{p.d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. Fit ────────────────────────────────────────────────────────────── -->
+  <section class="ax-sec ax-ruled">
+    <div class="wrap">
+      <div class="mx-auto max-w-[66rem]">
+        <h2 class="display ax-h2 max-w-[18ch]" data-ax-rv>Built for advisors with a team behind them.</h2>
+        <div class="ax-fitgrid mt-10 md:mt-14">
+          <div class="ax-card ax-fit-yes" data-ax-rv>
+            <h3 class="label">This is for you if</h3>
+            <ul class="ax-fit mt-6">
+              <li>You advise on your own book of clients.</li>
+              <li>You have at least one admin or support person working with you.</li>
+              <li>You look after 100 or more client households.</li>
+              <li>You'd rather grow the book than hire people to carry it.</li>
+            </ul>
+          </div>
+          <div class="ax-fit-no" data-ax-rv style="--d: 90ms">
+            <h3 class="label">This isn't for you if</h3>
+            <ul class="ax-fit is-no mt-6">
+              <li>You need more clients first. We fix how the work moves. Finding clients is a different job.</li>
+              <li>You want software dropped off and left with you. This only works with your team, so your team has to give it time.</li>
+              <li>You work in support or admin. Send this page to the advisor you work with.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6. The end of year selection ──────────────────────────────────────── -->
+  <section class="ax-sec ax-band">
+    <div class="wrap">
+      <div class="mx-auto grid max-w-[66rem] gap-10 md:grid-cols-[1.1fr_1fr] md:gap-16">
+        <div data-ax-rv>
+          <p class="label">End of year selection</p>
+          <h2 class="display ax-h2 mt-4">One advisor's team gets the full process free.</h2>
+          <p class="ax-lead mt-6">
+            Valued at up to <strong class="text-text">R150,000</strong>, depending on the size of the team. The full process: we map where the work leaks in your practice, build the system around your team, roll it out with them, and support them while it beds in.
+          </p>
+          <p class="mt-4">
+            It's a judged selection, so nobody's name comes out of a hat. The rules set out how we choose.
+          </p>
+          <dl class="ax-dates mt-8">
+            <div><dt class="label">Applications close</dt><dd class="num">{CLOSE_DATE}</dd></div>
+            <div><dt class="label">Winner announced</dt><dd class="num">{ANNOUNCE_DATE}</dd></div>
+          </dl>
+        </div>
+        <div class="ax-card ax-enter" data-ax-rv style="--d: 90ms">
+          <h3 class="label">How to enter</h3>
+          <ol class="ax-steps mt-6">
+            <li><span class="num ax-n" aria-hidden="true">01</span><p><strong>Apply.</strong> Answer the questions below.</p></li>
+            <li><span class="num ax-n" aria-hidden="true">02</span><p><strong>Book.</strong> Pick a time before 15 November. The call itself can be after.</p></li>
+            <li><span class="num ax-n" aria-hidden="true">03</span><p><strong>Attend.</strong> The call is how we assess your practice for the selection. If it looks like a fit, we'll also tell you what working together involves. You don't have to buy anything to stay in.</p></li>
+          </ol>
+          <p class="mt-7 border-t border-line-2 pt-6">In a firm with several advisors? Each advisor enters for their own team.</p>
+          <p class="mt-3">Not selected? Every practice that entered and starts with us gets its first 4 weeks of the work free.</p>
+          <a class="link mt-4 inline-block text-[0.95rem] font-semibold text-text" href="/advisors/giveaway-rules">Read the selection rules</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 7. Questions advisors ask ─────────────────────────────────────────── -->
+  <section class="ax-sec">
+    <div class="wrap">
+      <div class="mx-auto max-w-[66rem]">
+        <h2 class="display ax-h2" data-ax-rv>Questions advisors ask</h2>
+        <dl class="ax-faq mt-10 md:mt-14">
+          {faqs.map((f, i) => (
+            <div data-ax-rv style={`--d: ${(i % 2) * 60}ms`}>
+              <dt class="ax-h3">{f.q}</dt>
+              <dd>{f.a.map((p) => <p>{p}</p>)}</dd>
             </div>
           ))}
         </dl>
@@ -407,15 +417,17 @@ const parts = [
     </div>
   </section>
 
-  <!-- ── 7. Founder ────────────────────────────────────────────────────────── -->
-  <section class="border-t border-line bg-surface">
-    <div class="wrap py-16 md:py-24">
-      <div class="mx-auto grid max-w-[52rem] items-center gap-8 sm:grid-cols-[13rem_1fr] md:gap-12">
-        <Image src={cristo} alt="Cristo van Rensburg, founder of Cornerstone" widths={[320, 520]} sizes="(min-width: 640px) 13rem, 60vw" class="w-[60%] max-w-[16rem] border border-line-2 sm:w-full" loading="lazy" />
-        <div>
-          <h2 class="display display-4">Who you'll speak to</h2>
-          <div class="mt-5 grid gap-4 text-[1.05rem] leading-[1.6] text-text-2">
-            <p>I'm Cristo van Rensburg, founder of Cornerstone. I've spent five years building systems for businesses, and this year I've been building one inside a Joburg advisor's practice.</p>
+  <!-- ── 8. Founder ────────────────────────────────────────────────────────── -->
+  <section class="ax-sec ax-ruled">
+    <div class="wrap">
+      <div class="ax-founder mx-auto max-w-[60rem]">
+        <div class="ax-founder-photo" data-ax-rv>
+          <Image src={cristo} alt="Cristo van Rensburg, founder of Cornerstone" widths={[320, 520, 720]} sizes="(min-width: 768px) 20rem, 70vw" class="w-full" loading="lazy" />
+        </div>
+        <div data-ax-rv style="--d: 90ms">
+          <h2 class="display ax-h2">Who you'll speak to</h2>
+          <div class="mt-6 grid gap-4">
+            <p class="ax-lead">I'm Cristo van Rensburg, founder of Cornerstone. I've spent five years building systems for businesses, and this year I've been building one inside a Joburg advisor's practice.</p>
             <p>She looks after 200+ client households with four support staff, and the work ran on a half used task board, spreadsheets and her memory. We started with one record per client, FICA and documents included, and a list of every missing document across the book. We're working through the rest with her team, one process at a time.</p>
             <p>Every hour your team gets back is room for another client, and one less evening checking their work.</p>
           </div>
@@ -424,16 +436,17 @@ const parts = [
     </div>
   </section>
 
-  <!-- ── 8. Close ──────────────────────────────────────────────────────────── -->
-  <section id="closing" class="border-t border-line">
-    <div class="wrap py-16 text-center md:py-24">
-      <h2 class="display display-3">Applications close 15 November.</h2>
-      <p class="ax-balance mx-auto mt-4 max-w-[40ch] text-[1.08rem] text-text-2">Apply, book your call before the 15th, and attend it. That's your entry.</p>
-      <a href="#apply" class="btn btn-primary mt-7 text-[1rem]" data-cta="closing">Apply for a call<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></a>
+  <!-- ── 9. Close ──────────────────────────────────────────────────────────── -->
+  <section id="closing" class="ax-sec ax-band ax-closing">
+    <div class="wrap text-center" data-ax-rv>
+      <h2 class="display ax-h1-2 mx-auto max-w-[16ch]">Applications close 15 November.</h2>
+      <p class="ax-lead ax-balance mx-auto mt-5 max-w-[40ch]">Apply, book your call before the 15th, and attend it. That's your entry.</p>
+      <a href="#apply" class="btn btn-primary mt-8 text-[1rem]" data-cta="closing">Apply for a call<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></a>
     </div>
   </section>
+  </div>
 
-  <div id="ax-sticky" class="ax-sticky md:hidden" hidden>
+  <div id="ax-sticky" class="ax-sticky" hidden>
     <a href="#apply" class="btn btn-primary flex-1 justify-center" data-cta="sticky">Apply for a call<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></a>
     <span class="text-[0.85rem] text-text-2">Closes 15 Nov</span>
   </div>
@@ -444,28 +457,73 @@ const parts = [
 </Base>
 
 <style is:global>
-  .ax-ink { color: var(--color-accent-lt); }
+  /* ── Page tokens. Scoped to .axp so global.css and every other page stay as
+     they are. Brass has one value on this page: #D1A24F, and only as a fill
+     (button, bar, tick, square). #141310 sits on it, #A6792B is hover only.
+     No brass type, no brass tints, no halos. ───────────────────────────── */
+  .axp {
+    --ax-fill: var(--color-accent);
+    --ax-sec: clamp(4.5rem, 9vw, 8rem);
+    --ax-card-bg: var(--color-surface-3);
+    --ax-shadow: 0 1px 0 rgb(255 253 247 / 0.8) inset, 0 2px 4px rgb(58 50 36 / 0.06), 0 30px 60px -36px rgb(58 50 36 / 0.42);
+    --ax-tile: #f7f6f2;
+    --ax-h2: clamp(2.25rem, 4.6vw, 3.75rem);
+  }
   .ax-balance { text-wrap: balance; }
 
-  /* Hero: the whole 16:9 frame and the ask fit a 1366x768 laptop. */
+  /* Type scale: display H2, a 1.25 H3, a lead, the body, one small. */
+  .ax-h2 { font-size: var(--ax-h2); line-height: 0.92; }
+  .ax-h1-2 { font-size: clamp(2.75rem, 7vw, 5.6rem); line-height: 0.9; }
+  .ax-h3 { font-size: 1.25rem; font-weight: 650; line-height: 1.3; letter-spacing: -0.005em; color: var(--color-text); }
+  .ax-lead { font-size: clamp(1.125rem, 1.45vw, 1.3rem); line-height: 1.5; color: var(--color-text-2); text-wrap: pretty; }
+  .axp p, .axp dd { text-wrap: pretty; }
+  :where(.ax-sec) :where(p, dd) { color: var(--color-text-2); line-height: 1.6; }
+  .ax-small { font-size: 0.875rem; line-height: 1.5; color: var(--color-text-3); }
+
+  /* Rhythm: one section padding; two bands; hairline only where two plain
+     sections meet. */
+  .ax-sec { padding-block: var(--ax-sec); }
+  .ax-band { background: var(--color-surface); }
+  .ax-ruled { border-top: 1px solid var(--color-line-2); }
+  .ax-card { background: var(--ax-card-bg); box-shadow: var(--ax-shadow); border-radius: 2px; }
+
+  /* Scroll reveal: once, transform and opacity only, never on the hero or
+     the form. advisors.ts adds .is-in. */
+  html:not(.no-js) [data-ax-rv] {
+    opacity: 0; transform: translateY(18px);
+    transition: opacity 700ms var(--ease-out), transform 800ms var(--ease-out);
+    transition-delay: var(--d, 0ms);
+  }
+  html:not(.no-js) [data-ax-rv].is-in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html:not(.no-js) [data-ax-rv] { transform: none; transition: opacity 200ms ease; transition-delay: 0ms; }
+  }
+
+  /* ── Hero: the whole 16:9 frame fits a 1366x768 laptop. ─────────────── */
   .ax-hero { padding-top: calc(var(--nav-h) + 0.5rem); }
   .ax-h1 { font-size: clamp(2.5rem, 7vw, 5.4rem); }
   .ax-sub { margin-top: 1rem; }
-  .ax-stage { margin-top: 1.5rem; max-width: max(20rem, min(60rem, calc((100svh - 25rem) * 16 / 9))); }
+  .ax-stage { margin-top: 1.75rem; max-width: max(20rem, min(60rem, calc((100svh - 24.5rem) * 16 / 9))); }
   @media (min-width: 768px) and (max-height: 900px) {
     .ax-h1 { font-size: clamp(2.5rem, 5.2vw, 4.2rem); }
     .ax-sub { margin-top: 0.75rem; }
     .ax-stage { margin-top: 1.25rem; }
   }
+  /* The accent line: text colour, brass bar under it, drawn in once. */
+  .ax-mark {
+    background: linear-gradient(var(--ax-fill), var(--ax-fill)) no-repeat 0 96% / 100% 0.13em;
+    -webkit-box-decoration-break: clone; box-decoration-break: clone;
+    animation: ax-mark 900ms var(--ease-out) 650ms both;
+  }
+  @keyframes ax-mark { from { background-size: 0% 0.13em; } }
+  @media (prefers-reduced-motion: reduce) { .ax-mark { animation: none; } }
 
-  .ax-parts { background: var(--color-line-2); border: 1px solid var(--color-line-2); }
-  .ax-parts > li { background: var(--color-surface-3); }
-  .ax-enter { background: var(--color-surface-3); border-radius: 2px; }
-
+  .vsl { border-radius: 2px; box-shadow: 0 2px 4px rgb(58 50 36 / 0.08), 0 40px 80px -40px rgb(58 50 36 / 0.55); }
   .vsl-start { cursor: pointer; }
-  .vsl-play { transition: transform 220ms var(--ease-out); box-shadow: 0 0 0 10px rgb(209 162 79 / 0.22); }
+  .vsl-play { transition: transform 220ms var(--ease-out); box-shadow: 0 12px 28px -10px rgb(20 19 16 / 0.55); }
   .vsl-start:hover .vsl-play, .vsl-start:focus-visible .vsl-play { transform: scale(1.06); }
-  .vsl-start:focus-visible { outline: 2px solid var(--color-accent-lt); outline-offset: -4px; }
+  .vsl-start:active .vsl-play { transform: scale(0.97); }
+  .vsl-start:focus-visible { outline: 2px solid var(--color-text); outline-offset: -4px; }
   @media (prefers-reduced-motion: reduce) { .vsl-play { transition: none; } }
   /* Fixed carbon, not --ground: a concrete wash would flatten the poster. */
   .ax-poster-shade { background: linear-gradient(to top, rgb(20 19 16 / 0.45), rgb(20 19 16 / 0.08) 45%, rgb(20 19 16 / 0)); }
@@ -474,24 +532,77 @@ const parts = [
     padding: 0.25rem 0.55rem; background: #141310; color: #ece9e2;
     font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
   }
+  .ax-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 0.4rem 2rem; margin-top: 0.9rem; font-size: 0.875rem; line-height: 1.45; color: var(--color-text-3); }
+  .ax-meta p:first-child { max-width: 52ch; text-align: left; }
+  .ax-meta-close { flex: none; font-weight: 600; color: var(--color-text-2); }
+  @media (max-width: 639px) { .ax-meta { flex-direction: column-reverse; font-size: 0.82rem; } }
 
-  .ax-fit li { position: relative; padding-left: 1.6rem; }
-  .ax-fit li::before { content: ""; position: absolute; left: 0; top: 0.68em; width: 0.7rem; height: 2px; background: var(--color-accent); }
-  .ax-fit.is-no li::before { background: var(--color-line-4); }
+  /* ── Application: the card is the page's one raised object at the top. ─ */
+  .ax-apply { padding-top: clamp(2.5rem, 5vw, 4.5rem); padding-bottom: var(--ax-sec); }
+  .ax-apply-grid { display: grid; gap: 1.5rem; }
+  .ax-apply-aside { padding-top: 0.5rem; }
+  @media (min-width: 900px) {
+    .ax-apply-grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); grid-template-areas: "head card" "aside card"; grid-template-rows: auto 1fr; column-gap: 4.5rem; row-gap: 2rem; }
+    .ax-apply-head { grid-area: head; padding-top: 1.5rem; }
+    .ax-apply-card { grid-area: card; }
+    .ax-apply-aside { grid-area: aside; }
+  }
+  .ax-oncall { display: grid; gap: 0.9rem; }
+  .ax-oncall li { display: grid; grid-template-columns: 2rem 1fr; gap: 0.5rem; color: var(--color-text-2); line-height: 1.5; }
+  .ax-oncall .num { font-size: 1.05rem; line-height: 1.45; color: var(--color-text); }
 
-  .ax-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border-top: 1px solid var(--color-line-2); padding-top: 1.25rem; }
+  /* ── What we build: heading holds still on the left, the parts list runs. */
+  .ax-build { display: grid; gap: 2.5rem; }
+  @media (min-width: 900px) {
+    .ax-build { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 5rem; align-items: start; }
+    .ax-build-head { position: sticky; top: 5rem; }
+  }
+  .ax-parts { display: grid; }
+  .ax-parts li { position: relative; display: grid; grid-template-columns: 3.75rem 1fr; gap: 0.75rem; padding-block: 1.75rem 2rem; border-top: 1px solid var(--color-line-2); }
+  .ax-parts li::before { content: ""; position: absolute; top: -1px; left: 0; width: 2.25rem; height: 2px; background: var(--ax-fill); }
+  .ax-parts li:last-child { padding-bottom: 0; }
+  .ax-n { font-size: 1.75rem; line-height: 1; color: var(--color-text); }
+
+  /* ── Fit: yes is a raised card with brass squares, no is plain. ──────── */
+  .ax-fitgrid { display: grid; gap: 1.5rem; }
+  @media (min-width: 768px) { .ax-fitgrid { grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; } }
+  .ax-fit-yes { padding: clamp(1.5rem, 3vw, 2.5rem); }
+  .ax-fit-no { padding: clamp(1.5rem, 3vw, 2.5rem); border: 1px solid var(--color-line-2); border-radius: 2px; }
+  .ax-fit { display: grid; gap: 1rem; }
+  .ax-fit li { position: relative; padding-left: 1.75rem; line-height: 1.55; color: var(--color-text-2); }
+  .ax-fit-yes .ax-fit li { color: var(--color-text); font-size: 1.0625rem; }
+  .ax-fit li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 0.6rem; height: 0.6rem; background: var(--ax-fill); }
+  .ax-fit.is-no li::before { top: 0.72em; width: 0.7rem; height: 2px; background: var(--color-line-4); }
+
+  /* ── Selection ───────────────────────────────────────────────────────── */
+  .ax-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border-top: 2px solid var(--color-text); padding-top: 1.1rem; }
   .ax-dates > div { display: flex; flex-direction: column; justify-content: space-between; }
-  .ax-dates dd { margin-top: 0.35rem; font-size: clamp(1.35rem, 2.6vw, 1.75rem); line-height: 1; color: var(--color-text); text-transform: uppercase; }
-  .ax-steps li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.75rem; align-items: baseline; }
-  .ax-steps p { color: var(--color-text-2); }
+  .ax-dates dd { margin-top: 0.5rem; font-size: clamp(1.5rem, 2.8vw, 2rem); line-height: 1; color: var(--color-text); text-transform: uppercase; }
+  .ax-enter { padding: clamp(1.5rem, 3vw, 2.5rem); }
+  .ax-steps { display: grid; gap: 1.25rem; }
+  .ax-steps li { display: grid; grid-template-columns: 2.75rem 1fr; gap: 0.75rem; align-items: baseline; }
   .ax-steps strong { color: var(--color-text); }
-  .ax-n { font-size: 1.6rem; line-height: 1; color: var(--color-accent-lt); }
+  .ax-steps .ax-n { font-size: 1.5rem; }
 
-  .ax-faq { background: var(--color-line-2); border: 1px solid var(--color-line-2); }
-  .ax-faq > div { background: var(--color-surface-3); }
+  /* ── FAQ: question left, answer right, one hairline per pair. ───────── */
+  .ax-faq { display: grid; }
+  .ax-faq > div { display: grid; gap: 0.5rem; padding-block: 1.5rem; border-top: 1px solid var(--color-line-2); }
+  .ax-faq > div:last-child { border-bottom: 1px solid var(--color-line-2); }
+  @media (min-width: 768px) { .ax-faq > div { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 3rem; padding-block: 1.75rem; } }
+  .ax-faq dd { display: grid; gap: 0.75rem; max-width: 60ch; }
 
+  /* ── Founder ─────────────────────────────────────────────────────────── */
+  .ax-founder { display: grid; gap: 2.5rem; align-items: center; }
+  .ax-founder-photo { max-width: 22rem; }
+  .ax-founder-photo img { display: block; border-radius: 2px; box-shadow: var(--ax-shadow); }
+  @media (min-width: 768px) { .ax-founder { grid-template-columns: 20rem 1fr; gap: 4rem; } }
+
+  .ax-closing { border-top: 0; }
+
+  /* ── The form (logic in advisors.ts; markup unchanged). ─────────────── */
+  #ax.ax-form-card { padding: clamp(1.25rem, 3.2vw, 2.5rem); }
   .ax-progress { height: 4px; background: var(--color-line-2); }
-  .ax-progress span { display: block; height: 100%; width: 0; background: var(--color-accent); transition: width 300ms var(--ease-out); }
+  .ax-progress span { display: block; height: 100%; width: 0; background: var(--ax-fill); transition: width 300ms var(--ease-out); }
   .ax-step { border: 0; padding: 0; margin: 1.5rem 0 0; min-width: 0; }
   .ax-q { font-size: clamp(1.25rem, 2.4vw, 1.5rem); font-weight: 650; line-height: 1.3; color: var(--color-text); padding: 0; }
   .ax-opts { display: grid; gap: 0.6rem; }
@@ -499,9 +610,9 @@ const parts = [
   @media (max-width: 520px) { .ax-opts-2 { grid-template-columns: 1fr; } }
   .ax-opt, .ax-chip, .ax-day, .ax-time {
     /* Lighter than the card, edge at 3:1, so a tile reads as pressable. */
-    text-align: left; border: 1px solid var(--color-muted); background: #f7f6f2; border-radius: 2px;
+    text-align: left; border: 1px solid var(--color-muted); background: var(--ax-tile); border-radius: 2px;
     color: var(--color-text); cursor: pointer;
-    transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease, transform 120ms var(--ease-out);
+    transition: border-color 150ms ease, box-shadow 150ms ease, color 150ms ease, transform 120ms var(--ease-out);
     -webkit-tap-highlight-color: transparent;
   }
   .ax-opt { padding: 0.95rem 1.1rem; font-size: 1rem; line-height: 1.4; min-height: 3.25rem; }
@@ -509,20 +620,24 @@ const parts = [
   @media (hover: hover) {
     .ax-opt:hover, .ax-chip:hover, .ax-day:hover, .ax-time:hover { border-color: var(--color-line-4); }
   }
+  /* Picked: the same tile, a text-colour edge and a solid brass bar. */
   .ax-opt.is-picked, .ax-chip[aria-pressed="true"], .ax-day.is-picked, .ax-time.is-picked {
-    border-color: var(--color-accent-dk); background: rgb(209 162 79 / 0.16); color: var(--color-text);
+    border-color: var(--color-text); box-shadow: inset 4px 0 0 var(--ax-fill); color: var(--color-text);
   }
-  .ax-opt:focus-visible, .ax-chip:focus-visible, .ax-day:focus-visible, .ax-time:focus-visible { outline: 2px solid var(--color-accent-lt); outline-offset: 2px; }
+  .ax-opt.is-picked { font-weight: 600; }
+  .ax-opt:focus-visible, .ax-chip:focus-visible, .ax-day:focus-visible, .ax-time:focus-visible { outline: 2px solid var(--color-text); outline-offset: 2px; }
   .ax-chips { display: grid; gap: 0.5rem; }
   .ax-chip { padding: 0.8rem 1rem; font-size: 0.98rem; line-height: 1.35; display: flex; gap: 0.7rem; align-items: center; }
-  .ax-chip::before { content: ""; flex: none; width: 1.05rem; height: 1.05rem; border: 1px solid var(--color-line-4); border-radius: 2px; background: var(--color-surface-3); }
+  .ax-chip[aria-pressed="true"] { box-shadow: none; }
+  .ax-chip::before { content: ""; flex: none; width: 1.05rem; height: 1.05rem; border: 1px solid var(--color-line-4); border-radius: 2px; background: var(--ax-card-bg); }
   .ax-chip[aria-pressed="true"]::before {
-    border-color: var(--color-accent-dk); background: var(--color-accent) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M3.5 8.5l3 3 6-7' fill='none' stroke='%23141310' stroke-width='2'/></svg>") center / 80% no-repeat;
+    border-color: var(--ax-fill); background: var(--ax-fill) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M3.5 8.5l3 3 6-7' fill='none' stroke='%23141310' stroke-width='2'/></svg>") center / 80% no-repeat;
   }
   .ax-days { display: flex; gap: 0.5rem; overflow-x: auto; padding: 2px 2px 0.4rem; scrollbar-width: thin; }
   .ax-days.is-more { -webkit-mask-image: linear-gradient(to right, #000 85%, transparent); mask-image: linear-gradient(to right, #000 85%, transparent); }
   .ax-day { flex: 0 0 auto; min-width: 5.2rem; padding: 0.6rem 0.75rem; text-align: center; font-size: 0.88rem; line-height: 1.3; color: var(--color-text-2); }
   .ax-day b { display: block; font-size: 1.05rem; color: var(--color-text); }
+  .ax-day.is-picked, .ax-time.is-picked { box-shadow: inset 0 -3px 0 var(--ax-fill); }
   .ax-times { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.8rem, 1fr)); gap: 0.5rem; }
   .ax-time { padding: 0.7rem 0.5rem; text-align: center; font-variant-numeric: tabular-nums; }
   .ax-textbtn { font-size: 0.92rem; color: var(--color-text-2); text-decoration: underline; text-underline-offset: 4px; padding: 0.5rem 0; }
@@ -537,18 +652,22 @@ const parts = [
   .ax-cc-face { display: flex; align-items: center; justify-content: space-between; gap: 0.3rem; pointer-events: none; font-variant-numeric: tabular-nums; }
   .ax-cc-face::after { content: ""; width: 0.45rem; height: 0.45rem; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-25%) rotate(45deg); }
   .ax-cc select { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font: inherit; }
-  .ax-cc:focus-within .ax-cc-face { border-color: var(--color-accent-lt); outline: 2px solid var(--color-accent-lt); outline-offset: 2px; }
-  #ax .input { background: #f7f6f2; }
+  .ax-cc:focus-within .ax-cc-face { border-color: var(--color-text); outline: 2px solid var(--color-text); outline-offset: 2px; }
+  #ax .input { background: var(--ax-tile); }
+  #ax .input:focus { border-color: var(--color-text); box-shadow: inset 0 -2px 0 var(--ax-fill); }
   #ax .input[aria-invalid="true"] { border-color: var(--color-danger-ink); box-shadow: 0 0 0 1px var(--color-danger-ink); }
   #ax .field .error { margin-top: -0.1rem; }
   /* Panels take focus so screen readers land on them; no ring round a whole card. */
   #ax [tabindex="-1"]:focus { outline: none; }
+
+  /* Phone only. Unlayered, so it has to hide itself on desktop. */
   .ax-sticky {
     position: fixed; inset-inline: 0; bottom: 0; z-index: 40; display: flex; align-items: center; gap: 0.9rem;
     padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom));
     background: linear-gradient(to top, var(--color-ground) 72%, rgb(234 234 230 / 0));
   }
   .ax-sticky[hidden] { display: none; }
+  @media (min-width: 768px) { .ax-sticky { display: none; } }
 </style>
 
 <script src="../scripts/advisors.ts"></script>
