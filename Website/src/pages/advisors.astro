@@ -1,0 +1,462 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import GapsMap from "../components/advisors/GapsMap.astro";
+import cristo from "../assets/images/cristo.webp";
+import { QUESTIONS, TOTAL_STEPS } from "../lib/advisor-questions";
+import { ANNOUNCE_DATE, CLOSE_DATE, GATE_VIDEO, LIVE, LINKEDIN_PARTNER_ID, META_PIXEL_ID, videoSource } from "../lib/advisors-config";
+
+/**
+ * /advisors: the VSL page for wealth advisor teams. Light Cool Concrete, to
+ * match the VSL. Video, a five second version, fit, the end of year
+ * selection, the application, the questions advisors ask, the founder.
+ *
+ * Copy: Marketing/Advisor Funnel/landing-page-copy.md. No prices, no paid
+ * phase durations, no invented proof, no dashes.
+ *
+ * Pixels render only on a live build (PUBLIC_FUNNEL_LIVE=1). Every event goes
+ * through src/scripts/funnel-client.ts.
+ */
+
+const title = "For wealth advisors | Cornerstone";
+const description =
+  "Your practice isn't understaffed, it's uncoordinated. Grow your book without hiring more people. Applications for the end of year selection close 15 November 2026.";
+
+const video = videoSource(import.meta.env.DEV);
+const PIXEL_ID = META_PIXEL_ID;
+const LI_ID = LINKEDIN_PARTNER_ID;
+
+const faqs = [
+  { q: "What about compliance?", a: ["No client data goes into the system until your compliance officer signs off."] },
+  {
+    q: "Will my team use it?",
+    a: [
+      "We build it around how your team already works, and roll it out with them. Training and support are included. The big CRM usually gets dropped because nobody sat with the team. We sit with them.",
+    ],
+  },
+  { q: "Do I own it?", a: ["Yes. It runs on your own accounts and it stays yours. It's not a per user subscription."] },
+  { q: "What does it cost?", a: ["It depends on the size of your team. We go through it on the call, once we know what your practice needs."] },
+  { q: "What if I'm not selected?", a: ["Every other practice that starts with us gets 4 weeks free."] },
+  {
+    q: "Is this AI software?",
+    a: [
+      "It's a system for how work moves through your practice. Some steps use AI where it takes work off your team, and that comes last, once the process itself works.",
+    ],
+  },
+];
+---
+<Base title={title} description={description} bare noindex theme="light" footerLinks={[{ href: "/advisors/giveaway-rules", label: "Selection rules" }]}>
+  <Fragment slot="head">
+    {video.hls && <link rel="preconnect" href="https://media.cornerstone-ai.pro" crossorigin />}
+    <link rel="preload" as="image" href={video.poster} />
+    {LIVE && (
+      <script is:inline define:vars={{ PIXEL_ID }}>
+        (function () {
+          try { if (localStorage.getItem("cs_internal") === "1") return; } catch (e) {}
+          !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+          n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+          document,'script','https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', PIXEL_ID);
+          fbq('track', 'PageView');
+        })();
+      </script>
+    )}
+    {LIVE && LI_ID && (
+      <script is:inline define:vars={{ LI_ID }}>
+        (function () {
+          try { if (localStorage.getItem("cs_internal") === "1") return; } catch (e) {}
+          window._linkedin_partner_id = LI_ID;
+          window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+          window._linkedin_data_partner_ids.push(LI_ID);
+          (function (l) {
+            if (!l) { window.lintrk = function (a, b) { window.lintrk.q.push([a, b]); }; window.lintrk.q = []; }
+            var s = document.getElementsByTagName("script")[0];
+            var b = document.createElement("script");
+            b.type = "text/javascript"; b.async = true;
+            b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+            s.parentNode.insertBefore(b, s);
+          })(window.lintrk);
+        })();
+      </script>
+    )}
+  </Fragment>
+
+  <!-- ── 1. Hero ───────────────────────────────────────────────────────────── -->
+  <section class="wrap pb-14 md:pb-20" style="padding-top: calc(var(--nav-h) + 1.25rem)">
+    <div class="mx-auto max-w-[60rem] text-center">
+      <p class="label rise">For wealth advisors</p>
+      <h1 class="display rise mt-4 text-[clamp(2.5rem,7vw,5.4rem)] leading-[0.92]" style="--d: 80ms">
+        Your practice isn't understaffed. <span class="ax-ink">It's uncoordinated.</span>
+      </h1>
+      <p class="rise mx-auto mt-5 max-w-[44ch] text-[1.1rem] leading-[1.55] text-text-2" style="--d: 160ms">
+        Grow your book without hiring more people, with a team that's less scattered. Watch this first.
+      </p>
+    </div>
+
+    <div class="rise mx-auto mt-8 max-w-[60rem]" style="--d: 240ms">
+      <div
+        id="vsl"
+        class="vsl relative aspect-video w-full overflow-hidden border border-line-2 bg-sunken"
+        data-hls={video.hls ?? ""}
+        data-mp4={video.mp4}
+        data-gate={GATE_VIDEO ? "1" : "0"}
+      >
+        <video
+          id="vsl-video"
+          class="absolute inset-0 h-full w-full"
+          poster={video.poster}
+          preload="none"
+          playsinline
+          controls
+          controlslist="nodownload noplaybackrate"
+          disablepictureinpicture
+          hidden
+        ></video>
+        <button id="vsl-start" type="button" class="vsl-start absolute inset-0 grid place-items-center" aria-label="Play the video, about 7 minutes">
+          <img src={video.poster} alt="" class="absolute inset-0 h-full w-full object-cover" fetchpriority="high" />
+          <span class="ax-poster-shade absolute inset-0" aria-hidden="true"></span>
+          <span class="vsl-play relative grid h-16 w-16 place-items-center rounded-full bg-accent md:h-24 md:w-24" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="ml-1 h-6 w-6 md:h-9 md:w-9"><path d="M6 4l14 8-14 8z" fill="#141310"></path></svg>
+          </span>
+        </button>
+        {video.badge && <span class="ax-badge">{video.badge}</span>}
+      </div>
+      <p class="mx-auto mt-3 max-w-[52ch] text-center text-[0.9rem] text-text-3">
+        Where the work leaks in your practice, what we build to fix it, and how the end of year selection works.
+      </p>
+      <p id="vsl-gate-note" class="mt-2 text-center text-[0.9rem] text-text-2" hidden>Add your name and email below and the video starts.</p>
+
+      <div class="mt-7 flex flex-col items-center gap-3">
+        <a href="#apply" class="btn btn-primary text-[1rem]" data-cta="hero">Apply for a call<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></a>
+        <p class="text-[0.9rem] text-text-3">Applications close {CLOSE_DATE}.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 2. The five second version ────────────────────────────────────────── -->
+  <section class="border-t border-line bg-surface">
+    <div class="wrap py-16 md:py-24">
+      <div class="mx-auto max-w-[60rem]">
+        <h2 class="display display-3 text-center">Every gap runs through you.</h2>
+        <div class="mx-auto mt-10 max-w-[52rem]">
+          <GapsMap />
+        </div>
+        <p class="mx-auto mt-10 max-w-[44ch] text-center text-[1.12rem] leading-[1.55] text-text-2">
+          None of it talks to the rest. So you became the system that fills the gaps, and every new client adds to the load.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. Fit ────────────────────────────────────────────────────────────── -->
+  <section class="border-t border-line">
+    <div class="wrap py-16 md:py-24">
+      <div class="mx-auto max-w-[60rem]">
+        <h2 class="display display-3 text-center">Built for advisors with a team behind them.</h2>
+        <div class="mt-10 grid gap-10 md:grid-cols-2 md:gap-14">
+          <div>
+            <h3 class="label">This is for you if</h3>
+            <ul class="ax-fit mt-5 grid gap-3 text-text-2">
+              <li>You advise on your own book of clients.</li>
+              <li>You have at least one admin or support person working with you.</li>
+              <li>You look after 100 or more client households.</li>
+              <li>You'd rather grow the book than hire people to carry it.</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="label">This isn't for you if</h3>
+            <ul class="ax-fit is-no mt-5 grid gap-3 text-text-2">
+              <li>You need more clients first. We fix how the work moves. Finding clients is a different job.</li>
+              <li>You want software dropped off and left with you. This only works with your team, so your team has to give it time.</li>
+              <li>You work in support or admin. Send this page to the advisor you work with.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. The end of year selection ──────────────────────────────────────── -->
+  <section class="border-t border-line bg-surface">
+    <div class="wrap py-16 md:py-24">
+      <div class="mx-auto grid max-w-[60rem] gap-10 md:grid-cols-[1.1fr_1fr] md:gap-14">
+        <div>
+          <p class="label ax-ink">End of year selection</p>
+          <h2 class="display display-3 mt-3">One advisor and their team get the full process free.</h2>
+          <p class="mt-5 text-[1.08rem] leading-[1.6] text-text-2">
+            Valued at up to <strong class="text-text">R150,000</strong>. It's a judged selection, so nobody's name comes out of a hat. We pick the practice where the work will make the clearest difference, and the rules say how we judge it.
+          </p>
+          <dl class="ax-dates mt-7">
+            <div><dt class="label">Applications close</dt><dd class="num">{CLOSE_DATE}</dd></div>
+            <div><dt class="label">Selected practice announced</dt><dd class="num">{ANNOUNCE_DATE}</dd></div>
+          </dl>
+        </div>
+        <div class="slab p-6 md:p-8 bg-surface-3">
+          <h3 class="label">How to enter</h3>
+          <ol class="ax-steps mt-5 grid gap-5">
+            <li><span class="num ax-n" aria-hidden="true">01</span><p><strong>Apply.</strong> Answer the questions below.</p></li>
+            <li><span class="num ax-n" aria-hidden="true">02</span><p><strong>Book.</strong> Pick a time for your call.</p></li>
+            <li><span class="num ax-n" aria-hidden="true">03</span><p><strong>Attend.</strong> Your entry counts once we've had the call.</p></li>
+          </ol>
+          <p class="mt-6 border-t border-line-2 pt-5 text-text-2">Not selected? Every other practice that starts with us gets 4 weeks free.</p>
+          <a class="link mt-3 inline-block text-[0.95rem] text-text" href="/advisors/giveaway-rules">Read the selection rules</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. Application ────────────────────────────────────────────────────── -->
+  <section id="apply" class="border-t border-line scroll-mt-4">
+    <div class="wrap py-16 md:py-24">
+      <div class="mx-auto max-w-[40rem]">
+        <h2 class="display display-3 text-center">Apply for a call</h2>
+        <h3 class="label mt-6 text-center">On the call</h3>
+        <ol class="mx-auto mt-4 grid max-w-[34rem] gap-2.5 text-[0.98rem] text-text-2">
+          <li class="flex gap-3"><span class="num ax-ink" aria-hidden="true">01</span>Where the work leaks in your practice, and what it's costing you.</li>
+          <li class="flex gap-3"><span class="num ax-ink" aria-hidden="true">02</span>Real systems we've built, on screen.</li>
+          <li class="flex gap-3"><span class="num ax-ink" aria-hidden="true">03</span>The clearest picture of what your practice needs, whether we work together or not.</li>
+        </ol>
+
+        <div id="ax" class="mt-10 border border-line-2 bg-surface-3 p-5 sm:p-6 md:p-8 scroll-mt-4">
+          <div id="ax-progress">
+            <div class="flex items-center justify-between">
+              <p id="ax-progress-text" class="label" aria-live="polite">Step 1 of {TOTAL_STEPS}</p>
+            </div>
+            <div class="ax-progress mt-3" aria-hidden="true"><span id="ax-bar"></span></div>
+          </div>
+
+          <p id="ax-resume" class="mt-5 border-l-2 border-accent pl-3 text-[0.95rem] text-text-2" hidden></p>
+
+          <form id="ax-form" novalidate>
+            <!-- 1. name and email: form_start -->
+            <fieldset class="ax-step" data-step="1" data-key="contact">
+              <legend class="ax-q">Start here</legend>
+              <div class="field mt-5">
+                <label for="ax-name">Your name</label>
+                <input id="ax-name" class="input" type="text" autocomplete="name" maxlength="120" required />
+              </div>
+              <div class="field mt-4">
+                <label for="ax-email">Work email</label>
+                <input id="ax-email" class="input" type="email" autocomplete="email" inputmode="email" maxlength="320" required />
+              </div>
+              <div class="absolute -left-[9999px]" aria-hidden="true">
+                <label for="ax-company">Leave this field empty</label>
+                <input id="ax-company" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+              <p class="mt-4 text-[0.88rem] text-text-3">We'll email you about your application and the selection. You can unsubscribe from any email.</p>
+            </fieldset>
+
+            {QUESTIONS.map((q, i) => (
+              <fieldset class="ax-step" data-step={i + 2} data-key={q.key} hidden>
+                <legend class="ax-q">{q.question}</legend>
+                {q.helper && <p class="mt-1 text-[0.9rem] text-text-3">{q.helper}</p>}
+                {q.kind === "single" ? (
+                  <div class={`ax-opts mt-5 ${q.options.length > 4 ? "ax-opts-2" : ""}`}>
+                    {q.options.map((o) => (
+                      <button type="button" class="ax-opt" data-field={q.key} data-value={o.value} aria-pressed="false">{o.label}</button>
+                    ))}
+                  </div>
+                ) : (
+                  <div class="ax-chips mt-5">
+                    {q.options.map((o) => (
+                      <button type="button" class="ax-chip" data-field={q.key} data-value={o.value} aria-pressed="false">{o.label}</button>
+                    ))}
+                  </div>
+                )}
+              </fieldset>
+            ))}
+
+            <div id="ax-turnstile" class="ax-ts" aria-live="polite"></div>
+
+            <p id="ax-error" class="mt-4 min-h-[1.2em] text-[0.92rem] text-danger-ink" role="alert"></p>
+
+            <div class="mt-3 flex items-center justify-between gap-4">
+              <button type="button" id="ax-back" class="ax-textbtn" hidden>Back</button>
+              <span></span>
+              <button type="submit" id="ax-next" class="btn btn-primary">Continue<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></button>
+            </div>
+          </form>
+
+          <!-- booking: qualified -->
+          <div id="ax-book" hidden tabindex="-1">
+            <h3 class="ax-q">Pick a time for your call</h3>
+            <p class="mt-1 text-[0.9rem] text-text-3">Times are in your time zone. 45 minutes on Google Meet.</p>
+            <div class="mt-5">
+              <p id="ax-cal-loading" class="text-text-3" aria-live="polite">Finding open times...</p>
+              <div id="ax-days" class="ax-days" role="group" aria-label="Choose a day" hidden></div>
+              <div id="ax-times" class="ax-times mt-4" role="group" aria-label="Choose a time" hidden></div>
+            </div>
+            <p id="ax-picked-wrap" class="mt-5 text-text" hidden>You picked <strong id="ax-picked"></strong>.</p>
+            <div class="field mt-6">
+              <label for="ax-phone">WhatsApp number (optional)</label>
+              <div class="ax-phone">
+                <select id="ax-country" class="input" aria-label="Country code" autocomplete="tel-country-code"></select>
+                <input id="ax-phone" class="input" type="tel" autocomplete="tel-national" inputmode="tel" maxlength="24" aria-describedby="ax-phone-hint" />
+              </div>
+              <p id="ax-phone-hint" class="hint">For a reminder on the day.</p>
+            </div>
+            <p id="ax-book-error" class="mt-4 min-h-[1.2em] text-[0.92rem] text-danger-ink" role="alert"></p>
+            <div class="mt-3 flex justify-end">
+              <button type="button" id="ax-book-btn" class="btn btn-primary" disabled>Book this time<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></button>
+            </div>
+          </div>
+
+          <!-- confirmation: booked -->
+          <div id="ax-done" class="text-center" hidden tabindex="-1">
+            <h3 id="ax-done-h" class="display display-4">You're booked.</h3>
+            <p id="ax-done-when" class="mt-4 text-text-2"></p>
+            <p id="ax-done-entry" class="mt-3 text-text-2">Your entry for the selection is complete once we've had the call.</p>
+            <p class="mt-5 border-t border-line-2 pt-5 text-text"><span class="label block">Before the call</span><span class="mt-2 block">Pick the one process that eats most of your week. We'll start there.</span></p>
+          </div>
+
+          <!-- thank you: disqualified -->
+          <div id="ax-dq" class="text-center" hidden tabindex="-1">
+            <h3 id="ax-dq-h" class="display display-4">Thanks.</h3>
+            <p id="ax-dq-why" class="mt-4 text-text-2"></p>
+            <p class="mt-3 text-text-2">We've saved your answers, so you won't need to start over.</p>
+            <button type="button" id="ax-dq-back" class="ax-textbtn mt-6">I picked the wrong answer</button>
+          </div>
+        </div>
+
+        <p class="mt-6 text-center text-[0.85rem] text-text-3">
+          We use your answers to assess your application and to prepare for the call. Read our <a class="link" href="/privacy">privacy policy</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6. Questions advisors ask ─────────────────────────────────────────── -->
+  <section class="border-t border-line bg-surface">
+    <div class="wrap py-16 md:py-24">
+      <div class="mx-auto max-w-[60rem]">
+        <h2 class="display display-3 text-center">Questions advisors ask</h2>
+        <dl class="ax-faq mt-10 grid gap-px md:grid-cols-2">
+          {faqs.map((f) => (
+            <div class="p-6 md:p-7">
+              <dt class="text-[1.08rem] font-semibold text-text">{f.q}</dt>
+              {f.a.map((p) => <dd class="mt-2 text-text-2 leading-[1.6]">{p}</dd>)}
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 7. Founder ────────────────────────────────────────────────────────── -->
+  <section class="border-t border-line">
+    <div class="wrap py-16 md:py-24">
+      <div class="mx-auto grid max-w-[52rem] items-center gap-8 sm:grid-cols-[13rem_1fr] md:gap-12">
+        <Image src={cristo} alt="Cristo van Rensburg, founder of Cornerstone" widths={[320, 520]} sizes="(min-width: 640px) 13rem, 60vw" class="mx-auto w-[60%] max-w-[16rem] border border-line-2 sm:w-full" loading="lazy" />
+        <div>
+          <h2 class="display display-4">Who you'll speak to</h2>
+          <div class="mt-5 grid gap-4 text-[1.05rem] leading-[1.6] text-text-2">
+            <p>I'm Cristo van Rensburg, founder of Cornerstone. I've spent five years building systems for businesses across dozens of industries.</p>
+            <p>Then I started working with a Joburg advisor: 200+ client households, four support staff, a half used task board, spreadsheets and her memory.</p>
+            <p>Advisors get an outsized return from a better process. Every hour your team gets back is room for another client.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 8. Close ──────────────────────────────────────────────────────────── -->
+  <section id="closing" class="border-t border-line bg-surface">
+    <div class="wrap py-16 text-center md:py-24">
+      <h2 class="display display-3">Applications close 15 November.</h2>
+      <p class="mx-auto mt-4 max-w-[40ch] text-[1.08rem] text-text-2">Answer the questions, book your call, and you're in the selection.</p>
+      <a href="#apply" class="btn btn-primary mt-7 text-[1rem]" data-cta="closing">Apply for a call<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></a>
+    </div>
+  </section>
+
+  <div id="ax-sticky" class="ax-sticky md:hidden" hidden>
+    <a href="#apply" class="btn btn-primary flex-1 justify-center" data-cta="sticky">Apply for a call<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></a>
+    <span class="text-[0.85rem] text-text-2">Closes 15 Nov</span>
+  </div>
+
+  <p slot="footer-note" class="w-full max-w-[60rem] text-[0.8rem] leading-[1.5] text-text-3">
+    This site uses cookies, the Meta Pixel and the LinkedIn Insight Tag to see which ads bring people here and to show our ads to people who've visited. We handle your personal information under POPIA, as set out in our privacy policy.
+  </p>
+</Base>
+
+<style is:global>
+  .ax-ink { color: var(--color-accent-lt); }
+
+  .vsl-start { cursor: pointer; }
+  .vsl-play { transition: transform 220ms var(--ease-out); box-shadow: 0 0 0 10px rgb(209 162 79 / 0.22); }
+  .vsl-start:hover .vsl-play, .vsl-start:focus-visible .vsl-play { transform: scale(1.06); }
+  .vsl-start:focus-visible { outline: 2px solid var(--color-accent-lt); outline-offset: -4px; }
+  @media (prefers-reduced-motion: reduce) { .vsl-play { transition: none; } }
+  /* Fixed carbon, not --ground: a concrete wash would flatten the poster. */
+  .ax-poster-shade { background: linear-gradient(to top, rgb(20 19 16 / 0.45), rgb(20 19 16 / 0.08) 45%, rgb(20 19 16 / 0)); }
+  .ax-badge {
+    position: absolute; top: 0.6rem; left: 0.6rem; z-index: 2; pointer-events: none;
+    padding: 0.25rem 0.55rem; background: #141310; color: #ece9e2;
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+
+  .ax-fit li { position: relative; padding-left: 1.6rem; }
+  .ax-fit li::before { content: ""; position: absolute; left: 0; top: 0.68em; width: 0.7rem; height: 2px; background: var(--color-accent); }
+  .ax-fit.is-no li::before { background: var(--color-line-4); }
+
+  .ax-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border-top: 1px solid var(--color-line-2); padding-top: 1.25rem; }
+  .ax-dates dd { margin-top: 0.35rem; font-size: clamp(1.35rem, 2.6vw, 1.75rem); line-height: 1; color: var(--color-text); text-transform: uppercase; }
+  .ax-steps li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.75rem; align-items: baseline; }
+  .ax-steps p { color: var(--color-text-2); }
+  .ax-steps strong { color: var(--color-text); }
+  .ax-n { font-size: 1.6rem; line-height: 1; color: var(--color-accent-lt); }
+
+  .ax-faq { background: var(--color-line-2); border: 1px solid var(--color-line-2); }
+  .ax-faq > div { background: var(--color-surface-3); }
+
+  .ax-progress { height: 4px; background: var(--color-line-2); }
+  .ax-progress span { display: block; height: 100%; width: 0; background: var(--color-accent); transition: width 300ms var(--ease-out); }
+  .ax-step { border: 0; padding: 0; margin: 1.5rem 0 0; min-width: 0; }
+  .ax-q { font-size: clamp(1.25rem, 2.4vw, 1.5rem); font-weight: 650; line-height: 1.3; color: var(--color-text); padding: 0; }
+  .ax-opts { display: grid; gap: 0.6rem; }
+  .ax-opts-2 { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 520px) { .ax-opts-2 { grid-template-columns: 1fr; } }
+  .ax-opt, .ax-chip, .ax-day, .ax-time {
+    text-align: left; border: 1px solid var(--color-line-2); background: var(--color-ground); border-radius: 2px;
+    color: var(--color-text); cursor: pointer;
+    transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease, transform 120ms var(--ease-out);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ax-opt { padding: 0.95rem 1.1rem; font-size: 1rem; line-height: 1.4; min-height: 3.25rem; }
+  .ax-opt:active, .ax-chip:active, .ax-day:active, .ax-time:active { transform: scale(0.99); }
+  @media (hover: hover) {
+    .ax-opt:hover, .ax-chip:hover, .ax-day:hover, .ax-time:hover { border-color: var(--color-line-4); }
+  }
+  .ax-opt.is-picked, .ax-chip[aria-pressed="true"], .ax-day.is-picked, .ax-time.is-picked {
+    border-color: var(--color-accent-dk); background: rgb(209 162 79 / 0.16); color: var(--color-text);
+  }
+  .ax-opt:focus-visible, .ax-chip:focus-visible, .ax-day:focus-visible, .ax-time:focus-visible { outline: 2px solid var(--color-accent-lt); outline-offset: 2px; }
+  .ax-chips { display: grid; gap: 0.5rem; }
+  .ax-chip { padding: 0.8rem 1rem; font-size: 0.98rem; line-height: 1.35; display: flex; gap: 0.7rem; align-items: center; }
+  .ax-chip::before { content: ""; flex: none; width: 1.05rem; height: 1.05rem; border: 1px solid var(--color-line-4); border-radius: 2px; background: var(--color-surface-3); }
+  .ax-chip[aria-pressed="true"]::before {
+    border-color: var(--color-accent-dk); background: var(--color-accent) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M3.5 8.5l3 3 6-7' fill='none' stroke='%23141310' stroke-width='2'/></svg>") center / 80% no-repeat;
+  }
+  .ax-days { display: flex; gap: 0.5rem; overflow-x: auto; padding: 2px 2px 0.4rem; scrollbar-width: thin; }
+  .ax-day { flex: 0 0 auto; min-width: 5.2rem; padding: 0.6rem 0.75rem; text-align: center; font-size: 0.88rem; line-height: 1.3; color: var(--color-text-2); }
+  .ax-day b { display: block; font-size: 1.05rem; color: var(--color-text); }
+  .ax-times { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.8rem, 1fr)); gap: 0.5rem; }
+  .ax-time { padding: 0.7rem 0.5rem; text-align: center; font-variant-numeric: tabular-nums; }
+  .ax-textbtn { font-size: 0.92rem; color: var(--color-text-2); text-decoration: underline; text-underline-offset: 4px; padding: 0.5rem 0; }
+  .ax-textbtn:hover { color: var(--color-text); }
+
+  .ax-ts { max-height: 0; overflow: hidden; transition: max-height 200ms ease; }
+  .ax-ts.is-open { max-height: 120px; margin-top: 1rem; }
+  .ax-phone { display: grid; grid-template-columns: minmax(6.5rem, 9.5rem) 1fr; gap: 0.5rem; }
+  .ax-phone select { padding-right: 0.5rem; }
+  .input { background: var(--color-ground); }
+  .ax-sticky {
+    position: fixed; inset-inline: 0; bottom: 0; z-index: 40; display: flex; align-items: center; gap: 0.9rem;
+    padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, var(--color-ground) 72%, rgb(234 234 230 / 0));
+  }
+  .ax-sticky[hidden] { display: none; }
+</style>
+
+<script src="../scripts/advisors.ts"></script>

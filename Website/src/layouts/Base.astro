@@ -19,6 +19,11 @@ interface Props {
   /** A paid landing page: logo only, no menu, a one-line footer. Nothing on the
    *  page leads anywhere but the page's own ask. */
   bare?: boolean;
+  /** Colour theme. The site is carbon (dark); a page can opt into the light
+   *  Cool Concrete palette, scoped by [data-theme="light"] in global.css. */
+  theme?: "dark" | "light";
+  /** Bare footer only: links shown after Privacy and Terms. */
+  footerLinks?: { href: string; label: string }[];
 }
 
 const {
@@ -30,7 +35,10 @@ const {
   noindex = false,
   jsonLd = [],
   bare = false,
+  theme = "dark",
+  footerLinks = [],
 } = Astro.props;
+const light = theme === "light";
 
 const site = Astro.site ?? new URL("https://cornerstone-ai.pro");
 const canonical = new URL(Astro.url.pathname, site).toString();
@@ -50,7 +58,7 @@ const org = {
 };
 ---
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="en" class="no-js" data-theme={light ? "light" : undefined}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -58,8 +66,8 @@ const org = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
-    <meta name="theme-color" content="#141310" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content={light ? "#EAEAE6" : "#141310"} />
+    <meta name="color-scheme" content={light ? "light" : "dark"} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Cornerstone AI" />
@@ -127,7 +135,9 @@ const org = {
           <span class="flex gap-5">
             <a class="link" href="/privacy">Privacy</a>
             <a class="link" href="/terms">Terms</a>
+            {footerLinks.map((l) => <a class="link" href={l.href}>{l.label}</a>)}
           </span>
+          <slot name="footer-note" />
         </div>
       </footer>
     ) : (

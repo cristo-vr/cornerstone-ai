@@ -1,0 +1,94 @@
+---
+import Base from "../../layouts/Base.astro";
+import { ANNOUNCE_DATE, CLOSE_DATE, CONTACT_EMAIL } from "../../lib/advisors-config";
+
+/**
+ * /advisors/giveaway-rules: the end of year selection rules.
+ *
+ * DRAFT. Every <mark class="gap"> is a value Cristo hasn't given or confirmed
+ * yet. They are visible on purpose: this page must not go live with one left.
+ * (grep the built HTML for class="gap" before launch.)
+ */
+
+const title = "End of year selection rules | Cornerstone";
+const description = "How to enter the Cornerstone end of year selection for wealth advisors, and how the selected practice is chosen.";
+---
+<Base title={title} description={description} bare noindex theme="light" footerLinks={[{ href: "/advisors", label: "Back to the page" }]}>
+  <section class="wrap pb-20 md:pb-28" style="padding-top: calc(var(--nav-h) + 2.5rem)">
+    <div class="mx-auto max-w-[44rem]">
+      <p class="label">For wealth advisors</p>
+      <h1 class="display display-3 mt-3">End of year selection: the rules</h1>
+      <p class="lead mt-5 max-w-none">One wealth advisor and their team get the full Cornerstone process free. These are the rules for how to enter and how we choose.</p>
+
+      <div class="legal mt-12">
+        <h2>1. Who runs it</h2>
+        <p>The selection is run by Cornerstone AI (Pty) Ltd, registration number <mark class="gap">[NEED: registration number]</mark>, trading as Cornerstone ("we").</p>
+
+        <h2>2. Who can enter</h2>
+        <ul>
+          <li>Wealth and financial advisors who run their own book of clients and work with at least one admin or support person.</li>
+          <li><span>Practices based in South Africa. <mark class="gap">[CONFIRM]</mark></span></li>
+          <li>You must be 18 or older and able to make the decision for your practice, or have the agreement of whoever does.</li>
+          <li>One entry per practice.</li>
+          <li><span>Our staff, their families and our existing clients can't enter. <mark class="gap">[CONFIRM]</mark></span></li>
+        </ul>
+
+        <h2>3. How to enter</h2>
+        <p>Your entry counts once you've done all three:</p>
+        <ol class="ax-ol">
+          <li>Complete the application at cornerstone-ai.pro/advisors.</li>
+          <li>Book a call through the calendar on that page.</li>
+          <li>Attend that call. If you need to move it, the moved call counts.</li>
+        </ol>
+        <p>Entering costs nothing. <mark class="gap">[NEED: legal check that requiring a call is allowed under CPA s36 and its regulations]</mark></p>
+
+        <h2>4. Dates</h2>
+        <ul>
+          <li><span>Applications close at 23:59 SAST on {CLOSE_DATE}. <mark class="gap">[CONFIRM: time]</mark></span></li>
+          <li><span>Calls booked before the close but held after it still count, if they're held by <mark class="gap">[NEED: date]</mark>.</span></li>
+          <li>We announce the selected practice on {ANNOUNCE_DATE}.</li>
+        </ul>
+
+        <h2>5. How we choose</h2>
+        <p>This is a judged selection. Nobody is drawn at random. Cristo van Rensburg reviews every complete entry against:</p>
+        <ul>
+          <li><span>how clearly the bottlenecks showed up on the call, <mark class="gap">[CONFIRM]</mark></span></li>
+          <li><span>whether the team is willing to take part, <mark class="gap">[CONFIRM]</mark></span></li>
+          <li><span>whether the practice is ready to start, <mark class="gap">[CONFIRM]</mark></span></li>
+          <li>whether the practice meets the entry criteria in section 2.</li>
+        </ul>
+        <p>Our decision is final. We don't publish the scores.</p>
+
+        <h2>6. The prize</h2>
+        <ul>
+          <li>The full Cornerstone process for one advisor and their team, free, valued at up to R150,000. The value depends on the size of the team.</li>
+          <li>No client data goes in until your compliance officer signs off.</li>
+          <li>The prize can't be swapped for cash or moved to another practice.</li>
+          <li><span>It must start by <mark class="gap">[NEED: start date]</mark>.</span></li>
+        </ul>
+
+        <h2>7. If you're not selected</h2>
+        <p>Every other practice that entered and starts with us gets 4 weeks free. <mark class="gap">[NEED: the date by which they must start]</mark></p>
+
+        <h2>8. How we tell you</h2>
+        <p>We email the selected practice on {ANNOUNCE_DATE}. If we don't hear back within <mark class="gap">[NEED: number]</mark> days, we may select another practice. With your permission, we'll name the selected practice publicly. <mark class="gap">[CONFIRM]</mark></p>
+
+        <h2>9. Your information</h2>
+        <p>We use what you share in your application and on the call only to run this selection and to talk to you about working together. We handle it under POPIA, as set out in our <a href="/privacy">privacy policy</a>.</p>
+
+        <h2>10. Questions</h2>
+        <p>Email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. <mark class="gap">[CONFIRM: contact email]</mark></p>
+      </div>
+
+      <a class="btn btn-ghost mt-12" href="/advisors"><span aria-hidden="true">&larr;&nbsp;</span>Back to the page</a>
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+  .legal .ax-ol { list-style: decimal; padding-left: 1.4rem; margin: 1em 0; display: grid; gap: 0.5rem; color: var(--color-text-2); }
+  .legal .ax-ol li { display: list-item; }
+  .legal .ax-ol li::before { content: none; }
+  .legal .ax-ol li::marker { color: var(--color-accent-lt); font-weight: 700; }
+  mark.gap { background: #f3e2bd; color: #5a3f0c; padding: 0 0.3em; border-radius: 2px; font-size: 0.9em; font-weight: 600; }
+</style>

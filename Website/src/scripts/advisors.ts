@@ -1,0 +1,708 @@
+/**
+ * /advisors: the video, the application, the calendar.
+ *
+ * Every request and every event goes through ./funnel-client (dry run unless
+ * PUBLIC_FUNNEL_LIVE=1). The questions come from ../lib/advisor-questions; the
+ * gates are run here only to pick the next screen, Mason runs them again.
+ */
+
+import { DIAL_CODES, flag, toE164 } from "../lib/dial-codes";
+import { QUESTIONS, TOTAL_STEPS, DISQUALIFY_COPY, gate, summarise, type DisqualifyReason } from "../lib/advisor-questions";
+import { CONTACT_EMAIL, FUNNEL } from "../lib/advisors-config";
+import {
+  BookError,
+  cal,
+  flush,
+  lead as leadApi,
+  linkedin,
+  mountTurnstile,
+  pixel,
+  setFunnel,
+  setLeadId,
+  store,
+  takeToken,
+  track,
+} from "./funnel-client";
+
+setFunnel(FUNNEL);
+
+const EMAIL_RE = /^[a-z0-9._%+'-]+@[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,24}$/i;
+const HLS_JS = "https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js";
+const LEAD_KEY = "cs_adv_lead";
+const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
+const arrow = '<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span>';
+
+const params = new URLSearchParams(location.search);
+const referrerHost = (() => {
+  try {
+    return document.referrer ? new URL(document.referrer).hostname : "";
+  } catch {
+    return "";
+  }
+})();
+track("page_view", { referrer_host: referrerHost });
+
+interface Lead {
+  id: string;
+  token: string;
+  status: string;
+}
+let lead: Lead | null = null;
+let videoUnlocked = true;
+const unlockWaiters: Array<() => void> = [];
+
+// ─── the video ──────────────────────────────────────────────────────────────
+
+function loadScript(src: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = src;
+    s.async = true;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error(`could not load ${src}`));
+    document.head.appendChild(s);
+  });
+}
+
+(() => {
+  const vsl = document.getElementById("vsl");
+  const video = document.getElementById("vsl-video") as HTMLVideoElement | null;
+  const start = document.getElementById("vsl-start") as HTMLButtonElement | null;
+  if (!vsl || !video || !start) return;
+  const v = video;
+  const hlsUrl = vsl.dataset.hls || "";
+  const mp4Url = vsl.dataset.mp4 || "";
+  videoUnlocked = vsl.dataset.gate !== "1";
+  const marks = new Set<number>();
+  let played = false;
+
+  async function attach(): Promise<void> {
+    if (!hlsUrl) {
+      v.src = mp4Url;
+      return;
+    }
+    // hls.js wherever Media Source exists; native HLS only on old iOS.
+    if ("MediaSource" in window || "ManagedMediaSource" in window) {
+      try {
+        await loadScript(HLS_JS);
+        if (window.Hls?.isSupported()) {
+          const hls = new window.Hls({ capLevelToPlayerSize: true, abrEwmaDefaultEstimate: 6_000_000, maxBufferLength: 30 });
+          hls.on(window.Hls.Events.ERROR, (_e: unknown, data: { fatal?: boolean }) => {
+            if (data?.fatal) {
+              hls.destroy();
+              v.src = mp4Url;
+              v.play().catch(() => {});
+            }
+          });
+          hls.loadSource(hlsUrl);
+          hls.attachMedia(v);
+          return;
+        }
+      } catch {
+        /* fall through */
+      }
+    }
+    v.src = v.canPlayType("application/vnd.apple.mpegurl") ? hlsUrl : mp4Url;
+  }
+
+  const play = async () => {
+    start.hidden = true;
+    v.hidden = false;
+    await attach();
+    v.play().catch(() => {
+      /* autoplay refused: the native controls are showing, one more tap plays */
+    });
+  };
+
+  start.addEventListener("click", () => {
+    if (!videoUnlocked) {
+      // Gated: the name and email step comes first, then the video plays.
+      $("vsl-gate-note").hidden = false;
+      $("apply").scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => $<HTMLInputElement>("ax-name").focus({ preventScroll: true }), 400);
+      unlockWaiters.push(() => {
+        vsl.scrollIntoView({ behavior: "smooth", block: "center" });
+        void play();
+      });
+      return;
+    }
+    void play();
+  });
+
+  v.addEventListener("play", () => {
+    if (played) return;
+    played = true;
+    track("video_play");
+    pixel("trackCustom", "VideoPlay");
+  });
+
+  const mark = (p: 25 | 50 | 75 | 100) => {
+    if (marks.has(p)) return;
+    marks.add(p);
+    track("video_progress", { pct: p, seconds: Math.round(v.currentTime) });
+    if (p === 50) pixel("trackCustom", "VideoHalf");
+    if (p === 100) {
+      pixel("trackCustom", "VideoComplete");
+      flush();
+    }
+  };
+
+  v.addEventListener("timeupdate", () => {
+    if (!v.duration || !Number.isFinite(v.duration)) return;
+    const pct = (v.currentTime / v.duration) * 100;
+    if (pct >= 25) mark(25);
+    if (pct >= 50) mark(50);
+    if (pct >= 75) mark(75);
+    if (pct >= 99.5) mark(100);
+  });
+
+  v.addEventListener("ended", () => {
+    mark(100);
+    $("apply").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+})();
+
+// The sticky phone CTA: shown once the hero ask has scrolled away, hidden while
+// the application is in view.
+(() => {
+  const sticky = document.getElementById("ax-sticky");
+  const heroCta = document.querySelector<HTMLElement>('[data-cta="hero"]');
+  const apply = document.getElementById("apply");
+  const closing = document.getElementById("closing");
+  if (!sticky || !heroCta || !apply || !("IntersectionObserver" in window)) return;
+  let heroGone = false;
+  let applyIn = false;
+  let closingIn = false;
+  const update = () => {
+    sticky.hidden = !(heroGone && !applyIn && !closingIn);
+  };
+  new IntersectionObserver(([e]) => {
+    heroGone = !e.isIntersecting && e.boundingClientRect.top < 0;
+    update();
+  }).observe(heroCta);
+  new IntersectionObserver(([e]) => {
+    applyIn = e.isIntersecting;
+    update();
+  }, { rootMargin: "0px 0px -20% 0px" }).observe(apply);
+  if (closing)
+    new IntersectionObserver(([e]) => {
+      closingIn = e.isIntersecting;
+      update();
+    }).observe(closing);
+})();
+
+// ─── the application ────────────────────────────────────────────────────────
+
+const form = document.getElementById("ax-form") as HTMLFormElement | null;
+
+if (form) {
+  const box = $("ax");
+  const steps = Array.from(form.querySelectorAll<HTMLFieldSetElement>(".ax-step"));
+  const bar = $("ax-bar");
+  const progressText = $("ax-progress-text");
+  const progress = $("ax-progress");
+  const err = $("ax-error");
+  const back = $<HTMLButtonElement>("ax-back");
+  const next = $<HTMLButtonElement>("ax-next");
+  const resumeNote = $("ax-resume");
+  const nameEl = $<HTMLInputElement>("ax-name");
+  const emailEl = $<HTMLInputElement>("ax-email");
+  const bookPanel = $("ax-book");
+  const done = $("ax-done");
+  const dq = $("ax-dq");
+  const tsSlot = $("ax-turnstile");
+
+  const answers: Record<string, string | string[]> = {};
+  const multi: Record<string, Set<string>> = {};
+  for (const q of QUESTIONS) if (q.kind === "multi") multi[q.key] = new Set();
+
+  let step = 1;
+  let busy = false;
+  let started = false;
+  const shown = new Set<number>();
+  let firstName = "";
+
+  const questionAt = (n: number) => QUESTIONS[n - 2];
+  const allAnswers = () => {
+    const out: Record<string, string | string[]> = { ...answers };
+    for (const [k, s] of Object.entries(multi)) out[k] = [...s];
+    return out;
+  };
+
+  try {
+    const saved = JSON.parse(store.get(LEAD_KEY) || "null");
+    if (saved?.id && saved?.token) lead = saved;
+  } catch {
+    /* ignore */
+  }
+  const urlLead = params.get("l");
+  const urlToken = params.get("t");
+  if (urlLead && urlToken) lead = { id: urlLead, token: urlToken, status: "partial" };
+  const saveLead = () => lead && store.set(LEAD_KEY, JSON.stringify(lead));
+  const setLead = (l: Lead) => {
+    lead = l;
+    setLeadId(l.id);
+    saveLead();
+    if (!videoUnlocked) {
+      videoUnlocked = true;
+      $("vsl-gate-note").hidden = true;
+      unlockWaiters.splice(0).forEach((w) => w());
+    }
+  };
+
+  const fail = (msg: string) => {
+    err.textContent = msg;
+  };
+
+  const buttonLabel = (n: number) => {
+    const q = questionAt(n);
+    return `${q?.button ?? "Continue"}${arrow}`;
+  };
+
+  function show(n: number, focus = true) {
+    step = n;
+    steps.forEach((s) => (s.hidden = Number(s.dataset.step) !== n));
+    bar.style.width = `${Math.round((n / TOTAL_STEPS) * 100)}%`;
+    progressText.textContent = `Step ${n} of ${TOTAL_STEPS}`;
+    back.hidden = n <= 1 || (n === 2 && !!lead);
+    err.textContent = "";
+    const q = questionAt(n);
+    next.hidden = !!q?.auto;
+    next.innerHTML = buttonLabel(n);
+    resumeNote.hidden = Number(resumeNote.dataset.keep || 0) !== n;
+    // Step 1 is on screen for every visitor; it counts once they touch it.
+    if (!shown.has(n) && (n > 1 || started)) {
+      shown.add(n);
+      track("form_step", { step: n, key: q?.key ?? "contact" });
+    }
+    if (focus) {
+      const target = steps[n - 1]?.querySelector<HTMLElement>("input:not([type=hidden]):not([tabindex='-1']), .ax-opt, .ax-chip");
+      target?.focus({ preventScroll: true });
+      box.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  function end(panel: HTMLElement) {
+    form!.hidden = true;
+    progress.hidden = true;
+    for (const p of [bookPanel, done, dq]) p.hidden = p !== panel;
+    panel.focus({ preventScroll: true });
+    box.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  /** Best effort for the middle steps: a dropped save must not stop anyone
+   *  reaching the calendar, and the final submit re-sends everything. */
+  async function save(extra: Record<string, unknown> = {}, complete = false) {
+    if (!lead) return null;
+    const payload: Record<string, unknown> = {
+      lead_id: lead.id,
+      token: lead.token,
+      step,
+      answers: allAnswers(),
+      complete,
+      ...extra,
+    };
+    if (complete) payload.turnstileToken = await takeToken(2500);
+    const data = await leadApi.answer(payload);
+    if (typeof data.status === "string") lead.status = data.status;
+    saveLead();
+    return data;
+  }
+
+  function disqualify(reason: DisqualifyReason, fresh = true) {
+    $("ax-dq-h").textContent = firstName ? `Thanks, ${firstName}.` : "Thanks.";
+    $("ax-dq-why").textContent = DISQUALIFY_COPY[reason];
+    if (fresh) track("disqualified", { reason });
+    end(dq);
+  }
+
+  // Step 1: the lead exists.
+  async function capture() {
+    const name = nameEl.value.trim();
+    const email = emailEl.value.trim();
+    nameEl.setAttribute("aria-invalid", String(!name));
+    if (!name) {
+      nameEl.focus();
+      return fail("Add your name.");
+    }
+    const okEmail = EMAIL_RE.test(email);
+    emailEl.setAttribute("aria-invalid", String(!okEmail));
+    if (!okEmail) {
+      emailEl.focus();
+      return fail("That email doesn't look right.");
+    }
+    busy = true;
+    next.disabled = true;
+    next.textContent = "One moment";
+    try {
+      const data = await leadApi.capture({
+        name,
+        email,
+        company: $<HTMLInputElement>("ax-company").value,
+        turnstileToken: await takeToken(),
+      });
+      firstName = name.split(/\s+/)[0];
+      setLead({ id: String(data.lead_id), token: String(data.token), status: String(data.status ?? "partial") });
+      if (data.returning) restore(data);
+      else show(2);
+    } catch (e) {
+      fail(e instanceof Error ? e.message : "That didn't go through. Try again in a moment.");
+    } finally {
+      busy = false;
+      next.disabled = false;
+      if (step === 1) next.innerHTML = buttonLabel(1);
+    }
+  }
+
+  function pickSingle(key: string, value: string) {
+    answers[key] = value;
+    form!.querySelectorAll<HTMLButtonElement>(`.ax-opt[data-field="${key}"]`).forEach((b) => {
+      const on = b.dataset.value === value;
+      b.classList.toggle("is-picked", on);
+      b.setAttribute("aria-pressed", String(on));
+    });
+  }
+
+  function restore(data: Record<string, unknown>, focus = true) {
+    const prev = (data.answers ?? {}) as Record<string, unknown>;
+    for (const q of QUESTIONS) {
+      const v = prev[q.key];
+      if (q.kind === "single" && typeof v === "string") pickSingle(q.key, v);
+      if (q.kind === "multi" && Array.isArray(v)) {
+        v.forEach((x) => multi[q.key].add(String(x)));
+        form!.querySelectorAll<HTMLButtonElement>(`.ax-chip[data-field="${q.key}"]`).forEach((c) =>
+          c.setAttribute("aria-pressed", String(multi[q.key].has(c.dataset.value!))),
+        );
+      }
+    }
+    if (typeof data.name === "string" && data.name) {
+      nameEl.value = data.name;
+      firstName = data.name.split(/\s+/)[0];
+    }
+    if (typeof data.email === "string") emailEl.value = data.email;
+    const status = String(data.status ?? "partial");
+    if (["booked", "showed", "won", "lost"].includes(status)) {
+      $("ax-done-h").textContent = firstName ? `You're booked, ${firstName}.` : "You're booked.";
+      $("ax-done-when").textContent =
+        "You already have a call booked with us. The details are in your inbox, and you can reply to that email to move it.";
+      $("ax-done-entry").hidden = true;
+      return end(done);
+    }
+    if (status === "qualified" || status === "no_show") return openBooking();
+    if (status === "disqualified") {
+      const reason = gate(allAnswers());
+      if (reason) return disqualify(reason, false);
+    }
+    const n = Math.min(Math.max(Number(data.step_reached ?? 1) + 1, 2), TOTAL_STEPS);
+    resumeNote.textContent = `Welcome back${firstName ? `, ${firstName}` : ""}. You're on question ${n - 1}.`;
+    resumeNote.dataset.keep = String(n);
+    resumeNote.hidden = false;
+    show(n, focus);
+  }
+
+  async function submit() {
+    track("form_submit", { step });
+    next.disabled = true;
+    next.textContent = "One moment";
+    busy = true;
+    try {
+      const local = gate(allAnswers());
+      const data = await save(local ? { disqualified: true } : {}, true);
+      if (local || data?.status === "disqualified") return disqualify(local ?? "role");
+      track("qualified");
+      pixel("track", "Lead", {}, { eventID: `lead:${lead!.id}` });
+      linkedin("qualified");
+      openBooking();
+    } catch (e) {
+      fail(e instanceof Error ? e.message : "That didn't go through. Try again in a moment.");
+    } finally {
+      busy = false;
+      next.disabled = false;
+      next.innerHTML = buttonLabel(step);
+    }
+  }
+
+  form.querySelectorAll<HTMLButtonElement>(".ax-opt").forEach((b) =>
+    b.addEventListener("click", () => {
+      if (busy) return;
+      const key = b.dataset.field!;
+      const value = b.dataset.value!;
+      pickSingle(key, value);
+      err.textContent = "";
+      const q = QUESTIONS.find((x) => x.key === key)!;
+      if (!q.auto) return;
+      if (q.options.find((o) => o.value === value)?.disqualify) return void submit();
+      void save().catch(() => {});
+      setTimeout(() => show(step + 1), 160);
+    }),
+  );
+
+  form.querySelectorAll<HTMLButtonElement>(".ax-chip").forEach((c) =>
+    c.addEventListener("click", () => {
+      const set = multi[c.dataset.field!];
+      const v = c.dataset.value!;
+      if (set.has(v)) set.delete(v);
+      else set.add(v);
+      c.setAttribute("aria-pressed", String(set.has(v)));
+      if (set.size) err.textContent = "";
+    }),
+  );
+
+  // First touch of the form: count it, and wake Turnstile so a token is ready.
+  form.addEventListener("focusin", () => {
+    if (started) return;
+    started = true;
+    track("form_start");
+    track("form_step", { step: 1, key: "contact" });
+    shown.add(1);
+    pixel("trackCustom", "FormStart");
+    mountTurnstile(tsSlot);
+  });
+
+  back.addEventListener("click", () => show(Math.max(step - 1, 1)));
+
+  $("ax-dq-back").addEventListener("click", () => {
+    dq.hidden = true;
+    form.hidden = false;
+    progress.hidden = false;
+    // Back to the question that closed the door.
+    const idx = QUESTIONS.findIndex((q) => q.options.some((o) => o.disqualify && answers[q.key] === o.value));
+    show(idx >= 0 ? idx + 2 : 2);
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (busy) return;
+    err.textContent = "";
+    if (step === 1) return void capture();
+    const q = questionAt(step);
+    if (!q) return;
+    if (q.kind === "multi") {
+      if (multi[q.key].size < (q.min ?? 0)) return fail("Pick at least one.");
+      void save().catch(() => {});
+      return show(step + 1);
+    }
+    if (!answers[q.key]) return fail("Pick one.");
+    if (step === TOTAL_STEPS) return void submit();
+    void save().catch(() => {});
+    show(step + 1);
+  });
+
+  // ─── the calendar ─────────────────────────────────────────────────────────
+
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "Africa/Johannesburg";
+  const tzLabel = tz.replace(/_/g, " ");
+  const daysEl = $("ax-days");
+  const timesEl = $("ax-times");
+  const loadingEl = $("ax-cal-loading");
+  const pickedWrap = $("ax-picked-wrap");
+  const bookErr = $("ax-book-error");
+  const bookBtn = $<HTMLButtonElement>("ax-book-btn");
+  const countryEl = $<HTMLSelectElement>("ax-country");
+  const phoneEl = $<HTMLInputElement>("ax-phone");
+  let slots: string[] | null = null;
+  let picked: string | null = null;
+
+  (() => {
+    let names: Intl.DisplayNames | null = null;
+    try {
+      names = new Intl.DisplayNames([navigator.language || "en"], { type: "region" });
+    } catch {
+      /* codes only */
+    }
+    const opts = DIAL_CODES.map((c) => ({ ...c, name: names?.of(c.iso) ?? c.iso })).sort((a, b) => a.name.localeCompare(b.name));
+    countryEl.innerHTML = opts.map((c) => `<option value="${c.iso}">${flag(c.iso)} +${c.dial}  ${c.name}</option>`).join("");
+    countryEl.value = DIAL_CODES.some((c) => c.iso === "ZA") ? "ZA" : opts[0].iso;
+    phoneEl.placeholder = "e.g. 082 123 4567";
+    countryEl.addEventListener("change", () => {
+      phoneEl.placeholder = countryEl.value === "ZA" ? "e.g. 082 123 4567" : "Your number";
+    });
+  })();
+
+  const fmtTime = (iso: string) => new Intl.DateTimeFormat(undefined, { timeZone: tz, hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
+  const fmtFull = (iso: string) =>
+    new Intl.DateTimeFormat(undefined, { timeZone: tz, weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" }).format(
+      new Date(iso),
+    );
+  const dayKey = (iso: string) =>
+    new Intl.DateTimeFormat("en-CA", { timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(iso));
+
+  function openBooking() {
+    end(bookPanel);
+    void loadSlots();
+  }
+
+  const mailto = `<a class="link" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>`;
+
+  async function loadSlots(force = false) {
+    if (slots && !force) return;
+    loadingEl.hidden = false;
+    loadingEl.textContent = "Finding open times...";
+    daysEl.hidden = true;
+    timesEl.hidden = true;
+    try {
+      slots = await cal.slots();
+      track("booking_view", { count: slots.length });
+      renderDays();
+    } catch {
+      loadingEl.innerHTML = `The calendar didn't load. Refresh the page, or email ${mailto}.`;
+    }
+  }
+
+  function renderDays() {
+    const byDay = new Map<string, string[]>();
+    for (const s of slots ?? []) {
+      const k = dayKey(s);
+      if (!byDay.has(k)) byDay.set(k, []);
+      byDay.get(k)!.push(s);
+    }
+    if (!byDay.size) {
+      loadingEl.innerHTML = `No open times right now. Email ${mailto} and we'll find one.`;
+      return;
+    }
+    loadingEl.hidden = true;
+    daysEl.hidden = false;
+    daysEl.innerHTML = "";
+    let first: HTMLButtonElement | null = null;
+    for (const list of byDay.values()) {
+      const d = new Date(list[0]);
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "ax-day";
+      b.setAttribute("aria-pressed", "false");
+      const wd = new Intl.DateTimeFormat(undefined, { timeZone: tz, weekday: "short" }).format(d);
+      const dm = new Intl.DateTimeFormat(undefined, { timeZone: tz, day: "numeric", month: "short" }).format(d);
+      b.innerHTML = `${wd}<b>${dm}</b>`;
+      b.addEventListener("click", () => {
+        daysEl.querySelectorAll(".ax-day").forEach((x) => {
+          x.classList.remove("is-picked");
+          x.setAttribute("aria-pressed", "false");
+        });
+        b.classList.add("is-picked");
+        b.setAttribute("aria-pressed", "true");
+        renderTimes(list);
+      });
+      daysEl.appendChild(b);
+      if (!first) first = b;
+    }
+    first?.click();
+  }
+
+  function renderTimes(list: string[]) {
+    timesEl.hidden = false;
+    timesEl.innerHTML = "";
+    for (const s of list) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "ax-time";
+      b.textContent = fmtTime(s);
+      b.setAttribute("aria-pressed", String(s === picked));
+      if (s === picked) b.classList.add("is-picked");
+      b.addEventListener("click", () => {
+        picked = s;
+        timesEl.querySelectorAll(".ax-time").forEach((x) => {
+          x.classList.remove("is-picked");
+          x.setAttribute("aria-pressed", "false");
+        });
+        b.classList.add("is-picked");
+        b.setAttribute("aria-pressed", "true");
+        $("ax-picked").textContent = fmtFull(s);
+        pickedWrap.hidden = false;
+        bookBtn.disabled = false;
+        bookErr.textContent = "";
+      });
+      timesEl.appendChild(b);
+    }
+  }
+
+  bookBtn.addEventListener("click", async () => {
+    if (busy) return;
+    bookErr.textContent = "";
+    if (!picked || !lead) {
+      bookErr.textContent = "Pick a time first.";
+      return;
+    }
+    let phone = "";
+    if (phoneEl.value.trim()) {
+      const r = toE164(countryEl.value, phoneEl.value);
+      phoneEl.setAttribute("aria-invalid", String(!r.ok));
+      if (!r.ok) {
+        phoneEl.focus();
+        bookErr.textContent = r.error;
+        return;
+      }
+      phone = r.value;
+    }
+    busy = true;
+    bookBtn.disabled = true;
+    bookBtn.textContent = "Booking";
+    try {
+      if (phone) void save({ phone }).catch(() => {});
+      let who = { name: nameEl.value.trim(), email: emailEl.value.trim() };
+      if (!who.name || !who.email) {
+        const r = await leadApi.resume(lead.id, lead.token);
+        who = { name: String(r.name ?? ""), email: String(r.email ?? "") };
+        firstName = who.name.split(/\s+/)[0];
+      }
+      mountTurnstile(tsSlot);
+      const data = await cal.book({
+        startsAt: picked,
+        name: who.name,
+        email: who.email,
+        timezone: tz,
+        context: summarise(allAnswers()) + (phone ? `\nWhatsApp: ${phone}` : ""),
+        turnstileToken: await takeToken(8000),
+      });
+      track("booked");
+      pixel("track", "Schedule", {}, { eventID: `schedule:${lead.id}` });
+      linkedin("booked");
+      flush();
+      leadApi.booked(lead.id, lead.token, data.bookingId).catch(() => {});
+      lead.status = "booked";
+      saveLead();
+      $("ax-done-h").textContent = firstName ? `You're booked, ${firstName}.` : "You're booked.";
+      $("ax-done-when").textContent = `${fmtFull(data.startsAt)} (${tzLabel}) with Cristo. The invite is in your inbox.`;
+      end(done);
+    } catch (e) {
+      if (e instanceof BookError && e.code === "already_booked") {
+        leadApi.booked(lead.id, lead.token).catch(() => {});
+        $("ax-done-h").textContent = firstName ? `You're booked, ${firstName}.` : "You're booked.";
+        $("ax-done-when").textContent =
+          "You already have a call booked with us. The details are in your inbox, and you can reply to that email to move it.";
+        return end(done);
+      }
+      if (e instanceof BookError && e.code === "slot_taken") {
+        picked = null;
+        pickedWrap.hidden = true;
+        await loadSlots(true);
+        bookErr.textContent = "Someone just took that time. Pick another one.";
+        return;
+      }
+      bookErr.innerHTML = `That didn't go through. Try again, or email ${mailto}.`;
+    } finally {
+      busy = false;
+      bookBtn.disabled = !picked;
+      bookBtn.innerHTML = `Book this time${arrow}`;
+    }
+  });
+
+  // ─── start ────────────────────────────────────────────────────────────────
+
+  if (lead) {
+    setLeadId(lead.id);
+    leadApi
+      .resume(lead.id, lead.token)
+      .then((data) => {
+        if (!videoUnlocked) setLead(lead!);
+        restore(data, !!urlLead);
+      })
+      .catch(() => {
+        lead = null;
+        setLeadId(null);
+        store.del(LEAD_KEY);
+        show(1, false);
+      });
+  } else {
+    show(1, false);
+  }
+}
