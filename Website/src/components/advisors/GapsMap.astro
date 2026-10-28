@@ -123,12 +123,11 @@ const by = Object.fromEntries(pieces.map((p) => [p.k, p]));
           <li class="gm-row" data-row="mail"><span class="gm-lbl">Waiting on</span><div class="gm-val"><span class="gm-empty">Ask admin</span><div class="gm-v">Signed beneficiary form</div><div class="gm-src">Client thread filed, 6 messages</div></div></li>
           <li class="gm-row" data-row="fica"><span class="gm-lbl">FICA</span><div class="gm-val"><span class="gm-empty">Ask admin</span><div class="gm-v">Proof of address <span class="gm-tag">Expired</span></div><div class="gm-src">Request sent to client 04 Sep</div></div></li>
         </ol>
-        <div class="gm-foot"><span>Sources linked <b data-gm-count>0</b> of 5</span></div>
+        <div class="gm-foot">
+          <span>Sources linked <b data-gm-count>0</b> of 5</span>
+          <span class="gm-tally" aria-hidden="true"><b class="gm-tally-n" data-gm-asks>5</b>Questions that reach you</span>
+        </div>
       </article>
-      <div class="gm-tally" aria-hidden="true">
-        <b class="gm-tally-n" data-gm-asks>5</b>
-        <span>Questions that reach you</span>
-      </div>
     </div>
   </div>
 </figure>
@@ -138,7 +137,7 @@ const by = Object.fromEntries(pieces.map((p) => [p.k, p]));
     --gm-paper: var(--color-surface-3);
     --gm-paper-2: #ebeae5;
     --gm-sunken: #dddcd6;
-    --gm-muted: #7c7a71;
+    --gm-muted: #6b6960;
     --gm-shadow-1: 0 1px 0 rgb(255 253 247 / 0.75) inset, 0 1px 2px rgb(58 50 36 / 0.1), 0 8px 16px -8px rgb(58 50 36 / 0.18), 0 24px 44px -26px rgb(58 50 36 / 0.3);
     --gm-shadow-card: 0 1px 0 rgb(255 253 247 / 0.85) inset, 0 2px 4px rgb(58 50 36 / 0.07), 0 34px 64px -34px rgb(58 50 36 / 0.42);
     position: relative; margin: 0;
@@ -169,8 +168,10 @@ const by = Object.fromEntries(pieces.map((p) => [p.k, p]));
 
   .gm-frag { position: relative; background: var(--gm-paper); box-shadow: var(--gm-shadow-1); color: var(--color-text); rotate: var(--r, 0deg); transition: opacity 0.45s ease, filter 0.45s ease; }
   .gm-frag.is-fly { position: absolute; left: 0; top: 0; width: 100%; z-index: 6; transform-origin: 0 0; will-change: transform, opacity; pointer-events: none; opacity: 0;
-    box-shadow: 0 1px 0 rgb(255 253 247 / 0.75) inset, 0 2px 4px rgb(58 50 36 / 0.12), 0 30px 50px -24px rgb(58 50 36 / 0.42); }
-  .gm-frag.is-src.is-dim { opacity: 0.45; filter: grayscale(1); }
+    box-shadow: 0 1px 0 rgb(255 253 247 / 0.75) inset, 0 2px 4px rgb(58 50 36 / 0.12), 0 30px 50px -24px rgb(58 50 36 / 0.42);
+    transition: none; }
+  /* Filed, not gone: still legible, the Linked square says it moved. */
+  .gm-frag.is-src.is-dim { opacity: 0.78; filter: saturate(0.4); }
   @media (hover: hover) and (pointer: fine) {
     .gm-silo.is-hot .gm-frag.is-src { opacity: 1; filter: none; box-shadow: var(--gm-shadow-1), 0 0 0 1px var(--color-text); }
     .gm-row { transition: background-color 0.2s ease; }
@@ -178,7 +179,7 @@ const by = Object.fromEntries(pieces.map((p) => [p.k, p]));
   }
   .gm-m { display: none; }
 
-  .gm-k { display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-3); }
+  .gm-k { display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-3); }
   .gm-f-aua { --r: -1.1deg; padding: 1rem 1.1rem 0.9rem; }
   .gm-f-aua h4 { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 0.01em; margin: 0.6rem 0 0.1rem; line-height: 1; }
   .gm-sub { font-size: 0.72rem; color: var(--color-text-3); margin-bottom: 0.6rem; }
@@ -189,12 +190,12 @@ const by = Object.fromEntries(pieces.map((p) => [p.k, p]));
 
   .gm-f-roa { --r: 1.3deg; }
   .gm-pdf { display: grid; grid-template-columns: 40px 1fr; }
-  .gm-tab { background: var(--gm-sunken); padding-top: 0.75rem; text-align: center; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.08em; color: var(--color-text-2); }
+  .gm-tab { background: var(--gm-sunken); padding-top: 0.75rem; text-align: center; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; color: var(--color-text-2); }
   .gm-pg { padding: 0.7rem 0.9rem; min-width: 0; }
   .gm-fn { font-size: 0.68rem; font-weight: 600; color: var(--color-text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .gm-doc { margin-top: 0.5rem; font-size: 0.7rem; color: var(--color-text-2); line-height: 1.45; }
   .gm-doc strong { display: block; font-size: 0.78rem; color: var(--color-text); margin-bottom: 1px; }
-  .gm-sig { margin-top: 0.55rem; display: flex; justify-content: space-between; font-size: 0.62rem; color: var(--gm-muted); border-top: 1px solid var(--color-text-3); padding-top: 0.25rem; }
+  .gm-sig { margin-top: 0.55rem; display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--gm-muted); border-top: 1px solid var(--color-text-3); padding-top: 0.25rem; }
 
   .gm-f-work { --r: 0.9deg; padding: 0.8rem 0.9rem 0.75rem; }
   .gm-f-work h5 { font-size: 0.9rem; font-weight: 700; margin: 0.4rem 0 0.6rem; line-height: 1.25; }
@@ -214,12 +215,12 @@ const by = Object.fromEntries(pieces.map((p) => [p.k, p]));
   .gm-snip { margin-top: 0.15rem; font-size: 0.72rem; color: var(--color-text-3); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
   .gm-f-fica { --r: -0.4deg; font-size: 0.7rem; overflow: hidden; }
-  .gm-bar { display: flex; gap: 1rem; padding: 0.4rem 0.6rem; background: var(--gm-paper-2); border-bottom: 1px solid var(--color-line); color: var(--color-text-3); font-weight: 600; font-size: 0.64rem; }
+  .gm-bar { display: flex; gap: 1rem; padding: 0.4rem 0.6rem; background: var(--gm-paper-2); border-bottom: 1px solid var(--color-line); color: var(--color-text-3); font-weight: 600; font-size: 0.7rem; }
   .gm-bar b { color: var(--color-text); }
   .gm-f-fica table { border-collapse: collapse; width: 100%; }
   .gm-f-fica th, .gm-f-fica td { border-right: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); padding: 0.3rem 0.5rem; text-align: left; white-space: nowrap; }
   .gm-f-fica tr:last-child td { border-bottom: 0; }
-  .gm-f-fica th { font-weight: 600; color: var(--gm-muted); background: var(--gm-paper-2); font-size: 0.62rem; }
+  .gm-f-fica th { font-weight: 600; color: var(--gm-muted); background: var(--gm-paper-2); font-size: 0.7rem; }
   .gm-f-fica td.gm-n { color: var(--gm-muted); background: var(--gm-paper-2); width: 34px; text-align: right; }
   .gm-f-fica tr.gm-dim td:not(.gm-n) { color: var(--gm-muted); }
   .gm-f-fica td.gm-flag { box-shadow: inset 0 0 0 1.5px var(--color-text); font-weight: 700; }
@@ -232,23 +233,20 @@ const by = Object.fromEntries(pieces.map((p) => [p.k, p]));
   .gm-who { margin-top: 0.45rem; font-size: 0.78rem; color: var(--color-text-3); }
   .gm-rows { list-style: none; padding: 0; margin: 0; }
   .gm-row { display: grid; grid-template-columns: 7rem 1fr; gap: 0.9rem; padding: 0.75rem 1.5rem 0.75rem 1.75rem; border-bottom: 1px solid var(--color-line); min-height: 3.9rem; }
-  .gm-lbl { display: flex; align-items: center; gap: 0.5rem; height: 1.2rem; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--color-text-3); }
-  .gm-lbl::before { content: ""; width: 6px; height: 6px; flex: none; background: var(--color-accent); transform: scale(0); transition: transform 0.35s var(--ease-out); }
+  .gm-lbl { display: flex; align-items: center; gap: 0.5rem; height: 1.2rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--color-text-3); transition: color 0.3s ease; }
   .gm-val { position: relative; min-width: 0; }
   .gm-v { font-size: 0.92rem; font-weight: 600; line-height: 1.3; opacity: 0; transform: translateY(5px); transition: opacity 0.35s var(--ease-out), transform 0.5s var(--ease-out); }
   .gm-src { font-size: 0.7rem; color: var(--gm-muted); margin-top: 0.2rem; opacity: 0; transition: opacity 0.4s ease 0.1s; }
   .gm-empty { position: absolute; left: 0; top: 0; font-size: 0.86rem; font-style: italic; line-height: 1.3; color: var(--color-text-2); transition: opacity 0.25s ease; }
   .gm-row.is-in .gm-v { opacity: 1; transform: none; }
   .gm-row.is-in .gm-src { opacity: 1; }
-  .gm-row.is-in .gm-empty { opacity: 0; }
-  .gm-row.is-in .gm-lbl::before { transform: scale(1); }
-  .gm-tag { display: inline-block; background: var(--color-accent); color: var(--color-accent-txt); font-size: 0.6rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; padding: 2px 6px; margin-left: 0.4rem; vertical-align: 2px; }
-  .gm-foot { padding: 0.75rem 1.5rem 0.8rem 1.75rem; background: var(--gm-paper-2); font-size: 0.74rem; color: var(--color-text-3); }
+  .gm-row.is-in .gm-empty, .gm-row.is-near .gm-empty { opacity: 0; }
+  .gm-row.is-in .gm-lbl { color: var(--color-text); }
+  .gm-tag { display: inline-block; box-shadow: inset 0 0 0 1.5px var(--color-text); color: var(--color-text); font-size: 0.66rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; padding: 2px 6px; margin-left: 0.4rem; vertical-align: 2px; }
+  .gm-foot { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.75rem 1.5rem 0.8rem 1.75rem; background: var(--gm-paper-2); font-size: 0.74rem; color: var(--color-text-3); }
   .gm-foot b { color: var(--color-text); font-variant-numeric: tabular-nums; }
-
-  .gm-tally { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; }
-  .gm-tally-n { font-family: var(--font-display); font-weight: 800; font-size: clamp(3.5rem, 6vw, 5rem); line-height: 0.8; font-variant-numeric: tabular-nums; color: var(--color-text); min-width: 0.6em; }
-  .gm-tally span { max-width: 9rem; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.35; color: var(--color-text-2); }
+  .gm-tally { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-2); }
+  .gm-tally-n { font-family: var(--font-display); font-weight: 800; font-size: 2.25rem; line-height: 0.8; letter-spacing: 0; min-width: 0.55em; text-align: right; }
 
   @media (min-width: 768px) and (max-height: 820px) {
     .gm-f-aua tr.gm-opt, .gm-bar { display: none; }
@@ -258,39 +256,37 @@ const by = Object.fromEntries(pieces.map((p) => [p.k, p]));
   /* phone: the pieces become summary cards, the record sits under them */
   @media (max-width: 767px) {
     .gm-body { grid-template-columns: 1fr; gap: 1.75rem; padding-top: 1.25rem; }
-    .gm-col { font-size: 0.62rem; padding-bottom: 0.55rem; }
+    .gm-col { font-size: 0.66rem; padding-bottom: 0.55rem; }
     .gm-col span:last-child { font-size: 0.68rem; }
     .gm-silos { gap: 0.6rem; grid-template-areas: "aua roa" "work fica" "mail mail"; }
     .gm-silo { padding-top: 0.3rem; }
-    .gm-name { font-size: 0.64rem; margin-bottom: 0.35rem; }
+    .gm-name { font-size: 0.68rem; margin-bottom: 0.35rem; }
     .gm-name em { display: none; }
-    .gm-linked { font-size: 0.6rem; }
+    .gm-linked { font-size: 0; gap: 0; order: -1; margin-left: 0; transform: none; }
     .gm-d { display: none; }
     .gm-frag { rotate: 0deg; padding: 0; }
-    .gm-m { display: block; padding: 0.55rem 0.7rem 0.6rem; border-left: 3px solid transparent; transition: border-color 0.3s ease; }
-    .gm-m small { display: block; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-3); }
+    .gm-m { display: block; padding: 0.55rem 0.7rem 0.6rem; }
+    .gm-m small { display: block; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-3); }
     .gm-m span { display: block; margin-top: 0.15rem; font-size: 0.8rem; font-weight: 600; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .gm-m i { display: block; margin-top: 0.15rem; font-style: normal; font-size: 0.68rem; color: var(--color-text-3); }
-    .gm-silo.is-filed .gm-frag.is-src .gm-m { border-left-color: var(--color-accent); }
     .gm-frag.is-src.is-dim { opacity: 1; filter: none; }
     .gm-silo.is-filed .gm-frag.is-src .gm-m span { color: var(--color-text-2); }
     .gm-rec-head { padding: 0.8rem 0.9rem 0.65rem 1.1rem; }
     .gm-rec-head h3 { font-size: 1.5rem; margin-top: 0.3rem; }
     .gm-who { font-size: 0.7rem; margin-top: 0.2rem; }
-    .gm-k { font-size: 0.58rem; }
+    .gm-k { font-size: 0.64rem; }
     .gm-row { grid-template-columns: 5.4rem 1fr; gap: 0.5rem; padding: 0.5rem 0.9rem 0.5rem 1.1rem; min-height: 3rem; }
-    .gm-lbl { font-size: 0.56rem; gap: 0.35rem; }
-    .gm-lbl::before { width: 5px; height: 5px; }
+    .gm-lbl { font-size: 0.62rem; gap: 0.35rem; }
     .gm-v { font-size: 0.82rem; }
     .gm-empty { font-size: 0.8rem; }
     .gm-src { font-size: 0.64rem; margin-top: 0.05rem; }
     .gm-foot { padding: 0.55rem 0.9rem 0.6rem 1.1rem; font-size: 0.66rem; }
-    .gm-tally { margin-top: 1rem; }
-    .gm-tally-n { font-size: 3.25rem; }
+    .gm-tally { font-size: 0.64rem; gap: 0.45rem; }
+    .gm-tally-n { font-size: 1.75rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .gm-frag, .gm-v, .gm-src, .gm-empty, .gm-linked, .gm-lbl::before, .gm-m { transition: none; }
+    .gm-frag, .gm-v, .gm-src, .gm-empty, .gm-linked, .gm-lbl, .gm-m { transition: none; }
   }
 </style>
 
@@ -347,11 +343,13 @@ const by = Object.fromEntries(pieces.map((p) => [p.k, p]));
         const landed = local >= 0.82;
         n += Number(landed);
         it.row.classList.toggle("is-in", landed);
+        // The placeholder clears before the value and the clone never overlap.
+        it.row.classList.toggle("is-near", local > 0.55);
         it.silo.classList.toggle("is-filed", landed);
         it.src.classList.toggle("is-dim", local > 0.05);
         it.fly.style.transform = `translate(${g.dx * e}px, ${g.dy * e}px) scale(${1 + (g.s - 1) * e})`;
         it.fly.style.rotate = `${g.r * (1 - e)}deg`;
-        it.fly.style.opacity = local <= 0 || local >= 1 ? "0" : String(1 - clamp((local - 0.7) / 0.2));
+        it.fly.style.opacity = local <= 0 || local >= 1 ? "0" : String(1 - clamp((local - 0.6) / 0.15));
       });
       count.textContent = String(n);
       asks.textContent = String(5 - n);

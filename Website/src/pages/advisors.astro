@@ -125,7 +125,7 @@ const parts = [
       <h1 class="ax-h1 display rise mt-3 leading-[0.92]" style="--d: 80ms">
         Your practice isn't understaffed. <span class="ax-mark">It's uncoordinated.</span>
       </h1>
-      <p class="ax-sub ax-lead ax-balance rise mx-auto max-w-[46ch]" style="--d: 160ms">
+      <p class="ax-sub ax-lead ax-balance rise mx-auto max-w-[46ch] lg:max-w-[80ch]" style="--d: 160ms">
         Stop checking the team's work at 10 PM, and grow your book without hiring more people.
       </p>
     </div>
@@ -159,32 +159,24 @@ const parts = [
         {video.badge && <span class="ax-badge">{video.badge}</span>}
       </div>
       <p id="vsl-gate-note" class="mt-2 text-center text-[0.9rem] text-text-2" hidden>Add your name and email below and the video starts.</p>
-
-      <div class="ax-meta">
-        <p>The video covers where the work leaks in your practice, what we build to fix it, and how the end of year selection works.</p>
-        <p class="ax-meta-close">Applications close {CLOSE_DATE}.</p>
-      </div>
     </div>
   </section>
 
-  <!-- ── 2. Application, straight under the video ──────────────────────────── -->
+  <!-- ── 2. Application, straight under the video. On a laptop step 1 is one
+       row (name, email, Continue) so it shares the first screen with the
+       video; steps 2 to 7 open in the same card. ─────────────────────────── -->
   <section id="apply" class="ax-apply wrap scroll-mt-4">
-    <div class="ax-apply-grid mx-auto max-w-[66rem]">
-      <div class="ax-apply-head">
-        <h2 class="display ax-h2">Apply for a call</h2>
-      </div>
-
-      <div class="ax-apply-card">
-
         <div id="ax" class="ax-card ax-form-card scroll-mt-4">
-          <div id="ax-progress">
-            <div class="flex items-center justify-between">
+          <div class="ax-form-head">
+            <h2 class="display ax-form-h">Apply for a call</h2>
+            <div id="ax-progress" class="ax-form-prog">
               <p id="ax-progress-text" class="label" aria-live="polite">Step 1 of {TOTAL_STEPS}</p>
+              <div class="ax-progress mt-3" aria-hidden="true"><span id="ax-bar"></span></div>
             </div>
-            <div class="ax-progress mt-3" aria-hidden="true"><span id="ax-bar"></span></div>
           </div>
 
-          <p id="ax-resume" class="mt-5 border-l-2 border-accent pl-3 text-[0.95rem] text-text-2" hidden></p>
+          <div class="ax-form-body">
+          <p id="ax-resume" class="mb-5 border-l-2 border-accent pl-3 text-[0.95rem] text-text-2" hidden></p>
 
           <form id="ax-form" novalidate>
             <!-- 1. name and email: form_start -->
@@ -280,27 +272,33 @@ const parts = [
             <p class="mt-3 text-text-2">We've saved your answers, so you won't need to start over.</p>
             <button type="button" id="ax-dq-back" class="ax-textbtn mt-6">I picked the wrong answer</button>
           </div>
+          </div>
         </div>
+
+      <div class="ax-meta">
+        <p>The video covers where the work leaks in your practice, what we build to fix it, and how the end of year selection works.</p>
+        <p class="ax-meta-close">Applications close {CLOSE_DATE}.</p>
       </div>
 
       <div class="ax-apply-aside">
-        <h3 class="label">On the call</h3>
-        <ol class="ax-oncall mt-4">
+        <div class="ax-aside-head">
+          <h3 class="label">On the call</h3>
+          <p class="ax-small">
+            We use your answers to assess your application and to prepare for the call. Read our <a class="link" href="/privacy">privacy policy</a>.
+          </p>
+        </div>
+        <ol class="ax-oncall">
           <li><span class="num" aria-hidden="true">01</span>Where the work leaks in your practice, and what it's costing you.</li>
           <li><span class="num" aria-hidden="true">02</span>The system on screen, with demo clients, not slides.</li>
           <li><span class="num" aria-hidden="true">03</span>The first process we'd fix in your practice, and how.</li>
         </ol>
-        <p class="ax-small mt-6">
-          We use your answers to assess your application and to prepare for the call. Read our <a class="link" href="/privacy">privacy policy</a>.
-        </p>
       </div>
-    </div>
   </section>
 
   <!-- ── 3. The five second version ────────────────────────────────────────── -->
   <section class="ax-sec ax-band">
     <div class="wrap">
-      <div class="mx-auto max-w-[75rem]">
+      <div>
         <div class="ax-intro" data-ax-rv>
           <h2 class="display ax-h2">Every gap runs through you.</h2>
           <p class="ax-lead mt-5 max-w-[44ch]">
@@ -317,16 +315,21 @@ const parts = [
   <!-- ── 4. What we build ──────────────────────────────────────────────────── -->
   <section class="ax-sec">
     <div class="wrap">
-      <div class="ax-build mx-auto max-w-[66rem]">
+      <div class="ax-build">
         <div class="ax-build-head" data-ax-rv>
           <h2 class="display ax-h2">What we build</h2>
           <p class="ax-lead mt-5 max-w-[34ch]">
             One system for how work moves through your practice, set up around how your team already works.
           </p>
+          <ol class="ax-build-index" aria-hidden="true">
+            {parts.map((p, i) => (
+              <li data-ax-idx={i}><span class="num">{String(i + 1).padStart(2, "0")}</span>{p.t}</li>
+            ))}
+          </ol>
         </div>
         <ol class="ax-parts">
           {parts.map((p, i) => (
-            <li data-ax-rv style={`--d: ${i * 70}ms`}>
+            <li data-ax-rv data-ax-part={i} style={`--d: ${i * 60}ms`}>
               <span class="num ax-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
               <div>
                 <h3 class="ax-h3">{p.t}</h3>
@@ -342,7 +345,7 @@ const parts = [
   <!-- ── 5. Fit ────────────────────────────────────────────────────────────── -->
   <section class="ax-sec ax-ruled">
     <div class="wrap">
-      <div class="mx-auto max-w-[66rem]">
+      <div>
         <h2 class="display ax-h2 max-w-[18ch]" data-ax-rv>Built for advisors with a team behind them.</h2>
         <div class="ax-fitgrid mt-10 md:mt-14">
           <div class="ax-card ax-fit-yes" data-ax-rv>
@@ -370,7 +373,7 @@ const parts = [
   <!-- ── 6. The end of year selection ──────────────────────────────────────── -->
   <section class="ax-sec ax-band">
     <div class="wrap">
-      <div class="mx-auto grid max-w-[66rem] gap-10 md:grid-cols-[1.1fr_1fr] md:gap-16">
+      <div class="grid gap-10 md:grid-cols-[1.1fr_1fr] md:gap-16 lg:gap-24">
         <div data-ax-rv>
           <p class="label">End of year selection</p>
           <h2 class="display ax-h2 mt-4">One advisor's team gets the full process free.</h2>
@@ -403,7 +406,7 @@ const parts = [
   <!-- ── 7. Questions advisors ask ─────────────────────────────────────────── -->
   <section class="ax-sec">
     <div class="wrap">
-      <div class="mx-auto max-w-[66rem]">
+      <div>
         <h2 class="display ax-h2" data-ax-rv>Questions advisors ask</h2>
         <dl class="ax-faq mt-10 md:mt-14">
           {faqs.map((f, i) => (
@@ -420,9 +423,9 @@ const parts = [
   <!-- ── 8. Founder ────────────────────────────────────────────────────────── -->
   <section class="ax-sec ax-ruled">
     <div class="wrap">
-      <div class="ax-founder mx-auto max-w-[60rem]">
+      <div class="ax-founder">
         <div class="ax-founder-photo" data-ax-rv>
-          <Image src={cristo} alt="Cristo van Rensburg, founder of Cornerstone" widths={[320, 520, 720]} sizes="(min-width: 768px) 20rem, 70vw" class="w-full" loading="lazy" />
+          <Image src={cristo} alt="Cristo van Rensburg, founder of Cornerstone" widths={[320, 520, 720]} sizes="(min-width: 768px) 24rem, 70vw" class="w-full" loading="lazy" />
         </div>
         <div data-ax-rv style="--d: 90ms">
           <h2 class="display ax-h2">Who you'll speak to</h2>
@@ -446,7 +449,7 @@ const parts = [
   </section>
   </div>
 
-  <div id="ax-sticky" class="ax-sticky" hidden>
+  <div id="ax-sticky" class="ax-sticky" inert>
     <a href="#apply" class="btn btn-primary flex-1 justify-center" data-cta="sticky">Apply for a call<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></a>
     <span class="text-[0.85rem] text-text-2">Closes 15 Nov</span>
   </div>
@@ -490,8 +493,8 @@ const parts = [
   /* Scroll reveal: once, transform and opacity only, never on the hero or
      the form. advisors.ts adds .is-in. */
   html:not(.no-js) [data-ax-rv] {
-    opacity: 0; transform: translateY(18px);
-    transition: opacity 700ms var(--ease-out), transform 800ms var(--ease-out);
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 500ms var(--ease-out), transform 600ms var(--ease-out);
     transition-delay: var(--d, 0ms);
   }
   html:not(.no-js) [data-ax-rv].is-in { opacity: 1; transform: none; }
@@ -501,14 +504,30 @@ const parts = [
 
   /* ── Hero: the whole 16:9 frame fits a 1366x768 laptop. ─────────────── */
   .ax-hero { padding-top: calc(var(--nav-h) + 0.5rem); }
-  .ax-h1 { font-size: clamp(2.5rem, 7vw, 5.4rem); }
+  .ax-h1 { font-size: clamp(2.5rem, 7vw, 4.8rem); }
   .ax-sub { margin-top: 1rem; }
-  .ax-stage { margin-top: 1.75rem; max-width: max(20rem, min(60rem, calc((100svh - 24.5rem) * 16 / 9))); }
+  .ax-stage { margin-top: 1.75rem; max-width: 60rem; }
+  /* Laptop: headline, video and the step 1 row share the first screen, so the
+     video takes what the fold has left after the row (about 9rem). */
+  @media (min-width: 900px) {
+    .ax-stage { max-width: max(30rem, min(56rem, calc((100svh - var(--ax-fold, 28.5rem)) * 16 / 9))); }
+  }
   @media (min-width: 768px) and (max-height: 900px) {
-    .ax-h1 { font-size: clamp(2.5rem, 5.2vw, 4.2rem); }
+    .ax-hero { padding-top: calc(var(--nav-h) - 0.25rem); }
+    .ax-h1 { font-size: clamp(2.5rem, 4.8vw, 3.9rem); }
     .ax-sub { margin-top: 0.75rem; }
     .ax-stage { margin-top: 1.25rem; }
   }
+  /* Short laptops (1366x768, 1280x720): the eyebrow rides the logo's row and
+     the headline steps down, so the video keeps its size. */
+  @media (min-width: 900px) and (max-height: 820px) {
+    .axp { --ax-fold: 24.25rem; }
+    .ax-hero { padding-top: 1.55rem; }
+    .ax-h1 { font-size: clamp(2.5rem, 4.3vw, 3.4rem); margin-top: 0.6rem; }
+    .ax-sub { margin-top: 0.6rem; }
+    .ax-stage { margin-top: 1.1rem; }
+  }
+  @media (max-width: 639px) { .ax-mark { display: inline-block; } }
   /* The accent line: text colour, brass bar under it, drawn in once. */
   .ax-mark {
     background: linear-gradient(var(--ax-fill), var(--ax-fill)) no-repeat 0 96% / 100% 0.13em;
@@ -532,31 +551,70 @@ const parts = [
     padding: 0.25rem 0.55rem; background: #141310; color: #ece9e2;
     font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
   }
-  .ax-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 0.4rem 2rem; margin-top: 0.9rem; font-size: 0.875rem; line-height: 1.45; color: var(--color-text-3); }
-  .ax-meta p:first-child { max-width: 52ch; text-align: left; }
+  .ax-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 0.4rem 2rem; margin-top: 1rem; font-size: 0.875rem; line-height: 1.45; color: var(--color-text-3); }
+  .ax-meta p:first-child { max-width: 60ch; }
   .ax-meta-close { flex: none; font-weight: 600; color: var(--color-text-2); }
   @media (max-width: 639px) { .ax-meta { flex-direction: column-reverse; font-size: 0.82rem; } }
 
-  /* ── Application: the card is the page's one raised object at the top. ─ */
-  .ax-apply { padding-top: clamp(2.5rem, 5vw, 4.5rem); padding-bottom: var(--ax-sec); }
-  .ax-apply-grid { display: grid; gap: 1.5rem; }
-  .ax-apply-aside { padding-top: 0.5rem; }
+  /* ── Application: one card, straight under the video. Desktop: the title
+     and progress hold the left, the step runs on the right. Step 1 is one
+     row: name, email, Continue. ─────────────────────────────────────────── */
+  .ax-apply { padding-top: 1.25rem; padding-bottom: calc(var(--ax-sec) * 0.6); }
+  .ax-form-h { font-size: clamp(1.9rem, 3vw, 2.5rem); line-height: 0.95; }
+  .ax-form-prog { margin-top: 1rem; }
+  .ax-form-body { margin-top: 1.5rem; min-width: 0; }
   @media (min-width: 900px) {
-    .ax-apply-grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); grid-template-areas: "head card" "aside card"; grid-template-rows: auto 1fr; column-gap: 4.5rem; row-gap: 2rem; }
-    .ax-apply-head { grid-area: head; padding-top: 1.5rem; }
-    .ax-apply-card { grid-area: card; }
-    .ax-apply-aside { grid-area: aside; }
+    .axp #ax.ax-form-card { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(2rem, 4vw, 4rem); padding: 1.25rem 2rem 1.4rem; }
+    .ax-form-body { margin-top: 0; }
+    .ax-form-head { display: flex; flex-direction: column; }
+    .ax-form-prog { margin-top: 1.25rem; }
+    .ax-opts:not(.ax-opts-2), .ax-chips { max-width: 40rem; }
+    #ax .ax-step[data-step="1"] { margin-top: 0; }
+    /* Step 1 as a row. :has keeps the form logic untouched. */
+    #ax-form:has(> .ax-step[data-step="1"]:not([hidden])) { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 1rem; align-items: start; }
+    #ax-form:has(> .ax-step[data-step="1"]:not([hidden])) > * { grid-column: 1 / -1; }
+    #ax-form:has(> .ax-step[data-step="1"]:not([hidden])) > .ax-step[data-step="1"] { grid-column: 1; grid-row: 1; }
+    #ax-form:has(> .ax-step[data-step="1"]:not([hidden])) > #ax-actions { grid-column: 2; grid-row: 1; margin-top: 2.85rem; }
+    #ax-form:has(> .ax-step[data-step="1"]:not([hidden])) > #ax-actions .btn { height: 3rem; }
+    #ax-form:has(> .ax-step[data-step="1"]:not([hidden])) > #ax-actions > span { display: none; }
+    #ax-form:has(> .ax-step[data-step="1"]:not([hidden])) > #ax-error { margin-top: 0; min-height: 0; }
+    .ax-step[data-step="1"] { display: grid; grid-template-columns: 1fr 1fr; column-gap: 1rem; }
+    .ax-step[data-step="1"] > legend { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-text-3); line-height: 1rem; padding-bottom: 0.6rem; }
+    .ax-step[data-step="1"] > .field { margin-top: 0; }
+    .ax-step[data-step="1"] .field label { line-height: 1.25rem; }
+    .ax-step[data-step="1"] > p { grid-column: 1 / -1; margin-top: 0.75rem; }
   }
+
+  /* Under the card: what the call covers, as one ruled strip. */
+  .ax-apply-aside { display: grid; gap: 1.25rem; margin-top: clamp(2.5rem, 5vw, 4rem); padding-top: 1.5rem; border-top: 1px solid var(--color-line-2); }
+  .ax-aside-head { display: grid; gap: 0.75rem; align-content: start; }
   .ax-oncall { display: grid; gap: 0.9rem; }
-  .ax-oncall li { display: grid; grid-template-columns: 2rem 1fr; gap: 0.5rem; color: var(--color-text-2); line-height: 1.5; }
+  .ax-oncall li { display: grid; grid-template-columns: 2rem 1fr; gap: 0.5rem; align-content: start; color: var(--color-text-2); line-height: 1.5; }
   .ax-oncall .num { font-size: 1.05rem; line-height: 1.45; color: var(--color-text); }
+  @media (min-width: 900px) {
+    .ax-apply-aside { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(2rem, 4vw, 4rem); }
+    .ax-oncall { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+    .ax-oncall li { grid-template-columns: 1fr; gap: 0.6rem; }
+    .ax-oncall .num { font-size: 1.5rem; line-height: 1; }
+  }
 
   /* ── What we build: heading holds still on the left, the parts list runs. */
   .ax-build { display: grid; gap: 2.5rem; }
   @media (min-width: 900px) {
     .ax-build { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 5rem; align-items: start; }
-    .ax-build-head { position: sticky; top: 5rem; }
+    .ax-build-head { position: sticky; top: 5rem; align-self: start; }
   }
+  /* The index rides with the sticky heading and marks the part in view. */
+  .ax-build-index { display: none; }
+  @media (min-width: 900px) {
+    .ax-build-index { display: grid; margin-top: 2.5rem; border-top: 1px solid var(--color-line-2); }
+    .ax-build-index li { position: relative; display: grid; grid-template-columns: 2.25rem 1fr; align-items: baseline; padding: 0.7rem 0 0.7rem 0.9rem; border-bottom: 1px solid var(--color-line-2); font-size: 0.95rem; color: var(--color-text-3); transition: color 250ms ease; }
+    .ax-build-index li::before { content: ""; position: absolute; left: 0; top: 0.7rem; bottom: 0.7rem; width: 3px; background: var(--ax-fill); transform: scaleY(0); transform-origin: top; transition: transform 300ms var(--ease-out); }
+    .ax-build-index .num { font-size: 1rem; color: inherit; }
+    .ax-build-index li.is-on { color: var(--color-text); }
+    .ax-build-index li.is-on::before { transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .ax-build-index li, .ax-build-index li::before { transition: none; } }
   .ax-parts { display: grid; }
   .ax-parts li { position: relative; display: grid; grid-template-columns: 3.75rem 1fr; gap: 0.75rem; padding-block: 1.75rem 2rem; border-top: 1px solid var(--color-line-2); }
   .ax-parts li::before { content: ""; position: absolute; top: -1px; left: 0; width: 2.25rem; height: 2px; background: var(--ax-fill); }
@@ -578,6 +636,7 @@ const parts = [
   .ax-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border-top: 2px solid var(--color-text); padding-top: 1.1rem; }
   .ax-dates > div { display: flex; flex-direction: column; justify-content: space-between; }
   .ax-dates dd { margin-top: 0.5rem; font-size: clamp(1.5rem, 2.8vw, 2rem); line-height: 1; color: var(--color-text); text-transform: uppercase; }
+  @media (max-width: 639px) { .ax-dates dd { font-size: 1.3rem; } }
   .ax-enter { padding: clamp(1.5rem, 3vw, 2.5rem); }
   .ax-steps { display: grid; gap: 1.25rem; }
   .ax-steps li { display: grid; grid-template-columns: 2.75rem 1fr; gap: 0.75rem; align-items: baseline; }
@@ -595,7 +654,8 @@ const parts = [
   .ax-founder { display: grid; gap: 2.5rem; align-items: center; }
   .ax-founder-photo { max-width: 22rem; }
   .ax-founder-photo img { display: block; border-radius: 2px; box-shadow: var(--ax-shadow); }
-  @media (min-width: 768px) { .ax-founder { grid-template-columns: 20rem 1fr; gap: 4rem; } }
+  .ax-founder > div:last-child { max-width: 44rem; }
+  @media (min-width: 768px) { .ax-founder { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(2.5rem, 5vw, 5rem); } .ax-founder-photo { max-width: 24rem; } }
 
   .ax-closing { border-top: 0; }
 
@@ -665,8 +725,10 @@ const parts = [
     position: fixed; inset-inline: 0; bottom: 0; z-index: 40; display: flex; align-items: center; gap: 0.9rem;
     padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom));
     background: linear-gradient(to top, var(--color-ground) 72%, rgb(234 234 230 / 0));
+    transform: translateY(110%); transition: transform 220ms var(--ease-out);
   }
-  .ax-sticky[hidden] { display: none; }
+  .ax-sticky.is-on { transform: none; }
+  @media (prefers-reduced-motion: reduce) { .ax-sticky { transition: none; } }
   @media (min-width: 768px) { .ax-sticky { display: none; } }
 </style>
 

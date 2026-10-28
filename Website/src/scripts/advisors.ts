@@ -172,8 +172,11 @@ function loadScript(src: string): Promise<void> {
   if (!sticky || !apply || !("IntersectionObserver" in window)) return;
   let applyGone = false;
   let closingIn = false;
+  // Kept rendered so it can slide; inert while it's off screen.
   const update = () => {
-    sticky.hidden = !(applyGone && !closingIn);
+    const on = applyGone && !closingIn;
+    sticky.classList.toggle("is-on", on);
+    sticky.inert = !on;
   };
   new IntersectionObserver(([e]) => {
     applyGone = !e.isIntersecting && e.boundingClientRect.top < 0;
@@ -200,9 +203,25 @@ function loadScript(src: string): Promise<void> {
         io.unobserve(e.target);
       }
     },
-    { rootMargin: "0px 0px -10% 0px" },
+    { rootMargin: "0px 0px -5% 0px" },
   );
   els.forEach((el) => io.observe(el));
+})();
+
+// What we build: the sticky index marks the part crossing the middle band.
+(() => {
+  const idx = Array.from(document.querySelectorAll<HTMLElement>("[data-ax-idx]"));
+  const parts = Array.from(document.querySelectorAll<HTMLElement>("[data-ax-part]"));
+  if (!idx.length || !parts.length || !("IntersectionObserver" in window)) return;
+  const on = (i: number) => idx.forEach((el, j) => el.classList.toggle("is-on", j === i));
+  on(0);
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) if (e.isIntersecting) on(Number((e.target as HTMLElement).dataset.axPart));
+    },
+    { rootMargin: "-45% 0px -45% 0px" },
+  );
+  parts.forEach((el) => io.observe(el));
 })();
 
 // ─── the application ────────────────────────────────────────────────────────
