@@ -42,6 +42,40 @@ const referrerHost = (() => {
 })();
 track("page_view", { referrer_host: referrerHost });
 
+// Visitors on the scoreboard count `engaged`, not page_view (tracking contract): once
+// per session, after 5 s visible or on the first scroll, click or play. A page_view on
+// its own is a link preview, a bot or a bounce.
+(() => {
+  const KEY = "cs_adv_engaged";
+  try {
+    if (sessionStorage.getItem(KEY)) return;
+  } catch {
+    /* no storage: fire once for this page load */
+  }
+  let done = false;
+  let timer = 0;
+  const fire = (via: "time" | "scroll" | "click" | "play") => {
+    if (done) return;
+    done = true;
+    clearTimeout(timer);
+    try {
+      sessionStorage.setItem(KEY, "1");
+    } catch {
+      /* ignore */
+    }
+    track("engaged", { via });
+  };
+  const arm = () => {
+    clearTimeout(timer);
+    if (document.visibilityState === "visible") timer = window.setTimeout(() => fire("time"), 5000);
+  };
+  arm();
+  document.addEventListener("visibilitychange", arm);
+  addEventListener("scroll", () => fire("scroll"), { once: true, passive: true });
+  addEventListener("pointerdown", () => fire("click"), { once: true });
+  document.getElementById("vsl-video")?.addEventListener("play", () => fire("play"), { once: true });
+})();
+
 interface Lead {
   id: string;
   token: string;

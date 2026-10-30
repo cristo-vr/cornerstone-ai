@@ -25,6 +25,7 @@ export { LIVE };
 /** The contract with the Mason funnel module. Use these names exactly. */
 export type FunnelEvent =
   | "page_view"
+  | "engaged"
   | "video_play"
   | "video_progress"
   | "form_start"
