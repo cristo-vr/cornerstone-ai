@@ -39,9 +39,10 @@ type Dict = Record<string, unknown>;
 
 const API = "https://aios.cornerstone-ai.pro/api/public/funnel";
 const CAL_BASE = "https://cal.cornerstone-ai.pro/api/cal/cristo";
-/** Booking event type. [CONFIRM] a dedicated advisors slug once Mason has one;
- *  until then the expansion call is the one that exists. */
-const CAL_SLUG = "expansion-call";
+/** Booking event type: the advisors funnel's own (funnels.booking_type_id). The
+ *  booking trigger files a booking under the funnel that owns its type, so this
+ *  must be advisor-call or bookings land in /expansion. */
+const CAL_SLUG = "advisor-call";
 const TURNSTILE_LIVE_KEY = "0x4AAAAAACN3bXEw6zTOBNYc";
 /** Cloudflare's always-pass test key: localhost isn't on the live widget. */
 const TURNSTILE_TEST_KEY = "1x00000000000000000000AA";

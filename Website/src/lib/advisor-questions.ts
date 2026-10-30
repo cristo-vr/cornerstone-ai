@@ -79,11 +79,11 @@ export const QUESTIONS: Question[] = [
     key: "decides",
     kind: "single",
     auto: true,
-    question: "Who decides on changes to how the practice runs?",
+    question: "If this is a fit, who else would be part of the decision?",
     options: [
-      { value: "me", label: "I do" },
+      { value: "me", label: "Just me" },
       { value: "partner", label: "Me and a partner", flag: "partner" },
-      { value: "firm", label: "The firm or compliance", flag: "firm" },
+      { value: "firm", label: "The firm or compliance would sign off", flag: "firm" },
     ],
   },
   {
