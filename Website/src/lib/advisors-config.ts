@@ -17,7 +17,7 @@ export const GATE_VIDEO = false;
 /** The v3 Giveaway cut on R2. Flip MEDIA_READY once hls/, vsl-720.mp4 and
  *  poster.jpg are uploaded under this prefix. */
 export const MEDIA_V3 = "https://media.cornerstone-ai.pro/vsl/advisors-v3";
-export const MEDIA_READY = false;
+export const MEDIA_READY = true;
 /** The v2 media, used as a labelled placeholder until v3 is uploaded. */
 export const MEDIA_FALLBACK = "https://media.cornerstone-ai.pro/vsl/expansion-v2";
 
@@ -49,7 +49,7 @@ export const LINKEDIN_PARTNER_ID = "";
 /** LinkedIn conversion ids, per event. Empty: not sent. */
 export const LINKEDIN_CONVERSIONS: Record<"qualified" | "booked", string> = { qualified: "", booked: "" };
 
-/** Where a visitor writes when the calendar fails. [CONFIRM] */
+/** Where a visitor writes when the calendar fails. */
 export const CONTACT_EMAIL = "cristo@cornerstone-ai.pro";
 
 export const CLOSE_DATE = "15 November 2026";
