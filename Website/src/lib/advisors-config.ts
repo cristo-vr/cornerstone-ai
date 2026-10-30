@@ -45,7 +45,7 @@ export function videoSource(dev: boolean): VideoSource {
 
 export const META_PIXEL_ID = "1412498887021989";
 /** LinkedIn Insight Tag partner id. Empty: the tag isn't rendered. */
-export const LINKEDIN_PARTNER_ID = "";
+export const LINKEDIN_PARTNER_ID = "11242129";
 /** LinkedIn conversion ids, per event. Empty: not sent. */
 export const LINKEDIN_CONVERSIONS: Record<"qualified" | "booked", string> = { qualified: "", booked: "" };
 
