@@ -144,18 +144,46 @@ const parts = [
           poster={video.poster}
           preload="none"
           playsinline
-          controls
-          controlslist="nodownload noplaybackrate"
+          controlslist="nodownload"
           disablepictureinpicture
           hidden
         ></video>
-        <button id="vsl-start" type="button" class="vsl-start absolute inset-0 grid place-items-center" aria-label="Play the video, about 7 minutes">
-          <img src={video.poster} alt="" class="absolute inset-0 h-full w-full object-cover" fetchpriority="high" />
-          <span class="ax-poster-shade absolute inset-0" aria-hidden="true"></span>
-          <span class="vsl-play relative grid h-16 w-16 place-items-center rounded-full bg-accent md:h-24 md:w-24" aria-hidden="true">
-            <svg viewBox="0 0 24 24" class="ml-1 h-6 w-6 md:h-9 md:w-9"><path d="M6 4l14 8-14 8z" fill="#141310"></path></svg>
+
+        <!-- Before the first play: the greyed first frame, one big button, and
+             the speeds. A speed chip starts the video at that speed. -->
+        <div id="vsl-start" class="vsl-start absolute inset-0">
+          <img src={video.poster} alt="" class="vsl-poster absolute inset-0 h-full w-full object-cover" fetchpriority="high" />
+          <span class="vsl-wash absolute inset-0" aria-hidden="true"></span>
+          <div class="relative flex h-full flex-col items-center justify-center gap-4 md:gap-6">
+            <button id="vsl-play" type="button" class="vsl-play grid h-16 w-16 place-items-center rounded-full bg-accent md:h-24 md:w-24" aria-label="Play the video, about 7 minutes">
+              <svg viewBox="0 0 24 24" class="ml-1 h-6 w-6 md:h-9 md:w-9" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="#141310"></path></svg>
+            </button>
+            <div class="vsl-speeds" role="group" aria-label="Play faster">
+              <button type="button" data-rate="1.2">1.2x</button>
+              <button type="button" data-rate="1.5">1.5x</button>
+              <button type="button" data-rate="1.7">1.7x</button>
+              <button type="button" data-rate="2">2x</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- While it plays: tap to pause, a big button when paused, one bar. -->
+        <button id="vsl-resume" type="button" class="vsl-resume absolute inset-0 grid place-items-center" aria-label="Play" hidden>
+          <span class="vsl-play grid h-14 w-14 place-items-center rounded-full bg-accent md:h-20 md:w-20" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="ml-1 h-5 w-5 md:h-8 md:w-8"><path d="M6 4l14 8-14 8z" fill="#141310"></path></svg>
           </span>
         </button>
+        <div id="vsl-bar" class="vsl-bar" hidden>
+          <button id="vsl-toggle" type="button" class="vsl-icon" aria-label="Pause">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-pause" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"></path><path class="i-play" d="M7 4.5l12 7.5-12 7.5z" fill="currentColor"></path></svg>
+          </button>
+          <span id="vsl-time" class="vsl-time">0:00</span>
+          <input id="vsl-seek" class="vsl-seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Seek" />
+          <button id="vsl-rate" type="button" class="vsl-rate" aria-label="Playback speed, 1x">1x</button>
+          <button id="vsl-full" type="button" class="vsl-icon" aria-label="Full screen">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2"></path></svg>
+          </button>
+        </div>
         {video.badge && <span class="ax-badge">{video.badge}</span>}
       </div>
       <p id="vsl-gate-note" class="mt-2 text-center text-[0.9rem] text-text-2" hidden>Add your name and email below and the video starts.</p>
@@ -538,14 +566,55 @@ const parts = [
   @media (prefers-reduced-motion: reduce) { .ax-mark { animation: none; } }
 
   .vsl { border-radius: 2px; box-shadow: 0 2px 4px rgb(58 50 36 / 0.08), 0 40px 80px -40px rgb(58 50 36 / 0.55); }
-  .vsl-start { cursor: pointer; }
-  .vsl-play { transition: transform 220ms var(--ease-out); box-shadow: 0 12px 28px -10px rgb(20 19 16 / 0.55); }
-  .vsl-start:hover .vsl-play, .vsl-start:focus-visible .vsl-play { transform: scale(1.06); }
-  .vsl-start:active .vsl-play { transform: scale(0.97); }
-  .vsl-start:focus-visible { outline: 2px solid var(--color-text); outline-offset: -4px; }
-  @media (prefers-reduced-motion: reduce) { .vsl-play { transition: none; } }
+  .vsl:fullscreen { border-radius: 0; background: #141310; }
+  .vsl:fullscreen video { object-fit: contain; }
+  /* The first frame, greyed: the colour comes back when it plays. */
+  .vsl-poster { filter: grayscale(1) contrast(0.92) brightness(0.96); }
   /* Fixed carbon, not --ground: a concrete wash would flatten the poster. */
-  .ax-poster-shade { background: linear-gradient(to top, rgb(20 19 16 / 0.45), rgb(20 19 16 / 0.08) 45%, rgb(20 19 16 / 0)); }
+  .vsl-wash { background: rgb(43 42 38 / 0.42); }
+  .vsl-play { cursor: pointer; transition: transform 220ms var(--ease-out); box-shadow: 0 12px 28px -10px rgb(20 19 16 / 0.55); }
+  .vsl-play:hover, .vsl-play:focus-visible, .vsl-resume:hover .vsl-play { transform: scale(1.06); }
+  .vsl-play:active { transform: scale(0.97); }
+  .vsl-speeds { display: flex; gap: 0.25rem; padding: 0.25rem; border-radius: 999px; background: rgb(20 19 16 / 0.55); }
+  .vsl-speeds button {
+    min-width: 3.1rem; padding: 0.4rem 0.7rem; border-radius: 999px; cursor: pointer;
+    color: #ece9e2; font-size: 0.85rem; font-weight: 600; font-variant-numeric: tabular-nums;
+    transition: background-color 160ms ease, color 160ms ease;
+  }
+  .vsl-speeds button:hover, .vsl-speeds button:focus-visible { background: #d1a24f; color: #141310; }
+  @media (max-width: 479px) { .vsl-speeds button { min-width: 2.6rem; padding: 0.3rem 0.5rem; font-size: 0.78rem; } }
+  .vsl-resume { background: rgb(20 19 16 / 0.25); cursor: pointer; }
+  .vsl-bar {
+    position: absolute; inset: auto 0 0 0; z-index: 3; display: flex; align-items: center; gap: 0.6rem;
+    padding: 1.6rem 0.75rem 0.55rem; color: #ece9e2;
+    background: linear-gradient(to top, rgb(20 19 16 / 0.7), rgb(20 19 16 / 0));
+    transition: opacity 220ms ease;
+  }
+  .vsl[data-idle] .vsl-bar { opacity: 0; pointer-events: none; }
+  .vsl[data-idle] { cursor: none; }
+  .vsl-bar[hidden] { display: none; }
+  .vsl-icon { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; flex: none; cursor: pointer; border-radius: 4px; }
+  .vsl-icon svg { width: 1.35rem; height: 1.35rem; }
+  .vsl .i-play { display: none; }
+  .vsl[data-paused] .i-play { display: inline; }
+  .vsl[data-paused] .i-pause { display: none; }
+  .vsl-time { flex: none; font-size: 0.8rem; font-variant-numeric: tabular-nums; min-width: 4.6rem; }
+  .vsl-rate {
+    flex: none; min-width: 3.2rem; padding: 0.3rem 0.55rem; border-radius: 999px; cursor: pointer;
+    background: rgb(236 233 226 / 0.16); font-size: 0.8rem; font-weight: 700; font-variant-numeric: tabular-nums;
+  }
+  .vsl-rate:hover, .vsl-rate:focus-visible { background: #d1a24f; color: #141310; }
+  .vsl-seek {
+    flex: 1; min-width: 0; height: 1.5rem; cursor: pointer; background: transparent;
+    -webkit-appearance: none; appearance: none; --p: 0%;
+  }
+  .vsl-seek::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(to right, #d1a24f var(--p), rgb(236 233 226 / 0.3) var(--p)); }
+  .vsl-seek::-moz-range-track { height: 4px; border-radius: 2px; background: rgb(236 233 226 / 0.3); }
+  .vsl-seek::-moz-range-progress { height: 4px; border-radius: 2px; background: #d1a24f; }
+  .vsl-seek::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; margin-top: -4.5px; border-radius: 50%; background: #ece9e2; border: 0; }
+  .vsl-seek::-moz-range-thumb { width: 13px; height: 13px; border-radius: 50%; background: #ece9e2; border: 0; }
+  @media (max-width: 479px) { .vsl-time { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .vsl-play, .vsl-bar { transition: none; } }
   .ax-badge {
     position: absolute; top: 0.6rem; left: 0.6rem; z-index: 2; pointer-events: none;
     padding: 0.25rem 0.55rem; background: #141310; color: #ece9e2;

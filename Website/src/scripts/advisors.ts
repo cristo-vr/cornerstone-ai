@@ -67,9 +67,10 @@ function loadScript(src: string): Promise<void> {
 (() => {
   const vsl = document.getElementById("vsl");
   const video = document.getElementById("vsl-video") as HTMLVideoElement | null;
-  const start = document.getElementById("vsl-start") as HTMLButtonElement | null;
+  const start = document.getElementById("vsl-start");
   if (!vsl || !video || !start) return;
   const v = video;
+  const player = vsl;
   const hlsUrl = vsl.dataset.hls || "";
   const mp4Url = vsl.dataset.mp4 || "";
   videoUnlocked = vsl.dataset.gate !== "1";
@@ -105,16 +106,60 @@ function loadScript(src: string): Promise<void> {
     v.src = v.canPlayType("application/vnd.apple.mpegurl") ? hlsUrl : mp4Url;
   }
 
-  const play = async () => {
+  // ── the player: one big button, the speeds, one bar ──
+  const RATES = [1, 1.2, 1.5, 1.7, 2];
+  let rate = 1;
+  const resume = $<HTMLButtonElement>("vsl-resume");
+  const bar = $("vsl-bar");
+  const toggle = $<HTMLButtonElement>("vsl-toggle");
+  const seek = $<HTMLInputElement>("vsl-seek");
+  const time = $("vsl-time");
+  const rateBtn = $<HTMLButtonElement>("vsl-rate");
+  let started = false;
+  let seeking = false;
+  let idleTimer = 0;
+
+  const clock = (t: number) => {
+    const s = Math.max(0, Math.floor(t || 0));
+    return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  };
+  const setRate = (r: number) => {
+    rate = r;
+    v.defaultPlaybackRate = r;
+    v.playbackRate = r;
+    const label = `${r}x`;
+    rateBtn.textContent = label;
+    rateBtn.setAttribute("aria-label", `Playback speed, ${label}`);
+  };
+  const wake = () => {
+    delete player.dataset.idle;
+    clearTimeout(idleTimer);
+    if (!v.paused) idleTimer = window.setTimeout(() => (player.dataset.idle = ""), 2500);
+  };
+  const paint = () => {
+    const paused = v.paused;
+    if (paused) player.dataset.paused = "";
+    else delete player.dataset.paused;
+    toggle.setAttribute("aria-label", paused ? "Play" : "Pause");
+    resume.hidden = !started || !paused || v.ended;
+    wake();
+  };
+  const togglePlay = () => (v.paused ? v.play().catch(() => {}) : v.pause());
+
+  const play = async (r = rate) => {
+    started = true;
     start.hidden = true;
     v.hidden = false;
+    bar.hidden = false;
     await attach();
+    setRate(r);
     v.play().catch(() => {
-      /* autoplay refused: the native controls are showing, one more tap plays */
+      /* autoplay refused: the big button shows, one more tap plays */
+      paint();
     });
   };
 
-  start.addEventListener("click", () => {
+  const begin = (r?: number) => {
     if (!videoUnlocked) {
       // Gated: the name and email step comes first, then the video plays.
       $("vsl-gate-note").hidden = false;
@@ -122,11 +167,68 @@ function loadScript(src: string): Promise<void> {
       setTimeout(() => $<HTMLInputElement>("ax-name").focus({ preventScroll: true }), 400);
       unlockWaiters.push(() => {
         vsl.scrollIntoView({ behavior: "smooth", block: "center" });
-        void play();
+        void play(r);
       });
       return;
     }
-    void play();
+    void play(r);
+  };
+
+  $("vsl-play").addEventListener("click", () => begin());
+  start.querySelectorAll<HTMLButtonElement>("[data-rate]").forEach((b) =>
+    b.addEventListener("click", () => begin(Number(b.dataset.rate))),
+  );
+
+  resume.addEventListener("click", () => v.play().catch(() => {}));
+  toggle.addEventListener("click", togglePlay);
+  rateBtn.addEventListener("click", () => setRate(RATES[(RATES.indexOf(rate) + 1) % RATES.length]));
+  // Tapping the picture pauses. On a phone the first tap only brings the bar back.
+  v.addEventListener("pointerup", (e) => {
+    if (e.pointerType !== "mouse" && player.dataset.idle !== undefined) return wake();
+    togglePlay();
+  });
+  player.addEventListener("pointermove", wake);
+
+  seek.addEventListener("input", () => {
+    seeking = true;
+    seek.style.setProperty("--p", `${Number(seek.value) / 10}%`);
+    if (v.duration) time.textContent = clock((Number(seek.value) / 1000) * v.duration);
+  });
+  seek.addEventListener("change", () => {
+    if (v.duration) v.currentTime = (Number(seek.value) / 1000) * v.duration;
+    seeking = false;
+  });
+  v.addEventListener("timeupdate", () => {
+    if (seeking || !v.duration || !Number.isFinite(v.duration)) return;
+    const f = v.currentTime / v.duration;
+    seek.value = String(Math.round(f * 1000));
+    seek.style.setProperty("--p", `${f * 100}%`);
+    time.textContent = `${clock(v.currentTime)} / ${clock(v.duration)}`;
+  });
+  // A new source resets the speed; keep the one they picked.
+  v.addEventListener("loadedmetadata", () => {
+    if (v.playbackRate !== rate) v.playbackRate = rate;
+  });
+  for (const ev of ["play", "pause", "ended"]) v.addEventListener(ev, paint);
+
+  $("vsl-full").addEventListener("click", () => {
+    const iosVideo = v as HTMLVideoElement & { webkitEnterFullscreen?: () => void };
+    if (document.fullscreenElement) void document.exitFullscreen();
+    else if (player.requestFullscreen) player.requestFullscreen().catch(() => iosVideo.webkitEnterFullscreen?.());
+    else iosVideo.webkitEnterFullscreen?.();
+  });
+
+  player.addEventListener("keydown", (e) => {
+    if (!started || (e.target as HTMLElement).tagName === "INPUT") return;
+    if (e.key === " " || e.key === "k") {
+      if ((e.target as HTMLElement).tagName === "BUTTON" && e.key === " ") return;
+      e.preventDefault();
+      togglePlay();
+    } else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      e.preventDefault();
+      v.currentTime = Math.max(0, v.currentTime + (e.key === "ArrowRight" ? 5 : -5));
+    }
+    wake();
   });
 
   v.addEventListener("play", () => {
