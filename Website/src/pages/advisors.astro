@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import GapsMap from "../components/advisors/GapsMap.astro";
 import cristo from "../assets/images/cristo-headshot.webp";
-import { QUESTIONS, TOTAL_STEPS } from "../lib/advisor-questions";
+import { QUESTIONS } from "../lib/advisor-questions";
 import { ANNOUNCE_DATE, CLOSE_DATE, GATE_VIDEO, LIVE, LINKEDIN_PARTNER_ID, META_PIXEL_ID, videoSource } from "../lib/advisors-config";
 
 /**
@@ -198,8 +198,7 @@ const parts = [
           <div class="ax-form-head">
             <h2 class="display ax-form-h">Apply for a call</h2>
             <div id="ax-progress" class="ax-form-prog">
-              <p id="ax-progress-text" class="label" aria-live="polite">Step 1 of {TOTAL_STEPS}</p>
-              <div class="ax-progress mt-3" aria-hidden="true"><span id="ax-bar"></span></div>
+              <div class="ax-progress" aria-hidden="true"><span id="ax-bar"></span></div>
             </div>
           </div>
 

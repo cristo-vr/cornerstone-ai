@@ -334,7 +334,6 @@ if (form) {
   const box = $("ax");
   const steps = Array.from(form.querySelectorAll<HTMLFieldSetElement>(".ax-step"));
   const bar = $("ax-bar");
-  const progressText = $("ax-progress-text");
   const progress = $("ax-progress");
   const err = $("ax-error");
   const back = $<HTMLButtonElement>("ax-back");
@@ -409,7 +408,6 @@ if (form) {
     steps.forEach((s) => (s.hidden = Number(s.dataset.step) !== n));
     // Filled by the steps already answered, so step 1 starts empty.
     bar.style.width = `${Math.round(((n - 1) / TOTAL_STEPS) * 100)}%`;
-    progressText.textContent = `Step ${n} of ${TOTAL_STEPS}`;
     back.hidden = n <= 1 || (n === 2 && !!lead);
     err.textContent = "";
     const q = questionAt(n);
