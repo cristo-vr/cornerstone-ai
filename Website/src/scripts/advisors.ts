@@ -289,17 +289,26 @@ function loadScript(src: string): Promise<void> {
     }
   };
 
+  // A threshold counts only when playback runs through it. A jump moves the
+  // position without passing anything, so skipping to the middle is not "watched 50%".
+  let lastT: number | null = null;
+  v.addEventListener("seeking", () => {
+    lastT = null;
+  });
   v.addEventListener("timeupdate", () => {
     if (!v.duration || !Number.isFinite(v.duration)) return;
-    const pct = (v.currentTime / v.duration) * 100;
-    if (pct >= 25) mark(25);
-    if (pct >= 50) mark(50);
-    if (pct >= 75) mark(75);
-    if (pct >= 99.5) mark(100);
+    const t = v.currentTime;
+    const prev = lastT;
+    lastT = t;
+    if (prev === null || v.seeking || t <= prev || t - prev >= 3 + v.playbackRate) return;
+    const from = (prev / v.duration) * 100;
+    const to = (t / v.duration) * 100;
+    for (const p of [25, 50, 75] as const) if (from < p && to >= p) mark(p);
+    if (from < 99.5 && to >= 99.5) mark(100);
   });
 
   v.addEventListener("ended", () => {
-    mark(100);
+    if (lastT !== null && v.duration - lastT < 3 + v.playbackRate) mark(100);
     $("apply").scrollIntoView({ behavior: "smooth", block: "start" });
   });
 })();
