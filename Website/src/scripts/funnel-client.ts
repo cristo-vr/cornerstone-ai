@@ -28,6 +28,7 @@ export type FunnelEvent =
   | "engaged"
   | "video_play"
   | "video_progress"
+  | "video_watch"
   | "form_start"
   | "form_step"
   | "form_submit"

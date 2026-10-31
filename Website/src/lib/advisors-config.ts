@@ -18,6 +18,8 @@ export const GATE_VIDEO = false;
  *  poster.jpg are uploaded under this prefix. */
 export const MEDIA_V3 = "https://media.cornerstone-ai.pro/vsl/advisors-v3";
 export const MEDIA_READY = true;
+/** Tags retention data, so a re-cut VSL starts a new curve instead of mixing timelines. */
+export const VSL_VERSION = MEDIA_READY ? "advisors-v3" : "expansion-v2";
 /** The v2 media, used as a labelled placeholder until v3 is uploaded. */
 export const MEDIA_FALLBACK = "https://media.cornerstone-ai.pro/vsl/expansion-v2";
 

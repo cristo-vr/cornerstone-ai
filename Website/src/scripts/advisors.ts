@@ -8,7 +8,8 @@
 
 import { DIAL_CODES, toE164 } from "../lib/dial-codes";
 import { QUESTIONS, TOTAL_STEPS, DISQUALIFY_COPY, gate, summarise, type DisqualifyReason } from "../lib/advisor-questions";
-import { CONTACT_EMAIL, FUNNEL } from "../lib/advisors-config";
+import { CONTACT_EMAIL, FUNNEL, VSL_VERSION } from "../lib/advisors-config";
+import { trackRetention } from "./vsl-retention";
 import {
   BookError,
   cal,
@@ -105,6 +106,11 @@ function loadScript(src: string): Promise<void> {
   if (!vsl || !video || !start) return;
   const v = video;
   const player = vsl;
+  try {
+    trackRetention(v, VSL_VERSION);
+  } catch {
+    /* retention is optional; the player and form never depend on it */
+  }
   const hlsUrl = vsl.dataset.hls || "";
   const mp4Url = vsl.dataset.mp4 || "";
   videoUnlocked = vsl.dataset.gate !== "1";
