@@ -20,7 +20,7 @@ import { ANNOUNCE_DATE, CLOSE_DATE, GATE_VIDEO, LIVE, LINKEDIN_PARTNER_ID, META_
 
 const title = "For wealth advisors | Cornerstone";
 const description =
-  "Take on more clients without hiring another admin. We install one system your team runs on, in 30 days. Applications for the end of year selection close 15 November 2026.";
+  "Take on more clients without hiring another admin. We install one system your team runs on, in 90 days. Applications for the end of year selection close 15 November 2026.";
 
 const video = videoSource(import.meta.env.DEV);
 const PIXEL_ID = META_PIXEL_ID;
@@ -130,7 +130,7 @@ const parts = [
         Take on more clients <span class="ax-mark">without hiring another admin.</span>
       </h1>
       <p class="ax-sub ax-lead ax-balance rise mx-auto max-w-[46ch] lg:max-w-[80ch]" style="--d: 160ms">
-        We install one system your team runs on, so they have more capacity, in 30 days.
+        We install one system your team runs on, so they have more capacity, in 90 days.
       </p>
     </div>
 
@@ -564,7 +564,8 @@ const parts = [
     .ax-sub { margin-top: 0.6rem; }
     .ax-stage { margin-top: 1.1rem; }
   }
-  @media (max-width: 639px) { .ax-mark { display: inline-block; } }
+  /* Two-line underline on phones: room between lines so a bar never touches the caps below. */
+  @media (max-width: 639px) { .ax-h1.ax-h1 { line-height: 1.04; } }
   /* The accent line: text colour, brass bar under it, drawn in once. */
   .ax-mark {
     background: linear-gradient(var(--ax-fill), var(--ax-fill)) no-repeat 0 96% / 100% 0.13em;
