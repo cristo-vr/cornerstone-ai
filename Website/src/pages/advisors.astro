@@ -26,6 +26,10 @@ const video = videoSource(import.meta.env.DEV);
 const PIXEL_ID = META_PIXEL_ID;
 const LI_ID = LINKEDIN_PARTNER_ID;
 
+/** Headline, video, form, FAQ: the other sections stay in the file, switched off
+ *  (Cristo, 2026-10-31). Set true to bring them back. */
+const SHOW_DETAIL = false;
+
 const faqs = [
   {
     q: "What about compliance?",
@@ -306,6 +310,7 @@ const parts = [
         <p>The video covers where the work leaks in your practice, what we build to fix it, and how the end of year selection works.</p>
         <p class="ax-meta-close">Applications close {CLOSE_DATE}.</p>
       </div>
+      <p class="ax-meta-rules">By entering, you agree we may contact you with other promotional offers. Each one must be accepted within 7 days to redeem. <a class="link" href="/advisors/giveaway-rules">Read the selection rules</a>.</p>
 
       <div class="ax-apply-aside">
         <div class="ax-aside-head">
@@ -322,6 +327,7 @@ const parts = [
       </div>
   </section>
 
+  {SHOW_DETAIL && (<Fragment>
   <!-- ── 3. The five second version ────────────────────────────────────────── -->
   <section class="ax-sec ax-band">
     <div class="wrap">
@@ -430,6 +436,8 @@ const parts = [
     </div>
   </section>
 
+  </Fragment>)}
+
   <!-- ── 7. Questions advisors ask ─────────────────────────────────────────── -->
   <section class="ax-sec">
     <div class="wrap">
@@ -447,6 +455,7 @@ const parts = [
     </div>
   </section>
 
+  {SHOW_DETAIL && (<Fragment>
   <!-- ── 8. Founder ────────────────────────────────────────────────────────── -->
   <section class="ax-sec ax-ruled">
     <div class="wrap">
@@ -474,6 +483,7 @@ const parts = [
       <a href="#apply" class="btn btn-primary mt-8 text-[1rem]" data-cta="closing">Apply for a call<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></a>
     </div>
   </section>
+  </Fragment>)}
   </div>
 
   <div id="ax-sticky" class="ax-sticky" inert>
@@ -622,6 +632,7 @@ const parts = [
   .ax-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 0.4rem 2rem; margin-top: 1rem; font-size: 0.875rem; line-height: 1.45; color: var(--color-text-3); }
   .ax-meta p:first-child { max-width: 60ch; }
   .ax-meta-close { flex: none; font-weight: 600; color: var(--color-text-2); }
+  .ax-meta-rules { margin-top: 0.5rem; max-width: 60ch; font-size: 0.82rem; line-height: 1.45; color: var(--color-text-3); }
   @media (max-width: 639px) { .ax-meta { flex-direction: column-reverse; font-size: 0.82rem; } }
 
   /* ── Application: one card, straight under the video. Desktop: the title
