@@ -24,3 +24,5 @@
 /blog/*               /simple-systems  301
 /roadmap              /simple-systems  302
 /roadmap/             /simple-systems  302
+/advisors/giveaway-rules   /advisors  301
+/advisors/giveaway-rules/  /advisors  301

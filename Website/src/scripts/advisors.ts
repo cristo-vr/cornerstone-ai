@@ -575,7 +575,6 @@ if (form) {
       $("ax-done-h").textContent = firstName ? `You're booked, ${firstName}.` : "You're booked.";
       $("ax-done-when").textContent =
         "You already have a call booked with us. The details are in your inbox, and you can reply to that email to move it.";
-      $("ax-done-entry").hidden = true;
       return end(done);
     }
     if (status === "qualified" || status === "no_show") return openBooking();

@@ -9,6 +9,10 @@ export const LIVE = import.meta.env.PUBLIC_FUNNEL_LIVE === "1";
 
 export const FUNNEL = "advisors";
 
+/** The giveaway video stays off until the new one is recorded: it pitches a giveaway the page
+ *  no longer runs. Flip this, and VSL_VERSION, with the new media. */
+export const SHOW_VIDEO = false;
+
 /** Gate the video behind name and email. Off: the video plays for anyone and
  *  step 1 sits directly under it. The funnel measures video_play against
  *  form_start either way. */
@@ -54,5 +58,3 @@ export const LINKEDIN_CONVERSIONS: Record<"qualified" | "booked", string> = { qu
 /** Where a visitor writes when the calendar fails. */
 export const CONTACT_EMAIL = "cristo@cornerstone-ai.pro";
 
-export const CLOSE_DATE = "15 November 2026";
-export const ANNOUNCE_DATE = "20 November 2026";

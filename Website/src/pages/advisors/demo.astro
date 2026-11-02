@@ -1,0 +1,46 @@
+---
+/**
+ * /advisors/demo: a working example of the system, on made-up clients, for people to click
+ * around. Its own page, because the site refuses to be framed and the demo has its own styles.
+ * Events go through funnel-client on the same visitor and session as /advisors.
+ */
+const title = "Try the demo | Cornerstone";
+const description = "Click around a working example of the system. Made-up clients.";
+---
+
+<!doctype html>
+<html lang="en-ZA" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#EAEAE6" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/brand/cornerstone-mark.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/big-shoulders-display.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <div class="dm">
+      <div class="dm-bar">
+        <a class="dm-back" href="/advisors"><i class="ph ph-arrow-left"></i>Back</a>
+        <a class="dm-book" href="/advisors#apply" data-book="bar">Book your free blueprint</a>
+      </div>
+      <section class="dm-guide" aria-label="Three things to try">
+        <h2>Try these 3 things</h2>
+        <ol id="dm-tasks" class="dm-tasks"></ol>
+        <div id="dm-end" class="dm-end" hidden>
+          <span>That's the idea. Yours gets built around your practice.</span>
+          <button id="dm-again" type="button" class="dm-show">Keep exploring</button>
+        </div>
+      </section>
+      <div id="demo-os"></div>
+    </div>
+    <script>
+      import "@phosphor-icons/web/regular";
+      import "../../demo/demo.css";
+      import "../../scripts/demo";
+    </script>
+  </body>
+</html>

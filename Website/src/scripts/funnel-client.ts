@@ -35,7 +35,12 @@ export type FunnelEvent =
   | "qualified"
   | "disqualified"
   | "booking_view"
-  | "booked";
+  | "booked"
+  | "demo_open"
+  | "demo_screen"
+  | "demo_action"
+  | "demo_task"
+  | "demo_leave";
 
 type Dict = Record<string, unknown>;
 

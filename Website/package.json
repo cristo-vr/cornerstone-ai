@@ -12,6 +12,7 @@
   "dependencies": {
     "@fontsource-variable/big-shoulders-display": "^5.2.0",
     "@fontsource-variable/hanken-grotesk": "^5.2.0",
+    "@phosphor-icons/web": "^2.1.1",
     "astro": "^5.14.0",
     "sharp": "^0.34.0"
   },

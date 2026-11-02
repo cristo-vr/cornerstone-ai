@@ -4,15 +4,14 @@ import Base from "../layouts/Base.astro";
 import GapsMap from "../components/advisors/GapsMap.astro";
 import cristo from "../assets/images/cristo-headshot.webp";
 import { QUESTIONS } from "../lib/advisor-questions";
-import { ANNOUNCE_DATE, CLOSE_DATE, GATE_VIDEO, LIVE, LINKEDIN_PARTNER_ID, META_PIXEL_ID, videoSource } from "../lib/advisors-config";
+import demoPreview from "../assets/images/demo-preview.jpg";
+import { GATE_VIDEO, LIVE, LINKEDIN_PARTNER_ID, META_PIXEL_ID, SHOW_VIDEO, videoSource } from "../lib/advisors-config";
 
 /**
- * /advisors: the VSL page for wealth advisor teams. Light Cool Concrete, to
- * match the VSL. Video, a five second version, fit, the end of year
- * selection, the application, the questions advisors ask, the founder.
+ * /advisors: the page for wealth advisor teams. Light Cool Concrete. The offer, the demo, the
+ * blueprint form, the questions advisors ask. The video returns once the new one is recorded.
  *
- * Copy: Marketing/Advisor Funnel/landing-page-copy.md. No prices, no paid
- * phase durations, no invented proof, no dashes.
+ * No prices, no invented proof, no dashes.
  *
  * Pixels render only on a live build (PUBLIC_FUNNEL_LIVE=1). Every event goes
  * through src/scripts/funnel-client.ts.
@@ -20,7 +19,7 @@ import { ANNOUNCE_DATE, CLOSE_DATE, GATE_VIDEO, LIVE, LINKEDIN_PARTNER_ID, META_
 
 const title = "For wealth advisors | Cornerstone";
 const description =
-  "Take on more clients without hiring another admin. We install one system your team runs on, in 90 days. Applications for the end of year selection close 15 November 2026.";
+  "We move your team off scattered spreadsheets and onto one custom system in 30 days. Try the demo, then book your free blueprint.";
 
 const video = videoSource(import.meta.env.DEV);
 const PIXEL_ID = META_PIXEL_ID;
@@ -51,7 +50,15 @@ const faqs = [
   },
   {
     q: "Do I own it?",
-    a: ["Yes. The database and the hosting run on accounts in your practice's name, and the system stays yours. It's not a per user subscription."],
+    a: ["The data is yours, and the platform runs on accounts in your practice's name. The code and the architecture stay ours, and your licence lets you run it."],
+  },
+  {
+    q: "What is the free blueprint?",
+    a: ["We meet your team in 1-on-1 sessions, identify your bottlenecks and design your system. You get a custom blueprint, detailed enough to build without us. It's yours, whether you ever work with us or not. If you'd like us to build it, that'll be the next step."],
+  },
+  {
+    q: "What's the guarantee?",
+    a: ["If you don't want to keep it after 30 days, you get every cent back. There are three conditions: we get access to what we need to build it, your team shows up to the sessions we set together, and your team uses it on their real work for the 30 days."],
   },
   { q: "What does it cost?", a: ["It depends on the size of your team. We go through it on the call, once we've seen how your practice runs."] },
   {
@@ -82,10 +89,10 @@ const parts = [
   },
 ];
 ---
-<Base title={title} description={description} bare noindex theme="light" footerLinks={[{ href: "/advisors/giveaway-rules", label: "Selection rules" }]}>
+<Base title={title} description={description} bare noindex theme="light">
   <Fragment slot="head">
-    {video.hls && <link rel="preconnect" href="https://media.cornerstone-ai.pro" crossorigin />}
-    <link rel="preload" as="image" href={video.poster} />
+    {SHOW_VIDEO && video.hls && <link rel="preconnect" href="https://media.cornerstone-ai.pro" crossorigin />}
+    {SHOW_VIDEO && <link rel="preload" as="image" href={video.poster} />}
     {LIVE && (
       <script is:inline define:vars={{ PIXEL_ID }}>
         (function () {
@@ -127,14 +134,17 @@ const parts = [
     <div class="mx-auto max-w-[60rem] text-center">
       <p class="label rise">For wealth advisors</p>
       <h1 class="ax-h1 display rise mt-3 leading-[0.92]" style="--d: 80ms">
-        Take on more clients <span class="ax-mark">without hiring another admin.</span>
+        We move your team off scattered spreadsheets and onto <span class="ax-mark">one custom system in 30 days</span> so that the chaos becomes capacity for more clients, and you can finally see everything.
       </h1>
-      <p class="ax-sub ax-lead ax-balance rise mx-auto max-w-[46ch] lg:max-w-[80ch]" style="--d: 160ms">
-        We install one system your team runs on, so they have more capacity, in 90 days.
-      </p>
     </div>
 
     <div class="ax-stage rise mx-auto" style="--d: 240ms">
+      <a class="ax-demo" href="/advisors/demo?from=hero" data-cta="demo">
+        <Image src={demoPreview} alt="The example system, showing every missing document across a firm" widths={[480, 800, 1200]} sizes="(min-width: 768px) 56rem, 100vw" class="ax-demo-img" loading="eager" />
+        <span class="ax-demo-cta"><span class="btn btn-primary">Try the demo<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></span></span>
+      </a>
+      <p class="ax-demo-note">Click around a working example. Example system, with made-up clients.</p>
+      {SHOW_VIDEO && (
       <div
         id="vsl"
         class="vsl relative aspect-video w-full overflow-hidden bg-sunken"
@@ -190,6 +200,7 @@ const parts = [
         </div>
         {video.badge && <span class="ax-badge">{video.badge}</span>}
       </div>
+      )}
       <p id="vsl-gate-note" class="mt-2 text-center text-[0.9rem] text-text-2" hidden>Add your name and email below and the video starts.</p>
     </div>
   </section>
@@ -200,7 +211,7 @@ const parts = [
   <section id="apply" class="ax-apply wrap scroll-mt-4">
         <div id="ax" class="ax-card ax-form-card scroll-mt-4">
           <div class="ax-form-head">
-            <h2 class="display ax-form-h">Apply for a call</h2>
+            <h2 class="display ax-form-h">Book your free blueprint</h2>
             <div id="ax-progress" class="ax-form-prog">
               <div class="ax-progress" aria-hidden="true"><span id="ax-bar"></span></div>
             </div>
@@ -227,7 +238,7 @@ const parts = [
                 <label for="ax-company">Leave this field empty</label>
                 <input id="ax-company" type="text" tabindex="-1" autocomplete="off" />
               </div>
-              <p class="mt-4 text-[0.88rem] text-text-3">We'll email you about your application and the selection. You can unsubscribe from any email.</p>
+              <p class="mt-4 text-[0.88rem] text-text-3">We'll email you about your application. You can unsubscribe from any email.</p>
             </fieldset>
 
             {QUESTIONS.map((q, i) => (
@@ -263,7 +274,7 @@ const parts = [
 
           <!-- booking: qualified -->
           <div id="ax-book" hidden tabindex="-1">
-            <h3 class="ax-q">Pick a time for your call</h3>
+            <h3 class="ax-q">Pick a time for your blueprint discovery call</h3>
             <p class="mt-1 text-[0.9rem] text-text-3">Times are in your time zone. 45 minutes on Google Meet.</p>
             <div class="mt-5">
               <p id="ax-cal-loading" class="text-text-3" aria-live="polite">Finding open times...</p>
@@ -292,7 +303,6 @@ const parts = [
           <div id="ax-done" class="text-center" hidden tabindex="-1">
             <h3 id="ax-done-h" class="display display-4">You're booked.</h3>
             <p id="ax-done-when" class="mt-4 text-text-2"></p>
-            <p id="ax-done-entry" class="mt-3 text-text-2">Your entry for the selection is complete once we've had the call.</p>
             <p class="mt-5 border-t border-line-2 pt-5 text-text"><span class="label block">Before the call</span><span class="mt-2 block">Pick the one process that eats most of your week. We'll start there.</span></p>
           </div>
 
@@ -307,22 +317,21 @@ const parts = [
         </div>
 
       <div class="ax-meta">
-        <p>The video covers where the work leaks in your practice, what we build to fix it, and how the end of year selection works.</p>
-        <p class="ax-meta-close">Applications close {CLOSE_DATE}.</p>
+        <p>Free, and yours to keep, whether you ever work with us or not.</p>
       </div>
-      <p class="ax-meta-rules">By entering, you agree we may contact you with other promotional offers. Each one must be accepted within 7 days to redeem. <a class="link" href="/advisors/giveaway-rules">Read the selection rules</a>.</p>
 
       <div class="ax-apply-aside">
         <div class="ax-aside-head">
-          <h3 class="label">On the call</h3>
+          <h3 class="label">How the free blueprint works</h3>
           <p class="ax-small">
-            We use your answers to assess your application and to prepare for the call. Read our <a class="link" href="/privacy">privacy policy</a>.
+            We use your answers to prepare for the call. Read our <a class="link" href="/privacy">privacy policy</a>.
           </p>
         </div>
         <ol class="ax-oncall">
-          <li><span class="num" aria-hidden="true">01</span>Where the work leaks in your practice, and what it's costing you.</li>
-          <li><span class="num" aria-hidden="true">02</span>The system on screen, with demo clients, not slides.</li>
-          <li><span class="num" aria-hidden="true">03</span>The first process we'd fix in your practice, and how.</li>
+          <li><span class="num" aria-hidden="true">01</span>A 45 minute blueprint discovery call, to see if it's a fit.</li>
+          <li><span class="num" aria-hidden="true">02</span>We meet your team in 1-on-1 sessions, identify your bottlenecks and measure where they stand today.</li>
+          <li><span class="num" aria-hidden="true">03</span>We design your system, around how your team really works.</li>
+          <li><span class="num" aria-hidden="true">04</span>You get your custom blueprint, detailed enough to build without us. If you'd like us to build it, that'll be the next step.</li>
         </ol>
       </div>
   </section>
@@ -403,39 +412,6 @@ const parts = [
     </div>
   </section>
 
-  <!-- ── 6. The end of year selection ──────────────────────────────────────── -->
-  <section class="ax-sec ax-band">
-    <div class="wrap">
-      <div class="grid gap-10 md:grid-cols-[1.1fr_1fr] md:gap-16 lg:gap-24">
-        <div data-ax-rv>
-          <p class="label">End of year selection</p>
-          <h2 class="display ax-h2 mt-4">One advisor's team gets the full process free.</h2>
-          <p class="ax-lead mt-6">
-            Valued at up to <strong class="text-text">R150,000</strong>, depending on the size of the team. The full process: we map where the work leaks in your practice, build the system around your team, roll it out with them, and support them while it beds in.
-          </p>
-          <p class="mt-4">
-            It's a judged selection, so nobody's name comes out of a hat. The rules set out how we choose.
-          </p>
-          <dl class="ax-dates mt-8">
-            <div><dt class="label">Applications close</dt><dd class="num">{CLOSE_DATE}</dd></div>
-            <div><dt class="label">Winner announced</dt><dd class="num">{ANNOUNCE_DATE}</dd></div>
-          </dl>
-        </div>
-        <div class="ax-card ax-enter" data-ax-rv style="--d: 90ms">
-          <h3 class="label">How to enter</h3>
-          <ol class="ax-steps mt-6">
-            <li><span class="num ax-n" aria-hidden="true">01</span><p><strong>Apply.</strong> Answer the questions below.</p></li>
-            <li><span class="num ax-n" aria-hidden="true">02</span><p><strong>Book.</strong> Pick a time before 15 November. The call itself can be after.</p></li>
-            <li><span class="num ax-n" aria-hidden="true">03</span><p><strong>Attend.</strong> The call is how we assess your practice for the selection. If it looks like a fit, we'll also tell you what working together involves. You don't have to buy anything to stay in.</p></li>
-          </ol>
-          <p class="mt-7 border-t border-line-2 pt-6">In a firm with several advisors? Each advisor enters for their own team.</p>
-          <p class="mt-3">Not selected? By entering, you agree we may contact you with other promotional offers. Each one must be accepted within 7 days to redeem.</p>
-          <a class="link mt-4 inline-block text-[0.95rem] font-semibold text-text" href="/advisors/giveaway-rules">Read the selection rules</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   </Fragment>)}
 
   <!-- ── 7. Questions advisors ask ─────────────────────────────────────────── -->
@@ -475,20 +451,11 @@ const parts = [
     </div>
   </section>
 
-  <!-- ── 9. Close ──────────────────────────────────────────────────────────── -->
-  <section id="closing" class="ax-sec ax-band ax-closing">
-    <div class="wrap text-center" data-ax-rv>
-      <h2 class="display ax-h1-2 mx-auto max-w-[16ch]">Applications close 15 November.</h2>
-      <p class="ax-lead ax-balance mx-auto mt-5 max-w-[40ch]">Apply, book your call before the 15th, and attend it. That's your entry.</p>
-      <a href="#apply" class="btn btn-primary mt-8 text-[1rem]" data-cta="closing">Apply for a call<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></a>
-    </div>
-  </section>
   </Fragment>)}
   </div>
 
   <div id="ax-sticky" class="ax-sticky" inert>
-    <a href="#apply" class="btn btn-primary flex-1 justify-center" data-cta="sticky">Apply for a call<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></a>
-    <span class="text-[0.85rem] text-text-2">Closes 15 Nov</span>
+    <a href="#apply" class="btn btn-primary flex-1 justify-center" data-cta="sticky">Book your free blueprint<span class="arrow" aria-hidden="true">&nbsp;&rarr;</span></a>
   </div>
 
   <p slot="footer-note" class="w-full max-w-[60rem] text-[0.8rem] leading-[1.5] text-text-3">
@@ -630,6 +597,11 @@ const parts = [
     padding: 0.25rem 0.55rem; background: #141310; color: #ece9e2;
     font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
   }
+  .ax-demo { position: relative; display: block; overflow: hidden; border: 1px solid var(--color-line-2); border-radius: 0.75rem; }
+  .ax-demo-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: top left; }
+  .ax-demo-cta { position: absolute; inset: 0; display: grid; place-items: center; background: rgb(47 47 44 / 0.28); transition: background 0.2s; }
+  .ax-demo:hover .ax-demo-cta { background: rgb(47 47 44 / 0.16); }
+  .ax-demo-note { margin-top: 0.6rem; text-align: center; font-size: 0.9rem; color: var(--color-text-2); }
   .ax-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 0.4rem 2rem; margin-top: 1rem; font-size: 0.875rem; line-height: 1.45; color: var(--color-text-3); }
   .ax-meta p:first-child { max-width: 60ch; }
   .ax-meta-close { flex: none; font-weight: 600; color: var(--color-text-2); }
@@ -670,6 +642,7 @@ const parts = [
   .ax-aside-head { display: grid; gap: 0.75rem; align-content: start; }
   .ax-oncall { display: grid; gap: 0.9rem; }
   .ax-oncall li { display: grid; grid-template-columns: 2rem 1fr; gap: 0.5rem; align-content: start; color: var(--color-text-2); line-height: 1.5; }
+  @media (min-width: 768px) { .ax-oncall.ax-oncall { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .ax-oncall .num { font-size: 1.05rem; line-height: 1.45; color: var(--color-text); }
   @media (min-width: 900px) {
     .ax-apply-aside { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(2rem, 4vw, 4rem); }
@@ -712,7 +685,6 @@ const parts = [
   .ax-fit li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 0.6rem; height: 0.6rem; background: var(--ax-fill); }
   .ax-fit.is-no li::before { top: 0.72em; width: 0.7rem; height: 2px; background: var(--color-line-4); }
 
-  /* ── Selection ───────────────────────────────────────────────────────── */
   .ax-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border-top: 2px solid var(--color-text); padding-top: 1.1rem; }
   .ax-dates > div { display: flex; flex-direction: column; justify-content: space-between; }
   .ax-dates dd { margin-top: 0.5rem; font-size: clamp(1.5rem, 2.8vw, 2rem); line-height: 1; color: var(--color-text); text-transform: uppercase; }
