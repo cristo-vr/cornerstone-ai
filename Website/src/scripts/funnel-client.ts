@@ -49,7 +49,10 @@ const CAL_BASE = "https://cal.cornerstone-ai.pro/api/cal/cristo";
 /** Booking event type: the advisors funnel's own (funnels.booking_type_id). The
  *  booking trigger files a booking under the funnel that owns its type, so this
  *  must be advisor-call or bookings land in /expansion. */
-const CAL_SLUG = "advisor-call";
+let calSlug = "advisor-call";
+export const setCalSlug = (slug: string) => {
+  calSlug = slug;
+};
 const TURNSTILE_LIVE_KEY = "0x4AAAAAACN3bXEw6zTOBNYc";
 /** Cloudflare's always-pass test key: localhost isn't on the live widget. */
 const TURNSTILE_TEST_KEY = "1x00000000000000000000AA";
@@ -430,7 +433,9 @@ export const lead = {
       fbc: fbc(),
     }),
   answer: (b: Dict) => postLead({ action: "answer", ...b }),
-  resume: (lead_id: string, token: string) => postLead({ action: "resume", lead_id, token }),
+  resume: (lead_id: string, token: string) => postLead({ action: "resume", lead_id, token, visitor_id: visitorId, session_id: sessionId }),
+  /** The short code in an SMS link, in place of the id and token. */
+  resumeCode: (code: string) => postLead({ action: "resume", code, visitor_id: visitorId, session_id: sessionId }),
   booked: (lead_id: string, token: string, booking_id?: string) =>
     postLead({ action: "booked", lead_id, token, ...(booking_id ? { booking_id } : {}) }),
 };
@@ -470,7 +475,7 @@ export const cal = {
       if (mock === "cal_error") throw new Error("calendar");
       return mock === "no_slots" ? [] : mockSlots();
     }
-    const res = await fetch(`${CAL_BASE}/${CAL_SLUG}/slots`);
+    const res = await fetch(`${CAL_BASE}/${calSlug}/slots`);
     const data = (await res.json().catch(() => ({}))) as { slots?: string[]; error?: string };
     if (!res.ok) throw new Error(data.error || "calendar");
     return data.slots ?? [];
@@ -494,7 +499,7 @@ export const cal = {
       if (mock === "already_booked") throw new BookError("already_booked", "already_booked");
       return { bookingId: `dry-booking-${uid().slice(0, 6)}`, startsAt: b.startsAt };
     }
-    const res = await fetch(`${CAL_BASE}/${CAL_SLUG}/book`, {
+    const res = await fetch(`${CAL_BASE}/${calSlug}/book`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

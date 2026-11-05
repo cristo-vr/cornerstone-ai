@@ -49,6 +49,15 @@ export function videoSource(dev: boolean): VideoSource {
   };
 }
 
+/** /walkthrough: flip READY once hls/, walkthrough-720.mp4 and poster.jpg are on R2. */
+export const WALKTHROUGH_READY = false;
+export const WALKTHROUGH_VERSION = "walkthrough-v1";
+const WALKTHROUGH_MEDIA = "https://media.cornerstone-ai.pro/vsl/walkthrough-v1";
+export function walkthroughSource(dev: boolean): VideoSource {
+  if (dev) return { hls: null, mp4: "/_local/walkthrough.mp4", poster: "/_local/walkthrough-poster.jpg", badge: "Local preview video" };
+  return { hls: `${WALKTHROUGH_MEDIA}/hls/master.m3u8`, mp4: `${WALKTHROUGH_MEDIA}/walkthrough-720.mp4`, poster: `${WALKTHROUGH_MEDIA}/poster.jpg`, badge: null };
+}
+
 export const META_PIXEL_ID = "951530034389626";
 /** LinkedIn Insight Tag partner id. Empty: the tag isn't rendered. */
 export const LINKEDIN_PARTNER_ID = "11242129";

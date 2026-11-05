@@ -26,3 +26,6 @@
 /roadmap/             /simple-systems  302
 /advisors/giveaway-rules   /advisors  301
 /advisors/giveaway-rules/  /advisors  301
+
+# The personal link in an SMS. The page reads the code from the address.
+/w/*  /walkthrough  200
