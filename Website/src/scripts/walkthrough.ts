@@ -75,9 +75,11 @@ function loadScript(src: string): Promise<void> {
   });
 }
 
-async function setUpVideo(): Promise<void> {
-  const v = document.getElementById("wt-video") as HTMLVideoElement | null;
-  if (!v) return;
+function setUpVideo(): void {
+  const player = document.getElementById("vsl");
+  const v = document.getElementById("vsl-video") as HTMLVideoElement | null;
+  const start = document.getElementById("vsl-start");
+  if (!player || !v || !start) return;
   try {
     trackRetention(v, WALKTHROUGH_VERSION);
   } catch {
@@ -90,32 +92,131 @@ async function setUpVideo(): Promise<void> {
     track("video_play");
     flush();
   });
-  const hls = v.dataset.hls || "";
-  const mp4 = v.dataset.mp4 || "";
-  if (!hls) {
-    v.src = mp4;
-    return;
-  }
-  if ("MediaSource" in window || "ManagedMediaSource" in window) {
-    try {
-      await loadScript(HLS_JS);
-      if (window.Hls?.isSupported()) {
-        const h = new window.Hls({ capLevelToPlayerSize: true, abrEwmaDefaultEstimate: 6_000_000, maxBufferLength: 30 });
-        h.on(window.Hls.Events.ERROR, (_e: unknown, data: { fatal?: boolean }) => {
-          if (data?.fatal) {
-            h.destroy();
-            v.src = mp4;
-          }
-        });
-        h.loadSource(hls);
-        h.attachMedia(v);
-        return;
-      }
-    } catch {
-      /* fall through to the plain file */
+  const hlsUrl = player.dataset.hls || "";
+  const mp4Url = player.dataset.mp4 || "";
+
+  async function attach(): Promise<void> {
+    if (!hlsUrl) {
+      v!.src = mp4Url;
+      return;
     }
+    if ("MediaSource" in window || "ManagedMediaSource" in window) {
+      try {
+        await loadScript(HLS_JS);
+        if (window.Hls?.isSupported()) {
+          const h = new window.Hls({ capLevelToPlayerSize: true, abrEwmaDefaultEstimate: 6_000_000, maxBufferLength: 30 });
+          h.on(window.Hls.Events.ERROR, (_e: unknown, data: { fatal?: boolean }) => {
+            if (data?.fatal) {
+              h.destroy();
+              v!.src = mp4Url;
+              v!.play().catch(() => {});
+            }
+          });
+          h.loadSource(hlsUrl);
+          h.attachMedia(v!);
+          return;
+        }
+      } catch {
+        /* fall through to the plain file */
+      }
+    }
+    v!.src = v!.canPlayType("application/vnd.apple.mpegurl") ? hlsUrl : mp4Url;
   }
-  v.src = v.canPlayType("application/vnd.apple.mpegurl") ? hls : mp4;
+
+  // The player from /advisors: one big button, the speeds, one bar.
+  const RATES = [1, 1.2, 1.5, 1.7, 2];
+  let rate = 1;
+  const resume = $<HTMLButtonElement>("vsl-resume");
+  const bar = $("vsl-bar");
+  const toggle = $<HTMLButtonElement>("vsl-toggle");
+  const seek = $<HTMLInputElement>("vsl-seek");
+  const time = $("vsl-time");
+  const rateBtn = $<HTMLButtonElement>("vsl-rate");
+  let started = false;
+  let seeking = false;
+  let idleTimer = 0;
+
+  const mmss = (t: number) => {
+    const s = Math.max(0, Math.floor(t || 0));
+    return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  };
+  const setRate = (r: number) => {
+    rate = r;
+    v.defaultPlaybackRate = r;
+    v.playbackRate = r;
+    rateBtn.textContent = `${r}x`;
+    rateBtn.setAttribute("aria-label", `Playback speed, ${r}x`);
+  };
+  const wake = () => {
+    delete player.dataset.idle;
+    clearTimeout(idleTimer);
+    if (!v.paused) idleTimer = window.setTimeout(() => (player.dataset.idle = ""), 2500);
+  };
+  const paint = () => {
+    if (v.paused) player.dataset.paused = "";
+    else delete player.dataset.paused;
+    toggle.setAttribute("aria-label", v.paused ? "Play" : "Pause");
+    resume.hidden = !started || !v.paused || v.ended;
+    wake();
+  };
+  const togglePlay = () => (v.paused ? v.play().catch(() => {}) : v.pause());
+  const begin = async (r = rate) => {
+    started = true;
+    start.hidden = true;
+    v.hidden = false;
+    bar.hidden = false;
+    await attach();
+    setRate(r);
+    v.play().catch(() => paint());
+  };
+
+  $("vsl-play").addEventListener("click", () => void begin());
+  start.querySelectorAll<HTMLButtonElement>("[data-rate]").forEach((b) => b.addEventListener("click", () => void begin(Number(b.dataset.rate))));
+  resume.addEventListener("click", () => v.play().catch(() => {}));
+  toggle.addEventListener("click", togglePlay);
+  rateBtn.addEventListener("click", () => setRate(RATES[(RATES.indexOf(rate) + 1) % RATES.length]));
+  v.addEventListener("pointerup", (e) => {
+    if (e.pointerType !== "mouse" && player.dataset.idle !== undefined) return wake();
+    togglePlay();
+  });
+  player.addEventListener("pointermove", wake);
+  seek.addEventListener("input", () => {
+    seeking = true;
+    seek.style.setProperty("--p", `${Number(seek.value) / 10}%`);
+    if (v.duration) time.textContent = mmss((Number(seek.value) / 1000) * v.duration);
+  });
+  seek.addEventListener("change", () => {
+    if (v.duration) v.currentTime = (Number(seek.value) / 1000) * v.duration;
+    seeking = false;
+  });
+  v.addEventListener("timeupdate", () => {
+    if (seeking || !v.duration || !Number.isFinite(v.duration)) return;
+    const f = v.currentTime / v.duration;
+    seek.value = String(Math.round(f * 1000));
+    seek.style.setProperty("--p", `${f * 100}%`);
+    time.textContent = `${mmss(v.currentTime)} / ${mmss(v.duration)}`;
+  });
+  v.addEventListener("loadedmetadata", () => {
+    if (v.playbackRate !== rate) v.playbackRate = rate;
+  });
+  for (const ev of ["play", "pause", "ended"]) v.addEventListener(ev, paint);
+  $("vsl-full").addEventListener("click", () => {
+    const ios = v as HTMLVideoElement & { webkitEnterFullscreen?: () => void };
+    if (document.fullscreenElement) void document.exitFullscreen();
+    else if (player.requestFullscreen) player.requestFullscreen().catch(() => ios.webkitEnterFullscreen?.());
+    else ios.webkitEnterFullscreen?.();
+  });
+  player.addEventListener("keydown", (e) => {
+    if (!started || (e.target as HTMLElement).tagName === "INPUT") return;
+    if (e.key === " " || e.key === "k") {
+      if ((e.target as HTMLElement).tagName === "BUTTON" && e.key === " ") return;
+      e.preventDefault();
+      togglePlay();
+    } else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      e.preventDefault();
+      v.currentTime = Math.max(0, v.currentTime + (e.key === "ArrowRight" ? 5 : -5));
+    }
+  });
 }
 
 // ── booking ──
