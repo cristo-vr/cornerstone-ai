@@ -50,7 +50,7 @@ export function videoSource(dev: boolean): VideoSource {
 }
 
 /** /walkthrough: flip READY once hls/, walkthrough-720.mp4 and poster.jpg are on R2. */
-export const WALKTHROUGH_READY = false;
+export const WALKTHROUGH_READY = true;
 export const WALKTHROUGH_VERSION = "walkthrough-v1";
 const WALKTHROUGH_MEDIA = "https://media.cornerstone-ai.pro/vsl/walkthrough-v1";
 export function walkthroughSource(dev: boolean): VideoSource {
